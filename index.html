@@ -144,7 +144,7 @@
       border: 1px solid rgba(242,211,139,0.4);
     }
 
-    /* Main layout: 2-cols top, full-width bottom */
+    /* Main layout: 2 cols, then wide news row */
     .layout {
       padding: 14px;
       display: grid;
@@ -267,37 +267,30 @@
   <!-- Main Grid -->
   <div class="layout">
 
-    <!-- Calendar (top-left) -->
+    <!-- TOP LEFT: Calendar -->
     <div class="panel">
       <div class="panel-title">Chronicles of the Shire</div>
       <div class="iframe-wrapper">
-        <!-- Replace src with your real calendar embed URL later -->
+        <!-- Your working calendar embed -->
         <iframe
-  src="https://calendar.google.com/calendar/embed?src=abdickers%40gmail.com&ctz=America%2FChicago"
-  style="border:0"
-  frameborder="0"
-  scrolling="no">
-</iframe>
-
+          src="https://calendar.google.com/calendar/embed?src=abdickers%40gmail.com&ctz=America%2FChicago"
+          style="border:0"
+          frameborder="0"
+          scrolling="no">
+        </iframe>
       </div>
       <p class="tiny">
         Google Calendar → Settings → your calendar → Integrate → “Embed code”.
-        Copy the <code>src</code> value and replace it above.
+        This iframe uses your personal calendar.
       </p>
     </div>
 
-    <!-- News (top-right) -->
+    <!-- TOP RIGHT: Council -->
     <div class="panel">
-      <div class="panel-title">News from the Realm</div>
-      <div id="foxNewsContainer" class="muted">Scanning the beacons…</div>
-    </div>
-
-    <!-- Council (bottom, full width) -->
-    <div class="panel wide">
       <div class="panel-title">Council of Elrond</div>
       <p class="muted">
         Local notes kept in your browser’s <code>localStorage</code>.
-        Think of this as the Red Book written in your own hand.
+        Think of this as the Red Book, written in your own hand.
       </p>
       <div id="fakeChatLog"></div>
       <input
@@ -305,6 +298,12 @@
         class="palantir-input"
         placeholder="Record counsel for your future self…" />
       <button class="btn btn-secondary" id="fakeChatSave">Inscribe</button>
+    </div>
+
+    <!-- BOTTOM: News, full width -->
+    <div class="panel wide">
+      <div class="panel-title">News from the Realm</div>
+      <div id="foxNewsContainer" class="muted">Scanning the beacons…</div>
     </div>
 
   </div>
@@ -345,7 +344,7 @@
         const stored = JSON.parse(localStorage.getItem("sage_council_notes") || "[]");
         stored.forEach(appendNote);
       } catch {
-        // corrupted parchment, ignore
+        // if storage is trash, ignore
       }
     })();
 
@@ -398,4 +397,3 @@
   </script>
 </body>
 </html>
-
