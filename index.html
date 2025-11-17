@@ -376,14 +376,15 @@
           </div>
           <div class="panel-body">
             <div class="iframe-wrapper">
-              <!-- Replace THIS src with your actual Google Calendar embed URL -->
+              <!-- Replace THIS src with your actual Google Calendar embed URL
+                   (Settings → Your calendar → Integrate → "Embed code") -->
               <iframe
                 src="https://calendar.google.com/calendar/embed?src=your_calendar_here&ctz=America%2FChicago"
               ></iframe>
             </div>
             <p class="tiny">
               In Google Calendar: Settings → Your calendar → Integrate →
-              <em>Embed code</em>. Copy the <code>src</code> and replace the one above.
+              <em>Embed code</em>. Copy the <code>src</code> from Google and replace it above.
             </p>
           </div>
         </div>
@@ -542,20 +543,24 @@
     loadNotes();
 
     // ---- FOX NEWS RSS FETCH (NEWS FROM THE REALM) ----
-    const FOX_RSS_URL = "http://feeds.foxnews.com/foxnews/latest?format=xml";
+    const FOX_RSS_URL = "https://feeds.foxnews.com/foxnews/latest?format=xml";
     const foxContainer = document.getElementById("foxNewsContainer");
 
     async function loadFoxNews() {
       try {
-        const proxyUrl =
-          "https://api.allorigins.win/raw?url=" + encodeURIComponent(FOX_RSS_URL);
-        const res = await fetch(proxyUrl);
-        if (!res.ok) throw new Error("HTTP " + res.status);
-        const text = await res.text();
-        const parser = new DOMParser();
-        const xml = parser.parseFromString(text, "application/xml");
-        const items = Array.from(xml.querySelectorAll("item")).slice(0, 8);
+        const apiUrl =
+          "https://api.rss2json.com/v1/api.json?rss_url=" +
+          encodeURIComponent(FOX_RSS_URL);
 
+        const res = await fetch(apiUrl);
+        if (!res.ok) throw new Error("HTTP " + res.status);
+
+        const data = await res.json();
+        if (data.status !== "ok") {
+          throw new Error(data.message || "RSS error");
+        }
+
+        const items = (data.items || []).slice(0, 8);
         foxContainer.innerHTML = "";
 
         if (!items.length) {
@@ -565,9 +570,9 @@
         }
 
         items.forEach((item) => {
-          const title = item.querySelector("title")?.textContent ?? "Untitled";
-          const link = item.querySelector("link")?.textContent ?? "#";
-          const pubDate = item.querySelector("pubDate")?.textContent ?? "";
+          const title = item.title || "Untitled";
+          const link = item.link || "#";
+          const pubDate = item.pubDate || "";
 
           const wrapper = document.createElement("div");
           wrapper.className = "news-item";
@@ -589,7 +594,7 @@
         });
       } catch (err) {
         foxContainer.innerHTML =
-          '<p class="muted">The beacons are blocked. CORS or network wards may bar the path.</p>';
+          '<p class="muted">The beacons remain dark. Network wards or RSS service failure bar the path.</p>';
         console.error(err);
       }
     }
