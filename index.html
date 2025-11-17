@@ -5,7 +5,7 @@
   <title>Sage's Middle-earth Command</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Middle-earth-ish fonts -->
+  <!-- LOTR Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -16,68 +16,53 @@
   <style>
     :root {
       --bg: #050609;
-      --panel: rgba(11, 14, 20, 0.96);
-      --accent: #f2d38b;         /* gold */
+      --panel: rgba(11, 14, 20, 0.97);
+      --accent: #f2d38b;
       --accent-soft: #c79a3b;
-      --accent-deep: #866322;
       --text: #e6e1d5;
       --muted: #a89f8a;
       --radius: 14px;
       --gap: 12px;
     }
 
-    * {
-      box-sizing: border-box;
-    }
-
     body {
       margin: 0;
-      padding: 10px;
+      padding: 0;
       min-height: 100vh;
+      background: #020203;
       color: var(--text);
-      background:
-        radial-gradient(circle at top, #29241b 0, #050609 45%, #000 100%);
-      /* If you want an LOTR art background, put it locally and uncomment:
-      background:
-        linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.95)),
-        url("images/middle_earth.jpg") center/cover fixed no-repeat;
-      */
-      font-family: "Crimson Pro", system-ui, -apple-system, BlinkMacSystemFont,
-        "Segoe UI", sans-serif;
+      font-family: "Crimson Pro", serif;
     }
 
-    .layout {
+    /* Fellowship Banner Header */
+    .banner {
+      width: 100%;
+      height: 260px;
+      background:
+        linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.95)),
+        url("fellowship_banner_cropped_v2.png") center top / cover no-repeat;
+      border-bottom: 1px solid rgba(242,211,139,0.35);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.8);
       display: flex;
-      flex-direction: column;
-      gap: var(--gap);
-      min-height: 100vh;
+      align-items: flex-end;
+      justify-content: center;
+      padding-bottom: 10px;
     }
 
-    /* Decorative line */
-    .lotr-border {
-      border: 1px solid rgba(242, 211, 139, 0.35);
-      box-shadow: 0 0 16px rgba(0, 0, 0, 0.75);
-      position: relative;
-    }
-
-    .lotr-border::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      pointer-events: none;
-      border: 1px solid rgba(0, 0, 0, 0.45);
-    }
-
-    /* Top: Palantír / Gemini */
+    /* Palantír Bar */
     .palantir-bar {
-      background: radial-gradient(circle at top left, #40301a 0, #161217 44%, #050609 100%);
+      background: rgba(0,0,0,0.65);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(242,211,139,0.35);
+      border-radius: 999px;
       padding: 10px 14px;
-      border-radius: var(--radius);
       display: flex;
       align-items: center;
       gap: 10px;
       font-family: "Cinzel", serif;
+      width: 92%;
+      max-width: 900px;
+      box-shadow: 0 0 18px rgba(0,0,0,0.8);
     }
 
     .palantir-label {
@@ -86,406 +71,180 @@
       color: var(--accent);
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      font-size: 0.85rem;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .palantir-orb {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #ffffff 0, #7fd4ff 20%, #1c2030 60%, #000 100%);
+      box-shadow: 0 0 8px rgba(127, 212, 255, 0.75);
+      animation: orbPulse 4s ease-in-out infinite;
+    }
+
+    @keyframes orbPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.08); }
     }
 
     .palantir-form {
       display: flex;
       flex: 1;
       gap: 8px;
-      font-family: inherit;
     }
 
     .palantir-input {
       flex: 1;
       padding: 8px 12px;
       border-radius: 999px;
-      border: 1px solid rgba(242, 211, 139, 0.25);
-      background: rgba(0, 0, 0, 0.55);
+      border: 1px solid rgba(242,211,139,0.25);
+      background: rgba(0,0,0,0.55);
       color: var(--text);
       outline: none;
       font-size: 0.9rem;
-      font-family: "Crimson Pro", serif;
-    }
-
-    .palantir-input::placeholder {
-      color: rgba(232, 223, 205, 0.6);
-    }
-
-    .palantir-input:focus {
-      border-color: var(--accent-soft);
-      box-shadow: 0 0 0 1px rgba(242, 211, 139, 0.4);
     }
 
     .btn {
       padding: 8px 14px;
       border-radius: 999px;
-      border: none;
       cursor: pointer;
       font-size: 0.8rem;
       font-weight: 600;
       background: var(--accent-soft);
       color: #18130a;
-      transition: transform 0.05s ease, box-shadow 0.05s ease,
-        background 0.12s ease;
+      border: none;
       font-family: "Cinzel", serif;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
-      background: var(--accent);
     }
 
     .btn-secondary {
       background: transparent;
       color: var(--accent);
-      border: 1px solid rgba(242, 211, 139, 0.5);
+      border: 1px solid rgba(242,211,139,0.4);
     }
 
-    .btn-secondary:hover {
-      background: rgba(242, 211, 139, 0.12);
-    }
-
-    /* Main body: two columns */
-    .main {
-      flex: 1;
+    .layout {
+      padding: 14px;
       display: grid;
-      grid-template-columns: minmax(260px, 1fr) minmax(400px, 2fr);
+      grid-template-columns: minmax(240px, 1fr) minmax(350px, 2fr);
       gap: var(--gap);
-      align-items: stretch;
-    }
-
-    .column {
-      display: flex;
-      flex-direction: column;
-      gap: var(--gap);
+      margin-top: 8px;
     }
 
     .panel {
       background: var(--panel);
+      border: 1px solid rgba(242,211,139,0.3);
       border-radius: var(--radius);
-      padding: 10px 12px;
-      border: 1px solid rgba(224, 204, 157, 0.35);
-      box-shadow: 0 0 18px rgba(0, 0, 0, 0.75);
-      display: flex;
-      flex-direction: column;
-      min-height: 0;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .panel::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      border: 1px solid rgba(0, 0, 0, 0.55);
-      pointer-events: none;
-    }
-
-    .panel-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      margin-bottom: 6px;
-      z-index: 1;
+      padding: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.8);
     }
 
     .panel-title {
-      font-size: 0.85rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: var(--accent);
       font-family: "Cinzel", serif;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 6px;
+      font-size: 0.85rem;
     }
 
-    .panel-subtitle {
-      font-size: 0.7rem;
-      color: var(--muted);
-      font-style: italic;
-    }
-
-    .panel-body {
-      flex: 1;
-      min-height: 0;
-      overflow: auto;
-      font-size: 0.9rem;
-      z-index: 1;
-    }
-
-    .panel-body::-webkit-scrollbar {
-      width: 6px;
-    }
-    .panel-body::-webkit-scrollbar-thumb {
-      background: rgba(199, 154, 59, 0.7);
-      border-radius: 999px;
-    }
-
-    .muted {
-      font-size: 0.8rem;
-      color: var(--muted);
-    }
-
-    .tiny {
-      font-size: 0.73rem;
-      color: var(--muted);
-    }
-
-    /* Chat placeholder */
-    .chat-placeholder {
+    .iframe-wrapper {
+      height: 250px;
       border-radius: 10px;
-      border: 1px dashed rgba(224, 204, 157, 0.4);
-      padding: 8px;
-      background: radial-gradient(circle at top, #261d0f 0, #0d0f15 55%);
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      height: 100%;
+      overflow: hidden;
+      border: 1px solid rgba(242,211,139,0.3);
     }
 
-    .chat-messages {
-      flex: 1;
-      min-height: 120px;
-      max-height: 260px;
-      overflow-y: auto;
-      font-size: 0.85rem;
-    }
+    iframe { width: 100%; height: 100%; border: none; }
 
-    .chat-input-row {
-      display: flex;
-      gap: 6px;
-      margin-top: 4px;
-    }
-
-    .chat-input-row input {
-      flex: 1;
-      padding: 6px 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(224, 204, 157, 0.35);
-      background: rgba(0, 0, 0, 0.55);
-      color: var(--text);
-      font-size: 0.85rem;
-      font-family: "Crimson Pro", serif;
-    }
-
-    .chat-input-row input:focus {
-      border-color: var(--accent-soft);
-      outline: none;
-    }
-
-    /* RSS list */
     .news-item {
       margin-bottom: 6px;
       padding-bottom: 6px;
-      border-bottom: 1px solid rgba(224, 204, 157, 0.25);
-    }
-
-    .news-item:last-child {
-      border-bottom: none;
+      border-bottom: 1px solid rgba(242,211,139,0.25);
     }
 
     .news-title {
-      font-size: 0.9rem;
-      font-weight: 500;
-      color: #f6f0df;
       text-decoration: none;
-    }
-
-    .news-title:hover {
-      text-decoration: underline;
-      color: var(--accent);
-    }
-
-    .news-meta {
-      font-size: 0.75rem;
-      color: var(--muted);
-    }
-
-    /* Calendar & Messages */
-    .iframe-wrapper {
-      flex: 1;
-      min-height: 220px;
-      border-radius: 10px;
-      overflow: hidden;
-      border: 1px solid rgba(224, 204, 157, 0.4);
-    }
-
-    .iframe-wrapper iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-      background: #000;
-    }
-
-    .centered {
-      display: flex;
-      flex: 1;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 8px;
-      gap: 8px;
-    }
-
-    /* Responsive */
-    @media (max-width: 900px) {
-      .main {
-        grid-template-columns: 1fr;
-      }
+      color: #f6f0df;
     }
   </style>
 </head>
+
 <body>
+
+  <!-- Fellowship Banner -->
+  <div class="banner">
+    <div class="palantir-bar">
+      <div class="palantir-label">
+        <span class="palantir-orb"></span>
+        Palantír · Gemini
+      </div>
+
+      <form class="palantir-form" id="geminiForm">
+        <input id="geminiQuery"
+               type="text"
+               class="palantir-input"
+               placeholder="Consult the palantír…" />
+
+        <button class="btn" type="submit">Invoke</button>
+        <button class="btn btn-secondary" type="button" id="openGemini">Open Tower</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Main Grid -->
   <div class="layout">
 
-    <!-- PALANTÍR / GEMINI BAR -->
-    <header class="palantir-bar lotr-border">
-      <div class="palantir-label">Palantír · Gemini</div>
-      <form class="palantir-form" id="geminiForm">
-        <input
-          id="geminiQuery"
-          type="text"
-          class="palantir-input"
-          placeholder="Consult the palantír…"
-          autocomplete="off"
-        />
-        <button type="submit" class="btn">Invoke</button>
-        <button type="button" class="btn btn-secondary" id="openGemini">
-          Open Tower
-        </button>
-      </form>
-    </header>
+    <!-- LEFT COLUMN -->
+    <div class="panel">
+      <div class="panel-title">Chronicles of the Shire</div>
 
-    <!-- MAIN BODY -->
-    <main class="main">
-      <!-- LEFT COLUMN: CALENDAR + GOOGLE MESSAGES -->
-      <section class="column">
-        <!-- CALENDAR PANEL -->
-        <div class="panel">
-          <div class="panel-header">
-            <div>
-              <span class="panel-title">Chronicles of the Shire</span>
-              <div class="panel-subtitle">Home &amp; Work</div>
-            </div>
-          </div>
-          <div class="panel-body">
-            <div class="iframe-wrapper">
-              <!-- Replace THIS src with your actual Google Calendar embed URL
-                   (Settings → Your calendar → Integrate → "Embed code") -->
-              <iframe
-                src="https://calendar.google.com/calendar/embed?src=your_calendar_here&ctz=America%2FChicago"
-              ></iframe>
-            </div>
-            <p class="tiny">
-              In Google Calendar: Settings → Your calendar → Integrate →
-              <em>Embed code</em>. Copy the <code>src</code> from Google and replace it above.
-            </p>
-          </div>
-        </div>
+      <div class="iframe-wrapper">
+        <!-- Replace this with your real Google Calendar src -->
+        <iframe
+          src="https://calendar.google.com/calendar/embed?src=your_calendar_here&ctz=America%2FChicago">
+        </iframe>
+      </div>
 
-        <!-- GOOGLE MESSAGES PANEL -->
-        <div class="panel">
-          <div class="panel-header">
-            <div>
-              <span class="panel-title">Ravens &amp; Messages</span>
-              <div class="panel-subtitle">Google Messages</div>
-            </div>
-          </div>
-          <div class="panel-body">
-            <div class="centered">
-              <p class="muted">
-                The halls of Men (Google) do not allow Messages Web to be bound inside another page.<br />
-                But from here you dispatch your own rider.
-              </p>
-              <button
-                class="btn"
-                onclick="window.open('https://messages.google.com/web', '_blank')"
-              >
-                Summon Messages
-              </button>
-              <p class="tiny">
-                Pin this command page and the Messages tab, so your ravens are always within reach.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <p class="tiny">
+        Google Calendar → Settings → Integrate → “Embed code”
+      </p>
+    </div>
 
-      <!-- RIGHT COLUMN: CHATGPT + FOX NEWS -->
-      <section class="column">
-        <!-- CHATGPT PANEL -->
-        <div class="panel">
-          <div class="panel-header">
-            <div>
-              <span class="panel-title">Council of Elrond</span>
-              <div class="panel-subtitle">ChatGPT · Josie</div>
-            </div>
-            <button
-              class="btn btn-secondary"
-              type="button"
-              onclick="window.open('https://chat.openai.com', '_blank')"
-            >
-              Enter Council
-            </button>
-          </div>
-          <div class="panel-body">
-            <div class="chat-placeholder">
-              <div class="muted">
-                Here you gather thoughts before seeking counsel from the true Council tab.
-                Browser wards prevent binding the real ChatGPT inside this hall, but we
-                can later weave a direct API link so this becomes a full palantír of its own.
-              </div>
-              <div class="chat-messages" id="fakeChatLog">
-                <div><strong>Josie:</strong> “All we have to decide is what to do with the time that is given to us.”</div>
-                <div><strong>You:</strong> “Apparently, build a command center in my browser.”</div>
-              </div>
-              <div class="chat-input-row">
-                <input
-                  type="text"
-                  id="fakeChatInput"
-                  placeholder="Record counsel for your future self…"
-                />
-                <button type="button" class="btn btn-secondary" id="fakeChatSave">
-                  Inscribe
-                </button>
-              </div>
-              <div class="tiny">
-                These notes are kept in your browser’s <code>localStorage</code>, like pages in the
-                Red Book only you can read on this machine.
-              </div>
-            </div>
-          </div>
-        </div>
+    <div class="panel">
+      <div class="panel-title">Ravens & Messages</div>
+      <button class="btn"
+              onclick="window.open('https://messages.google.com/web','_blank')">
+        Summon Messages
+      </button>
+    </div>
 
-        <!-- FOX NEWS FEED PANEL -->
-        <div class="panel">
-          <div class="panel-header">
-            <div>
-              <span class="panel-title">News from the Realm</span>
-              <div class="panel-subtitle">Fox News Dispatches</div>
-            </div>
-          </div>
-          <div class="panel-body" id="foxNewsContainer">
-            <p class="muted">Scanning the beacons of the Westfold…</p>
-          </div>
-        </div>
-      </section>
-    </main>
+    <!-- RIGHT COLUMN -->
+    <div class="panel">
+      <div class="panel-title">Council of Elrond</div>
+      <p class="muted">
+        Local storage notes area. Your browser keeps these pages like pages
+        in the Red Book.
+      </p>
+      <div id="fakeChatLog"></div>
+
+      <input id="fakeChatInput" class="palantir-input" placeholder="Record counsel…" />
+      <button class="btn btn-secondary" id="fakeChatSave">Inscribe</button>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title">News from the Realm</div>
+      <div id="foxNewsContainer">Loading tidings…</div>
+    </div>
+
   </div>
 
   <script>
-    // ---- PALANTÍR / GEMINI SEARCH ----
-    const geminiForm = document.getElementById("geminiForm");
-    const geminiQuery = document.getElementById("geminiQuery");
-    const openGeminiBtn = document.getElementById("openGemini");
-
-    geminiForm.addEventListener("submit", (e) => {
+    /* Palantír Search */
+    document.getElementById("geminiForm").addEventListener("submit", e => {
       e.preventDefault();
       const q = geminiQuery.value.trim();
       const url = q
@@ -494,112 +253,69 @@
       window.open(url, "_blank");
     });
 
-    openGeminiBtn.addEventListener("click", () => {
+    document.getElementById("openGemini").onclick = () =>
       window.open("https://gemini.google.com/app", "_blank");
-    });
 
-    // ---- COUNCIL NOTES STORAGE ----
-    const fakeChatLog = document.getElementById("fakeChatLog");
-    const fakeChatInput = document.getElementById("fakeChatInput");
-    const fakeChatSave = document.getElementById("fakeChatSave");
+    /* Council Notes Storage */
+    const chatLog = document.getElementById("fakeChatLog");
+    const chatInput = document.getElementById("fakeChatInput");
 
-    function loadNotes() {
-      const stored = localStorage.getItem("sage_council_notes");
-      if (stored) {
-        try {
-          const notes = JSON.parse(stored);
-          notes.forEach((n) => appendNote(n));
-        } catch {
-          // corrupted parchment, discard silently
-        }
-      }
+    function appendNote(t) {
+      const d = document.createElement("div");
+      d.style.marginBottom = "6px";
+      d.textContent = "You: " + t;
+      chatLog.appendChild(d);
     }
 
-    function appendNote(text) {
-      const div = document.createElement("div");
-      div.innerHTML = `<strong>You (note):</strong> ${text}`;
-      fakeChatLog.appendChild(div);
-      fakeChatLog.scrollTop = fakeChatLog.scrollHeight;
-    }
+    (function load() {
+      const saved = JSON.parse(localStorage.getItem("sage_council_notes") || "[]");
+      saved.forEach(appendNote);
+    })();
 
-    fakeChatSave.addEventListener("click", () => {
-      const text = fakeChatInput.value.trim();
-      if (!text) return;
-      appendNote(text);
-      const stored = localStorage.getItem("sage_council_notes");
-      let notes = [];
-      if (stored) {
-        try {
-          notes = JSON.parse(stored);
-        } catch {
-          notes = [];
-        }
-      }
-      notes.push(text);
-      localStorage.setItem("sage_council_notes", JSON.stringify(notes));
-      fakeChatInput.value = "";
-    });
+    document.getElementById("fakeChatSave").onclick = () => {
+      const t = chatInput.value.trim();
+      if (!t) return;
+      appendNote(t);
+      const stored = JSON.parse(localStorage.getItem("sage_council_notes") || "[]");
+      stored.push(t);
+      localStorage.setItem("sage_council_notes", JSON.stringify(stored));
+      chatInput.value = "";
+    };
 
-    loadNotes();
-
-    // ---- FOX NEWS RSS FETCH (NEWS FROM THE REALM) ----
-    const FOX_RSS_URL = "https://feeds.foxnews.com/foxnews/latest?format=xml";
-    const foxContainer = document.getElementById("foxNewsContainer");
-
-    async function loadFoxNews() {
+    /* Fox News Feed */
+    async function loadFox() {
       try {
-        const apiUrl =
+        const res = await fetch(
           "https://api.rss2json.com/v1/api.json?rss_url=" +
-          encodeURIComponent(FOX_RSS_URL);
-
-        const res = await fetch(apiUrl);
-        if (!res.ok) throw new Error("HTTP " + res.status);
+          encodeURIComponent("https://feeds.foxnews.com/foxnews/latest?format=xml")
+        );
 
         const data = await res.json();
-        if (data.status !== "ok") {
-          throw new Error(data.message || "RSS error");
-        }
+        const list = document.getElementById("foxNewsContainer");
 
-        const items = (data.items || []).slice(0, 8);
-        foxContainer.innerHTML = "";
-
-        if (!items.length) {
-          foxContainer.innerHTML =
-            '<p class="muted">No fresh tidings from the realm.</p>';
+        if (!data.items) {
+          list.innerHTML = "No tidings found.";
           return;
         }
 
-        items.forEach((item) => {
-          const title = item.title || "Untitled";
-          const link = item.link || "#";
-          const pubDate = item.pubDate || "";
+        list.innerHTML = "";
+        data.items.slice(0, 8).forEach(i => {
+          const div = document.createElement("div");
+          div.className = "news-item";
 
-          const wrapper = document.createElement("div");
-          wrapper.className = "news-item";
+          div.innerHTML =
+            `<a class="news-title" href="${i.link}" target="_blank">${i.title}</a>
+             <div class="news-meta">${i.pubDate}</div>`;
 
-          const a = document.createElement("a");
-          a.href = link;
-          a.target = "_blank";
-          a.rel = "noopener noreferrer";
-          a.textContent = title;
-          a.className = "news-title";
-
-          const meta = document.createElement("div");
-          meta.className = "news-meta";
-          meta.textContent = pubDate;
-
-          wrapper.appendChild(a);
-          wrapper.appendChild(meta);
-          foxContainer.appendChild(wrapper);
+          list.appendChild(div);
         });
-      } catch (err) {
-        foxContainer.innerHTML =
-          '<p class="muted">The beacons remain dark. Network wards or RSS service failure bar the path.</p>';
-        console.error(err);
+
+      } catch {
+        foxNewsContainer.textContent = "The beacons remain dark.";
       }
     }
 
-    loadFoxNews();
+    loadFox();
   </script>
 </body>
 </html>
