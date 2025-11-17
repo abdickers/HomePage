@@ -33,7 +33,7 @@
       padding: 0;
       min-height: 100vh;
       background:
-        linear-gradient(to bottom, rgba(0,0,0,0.55), rgba(0,0,0,0.85)),
+        linear-gradient(to bottom, rgba(0,0,0,0.55), rgba(0,0,0,0.9)),
         url("Revindale.jpg") center top / cover no-repeat fixed;
       color: var(--text);
       font-family: "Crimson Pro", serif;
@@ -65,7 +65,7 @@
     .palantir-bar {
       position: relative;
       z-index: 1;
-      background: rgba(0,0,0,0.72);
+      background: rgba(0,0,0,0.75);
       backdrop-filter: blur(4px);
       border: 1px solid rgba(242,211,139,0.35);
       border-radius: 999px;
@@ -122,6 +122,10 @@
       font-size: 0.9rem;
     }
 
+    .palantir-input::placeholder {
+      color: rgba(230, 223, 205, 0.7);
+    }
+
     .btn {
       padding: 8px 14px;
       border-radius: 999px;
@@ -140,11 +144,12 @@
       border: 1px solid rgba(242,211,139,0.4);
     }
 
-    /* Main layout */
+    /* Main layout: 2-cols top, full-width bottom */
     .layout {
       padding: 14px;
       display: grid;
-      grid-template-columns: minmax(260px, 1fr) minmax(360px, 2fr);
+      grid-template-columns: minmax(260px, 1.2fr) minmax(360px, 1.8fr);
+      grid-auto-rows: minmax(260px, auto);
       gap: var(--gap);
       margin-top: 8px;
     }
@@ -155,6 +160,10 @@
       border-radius: var(--radius);
       padding: 12px;
       box-shadow: 0 0 20px rgba(0,0,0,0.8);
+    }
+
+    .panel.wide {
+      grid-column: 1 / -1;
     }
 
     .panel-title {
@@ -205,6 +214,10 @@
       border-bottom: 1px solid rgba(242,211,139,0.25);
     }
 
+    .news-item:last-child {
+      border-bottom: none;
+    }
+
     .news-title {
       text-decoration: none;
       color: #f6f0df;
@@ -222,6 +235,7 @@
 
     @media (max-width: 900px) {
       .layout { grid-template-columns: 1fr; }
+      .panel.wide { grid-column: 1 / 2; }
     }
   </style>
 </head>
@@ -237,9 +251,15 @@
       </div>
 
       <form class="palantir-form" id="geminiForm">
-        <input id="geminiQuery" type="text" class="palantir-input" placeholder="Consult the palantír…" />
+        <input
+          id="geminiQuery"
+          type="text"
+          class="palantir-input"
+          placeholder="Consult the palantír…" />
         <button class="btn" type="submit">Invoke</button>
-        <button class="btn btn-secondary" type="button" id="openGemini">Open Tower</button>
+        <button class="btn btn-secondary" type="button" id="openGemini">
+          Open Tower
+        </button>
       </form>
     </div>
   </div>
@@ -247,35 +267,40 @@
   <!-- Main Grid -->
   <div class="layout">
 
-    <!-- Calendar -->
+    <!-- Calendar (top-left) -->
     <div class="panel">
       <div class="panel-title">Chronicles of the Shire</div>
       <div class="iframe-wrapper">
-        <iframe src="https://calendar.google.com/calendar/embed?src=your_calendar_here&ctz=America%2FChicago"></iframe>
+        <!-- Replace src with your real calendar embed URL later -->
+        <iframe
+          src="https://calendar.google.com/calendar/embed?src=your_calendar_here&ctz=America%2FChicago">
+        </iframe>
       </div>
-      <p class="tiny">Copy your Google Calendar embed URL into the iframe above.</p>
+      <p class="tiny">
+        Google Calendar → Settings → your calendar → Integrate → “Embed code”.
+        Copy the <code>src</code> value and replace it above.
+      </p>
     </div>
 
-    <!-- Notes -->
-    <div class="panel">
-      <div class="panel-title">Council of Elrond</div>
-      <p class="muted">Your notes are kept safely inside <code>localStorage</code>.</p>
-      <div id="fakeChatLog"></div>
-      <input id="fakeChatInput" class="palantir-input" placeholder="Record counsel…" />
-      <button class="btn btn-secondary" id="fakeChatSave">Inscribe</button>
-    </div>
-
-    <!-- Messages -->
-    <div class="panel">
-      <div class="panel-title">Ravens & Messages</div>
-      <p class="muted">Messages Web cannot be embedded, but can be opened instantly.</p>
-      <button class="btn" onclick="window.open('https://messages.google.com/web','_blank')">Summon Messages</button>
-    </div>
-
-    <!-- News -->
+    <!-- News (top-right) -->
     <div class="panel">
       <div class="panel-title">News from the Realm</div>
       <div id="foxNewsContainer" class="muted">Scanning the beacons…</div>
+    </div>
+
+    <!-- Council (bottom, full width) -->
+    <div class="panel wide">
+      <div class="panel-title">Council of Elrond</div>
+      <p class="muted">
+        Local notes kept in your browser’s <code>localStorage</code>.
+        Think of this as the Red Book written in your own hand.
+      </p>
+      <div id="fakeChatLog"></div>
+      <input
+        id="fakeChatInput"
+        class="palantir-input"
+        placeholder="Record counsel for your future self…" />
+      <button class="btn btn-secondary" id="fakeChatSave">Inscribe</button>
     </div>
 
   </div>
@@ -286,7 +311,7 @@
     const geminiQuery = document.getElementById("geminiQuery");
     const openGeminiBtn = document.getElementById("openGemini");
 
-    geminiForm.addEventListener("submit", e => {
+    geminiForm.addEventListener("submit", (e) => {
       e.preventDefault();
       const q = geminiQuery.value.trim();
       const url = q
@@ -298,7 +323,7 @@
     openGeminiBtn.onclick = () =>
       window.open("https://gemini.google.com/app", "_blank");
 
-    /* Notes System */
+    /* Council notes */
     const chatLog = document.getElementById("fakeChatLog");
     const chatInput = document.getElementById("fakeChatInput");
     const chatSave = document.getElementById("fakeChatSave");
@@ -315,7 +340,9 @@
       try {
         const stored = JSON.parse(localStorage.getItem("sage_council_notes") || "[]");
         stored.forEach(appendNote);
-      } catch {}
+      } catch {
+        // corrupted parchment, ignore
+      }
     })();
 
     chatSave.addEventListener("click", () => {
@@ -325,7 +352,7 @@
       let stored = [];
       try {
         stored = JSON.parse(localStorage.getItem("sage_council_notes") || "[]");
-      } catch {}
+      } catch { stored = []; }
       stored.push(text);
       localStorage.setItem("sage_council_notes", JSON.stringify(stored));
       chatInput.value = "";
@@ -349,7 +376,9 @@
           const wrap = document.createElement("div");
           wrap.className = "news-item";
           wrap.innerHTML = `
-            <a class="news-title" href="${item.link}" target="_blank">${item.title}</a>
+            <a class="news-title" href="${item.link}" target="_blank" rel="noopener">
+              ${item.title}
+            </a>
             <div class="news-meta">${item.pubDate || ""}</div>
           `;
           foxContainer.appendChild(wrap);
@@ -357,11 +386,11 @@
       } catch (e) {
         foxContainer.textContent =
           "The beacons remain dark. Network wards may bar the path.";
+        console.error(e);
       }
     }
 
     loadFox();
   </script>
-
 </body>
 </html>
