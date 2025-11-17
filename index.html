@@ -166,7 +166,7 @@
       background: rgba(242,211,139,0.12);
     }
 
-    /* Main layout: 2 cols, then wide news row */
+    /* Main layout: 2 cols, then wide rows */
     .layout {
       padding: 14px;
       display: grid;
@@ -211,7 +211,6 @@
       pointer-events: none;
     }
 
-    /* subtle elven corner glows */
     .panel::after {
       content: "";
       position: absolute;
@@ -309,6 +308,46 @@
       color: var(--muted);
     }
 
+    /* Google Home control grid */
+    .home-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .home-btn {
+      flex: 1 1 160px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(242,211,139,0.45);
+      background: rgba(0,0,0,0.5);
+      color: var(--accent);
+      font-family: "Cinzel", serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      text-align: center;
+      transition: background 0.12s ease-out, transform 0.12s ease-out, box-shadow 0.12s ease-out;
+    }
+
+    .home-btn span {
+      display: block;
+      font-family: "Crimson Pro", serif;
+      font-size: 0.7rem;
+      letter-spacing: normal;
+      text-transform: none;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .home-btn:hover {
+      background: rgba(242,211,139,0.16);
+      transform: translateY(-1px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.8);
+    }
+
     @media (max-width: 900px) {
       .layout { grid-template-columns: 1fr; grid-auto-rows: minmax(260px, auto); }
       .panel.wide { grid-column: 1 / 2; max-height: none; }
@@ -379,6 +418,38 @@
     <div class="panel wide">
       <div class="panel-title">News from the Realm</div>
       <div id="foxNewsContainer" class="muted">Scanning the beacons…</div>
+    </div>
+
+    <!-- GOOGLE HOME CONTROL: full width under news -->
+    <div class="panel wide">
+      <div class="panel-title">Google Home · Hall of Devices</div>
+      <p class="muted">
+        Quick routes to your smart-home controls. These open official pages in new tabs;
+        true one-click spells will need a future backend and OAuth.
+      </p>
+      <div class="home-grid">
+        <button class="home-btn" onclick="window.open('https://home.google.com','_blank')">
+          Google Home
+          <span>Full home control dashboard</span>
+        </button>
+
+        <button class="home-btn" onclick="window.open('https://home.google.com/routines','_blank')">
+          Routines
+          <span>Manage automations & scenes</span>
+        </button>
+
+        <button class="home-btn" onclick="window.open('https://myaccount.google.com/device-activity','_blank')">
+          Devices
+          <span>Signed-in devices overview</span>
+        </button>
+
+        <!-- Android-only deep link; harmless elsewhere -->
+        <button class="home-btn"
+          onclick="window.open('intent://home.google.com/#Intent;scheme=https;package=com.google.android.apps.chromecast.app;end','_blank')">
+          Open Home App
+          <span>On Android, jumps to the Home app</span>
+        </button>
+      </div>
     </div>
 
   </div>
@@ -476,12 +547,12 @@
 
     window.addEventListener("scroll", () => {
       const y = window.scrollY || window.pageYOffset;
-      const max = 220; // how far before max fade
+      const max = 220;
       const t = Math.min(y / max, 1);
 
       const opacity = 1 - t * 0.6;
-      const bannerOffset = -t * 18; // move banner slightly up
-      const barOffset = t * 5;      // move bar slightly down
+      const bannerOffset = -t * 18;
+      const barOffset = t * 5;
 
       banner.style.opacity = opacity.toString();
       banner.style.transform = `translateY(${bannerOffset}px)`;
