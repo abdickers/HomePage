@@ -16,7 +16,7 @@
   <style>
     :root {
       --bg: #050609;
-      --panel: rgba(11, 14, 20, 0.97);
+      --panel: rgba(11, 14, 20, 0.92);
       --accent: #f2d38b;
       --accent-soft: #c79a3b;
       --text: #e6e1d5;
@@ -25,22 +25,26 @@
       --gap: 12px;
     }
 
+    * { box-sizing: border-box; }
+
+    /* Full Rivendell Background */
     body {
       margin: 0;
       padding: 0;
       min-height: 100vh;
-      background: #020203;
+      background:
+        linear-gradient(to bottom, rgba(0,0,0,0.55), rgba(0,0,0,0.85)),
+        url("Revindale.jpg") center top / cover no-repeat fixed;
       color: var(--text);
       font-family: "Crimson Pro", serif;
     }
 
     /* Fellowship Banner Header */
     .banner {
+      position: relative;
       width: 100%;
       height: 260px;
-      background:
-        linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.95)),
-        url("fellowship_banner_cropped_v2.png") center top / cover no-repeat;
+      background: url("fellowship_banner_cropped_v2.png") center top / cover no-repeat;
       border-bottom: 1px solid rgba(242,211,139,0.35);
       box-shadow: 0 6px 18px rgba(0,0,0,0.8);
       display: flex;
@@ -49,9 +53,19 @@
       padding-bottom: 10px;
     }
 
+    .banner::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.25), rgba(0,0,0,0.85));
+      pointer-events: none;
+    }
+
     /* Palantír Bar */
     .palantir-bar {
-      background: rgba(0,0,0,0.65);
+      position: relative;
+      z-index: 1;
+      background: rgba(0,0,0,0.72);
       backdrop-filter: blur(4px);
       border: 1px solid rgba(242,211,139,0.35);
       border-radius: 999px;
@@ -126,10 +140,11 @@
       border: 1px solid rgba(242,211,139,0.4);
     }
 
+    /* Main layout */
     .layout {
       padding: 14px;
       display: grid;
-      grid-template-columns: minmax(240px, 1fr) minmax(350px, 2fr);
+      grid-template-columns: minmax(260px, 1fr) minmax(360px, 2fr);
       gap: var(--gap);
       margin-top: 8px;
     }
@@ -151,14 +166,38 @@
       font-size: 0.85rem;
     }
 
+    .muted {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .tiny {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
     .iframe-wrapper {
-      height: 250px;
+      height: 260px;
       border-radius: 10px;
       overflow: hidden;
       border: 1px solid rgba(242,211,139,0.3);
+      background: #000;
     }
 
-    iframe { width: 100%; height: 100%; border: none; }
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: #000;
+    }
+
+    #fakeChatLog {
+      min-height: 120px;
+      max-height: 230px;
+      overflow-y: auto;
+      margin-bottom: 8px;
+      font-size: 0.85rem;
+    }
 
     .news-item {
       margin-bottom: 6px;
@@ -169,6 +208,20 @@
     .news-title {
       text-decoration: none;
       color: #f6f0df;
+    }
+
+    .news-title:hover {
+      text-decoration: underline;
+      color: var(--accent);
+    }
+
+    .news-meta {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -184,11 +237,7 @@
       </div>
 
       <form class="palantir-form" id="geminiForm">
-        <input id="geminiQuery"
-               type="text"
-               class="palantir-input"
-               placeholder="Consult the palantír…" />
-
+        <input id="geminiQuery" type="text" class="palantir-input" placeholder="Consult the palantír…" />
         <button class="btn" type="submit">Invoke</button>
         <button class="btn btn-secondary" type="button" id="openGemini">Open Tower</button>
       </form>
@@ -198,53 +247,46 @@
   <!-- Main Grid -->
   <div class="layout">
 
-    <!-- LEFT COLUMN -->
+    <!-- Calendar -->
     <div class="panel">
       <div class="panel-title">Chronicles of the Shire</div>
-
       <div class="iframe-wrapper">
-        <!-- Replace this with your real Google Calendar src -->
-        <iframe
-          src="https://calendar.google.com/calendar/embed?src=your_calendar_here&ctz=America%2FChicago">
-        </iframe>
+        <iframe src="https://calendar.google.com/calendar/embed?src=your_calendar_here&ctz=America%2FChicago"></iframe>
       </div>
-
-      <p class="tiny">
-        Google Calendar → Settings → Integrate → “Embed code”
-      </p>
+      <p class="tiny">Copy your Google Calendar embed URL into the iframe above.</p>
     </div>
 
-    <div class="panel">
-      <div class="panel-title">Ravens & Messages</div>
-      <button class="btn"
-              onclick="window.open('https://messages.google.com/web','_blank')">
-        Summon Messages
-      </button>
-    </div>
-
-    <!-- RIGHT COLUMN -->
+    <!-- Notes -->
     <div class="panel">
       <div class="panel-title">Council of Elrond</div>
-      <p class="muted">
-        Local storage notes area. Your browser keeps these pages like pages
-        in the Red Book.
-      </p>
+      <p class="muted">Your notes are kept safely inside <code>localStorage</code>.</p>
       <div id="fakeChatLog"></div>
-
       <input id="fakeChatInput" class="palantir-input" placeholder="Record counsel…" />
       <button class="btn btn-secondary" id="fakeChatSave">Inscribe</button>
     </div>
 
+    <!-- Messages -->
+    <div class="panel">
+      <div class="panel-title">Ravens & Messages</div>
+      <p class="muted">Messages Web cannot be embedded, but can be opened instantly.</p>
+      <button class="btn" onclick="window.open('https://messages.google.com/web','_blank')">Summon Messages</button>
+    </div>
+
+    <!-- News -->
     <div class="panel">
       <div class="panel-title">News from the Realm</div>
-      <div id="foxNewsContainer">Loading tidings…</div>
+      <div id="foxNewsContainer" class="muted">Scanning the beacons…</div>
     </div>
 
   </div>
 
   <script>
     /* Palantír Search */
-    document.getElementById("geminiForm").addEventListener("submit", e => {
+    const geminiForm = document.getElementById("geminiForm");
+    const geminiQuery = document.getElementById("geminiQuery");
+    const openGeminiBtn = document.getElementById("openGemini");
+
+    geminiForm.addEventListener("submit", e => {
       e.preventDefault();
       const q = geminiQuery.value.trim();
       const url = q
@@ -253,69 +295,73 @@
       window.open(url, "_blank");
     });
 
-    document.getElementById("openGemini").onclick = () =>
+    openGeminiBtn.onclick = () =>
       window.open("https://gemini.google.com/app", "_blank");
 
-    /* Council Notes Storage */
+    /* Notes System */
     const chatLog = document.getElementById("fakeChatLog");
     const chatInput = document.getElementById("fakeChatInput");
+    const chatSave = document.getElementById("fakeChatSave");
 
-    function appendNote(t) {
-      const d = document.createElement("div");
-      d.style.marginBottom = "6px";
-      d.textContent = "You: " + t;
-      chatLog.appendChild(d);
+    function appendNote(text) {
+      const div = document.createElement("div");
+      div.textContent = "You: " + text;
+      div.style.marginBottom = "4px";
+      chatLog.appendChild(div);
+      chatLog.scrollTop = chatLog.scrollHeight;
     }
 
-    (function load() {
-      const saved = JSON.parse(localStorage.getItem("sage_council_notes") || "[]");
-      saved.forEach(appendNote);
+    (function loadNotes() {
+      try {
+        const stored = JSON.parse(localStorage.getItem("sage_council_notes") || "[]");
+        stored.forEach(appendNote);
+      } catch {}
     })();
 
-    document.getElementById("fakeChatSave").onclick = () => {
-      const t = chatInput.value.trim();
-      if (!t) return;
-      appendNote(t);
-      const stored = JSON.parse(localStorage.getItem("sage_council_notes") || "[]");
-      stored.push(t);
+    chatSave.addEventListener("click", () => {
+      const text = chatInput.value.trim();
+      if (!text) return;
+      appendNote(text);
+      let stored = [];
+      try {
+        stored = JSON.parse(localStorage.getItem("sage_council_notes") || "[]");
+      } catch {}
+      stored.push(text);
       localStorage.setItem("sage_council_notes", JSON.stringify(stored));
       chatInput.value = "";
-    };
+    });
 
     /* Fox News Feed */
+    const foxContainer = document.getElementById("foxNewsContainer");
     async function loadFox() {
       try {
         const res = await fetch(
           "https://api.rss2json.com/v1/api.json?rss_url=" +
           encodeURIComponent("https://feeds.foxnews.com/foxnews/latest?format=xml")
         );
-
         const data = await res.json();
-        const list = document.getElementById("foxNewsContainer");
-
-        if (!data.items) {
-          list.innerHTML = "No tidings found.";
+        if (!data.items || !data.items.length) {
+          foxContainer.textContent = "No fresh tidings from the realm.";
           return;
         }
-
-        list.innerHTML = "";
-        data.items.slice(0, 8).forEach(i => {
-          const div = document.createElement("div");
-          div.className = "news-item";
-
-          div.innerHTML =
-            `<a class="news-title" href="${i.link}" target="_blank">${i.title}</a>
-             <div class="news-meta">${i.pubDate}</div>`;
-
-          list.appendChild(div);
+        foxContainer.innerHTML = "";
+        data.items.slice(0, 8).forEach(item => {
+          const wrap = document.createElement("div");
+          wrap.className = "news-item";
+          wrap.innerHTML = `
+            <a class="news-title" href="${item.link}" target="_blank">${item.title}</a>
+            <div class="news-meta">${item.pubDate || ""}</div>
+          `;
+          foxContainer.appendChild(wrap);
         });
-
-      } catch {
-        foxNewsContainer.textContent = "The beacons remain dark.";
+      } catch (e) {
+        foxContainer.textContent =
+          "The beacons remain dark. Network wards may bar the path.";
       }
     }
 
     loadFox();
   </script>
+
 </body>
 </html>
