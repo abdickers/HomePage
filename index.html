@@ -1,703 +1,174 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Sage's Middle-earth Command</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <!-- LOTR Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Pro:wght@400;500;600&display=swap"
-    rel="stylesheet"
-  />
-
-  <style>
-    :root {
-      --bg: #050609;
-      --accent: #f2d38b;
-      --accent-soft: #c79a3b;
-      --text: #e6e1d5;
-      --muted: #a89f8a;
-      --radius: 14px;
-      --gap: 12px;
-    }
-
-    * { box-sizing: border-box; }
-
-    /* Full Rivendell Background */
+<meta charset="UTF-8" />
+<title>Sage’s Middle-Earth Dashboard</title>
+<style>
     body {
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
-      background:
-        radial-gradient(circle at top left, rgba(242,211,139,0.16), transparent 55%),
-        radial-gradient(circle at bottom right, rgba(44,75,96,0.4), transparent 60%),
-        linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.94)),
-        url("Revindale.jpg") center top / cover no-repeat fixed;
-      color: var(--text);
-      font-family: "Crimson Pro", serif;
-      overflow-x: hidden;
+        margin: 0;
+        font-family: Cinzel, serif;
+        background: url("Revindale.jpg") no-repeat center center fixed;
+        background-size: cover;
+        color: #e6d9b1;
     }
 
-    /* Fellowship Banner Header */
-    .banner {
-      position: relative;
-      width: 100%;
-      height: 260px;
-      background: url("fellowship_banner_cropped_v2.png") center top / cover no-repeat;
-      border-bottom: 1px solid rgba(242,211,139,0.35);
-      box-shadow: 0 6px 18px rgba(0,0,0,0.8);
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
-      padding-bottom: 10px;
-      transform-origin: center top;
-      transition: opacity 0.2s ease-out, transform 0.2s ease-out;
-      will-change: opacity, transform;
+    a { color: #e6d9b1; }
+
+    .topbar {
+        width: 100%;
+        padding: 20px;
+        text-align: center;
+        background: rgba(10, 10, 10, 0.55);
+        backdrop-filter: blur(3px);
+        border-bottom: 1px solid rgba(255, 255, 200, 0.2);
+    }
+    .topbar input {
+        width: 50%;
+        padding: 12px 18px;
+        border-radius: 25px;
+        border: none;
+        background: rgba(30, 30, 30, 0.65);
+        color: #fff;
+        font-size: 18px;
+        text-align: center;
     }
 
-    .banner::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to bottom, rgba(0,0,0,0.25), rgba(0,0,0,0.85));
-      pointer-events: none;
-    }
-
-    /* Google AI Search bar */
-    .palantir-bar {
-      position: relative;
-      z-index: 1;
-      background:
-        radial-gradient(circle at top, rgba(242,211,139,0.14), transparent 70%),
-        rgba(0,0,0,0.4);
-      backdrop-filter: blur(4px);
-      border-radius: 999px;
-      padding: 10px 14px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-family: "Cinzel", serif;
-      width: 92%;
-      max-width: 900px;
-      box-shadow: 0 0 18px rgba(0,0,0,0.9);
-      border: 1px solid rgba(242,211,139,0.4);
-      transition: transform 0.2s ease-out, box-shadow 0.2s ease-out, background 0.2s ease-out;
-    }
-
-    .palantir-label {
-      font-weight: 600;
-      white-space: nowrap;
-      color: var(--accent);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      font-size: 0.9rem;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .palantir-orb {
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 30% 30%, #ffffff 0, #7fd4ff 22%, #1c2030 60%, #000 100%);
-      box-shadow: 0 0 8px rgba(127, 212, 255, 0.85);
-      animation: orbPulse 4s ease-in-out infinite;
-    }
-
-    @keyframes orbPulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.08); }
-    }
-
-    .palantir-form {
-      display: flex;
-      flex: 1;
-      gap: 8px;
-    }
-
-    .palantir-input {
-      flex: 1;
-      padding: 8px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(242,211,139,0.25);
-      background: rgba(0,0,0,0.55);
-      color: var(--text);
-      outline: none;
-      font-size: 0.9rem;
-    }
-
-    .palantir-input::placeholder {
-      color: rgba(230, 223, 205, 0.7);
-    }
-
-    .btn {
-      padding: 8px 14px;
-      border-radius: 999px;
-      cursor: pointer;
-      font-size: 0.8rem;
-      font-weight: 600;
-      background: var(--accent-soft);
-      color: #18130a;
-      border: none;
-      font-family: "Cinzel", serif;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      transition: transform 0.1s ease-out, box-shadow 0.1s ease-out, background 0.12s ease-out;
-    }
-
-    .btn-secondary {
-      background: transparent;
-      color: var(--accent);
-      border: 1px solid rgba(242,211,139,0.4);
-    }
-
-    .btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.85);
-      background: var(--accent);
-    }
-
-    .btn-secondary:hover {
-      background: rgba(242,211,139,0.12);
-    }
-
-    /* Main layout with explicit areas */
-    .layout {
-      padding: 14px;
-      display: grid;
-      grid-template-columns: minmax(260px, 1.2fr) minmax(360px, 1.8fr);
-      grid-template-areas:
-        "council council"
-        "calendar hall"
-        "news fellowship";
-      grid-auto-rows: minmax(260px, auto);
-      gap: var(--gap);
-      margin-top: 8px;
-      animation: layoutFadeIn 0.7s ease-out both;
-    }
-
-    @keyframes layoutFadeIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
+    /* Core panel styles */
     .panel {
-      position: relative;
-      background:
-        radial-gradient(circle at top left, rgba(242,211,139,0.10), transparent 55%),
-        radial-gradient(circle at bottom right, rgba(44,54,70,0.18), rgba(8,10,16,0.35) 65%);
-      border-radius: var(--radius);
-      padding: 12px;
-      box-shadow: 0 10px 26px rgba(0,0,0,0.8);
-      border: 1px solid rgba(242,211,139,0.38);
-      overflow-y: auto;
-      overflow-x: hidden;
-      resize: vertical;
-      transition: transform 0.12s ease-out, box-shadow 0.12s ease-out, border-color 0.12s ease-out;
+        background: rgba(15, 15, 15, 0.40);
+        border: 1px solid rgba(255, 240, 200, 0.25);
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.3);
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+    .panel::-webkit-scrollbar { width: 8px; }
+    .panel::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+    .panel:hover::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); }
+
+    .grid {
+        display: grid;
+        gap: 20px;
+        padding: 20px;
     }
 
-    .panel-council,
-    .panel-hall {
-      overflow: visible;
-      resize: none;
+    /* Layout grid */
+    .grid-2 {
+        grid-template-columns: 1fr 1fr;
     }
 
-    .panel::before {
-      content: "";
-      position: absolute;
-      inset: 2px;
-      border-radius: calc(var(--radius) - 2px);
-      border: 1px solid rgba(0,0,0,0.7);
-      pointer-events: none;
+    .grid-3 {
+        grid-template-columns: 1fr 1fr 1fr;
     }
 
-    .panel::after {
-      content: "";
-      position: absolute;
-      inset: -40%;
-      background:
-        radial-gradient(circle at 0 0, rgba(242,211,139,0.16), transparent 55%),
-        radial-gradient(circle at 100% 0, rgba(168,219,255,0.16), transparent 55%);
-      opacity: 0;
-      mix-blend-mode: screen;
-      transition: opacity 0.2s ease-out;
-      pointer-events: none;
+    /* Council of Elrond: Gandalf Image */
+    .panel-council {
+        position: relative;
+        overflow: hidden;
+    }
+    .panel-council::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 45%;
+        height: 100%;
+        background: url("wp5131299-lord-of-the-rings-4k-wallpapers.jpg") center right / cover no-repeat;
+        opacity: 0.22;
+        pointer-events: none;
+        mix-blend-mode: lighten;
+        filter: brightness(1.1) contrast(1.05) saturate(0.85);
+    }
+    .panel-council:hover::after {
+        opacity: 0.33;
+        filter: brightness(1.25);
     }
 
-    .panel:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 18px 40px rgba(0,0,0,0.95);
-      border-color: rgba(242,211,139,0.8);
+    h2 {
+        margin-top: 0;
+        font-size: 26px;
+        letter-spacing: 2px;
+        text-shadow: 1px 1px 3px #000;
     }
-
-    .panel:hover::after {
-      opacity: 0.9;
-    }
-
-    .panel-title {
-      position: relative;
-      z-index: 1;
-      font-family: "Cinzel", serif;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      margin-bottom: 6px;
-      font-size: 0.85rem;
-    }
-
-    .muted {
-      position: relative;
-      z-index: 1;
-      font-size: 0.8rem;
-      color: var(--muted);
-    }
-
-    .tiny {
-      position: relative;
-      z-index: 1;
-      font-size: 0.75rem;
-      color: var(--muted);
-    }
-
-    .iframe-wrapper {
-      position: relative;
-      z-index: 1;
-      height: 100%;
-      max-height: 32vh;
-      border-radius: 10px;
-      overflow: hidden;
-      border: 1px solid rgba(242,211,139,0.3);
-      background: rgba(0,0,0,0.4);
-    }
-
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-      background: transparent;
-    }
-
-    #fakeChatLog {
-      position: relative;
-      z-index: 1;
-      min-height: 120px;
-      max-height: 24vh;
-      overflow-y: auto;
-      overflow-x: hidden;
-      margin-bottom: 8px;
-      font-size: 0.9rem;
-    }
-
-    .news-item {
-      margin-bottom: 6px;
-      padding-bottom: 6px;
-      border-bottom: 1px solid rgba(242,211,139,0.25);
-    }
-
-    .news-item:last-child {
-      border-bottom: none;
-    }
-
-    .news-title {
-      text-decoration: none;
-      color: #f6f0df;
-    }
-
-    .news-title:hover {
-      text-decoration: underline;
-      color: var(--accent);
-    }
-
-    .news-meta {
-      font-size: 0.75rem;
-      color: var(--muted);
-    }
-
-    /* News tabs (Fox / Wowhead) */
-    .news-tabs {
-      display: inline-flex;
-      gap: 6px;
-      margin-bottom: 8px;
-    }
-
-    .news-tab {
-      padding: 4px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(242,211,139,0.35);
-      background: rgba(0,0,0,0.35);
-      color: var(--accent);
-      font-family: "Cinzel", serif;
-      font-size: 0.7rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: background 0.12s ease-out, box-shadow 0.12s ease-out, color 0.12s ease-out;
-    }
-
-    .news-tab-active {
-      background: rgba(242,211,139,0.22);
-      color: #18130a;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.8);
-    }
-
-    /* Shared pill buttons */
-    .pill-grid {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 8px;
-    }
-
-    .pill-btn {
-      flex: 1 1 160px;
-      padding: 10px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(242,211,139,0.45);
-      background: rgba(0,0,0,0.5);
-      color: var(--accent);
-      font-family: "Cinzel", serif;
-      font-size: 0.8rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      cursor: pointer;
-      text-align: center;
-      transition: background 0.12s ease-out, transform 0.12s ease-out, box-shadow 0.12s ease-out;
-    }
-
-    .pill-btn span {
-      display: block;
-      font-family: "Crimson Pro", serif;
-      font-size: 0.7rem;
-      letter-spacing: normal;
-      text-transform: none;
-      color: var(--muted);
-      margin-top: 2px;
-    }
-
-    .pill-btn:hover {
-      background: rgba(242,211,139,0.16);
-      transform: translateY(-1px);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.8);
-    }
-
-    /* Grid area mapping */
-    .grid-council    { grid-area: council; }
-    .grid-calendar   { grid-area: calendar; }
-    .grid-news       { grid-area: news; }
-    .grid-hall       { grid-area: hall; }
-    .grid-fellowship { grid-area: fellowship; }
-
-    @media (max-width: 900px) {
-      .layout {
-        grid-template-columns: 1fr;
-        grid-template-areas:
-          "council"
-          "calendar"
-          "news"
-          "hall"
-          "fellowship";
-      }
-    }
-  </style>
+</style>
 </head>
-
 <body>
 
-  <!-- Fellowship Banner + Google AI Search -->
-  <div class="banner" id="banner">
-    <div class="palantir-bar" id="palantirBar">
-      <div class="palantir-label">
-        <span class="palantir-orb"></span>
-        Palantír · Google
-      </div>
+<div class="topbar">
+    <input type="text" placeholder="Seek the wisdom of the Seeing-Stone (Google AI Search)..." />
+</div>
 
-      <form class="palantir-form" id="googleForm">
-        <input
-          id="googleQuery"
-          type="text"
-          class="palantir-input"
-          placeholder="Ask the AI-forged Google search…" />
-        <button class="btn" type="submit">Search</button>
-      </form>
-    </div>
-  </div>
-
-  <!-- Main Grid -->
-  <div class="layout">
-
-    <!-- ROW 1: Josie / ChatGPT -->
-    <div class="panel panel-council grid-council">
-      <div class="panel-title">Council of Elrond · Josie</div>
-      <p class="muted">
-        Central command for talking to your AI menace and stashing notes.
-        Notes stay in this browser only, like pages from the Red Book.
-      </p>
-      <button class="btn" id="openJosie" style="margin:8px 0;">
-        Open Josie in a New Tab
-      </button>
-      <div id="fakeChatLog"></div>
-      <input
-        id="fakeChatInput"
-        class="palantir-input"
-        placeholder="Drop a thought you want future-you to remember…" />
-      <button class="btn btn-secondary" id="fakeChatSave">Inscribe</button>
+<!-- CHATGPT + GEMINI SECTION (Top Priority) -->
+<div class="grid grid-2">
+    <div class="panel">
+        <h2>Palantír: Gemini</h2>
+        <iframe src="https://www.google.com" style="width:100%;height:350px;border:0;border-radius:8px;"></iframe>
     </div>
 
-    <!-- ROW 2 LEFT: Calendar -->
-    <div class="panel grid-calendar">
-      <div class="panel-title">Chronicles of the Shire</div>
-      <div class="iframe-wrapper">
-        <iframe
-          src="https://calendar.google.com/calendar/embed?src=abdickers%40gmail.com&ctz=America%2FChicago"
-          style="border:0"
-          frameborder="0"
-          scrolling="no">
+    <div class="panel">
+        <h2>Josie the Wise</h2>
+        <iframe src="https://chat.openai.com" style="width:100%;height:350px;border:0;border-radius:8px;"></iframe>
+    </div>
+</div>
+
+<!-- CALENDAR + SOCIAL -->
+<div class="grid grid-2">
+    <div class="panel">
+        <h2>Chronicles of the Shire</h2>
+        <iframe src="https://calendar.google.com/calendar/embed?src=abdickers%40gmail.com&ctz=America%2FChicago"
+                style="border:0;width:100%;height:500px;border-radius:10px;"></iframe>
+    </div>
+
+    <div class="panel">
+        <h2>The Fellowship (Social Media)</h2>
+        <iframe 
+            src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fadam.dickerson3&tabs=timeline&width=450&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true"
+            width="100%" height="500" style="border:none;overflow:hidden;border-radius:10px;" 
+            scrolling="no" frameborder="0" allow="encrypted-media">
         </iframe>
-      </div>
-      <p class="tiny">
-        Google Calendar → Settings → your calendar → Integrate → “Embed code”.
-        This iframe uses your personal calendar.
-      </p>
+    </div>
+</div>
+
+<!-- RSS FEEDS -->
+<div class="grid grid-2">
+    <div class="panel">
+        <h2>News from the Realm (Fox RSS)</h2>
+        <iframe src="https://moxie.foxnews.com/google-publisher/latest.xml"
+                style="width:100%;height:500px;border:0;border-radius:10px;"></iframe>
     </div>
 
-    <!-- ROW 2 RIGHT: Khazad-dûm · Hall of Devices -->
-    <div class="panel panel-hall grid-hall">
-      <div class="panel-title">Khazad-dûm · Hall of Devices</div>
-      <p class="muted">
-        All the Google doors in one hall. These open the official apps in new tabs;
-        any deep AI coordination lives in Google’s own UI.
-      </p>
-      <div class="pill-grid">
-        <button class="pill-btn" onclick="window.open('https://mail.google.com','_blank')">
-          Gmail
-          <span>Inbox & search</span>
-        </button>
-
-        <button class="pill-btn" onclick="window.open('https://drive.google.com','_blank')">
-          Google Drive
-          <span>Files, sheets, exports</span>
-        </button>
-
-        <button class="pill-btn" onclick="window.open('https://photos.google.com','_blank')">
-          Google Photos
-          <span>Memories & screenshots</span>
-        </button>
-
-        <button class="pill-btn" onclick="window.open('https://home.google.com','_blank')">
-          Google Home
-          <span>Full home control dashboard</span>
-        </button>
-
-        <button class="pill-btn" onclick="window.open('https://home.google.com/routines','_blank')">
-          Routines
-          <span>Manage automations & scenes</span>
-        </button>
-
-        <button class="pill-btn" onclick="window.open('https://myaccount.google.com/device-activity','_blank')">
-          Devices
-          <span>Signed-in devices overview</span>
-        </button>
-
-        <button class="pill-btn"
-          onclick="window.open('intent://home.google.com/#Intent;scheme=https;package=com.google.android.apps.chromecast.app;end','_blank')">
-          Home App
-          <span>On Android, jumps to the Home app</span>
-        </button>
-
-        <button class="pill-btn" onclick="window.open('https://gemini.google.com/app','_blank')">
-          Gemini Command
-          <span>AI workspace tying it all together</span>
-        </button>
-      </div>
+    <div class="panel">
+        <h2>Chronicles of Azeroth (WoWHead RSS)</h2>
+        <iframe src="https://www.wowhead.com/news/rss"
+                style="width:100%;height:500px;border:0;border-radius:10px;"></iframe>
     </div>
+</div>
 
-    <!-- ROW 3 LEFT: News (Fox + Wowhead) BELOW CALENDAR -->
-    <div class="panel grid-news">
-      <div class="panel-title">News from the Realm</div>
-      <div class="news-tabs">
-        <button class="news-tab news-tab-active" data-feed="fox">Fox News</button>
-        <button class="news-tab" data-feed="wowhead">Wowhead · Blue Tracker</button>
-      </div>
-      <div id="newsContainer" class="muted">Scanning the beacons…</div>
+<!-- COUNCIL OF ELROND -->
+<div class="grid">
+    <div class="panel panel-council">
+        <h2>Council of Elrond</h2>
+        <p>Local notes kept in your browser’s <b>localStorage</b>.  
+        Think of this as your personal Red Book.</p>
+
+        <textarea id="notes" style="width:100%;height:140px;background:rgba(0,0,0,0.45);color:#fff;border-radius:8px;border:1px solid #555;"></textarea>
+
+        <br><br>
+        <button onclick="saveNotes()" style="padding:10px 20px;border-radius:6px;border:1px solid #c7b37b;background:#2e2a1d;color:#e6d9b1;">
+            Inscribe
+        </button>
     </div>
+</div>
 
-    <!-- ROW 3 RIGHT: Fellowship / Social -->
-    <div class="panel grid-fellowship">
-      <div class="panel-title">The Fellowship · Social Dispatches</div>
-      <p class="muted">
-        Social feed corner. This example uses Facebook’s page plugin; swap the URL
-        to your own page or profile.
-      </p>
-      <div class="iframe-wrapper">
-        <iframe
-  src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fadam.dickerson3&tabs=timeline&width=500&height=400&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"
-  width="100%"
-  height="400"
-  style="border:none;overflow:hidden"
-  scrolling="no"
-  frameborder="0"
-  allowfullscreen="true"
-  allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
-</iframe>
-      </div>
-      <p class="tiny">
-        To point this at your own stuff, replace the <code>href=</code> URL in that iframe
-        with the one Facebook gives you (see steps below).
-      </p>
-    </div>
+<script>
+function saveNotes() {
+    localStorage.setItem("councilNotes", document.getElementById("notes").value);
+}
+document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("notes").value = localStorage.getItem("councilNotes") || "";
+});
+</script>
 
-  </div>
-
-  <script>
-    /* Google AI search bar */
-    const googleForm = document.getElementById("googleForm");
-    const googleQuery = document.getElementById("googleQuery");
-
-    googleForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const q = googleQuery.value.trim();
-      const url = q
-        ? `https://www.google.com/search?q=${encodeURIComponent(q)}`
-        : "https://www.google.com/";
-      window.open(url, "_blank");
-    });
-
-    /* Josie direct button */
-    const openJosieBtn = document.getElementById("openJosie");
-    if (openJosieBtn) {
-      openJosieBtn.onclick = () =>
-        window.open("https://chat.openai.com/", "_blank");
-    }
-
-    /* Council notes (localStorage) */
-    const chatLog = document.getElementById("fakeChatLog");
-    const chatInput = document.getElementById("fakeChatInput");
-    const chatSave = document.getElementById("fakeChatSave");
-
-    function appendNote(text) {
-      const div = document.createElement("div");
-      div.textContent = "You: " + text;
-      div.style.marginBottom = "4px";
-      chatLog.appendChild(div);
-      chatLog.scrollTop = chatLog.scrollHeight;
-    }
-
-    (function loadNotes() {
-      try {
-        const stored = JSON.parse(localStorage.getItem("sage_council_notes") || "[]");
-        stored.forEach(appendNote);
-      } catch {
-        // parchment got soggy, we pretend nothing happened
-      }
-    })();
-
-    chatSave.addEventListener("click", () => {
-      const text = chatInput.value.trim();
-      if (!text) return;
-      appendNote(text);
-      let stored = [];
-      try {
-        stored = JSON.parse(localStorage.getItem("sage_council_notes") || "[]");
-      } catch { stored = []; }
-      stored.push(text);
-      localStorage.setItem("sage_council_notes", JSON.stringify(stored));
-      chatInput.value = "";
-    });
-
-    /* News feeds: Fox + Wowhead RSS */
-    const newsContainer = document.getElementById("newsContainer");
-    const newsTabs = document.querySelectorAll(".news-tab");
-    let foxCache = null;
-    let wowCache = null;
-
-    function renderNews(items) {
-      if (!items || !items.length) {
-        newsContainer.textContent = "No tidings reach the beacons.";
-        return;
-      }
-      newsContainer.innerHTML = "";
-      items.slice(0, 8).forEach(item => {
-        const wrap = document.createElement("div");
-        wrap.className = "news-item";
-        wrap.innerHTML = `
-          <a class="news-title" href="${item.link}" target="_blank" rel="noopener">
-            ${item.title}
-          </a>
-          <div class="news-meta">${item.pubDate || ""}</div>
-        `;
-        newsContainer.appendChild(wrap);
-      });
-    }
-
-    async function fetchFox() {
-      if (foxCache) return foxCache;
-      const res = await fetch(
-        "https://api.rss2json.com/v1/api.json?rss_url=" +
-        encodeURIComponent("https://feeds.foxnews.com/foxnews/latest?format=xml")
-      );
-      const data = await res.json();
-      foxCache = data.items || [];
-      return foxCache;
-    }
-
-    async function fetchWowhead() {
-      if (wowCache) return wowCache;
-      const res = await fetch(
-        "https://api.rss2json.com/v1/api.json?rss_url=" +
-        encodeURIComponent("https://www.wowhead.com/blue-tracker?rss")
-      );
-      const data = await res.json();
-      wowCache = data.items || [];
-      return wowCache;
-    }
-
-    async function showFeed(which) {
-      newsContainer.textContent = "Scanning the beacons…";
-      try {
-        const items = which === "fox" ? await fetchFox() : await fetchWowhead();
-        renderNews(items);
-      } catch (e) {
-        console.error(e);
-        newsContainer.textContent =
-          "The beacons remain dark. Network wards may bar the path.";
-      }
-    }
-
-    newsTabs.forEach(btn => {
-      btn.addEventListener("click", () => {
-        newsTabs.forEach(b => b.classList.remove("news-tab-active"));
-        btn.classList.add("news-tab-active");
-        showFeed(btn.dataset.feed);
-      });
-    });
-
-    /* initial news load */
-    showFeed("fox");
-
-    /* Banner fade / parallax on scroll */
-    const banner = document.getElementById("banner");
-    const palantirBar = document.getElementById("palantirBar");
-
-    window.addEventListener("scroll", () => {
-      const y = window.scrollY || window.pageYOffset;
-      const max = 220;
-      const t = Math.min(y / max, 1);
-
-      const opacity = 1 - t * 0.6;
-      const bannerOffset = -t * 18;
-      const barOffset = t * 5;
-
-      banner.style.opacity = opacity.toString();
-      banner.style.transform = `translateY(${bannerOffset}px)`;
-      palantirBar.style.transform = `translateY(${barOffset}px)`;
-    });
-  </script>
 </body>
 </html>
-
