@@ -455,6 +455,69 @@
     .prompt-chip:hover {
       background: rgba(242,211,139,0.18);
     }
+
+    /* Footer */
+    .footer {
+      margin-top: 10px;
+      padding: 10px 18px;
+      border-top: 1px solid rgba(242,211,139,0.35);
+      background:
+        linear-gradient(to top, rgba(3,3,3,0.9), rgba(3,3,3,0.55));
+      backdrop-filter: blur(4px);
+      box-shadow: 0 -6px 18px rgba(0,0,0,0.9);
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-col {
+      flex: 1 1 220px;
+    }
+
+    .footer-quote {
+      font-style: italic;
+      color: #f3e6c2;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+    }
+
+    .footer-link {
+      border-radius: 999px;
+      padding: 4px 10px;
+      border: 1px solid rgba(242,211,139,0.4);
+      background: rgba(0,0,0,0.5);
+      color: var(--accent);
+      font-family: "Cinzel", serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .footer-link:hover {
+      background: rgba(242,211,139,0.18);
+    }
+
+    .footer-small {
+      text-align: right;
+      opacity: 0.8;
+    }
+
   </style>
 </head>
 
@@ -587,6 +650,31 @@
     </div>
 
   </div>
+
+  <!-- COOL FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-col footer-quote">
+        “All we have to decide is what to do with the time that is given us.”
+      </div>
+      <div class="footer-col">
+        <div class="footer-links">
+          <a class="footer-link" href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'})">To the Gates</a>
+          <button class="footer-link" onclick="document.getElementById('openJosie').click()">Josie</button>
+          <button class="footer-link" onclick="document.getElementById('openGemini').click()">Gemini</button>
+          <button class="footer-link" onclick="window.scrollTo({top:document.querySelector('.grid-calendar').offsetTop-80,behavior:'smooth'})">
+            Calendar
+          </button>
+          <button class="footer-link" onclick="window.scrollTo({top:document.querySelector('.grid-hall').offsetTop-80,behavior:'smooth'})">
+            Hall of Devices
+          </button>
+        </div>
+      </div>
+      <div class="footer-col footer-small">
+        Forged by Sage &amp; Josie · One dashboard to rule your day.
+      </div>
+    </div>
+  </footer>
 
   <script>
     /* Google AI search */
