@@ -26,11 +26,20 @@
 
     * { box-sizing: border-box; }
 
+    html, body {
+      height: 100%;
+    }
+
+    .page-wrap {
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
     /* Full Rivendell background */
     body {
       margin: 0;
       padding: 0;
-      min-height: 100vh;
       background:
         radial-gradient(circle at top left, rgba(242,211,139,0.16), transparent 55%),
         radial-gradient(circle at bottom right, rgba(44,75,96,0.4), transparent 60%),
@@ -367,7 +376,7 @@
       text-transform: uppercase;
       cursor: pointer;
       text-align: center;
-      transition: background 0.12s ease-out, transform 0.12s ease-out, box-shadow 0.12s ease-out;
+      transition: background 0.12s ease-out, transform 0.12s.ease-out, box-shadow 0.12s ease-out;
     }
 
     .pill-btn span {
@@ -458,7 +467,7 @@
 
     /* Footer */
     .footer {
-      margin-top: 10px;
+      margin-top: auto;
       padding: 10px 18px;
       border-top: 1px solid rgba(242,211,139,0.35);
       background:
@@ -522,159 +531,165 @@
 </head>
 
 <body>
+  <div class="page-wrap">
 
-  <!-- Banner + Google AI Search -->
-  <div class="banner" id="banner">
-    <div class="palantir-bar" id="palantirBar">
-      <div class="palantir-label">
-        <span class="palantir-orb"></span>
-        Palantír · Google
+    <!-- Banner + Google AI Search -->
+    <div class="banner" id="banner">
+      <div class="palantir-bar" id="palantirBar">
+        <div class="palantir-label">
+          <span class="palantir-orb"></span>
+          Palantír · Google
+        </div>
+
+        <form class="palantir-form" id="googleForm">
+          <input
+            id="googleQuery"
+            type="text"
+            class="palantir-input"
+            placeholder="Ask the AI-forged Google search…" />
+          <button class="btn" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Main Grid -->
+    <div class="layout">
+
+      <!-- Calendar (top left) -->
+      <div class="panel grid-calendar">
+        <div class="panel-title">Chronicles of the Shire</div>
+        <div class="iframe-wrapper">
+          <iframe
+            src="https://calendar.google.com/calendar/embed?src=abdickers%40gmail.com&ctz=America%2FChicago"
+            style="border:0"
+            frameborder="0"
+            scrolling="no">
+          </iframe>
+        </div>
+        <p class="tiny">
+          Google Calendar → Settings → your calendar → Integrate → “Embed code”.
+        </p>
       </div>
 
-      <form class="palantir-form" id="googleForm">
+      <!-- Council of Elrond (top right) -->
+      <div class="panel panel-council grid-council">
+        <div class="panel-title">Council of Elrond · AI Control</div>
+        <p class="muted">
+          Quick launch for Josie & Gemini, plus scratchpad notes that live only in this browser.
+        </p>
+
+        <div style="display:flex; gap:8px; margin:6px 0 4px; position:relative; z-index:1;">
+          <button class="btn" id="openJosie">Open Josie</button>
+          <button class="btn btn-secondary" id="openGemini">Open Gemini</button>
+        </div>
+
+        <div class="quick-prompts">
+          <div class="prompt-chip" data-prompt="Summarize my day in 3 bullets.">Day summary</div>
+          <div class="prompt-chip" data-prompt="Help me plan tonight in under 30 minutes.">Tonight plan</div>
+          <div class="prompt-chip" data-prompt="What are my top 3 priorities tomorrow?">Tomorrow priorities</div>
+        </div>
+
+        <div id="fakeChatLog"></div>
         <input
-          id="googleQuery"
-          type="text"
+          id="fakeChatInput"
           class="palantir-input"
-          placeholder="Ask the AI-forged Google search…" />
-        <button class="btn" type="submit">Search</button>
-      </form>
-    </div>
-  </div>
-
-  <!-- Main Grid -->
-  <div class="layout">
-
-    <!-- Calendar (top left) -->
-    <div class="panel grid-calendar">
-      <div class="panel-title">Chronicles of the Shire</div>
-      <div class="iframe-wrapper">
-        <iframe
-          src="https://calendar.google.com/calendar/embed?src=abdickers%40gmail.com&ctz=America%2FChicago"
-          style="border:0"
-          frameborder="0"
-          scrolling="no">
-        </iframe>
-      </div>
-      <p class="tiny">
-        Google Calendar → Settings → your calendar → Integrate → “Embed code”.
-      </p>
-    </div>
-
-    <!-- Council of Elrond (top right) -->
-    <div class="panel panel-council grid-council">
-      <div class="panel-title">Council of Elrond · AI Control</div>
-      <p class="muted">
-        Quick launch for Josie & Gemini, plus scratchpad notes that live only in this browser.
-      </p>
-
-      <div style="display:flex; gap:8px; margin:6px 0 4px; position:relative; z-index:1;">
-        <button class="btn" id="openJosie">Open Josie</button>
-        <button class="btn btn-secondary" id="openGemini">Open Gemini</button>
+          placeholder="Drop a note or idea you want future-you to remember…" />
+        <button class="btn btn-secondary" id="fakeChatSave" style="margin-top:4px;">Inscribe</button>
       </div>
 
-      <div class="quick-prompts">
-        <div class="prompt-chip" data-prompt="Summarize my day in 3 bullets.">Day summary</div>
-        <div class="prompt-chip" data-prompt="Help me plan tonight in under 30 minutes.">Tonight plan</div>
-        <div class="prompt-chip" data-prompt="What are my top 3 priorities tomorrow?">Tomorrow priorities</div>
+      <!-- News under calendar -->
+      <div class="panel grid-news">
+        <div class="panel-title">News from the Realm</div>
+        <div class="news-tabs">
+          <button class="news-tab news-tab-active" data-feed="fox">Fox News</button>
+          <button class="news-tab" data-feed="wowhead">Wowhead News</button>
+        </div>
+        <div id="newsContainer" class="muted">Scanning the beacons…</div>
       </div>
 
-      <div id="fakeChatLog"></div>
-      <input
-        id="fakeChatInput"
-        class="palantir-input"
-        placeholder="Drop a note or idea you want future-you to remember…" />
-      <button class="btn btn-secondary" id="fakeChatSave" style="margin-top:4px;">Inscribe</button>
-    </div>
-
-    <!-- News under calendar -->
-    <div class="panel grid-news">
-      <div class="panel-title">News from the Realm</div>
-      <div class="news-tabs">
-        <button class="news-tab news-tab-active" data-feed="fox">Fox News</button>
-        <button class="news-tab" data-feed="wowhead">Wowhead News</button>
-      </div>
-      <div id="newsContainer" class="muted">Scanning the beacons…</div>
-    </div>
-
-    <!-- Hall of Devices right column -->
-    <div class="panel panel-hall grid-hall">
-      <div class="panel-title">Khazad-dûm · Hall of Devices</div>
-      <p class="muted">
-        All the Google doors in one hall. These open the official apps in new tabs.
-      </p>
-      <div class="pill-grid">
-        <button class="pill-btn" onclick="window.open('https://mail.google.com','_blank')">
-          Gmail<span>Inbox & search</span>
-        </button>
-        <button class="pill-btn" onclick="window.open('https://drive.google.com','_blank')">
-          Google Drive<span>Files, sheets, exports</span>
-        </button>
-        <button class="pill-btn" onclick="window.open('https://photos.google.com','_blank')">
-          Google Photos<span>Memories & screenshots</span>
-        </button>
-        <button class="pill-btn" onclick="window.open('https://home.google.com','_blank')">
-          Google Home<span>Full home control dashboard</span>
-        </button>
-        <button class="pill-btn" onclick="window.open('https://home.google.com/routines','_blank')">
-          Routines<span>Automations & scenes</span>
-        </button>
-        <button class="pill-btn" onclick="window.open('https://myaccount.google.com/device-activity','_blank')">
-          Devices<span>Signed-in devices overview</span>
-        </button>
-        <button class="pill-btn" onclick="window.open('https://gemini.google.com/app','_blank')">
-          Gemini Command<span>AI workspace</span>
-        </button>
-      </div>
-    </div>
-
-    <!-- Fellowship bottom-left -->
-    <div class="panel grid-fellowship">
-      <div class="panel-title">The Fellowship · Social Dispatches</div>
-      <p class="muted">
-        Social feed corner. Current embed uses your Facebook profile plugin.
-      </p>
-      <div class="iframe-wrapper">
-        <iframe
-          src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fadam.dickerson3&tabs=timeline&width=500&height=400&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"
-          style="border:none;overflow:hidden"
-          scrolling="no"
-          frameborder="0"
-          allowfullscreen="true"
-          allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
-        </iframe>
-      </div>
-      <p class="tiny">
-        To change target: edit the <code>href=</code> URL inside the iframe.
-      </p>
-    </div>
-
-  </div>
-
-  <!-- COOL FOOTER -->
-  <footer class="footer">
-    <div class="footer-inner">
-      <div class="footer-col footer-quote">
-        “All we have to decide is what to do with the time that is given us.”
-      </div>
-      <div class="footer-col">
-        <div class="footer-links">
-          <a class="footer-link" href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'})">To the Gates</a>
-          <button class="footer-link" onclick="document.getElementById('openJosie').click()">Josie</button>
-          <button class="footer-link" onclick="document.getElementById('openGemini').click()">Gemini</button>
-          <button class="footer-link" onclick="window.scrollTo({top:document.querySelector('.grid-calendar').offsetTop-80,behavior:'smooth'})">
-            Calendar
+      <!-- Hall of Devices right column -->
+      <div class="panel panel-hall grid-hall">
+        <div class="panel-title">Khazad-dûm · Hall of Devices</div>
+        <p class="muted">
+          All the Google doors in one hall. These open the official apps in new tabs.
+        </p>
+        <div class="pill-grid">
+          <button class="pill-btn" onclick="window.open('https://mail.google.com','_blank')">
+            Gmail<span>Inbox & search</span>
           </button>
-          <button class="footer-link" onclick="window.scrollTo({top:document.querySelector('.grid-hall').offsetTop-80,behavior:'smooth'})">
-            Hall of Devices
+          <button class="pill-btn" onclick="window.open('https://drive.google.com','_blank')">
+            Google Drive<span>Files, sheets, exports</span>
+          </button>
+          <button class="pill-btn" onclick="window.open('https://photos.google.com','_blank')">
+            Google Photos<span>Memories & screenshots</span>
+          </button>
+          <button class="pill-btn" onclick="window.open('https://home.google.com','_blank')">
+            Google Home<span>Full home control dashboard</span>
+          </button>
+          <button class="pill-btn" onclick="window.open('https://home.google.com/routines','_blank')">
+            Routines<span>Automations & scenes</span>
+          </button>
+          <button class="pill-btn" onclick="window.open('https://myaccount.google.com/device-activity','_blank')">
+            Devices<span>Signed-in devices overview</span>
+          </button>
+          <button class="pill-btn" onclick="window.open('https://gemini.google.com/app','_blank')">
+            Gemini Command<span>AI workspace</span>
           </button>
         </div>
       </div>
-      <div class="footer-col footer-small">
-        Forged by Sage &amp; Josie · One dashboard to rule your day.
+
+      <!-- Fellowship bottom-left -->
+      <div class="panel grid-fellowship">
+        <div class="panel-title">The Fellowship · Social Dispatches</div>
+        <p class="muted">
+          Social feed corner. Current embed uses your Facebook profile plugin.
+        </p>
+        <div class="iframe-wrapper">
+          <iframe
+            src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fadam.dickerson3&tabs=timeline&width=500&height=400&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"
+            style="border:none;overflow:hidden"
+            scrolling="no"
+            frameborder="0"
+            allowfullscreen="true"
+            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+          </iframe>
+        </div>
+        <p class="tiny">
+          To change target: edit the <code>href=</code> URL inside the iframe.
+        </p>
       </div>
+
     </div>
-  </footer>
+
+    <!-- COOL FOOTER -->
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-col footer-quote">
+          “All we have to decide is what to do with the time that is given us.”
+        </div>
+        <div class="footer-col">
+          <div class="footer-links">
+            <a class="footer-link"
+               onclick="window.scrollTo({top:0,behavior:'smooth'})">To the Gates</a>
+            <button class="footer-link" onclick="document.getElementById('openJosie').click()">Josie</button>
+            <button class="footer-link" onclick="document.getElementById('openGemini').click()">Gemini</button>
+            <button class="footer-link"
+                    onclick="window.scrollTo({top:document.querySelector('.grid-calendar').offsetTop-80,behavior:'smooth'})">
+              Calendar
+            </button>
+            <button class="footer-link"
+                    onclick="window.scrollTo({top:document.querySelector('.grid-hall').offsetTop-80,behavior:'smooth'})">
+              Hall of Devices
+            </button>
+          </div>
+        </div>
+        <div class="footer-col footer-small">
+          Forged by Sage &amp; Josie · One dashboard to rule your day.
+        </div>
+      </div>
+    </footer>
+
+  </div>
 
   <script>
     /* Google AI search */
@@ -774,27 +789,20 @@
     }
 
     async function fetchWowhead() {
-  if (wowCache) return wowCache;
+      if (wowCache) return wowCache;
+      const res = await fetch(
+        "https://api.rss2json.com/v1/api.json?rss_url=" +
+        encodeURIComponent("https://www.wowhead.com/news/rss")
+      );
+      const data = await res.json();
+      wowCache = (data.items || []).map(item => ({
+        title: item.title,
+        link: item.link,
+        pubDate: item.pubDate
+      }));
+      return wowCache;
+    }
 
-  const url = "https://api.rss2json.io/v1/api.json?rss_url=" +
-              encodeURIComponent("https://www.wowhead.com/news/rss");
-
-  try {
-    const res = await fetch(url);
-    const data = await res.json();
-
-    wowCache = (data.items || []).map(item => ({
-      title: item.title,
-      link: item.link,
-      pubDate: item.pubDate
-    }));
-
-    return wowCache;
-  } catch (err) {
-    console.error("WOW RSS error:", err);
-    return [];
-  }
-}
     async function showFeed(which) {
       newsContainer.textContent = "Scanning the beacons…";
       try {
@@ -835,5 +843,3 @@
   </script>
 </body>
 </html>
-
-
