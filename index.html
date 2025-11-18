@@ -592,7 +592,7 @@
       <div class="panel-title">News from the Realm</div>
       <div class="news-tabs">
         <button class="news-tab news-tab-active" data-feed="fox">Fox News</button>
-        <button class="news-tab" data-feed="wowhead">Wowhead · Blue Tracker</button>
+        <button class="news-tab" data-feed="wowhead">Wowhead News</button>
       </div>
       <div id="newsContainer" class="muted">Scanning the beacons…</div>
     </div>
@@ -774,15 +774,23 @@
     }
 
     async function fetchWowhead() {
-      if (wowCache) return wowCache;
-      const res = await fetch(
-        "https://api.rss2json.com/v1/api.json?rss_url=" +
-        encodeURIComponent("https://www.wowhead.com/blue-tracker?rss")
-      );
-      const data = await res.json();
-      wowCache = data.items || [];
-      return wowCache;
-    }
+  if (wowCache) return wowCache;
+
+  const res = await fetch(
+    "https://api.rss2json.com/v1/api.json?rss_url=" +
+    encodeURIComponent("https://www.wowhead.com/news/rss")
+  );
+
+  const data = await res.json();
+  // Fallback in case the shape is weird
+  wowCache = (data.items || []).map(item => ({
+    title: item.title,
+    link: item.link,
+    pubDate: item.pubDate
+  }));
+
+  return wowCache;
+}
 
     async function showFeed(which) {
       newsContainer.textContent = "Scanning the beacons…";
@@ -824,3 +832,4 @@
   </script>
 </body>
 </html>
+
