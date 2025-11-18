@@ -30,16 +30,13 @@
       height: 100%;
     }
 
-    .page-wrap {
-      min-height: 100%;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* Full Rivendell background */
+    /* Body as flex container so footer behaves like a civilized creature */
     body {
       margin: 0;
       padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
       background:
         radial-gradient(circle at top left, rgba(242,211,139,0.16), transparent 55%),
         radial-gradient(circle at bottom right, rgba(44,75,96,0.4), transparent 60%),
@@ -48,6 +45,12 @@
       color: var(--text);
       font-family: "Crimson Pro", serif;
       overflow-x: hidden;
+    }
+
+    main {
+      flex: 1 0 auto;
+      display: flex;
+      flex-direction: column;
     }
 
     /* Fellowship banner */
@@ -376,7 +379,7 @@
       text-transform: uppercase;
       cursor: pointer;
       text-align: center;
-      transition: background 0.12s ease-out, transform 0.12s.ease-out, box-shadow 0.12s ease-out;
+      transition: background 0.12s ease-out, transform 0.12s ease-out, box-shadow 0.12s ease-out;
     }
 
     .pill-btn span {
@@ -467,7 +470,7 @@
 
     /* Footer */
     .footer {
-      margin-top: auto;
+      flex: 0 0 auto;
       padding: 10px 18px;
       border-top: 1px solid rgba(242,211,139,0.35);
       background:
@@ -526,13 +529,11 @@
       text-align: right;
       opacity: 0.8;
     }
-
   </style>
 </head>
 
 <body>
-  <div class="page-wrap">
-
+  <main>
     <!-- Banner + Google AI Search -->
     <div class="banner" id="banner">
       <div class="palantir-bar" id="palantirBar">
@@ -575,7 +576,7 @@
       <div class="panel panel-council grid-council">
         <div class="panel-title">Council of Elrond · AI Control</div>
         <p class="muted">
-          Quick launch for Josie & Gemini, plus scratchpad notes that live only in this browser.
+          Quick launch for Josie &amp; Gemini, plus scratchpad notes that live only in this browser.
         </p>
 
         <div style="display:flex; gap:8px; margin:6px 0 4px; position:relative; z-index:1;">
@@ -602,7 +603,7 @@
         <div class="panel-title">News from the Realm</div>
         <div class="news-tabs">
           <button class="news-tab news-tab-active" data-feed="fox">Fox News</button>
-          <button class="news-tab" data-feed="wowhead">Wowhead News</button>
+          <button class="news-tab" data-feed="wowhead">Wowhead</button>
         </div>
         <div id="newsContainer" class="muted">Scanning the beacons…</div>
       </div>
@@ -615,19 +616,19 @@
         </p>
         <div class="pill-grid">
           <button class="pill-btn" onclick="window.open('https://mail.google.com','_blank')">
-            Gmail<span>Inbox & search</span>
+            Gmail<span>Inbox &amp; search</span>
           </button>
           <button class="pill-btn" onclick="window.open('https://drive.google.com','_blank')">
             Google Drive<span>Files, sheets, exports</span>
           </button>
           <button class="pill-btn" onclick="window.open('https://photos.google.com','_blank')">
-            Google Photos<span>Memories & screenshots</span>
+            Google Photos<span>Memories &amp; screenshots</span>
           </button>
           <button class="pill-btn" onclick="window.open('https://home.google.com','_blank')">
             Google Home<span>Full home control dashboard</span>
           </button>
           <button class="pill-btn" onclick="window.open('https://home.google.com/routines','_blank')">
-            Routines<span>Automations & scenes</span>
+            Routines<span>Automations &amp; scenes</span>
           </button>
           <button class="pill-btn" onclick="window.open('https://myaccount.google.com/device-activity','_blank')">
             Devices<span>Signed-in devices overview</span>
@@ -660,36 +661,35 @@
       </div>
 
     </div>
+  </main>
 
-    <!-- COOL FOOTER -->
-    <footer class="footer">
-      <div class="footer-inner">
-        <div class="footer-col footer-quote">
-          “All we have to decide is what to do with the time that is given us.”
-        </div>
-        <div class="footer-col">
-          <div class="footer-links">
-            <a class="footer-link"
-               onclick="window.scrollTo({top:0,behavior:'smooth'})">To the Gates</a>
-            <button class="footer-link" onclick="document.getElementById('openJosie').click()">Josie</button>
-            <button class="footer-link" onclick="document.getElementById('openGemini').click()">Gemini</button>
-            <button class="footer-link"
-                    onclick="window.scrollTo({top:document.querySelector('.grid-calendar').offsetTop-80,behavior:'smooth'})">
-              Calendar
-            </button>
-            <button class="footer-link"
-                    onclick="window.scrollTo({top:document.querySelector('.grid-hall').offsetTop-80,behavior:'smooth'})">
-              Hall of Devices
-            </button>
-          </div>
-        </div>
-        <div class="footer-col footer-small">
-          Forged by Sage &amp; Josie · One dashboard to rule your day.
+  <!-- COOL FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-col footer-quote">
+        “All we have to decide is what to do with the time that is given us.”
+      </div>
+      <div class="footer-col">
+        <div class="footer-links">
+          <a class="footer-link"
+             onclick="window.scrollTo({top:0,behavior:'smooth'})">To the Gates</a>
+          <button class="footer-link" onclick="document.getElementById('openJosie').click()">Josie</button>
+          <button class="footer-link" onclick="document.getElementById('openGemini').click()">Gemini</button>
+          <button class="footer-link"
+                  onclick="window.scrollTo({top:document.querySelector('.grid-calendar').offsetTop-80,behavior:'smooth'})">
+            Calendar
+          </button>
+          <button class="footer-link"
+                  onclick="window.scrollTo({top:document.querySelector('.grid-hall').offsetTop-80,behavior:'smooth'})">
+            Hall of Devices
+          </button>
         </div>
       </div>
-    </footer>
-
-  </div>
+      <div class="footer-col footer-small">
+        Forged by Sage &amp; Josie · One dashboard to rule your day.
+      </div>
+    </div>
+  </footer>
 
   <script>
     /* Google AI search */
@@ -756,7 +756,6 @@
     const newsContainer = document.getElementById("newsContainer");
     const newsTabs = document.querySelectorAll(".news-tab");
     let foxCache = null;
-    let wowCache = null;
 
     function renderNews(items) {
       if (!items || !items.length) {
@@ -788,30 +787,33 @@
       return foxCache;
     }
 
-    async function fetchWowhead() {
-      if (wowCache) return wowCache;
-      const res = await fetch(
-        "https://api.rss2json.com/v1/api.json?rss_url=" +
-        encodeURIComponent("https://www.wowhead.com/news/rss")
-      );
-      const data = await res.json();
-      wowCache = (data.items || []).map(item => ({
-        title: item.title,
-        link: item.link,
-        pubDate: item.pubDate
-      }));
-      return wowCache;
-    }
-
     async function showFeed(which) {
-      newsContainer.textContent = "Scanning the beacons…";
-      try {
-        const items = which === "fox" ? await fetchFox() : await fetchWowhead();
-        renderNews(items);
-      } catch (e) {
-        console.error(e);
-        newsContainer.textContent =
-          "The beacons remain dark. Network wards may bar the path.";
+      if (which === "fox") {
+        newsContainer.textContent = "Scanning the beacons…";
+        try {
+          const items = await fetchFox();
+          renderNews(items);
+        } catch (e) {
+          console.error(e);
+          newsContainer.textContent =
+            "The beacons remain dark. Network wards may bar the path.";
+        }
+      } else {
+        // Wowhead: no RSS from static page. Just give clean quick links.
+        newsContainer.innerHTML = `
+          <div class="muted">
+            Wowhead doesn’t like being scraped from a static page.
+            Use these instead:
+          </div>
+          <div style="margin-top:8px; display:flex; flex-wrap:wrap; gap:8px;">
+            <button class="pill-btn" onclick="window.open('https://www.wowhead.com/news','_blank')">
+              Wowhead News<span>Articles &amp; updates</span>
+            </button>
+            <button class="pill-btn" onclick="window.open('https://www.wowhead.com/blue-tracker','_blank')">
+              Blue Tracker<span>Official posts</span>
+            </button>
+          </div>
+        `;
       }
     }
 
@@ -823,6 +825,7 @@
       });
     });
 
+    // Default to Fox on load
     showFeed("fox");
 
     /* Banner parallax */
