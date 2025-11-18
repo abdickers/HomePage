@@ -776,22 +776,25 @@
     async function fetchWowhead() {
   if (wowCache) return wowCache;
 
-  const res = await fetch(
-    "https://api.rss2json.com/v1/api.json?rss_url=" +
-    encodeURIComponent("https://www.wowhead.com/news/rss")
-  );
+  const url = "https://api.rss2json.io/v1/api.json?rss_url=" +
+              encodeURIComponent("https://www.wowhead.com/news/rss");
 
-  const data = await res.json();
-  // Fallback in case the shape is weird
-  wowCache = (data.items || []).map(item => ({
-    title: item.title,
-    link: item.link,
-    pubDate: item.pubDate
-  }));
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
 
-  return wowCache;
+    wowCache = (data.items || []).map(item => ({
+      title: item.title,
+      link: item.link,
+      pubDate: item.pubDate
+    }));
+
+    return wowCache;
+  } catch (err) {
+    console.error("WOW RSS error:", err);
+    return [];
+  }
 }
-
     async function showFeed(which) {
       newsContainer.textContent = "Scanning the beacons…";
       try {
@@ -832,4 +835,5 @@
   </script>
 </body>
 </html>
+
 
