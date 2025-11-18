@@ -165,7 +165,7 @@
       background: rgba(242,211,139,0.12);
     }
 
-    /* Main layout: 2x2 grid */
+    /* Main layout: 2x2 grid + full-width row */
     .layout {
       padding: 14px;
       display: grid;
@@ -196,15 +196,20 @@
       padding: 12px;
       box-shadow: 0 10px 26px rgba(0,0,0,0.8);
       border: 1px solid rgba(242,211,139,0.38);
-      overflow-y: auto;      /* vertical scroll if needed */
+      overflow-y: auto;      /* vertical scroll when needed */
       overflow-x: hidden;    /* never horizontal */
       resize: vertical;
       transition: transform 0.12s ease-out, box-shadow 0.12s ease-out, border-color 0.12s ease-out;
     }
 
-    /* SPECIAL: Council + Home panels should NOT scroll themselves */
     .panel-council,
     .panel-home {
+      overflow: visible;
+      resize: none;
+    }
+
+    .panel-full {
+      grid-column: 1 / -1;  /* span both columns */
       overflow: visible;
       resize: none;
     }
@@ -289,7 +294,7 @@
       z-index: 1;
       min-height: 120px;
       max-height: 24vh;
-      overflow-y: auto;   /* internal scroll only when needed */
+      overflow-y: auto;
       overflow-x: hidden;
       margin-bottom: 8px;
       font-size: 0.9rem;
@@ -320,8 +325,35 @@
       color: var(--muted);
     }
 
-    /* Google Home control grid */
-    .home-grid {
+    /* News tabs (Fox / Wowhead) */
+    .news-tabs {
+      display: inline-flex;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+
+    .news-tab {
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(242,211,139,0.35);
+      background: rgba(0,0,0,0.35);
+      color: var(--accent);
+      font-family: "Cinzel", serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.12s ease-out, box-shadow 0.12s ease-out, color 0.12s ease-out;
+    }
+
+    .news-tab-active {
+      background: rgba(242,211,139,0.22);
+      color: #18130a;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.8);
+    }
+
+    /* Shared pill buttons (Home + Gateways) */
+    .pill-grid {
       position: relative;
       z-index: 1;
       display: flex;
@@ -330,7 +362,7 @@
       margin-top: 8px;
     }
 
-    .home-btn {
+    .pill-btn {
       flex: 1 1 160px;
       padding: 10px 12px;
       border-radius: 999px;
@@ -343,10 +375,10 @@
       text-transform: uppercase;
       cursor: pointer;
       text-align: center;
-      transition: background 0.12s.ease-out, transform 0.12s ease-out, box-shadow 0.12s ease-out;
+      transition: background 0.12s ease-out, transform 0.12s ease-out, box-shadow 0.12s ease-out;
     }
 
-    .home-btn span {
+    .pill-btn span {
       display: block;
       font-family: "Crimson Pro", serif;
       font-size: 0.7rem;
@@ -356,7 +388,7 @@
       margin-top: 2px;
     }
 
-    .home-btn:hover {
+    .pill-btn:hover {
       background: rgba(242,211,139,0.16);
       transform: translateY(-1px);
       box-shadow: 0 10px 20px rgba(0,0,0,0.8);
@@ -366,6 +398,9 @@
       .layout {
         grid-template-columns: 1fr;
         grid-auto-rows: minmax(260px, auto);
+      }
+      .panel-full {
+        grid-column: auto;
       }
     }
   </style>
@@ -415,13 +450,16 @@
       </p>
     </div>
 
-    <!-- TOP RIGHT: Council -->
+    <!-- TOP RIGHT: Council / Josie -->
     <div class="panel panel-council">
-      <div class="panel-title">Council of Elrond</div>
+      <div class="panel-title">Council of Elrond · Josie</div>
       <p class="muted">
-        Local notes kept in your browser’s <code>localStorage</code>.
-        The Red Book, but for custody schedules and NetSuite grief.
+        Local notes kept in your browser’s <code>localStorage</code>. The Red Book,
+        but for custody schedules, NetSuite nightmares, and whatever else you vent at me.
       </p>
+      <button class="btn" id="openJosie" style="margin-bottom:8px;">
+        Open Josie in the White Tower
+      </button>
       <div id="fakeChatLog"></div>
       <input
         id="fakeChatInput"
@@ -430,37 +468,41 @@
       <button class="btn btn-secondary" id="fakeChatSave">Inscribe</button>
     </div>
 
-    <!-- BOTTOM LEFT: News -->
+    <!-- MIDDLE LEFT: News (Fox + Wowhead) -->
     <div class="panel">
       <div class="panel-title">News from the Realm</div>
-      <div id="foxNewsContainer" class="muted">Scanning the beacons…</div>
+      <div class="news-tabs">
+        <button class="news-tab news-tab-active" data-feed="fox">Fox News</button>
+        <button class="news-tab" data-feed="wowhead">Wowhead · Blue Tracker</button>
+      </div>
+      <div id="newsContainer" class="muted">Scanning the beacons…</div>
     </div>
 
-    <!-- BOTTOM RIGHT: Google Home -->
+    <!-- MIDDLE RIGHT: Google Home -->
     <div class="panel panel-home">
       <div class="panel-title">Google Home · Hall of Devices</div>
       <p class="muted">
         Quick routes to your smart-home controls. These open official pages in new tabs;
-        true one-click spells will need a future backend and OAuth.
+        real one-click spells would need a backend and OAuth.
       </p>
-      <div class="home-grid">
-        <button class="home-btn" onclick="window.open('https://home.google.com','_blank')">
+      <div class="pill-grid">
+        <button class="pill-btn" onclick="window.open('https://home.google.com','_blank')">
           Google Home
           <span>Full home control dashboard</span>
         </button>
 
-        <button class="home-btn" onclick="window.open('https://home.google.com/routines','_blank')">
+        <button class="pill-btn" onclick="window.open('https://home.google.com/routines','_blank')">
           Routines
           <span>Manage automations & scenes</span>
         </button>
 
-        <button class="home-btn" onclick="window.open('https://myaccount.google.com/device-activity','_blank')">
+        <button class="pill-btn" onclick="window.open('https://myaccount.google.com/device-activity','_blank')">
           Devices
           <span>Signed-in devices overview</span>
         </button>
 
         <!-- Android-only deep link; harmless elsewhere -->
-        <button class="home-btn"
+        <button class="pill-btn"
           onclick="window.open('intent://home.google.com/#Intent;scheme=https;package=com.google.android.apps.chromecast.app;end','_blank')">
           Open Home App
           <span>On Android, jumps to the Home app</span>
@@ -468,10 +510,50 @@
       </div>
     </div>
 
+    <!-- BOTTOM: Gateways panel (Gmail, Drive, Photos, FB, Gemini, Josie) -->
+    <div class="panel panel-full">
+      <div class="panel-title">Gateways of Men</div>
+      <p class="muted">
+        Single row of portals to the things you actually use. Most of these services
+        don’t allow being embedded inside another page, so these open cleanly in new tabs.
+      </p>
+      <div class="pill-grid">
+        <button class="pill-btn" onclick="window.open('https://mail.google.com','_blank')">
+          Gmail
+          <span>Inbox & search</span>
+        </button>
+
+        <button class="pill-btn" onclick="window.open('https://drive.google.com','_blank')">
+          Google Drive
+          <span>Files, sheets, exports</span>
+        </button>
+
+        <button class="pill-btn" onclick="window.open('https://photos.google.com','_blank')">
+          Google Photos
+          <span>Memories & screenshots</span>
+        </button>
+
+        <button class="pill-btn" onclick="window.open('https://www.facebook.com','_blank')">
+          Facebook
+          <span>Social feed & messages</span>
+        </button>
+
+        <button class="pill-btn" onclick="window.open('https://gemini.google.com/app','_blank')">
+          Gemini Command
+          <span>Let the palantír synthesize things</span>
+        </button>
+
+        <button class="pill-btn" onclick="window.open('https://chat.openai.com/','_blank')">
+          Josie · ChatGPT
+          <span>Direct audience with your AI menace</span>
+        </button>
+      </div>
+    </div>
+
   </div>
 
   <script>
-    /* Palantír Search */
+    /* Palantír Search → Gemini */
     const geminiForm = document.getElementById("geminiForm");
     const geminiQuery = document.getElementById("geminiQuery");
     const openGeminiBtn = document.getElementById("openGemini");
@@ -488,7 +570,14 @@
     openGeminiBtn.onclick = () =>
       window.open("https://gemini.google.com/app", "_blank");
 
-    /* Council notes */
+    /* Josie direct button */
+    const openJosieBtn = document.getElementById("openJosie");
+    if (openJosieBtn) {
+      openJosieBtn.onclick = () =>
+        window.open("https://chat.openai.com/", "_blank");
+    }
+
+    /* Council notes (localStorage) */
     const chatLog = document.getElementById("fakeChatLog");
     const chatInput = document.getElementById("fakeChatInput");
     const chatSave = document.getElementById("fakeChatSave");
@@ -506,7 +595,7 @@
         const stored = JSON.parse(localStorage.getItem("sage_council_notes") || "[]");
         stored.forEach(appendNote);
       } catch {
-        // corrupted parchment, ignore
+        // parchment got soggy, ignore
       }
     })();
 
@@ -523,39 +612,75 @@
       chatInput.value = "";
     });
 
-    /* Fox News Feed */
-    const foxContainer = document.getElementById("foxNewsContainer");
-    async function loadFox() {
+    /* News feeds: Fox + Wowhead RSS */
+    const newsContainer = document.getElementById("newsContainer");
+    const newsTabs = document.querySelectorAll(".news-tab");
+    let foxCache = null;
+    let wowCache = null;
+
+    function renderNews(items) {
+      if (!items || !items.length) {
+        newsContainer.textContent = "No tidings reach the beacons.";
+        return;
+      }
+      newsContainer.innerHTML = "";
+      items.slice(0, 8).forEach(item => {
+        const wrap = document.createElement("div");
+        wrap.className = "news-item";
+        wrap.innerHTML = `
+          <a class="news-title" href="${item.link}" target="_blank" rel="noopener">
+            ${item.title}
+          </a>
+          <div class="news-meta">${item.pubDate || ""}</div>
+        `;
+        newsContainer.appendChild(wrap);
+      });
+    }
+
+    async function fetchFox() {
+      if (foxCache) return foxCache;
+      const res = await fetch(
+        "https://api.rss2json.com/v1/api.json?rss_url=" +
+        encodeURIComponent("https://feeds.foxnews.com/foxnews/latest?format=xml")
+      );
+      const data = await res.json();
+      foxCache = data.items || [];
+      return foxCache;
+    }
+
+    async function fetchWowhead() {
+      if (wowCache) return wowCache;
+      const res = await fetch(
+        "https://api.rss2json.com/v1/api.json?rss_url=" +
+        encodeURIComponent("https://www.wowhead.com/blue-tracker?rss")
+      );
+      const data = await res.json();
+      wowCache = data.items || [];
+      return wowCache;
+    }
+
+    async function showFeed(which) {
+      newsContainer.textContent = "Scanning the beacons…";
       try {
-        const res = await fetch(
-          "https://api.rss2json.com/v1/api.json?rss_url=" +
-          encodeURIComponent("https://feeds.foxnews.com/foxnews/latest?format=xml")
-        );
-        const data = await res.json();
-        if (!data.items || !data.items.length) {
-          foxContainer.textContent = "No fresh tidings from the realm.";
-          return;
-        }
-        foxContainer.innerHTML = "";
-        data.items.slice(0, 8).forEach(item => {
-          const wrap = document.createElement("div");
-          wrap.className = "news-item";
-          wrap.innerHTML = `
-            <a class="news-title" href="${item.link}" target="_blank" rel="noopener">
-              ${item.title}
-            </a>
-            <div class="news-meta">${item.pubDate || ""}</div>
-          `;
-          foxContainer.appendChild(wrap);
-        });
+        const items = which === "fox" ? await fetchFox() : await fetchWowhead();
+        renderNews(items);
       } catch (e) {
-        foxContainer.textContent =
-          "The beacons remain dark. Network wards may bar the path.";
         console.error(e);
+        newsContainer.textContent =
+          "The beacons remain dark. Network wards may bar the path.";
       }
     }
 
-    loadFox();
+    newsTabs.forEach(btn => {
+      btn.addEventListener("click", () => {
+        newsTabs.forEach(b => b.classList.remove("news-tab-active"));
+        btn.classList.add("news-tab-active");
+        showFeed(btn.dataset.feed);
+      });
+    });
+
+    /* initial load */
+    showFeed("fox");
 
     /* Banner fade / parallax on scroll */
     const banner = document.getElementById("banner");
