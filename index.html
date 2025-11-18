@@ -165,11 +165,15 @@
       background: rgba(242,211,139,0.12);
     }
 
-    /* Main layout: grid with two columns + full-width rows */
+    /* Main layout with explicit areas */
     .layout {
       padding: 14px;
       display: grid;
       grid-template-columns: minmax(260px, 1.2fr) minmax(360px, 1.8fr);
+      grid-template-areas:
+        "council council"
+        "calendar hall"
+        "news fellowship";
       grid-auto-rows: minmax(260px, auto);
       gap: var(--gap);
       margin-top: 8px;
@@ -177,14 +181,8 @@
     }
 
     @keyframes layoutFadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(6px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
     .panel {
@@ -200,12 +198,6 @@
       overflow-x: hidden;
       resize: vertical;
       transition: transform 0.12s ease-out, box-shadow 0.12s ease-out, border-color 0.12s ease-out;
-    }
-
-    .panel-full {
-      grid-column: 1 / -1;
-      overflow: visible;
-      resize: none;
     }
 
     .panel-council,
@@ -394,13 +386,22 @@
       box-shadow: 0 10px 20px rgba(0,0,0,0.8);
     }
 
+    /* Grid area mapping */
+    .grid-council    { grid-area: council; }
+    .grid-calendar   { grid-area: calendar; }
+    .grid-news       { grid-area: news; }
+    .grid-hall       { grid-area: hall; }
+    .grid-fellowship { grid-area: fellowship; }
+
     @media (max-width: 900px) {
       .layout {
         grid-template-columns: 1fr;
-        grid-auto-rows: minmax(260px, auto);
-      }
-      .panel-full {
-        grid-column: auto;
+        grid-template-areas:
+          "council"
+          "calendar"
+          "news"
+          "hall"
+          "fellowship";
       }
     }
   </style>
@@ -431,7 +432,7 @@
   <div class="layout">
 
     <!-- ROW 1: Josie / ChatGPT -->
-    <div class="panel panel-full panel-council">
+    <div class="panel panel-council grid-council">
       <div class="panel-title">Council of Elrond · Josie</div>
       <p class="muted">
         Central command for talking to your AI menace and stashing notes.
@@ -449,7 +450,7 @@
     </div>
 
     <!-- ROW 2 LEFT: Calendar -->
-    <div class="panel">
+    <div class="panel grid-calendar">
       <div class="panel-title">Chronicles of the Shire</div>
       <div class="iframe-wrapper">
         <iframe
@@ -465,18 +466,8 @@
       </p>
     </div>
 
-    <!-- ROW 2 RIGHT: News (Fox + Wowhead) -->
-    <div class="panel">
-      <div class="panel-title">News from the Realm</div>
-      <div class="news-tabs">
-        <button class="news-tab news-tab-active" data-feed="fox">Fox News</button>
-        <button class="news-tab" data-feed="wowhead">Wowhead · Blue Tracker</button>
-      </div>
-      <div id="newsContainer" class="muted">Scanning the beacons…</div>
-    </div>
-
-    <!-- ROW 3 LEFT: Khazad-dûm · Hall of Devices (all Google links) -->
-    <div class="panel panel-hall">
+    <!-- ROW 2 RIGHT: Khazad-dûm · Hall of Devices -->
+    <div class="panel panel-hall grid-hall">
       <div class="panel-title">Khazad-dûm · Hall of Devices</div>
       <p class="muted">
         All the Google doors in one hall. These open the official apps in new tabs;
@@ -526,12 +517,22 @@
       </div>
     </div>
 
+    <!-- ROW 3 LEFT: News (Fox + Wowhead) BELOW CALENDAR -->
+    <div class="panel grid-news">
+      <div class="panel-title">News from the Realm</div>
+      <div class="news-tabs">
+        <button class="news-tab news-tab-active" data-feed="fox">Fox News</button>
+        <button class="news-tab" data-feed="wowhead">Wowhead · Blue Tracker</button>
+      </div>
+      <div id="newsContainer" class="muted">Scanning the beacons…</div>
+    </div>
+
     <!-- ROW 3 RIGHT: Fellowship / Social -->
-    <div class="panel">
+    <div class="panel grid-fellowship">
       <div class="panel-title">The Fellowship · Social Dispatches</div>
       <p class="muted">
         Social feed corner. This example uses Facebook’s page plugin; swap the URL
-        to your own profile or page if you want.
+        to your own page or profile.
       </p>
       <div class="iframe-wrapper">
         <iframe
@@ -544,7 +545,8 @@
         </iframe>
       </div>
       <p class="tiny">
-        To point this at your own stuff: edit the <code>href=</code> parameter in the iframe URL.
+        To point this at your own stuff, replace the <code>href=</code> URL in that iframe
+        with the one Facebook gives you (see steps below).
       </p>
     </div>
 
