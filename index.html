@@ -66,7 +66,7 @@
       pointer-events: none;
     }
 
-    /* Palantír Bar */
+    /* Google AI Search bar */
     .palantir-bar {
       position: relative;
       z-index: 1;
@@ -165,7 +165,7 @@
       background: rgba(242,211,139,0.12);
     }
 
-    /* Main layout: 2x2 grid + full-width row */
+    /* Main layout: grid with two columns + full-width rows */
     .layout {
       padding: 14px;
       display: grid;
@@ -196,20 +196,20 @@
       padding: 12px;
       box-shadow: 0 10px 26px rgba(0,0,0,0.8);
       border: 1px solid rgba(242,211,139,0.38);
-      overflow-y: auto;      /* vertical scroll when needed */
-      overflow-x: hidden;    /* never horizontal */
+      overflow-y: auto;
+      overflow-x: hidden;
       resize: vertical;
       transition: transform 0.12s ease-out, box-shadow 0.12s ease-out, border-color 0.12s ease-out;
     }
 
-    .panel-council,
-    .panel-home {
+    .panel-full {
+      grid-column: 1 / -1;
       overflow: visible;
       resize: none;
     }
 
-    .panel-full {
-      grid-column: 1 / -1;  /* span both columns */
+    .panel-council,
+    .panel-hall {
       overflow: visible;
       resize: none;
     }
@@ -352,7 +352,7 @@
       box-shadow: 0 4px 10px rgba(0,0,0,0.8);
     }
 
-    /* Shared pill buttons (Home + Gateways) */
+    /* Shared pill buttons */
     .pill-grid {
       position: relative;
       z-index: 1;
@@ -408,24 +408,21 @@
 
 <body>
 
-  <!-- Fellowship Banner -->
+  <!-- Fellowship Banner + Google AI Search -->
   <div class="banner" id="banner">
     <div class="palantir-bar" id="palantirBar">
       <div class="palantir-label">
         <span class="palantir-orb"></span>
-        Palantír · Gemini
+        Palantír · Google
       </div>
 
-      <form class="palantir-form" id="geminiForm">
+      <form class="palantir-form" id="googleForm">
         <input
-          id="geminiQuery"
+          id="googleQuery"
           type="text"
           class="palantir-input"
-          placeholder="Consult the palantír…" />
-        <button class="btn" type="submit">Invoke</button>
-        <button class="btn btn-secondary" type="button" id="openGemini">
-          Open Tower
-        </button>
+          placeholder="Ask the AI-forged Google search…" />
+        <button class="btn" type="submit">Search</button>
       </form>
     </div>
   </div>
@@ -433,7 +430,25 @@
   <!-- Main Grid -->
   <div class="layout">
 
-    <!-- TOP LEFT: Calendar -->
+    <!-- ROW 1: Josie / ChatGPT -->
+    <div class="panel panel-full panel-council">
+      <div class="panel-title">Council of Elrond · Josie</div>
+      <p class="muted">
+        Central command for talking to your AI menace and stashing notes.
+        Notes stay in this browser only, like pages from the Red Book.
+      </p>
+      <button class="btn" id="openJosie" style="margin:8px 0;">
+        Open Josie in a New Tab
+      </button>
+      <div id="fakeChatLog"></div>
+      <input
+        id="fakeChatInput"
+        class="palantir-input"
+        placeholder="Drop a thought you want future-you to remember…" />
+      <button class="btn btn-secondary" id="fakeChatSave">Inscribe</button>
+    </div>
+
+    <!-- ROW 2 LEFT: Calendar -->
     <div class="panel">
       <div class="panel-title">Chronicles of the Shire</div>
       <div class="iframe-wrapper">
@@ -450,25 +465,7 @@
       </p>
     </div>
 
-    <!-- TOP RIGHT: Council / Josie -->
-    <div class="panel panel-council">
-      <div class="panel-title">Council of Elrond · Josie</div>
-      <p class="muted">
-        Local notes kept in your browser’s <code>localStorage</code>. The Red Book,
-        but for custody schedules, NetSuite nightmares, and whatever else you vent at me.
-      </p>
-      <button class="btn" id="openJosie" style="margin-bottom:8px;">
-        Open Josie in the White Tower
-      </button>
-      <div id="fakeChatLog"></div>
-      <input
-        id="fakeChatInput"
-        class="palantir-input"
-        placeholder="Record counsel for your future self…" />
-      <button class="btn btn-secondary" id="fakeChatSave">Inscribe</button>
-    </div>
-
-    <!-- MIDDLE LEFT: News (Fox + Wowhead) -->
+    <!-- ROW 2 RIGHT: News (Fox + Wowhead) -->
     <div class="panel">
       <div class="panel-title">News from the Realm</div>
       <div class="news-tabs">
@@ -478,44 +475,12 @@
       <div id="newsContainer" class="muted">Scanning the beacons…</div>
     </div>
 
-    <!-- MIDDLE RIGHT: Google Home -->
-    <div class="panel panel-home">
-      <div class="panel-title">Google Home · Hall of Devices</div>
+    <!-- ROW 3 LEFT: Khazad-dûm · Hall of Devices (all Google links) -->
+    <div class="panel panel-hall">
+      <div class="panel-title">Khazad-dûm · Hall of Devices</div>
       <p class="muted">
-        Quick routes to your smart-home controls. These open official pages in new tabs;
-        real one-click spells would need a backend and OAuth.
-      </p>
-      <div class="pill-grid">
-        <button class="pill-btn" onclick="window.open('https://home.google.com','_blank')">
-          Google Home
-          <span>Full home control dashboard</span>
-        </button>
-
-        <button class="pill-btn" onclick="window.open('https://home.google.com/routines','_blank')">
-          Routines
-          <span>Manage automations & scenes</span>
-        </button>
-
-        <button class="pill-btn" onclick="window.open('https://myaccount.google.com/device-activity','_blank')">
-          Devices
-          <span>Signed-in devices overview</span>
-        </button>
-
-        <!-- Android-only deep link; harmless elsewhere -->
-        <button class="pill-btn"
-          onclick="window.open('intent://home.google.com/#Intent;scheme=https;package=com.google.android.apps.chromecast.app;end','_blank')">
-          Open Home App
-          <span>On Android, jumps to the Home app</span>
-        </button>
-      </div>
-    </div>
-
-    <!-- BOTTOM: Gateways panel (Gmail, Drive, Photos, FB, Gemini, Josie) -->
-    <div class="panel panel-full">
-      <div class="panel-title">Gateways of Men</div>
-      <p class="muted">
-        Single row of portals to the things you actually use. Most of these services
-        don’t allow being embedded inside another page, so these open cleanly in new tabs.
+        All the Google doors in one hall. These open the official apps in new tabs;
+        any deep AI coordination lives in Google’s own UI.
       </p>
       <div class="pill-grid">
         <button class="pill-btn" onclick="window.open('https://mail.google.com','_blank')">
@@ -533,42 +498,71 @@
           <span>Memories & screenshots</span>
         </button>
 
-        <button class="pill-btn" onclick="window.open('https://www.facebook.com','_blank')">
-          Facebook
-          <span>Social feed & messages</span>
+        <button class="pill-btn" onclick="window.open('https://home.google.com','_blank')">
+          Google Home
+          <span>Full home control dashboard</span>
+        </button>
+
+        <button class="pill-btn" onclick="window.open('https://home.google.com/routines','_blank')">
+          Routines
+          <span>Manage automations & scenes</span>
+        </button>
+
+        <button class="pill-btn" onclick="window.open('https://myaccount.google.com/device-activity','_blank')">
+          Devices
+          <span>Signed-in devices overview</span>
+        </button>
+
+        <button class="pill-btn"
+          onclick="window.open('intent://home.google.com/#Intent;scheme=https;package=com.google.android.apps.chromecast.app;end','_blank')">
+          Home App
+          <span>On Android, jumps to the Home app</span>
         </button>
 
         <button class="pill-btn" onclick="window.open('https://gemini.google.com/app','_blank')">
           Gemini Command
-          <span>Let the palantír synthesize things</span>
-        </button>
-
-        <button class="pill-btn" onclick="window.open('https://chat.openai.com/','_blank')">
-          Josie · ChatGPT
-          <span>Direct audience with your AI menace</span>
+          <span>AI workspace tying it all together</span>
         </button>
       </div>
+    </div>
+
+    <!-- ROW 3 RIGHT: Fellowship / Social -->
+    <div class="panel">
+      <div class="panel-title">The Fellowship · Social Dispatches</div>
+      <p class="muted">
+        Social feed corner. This example uses Facebook’s page plugin; swap the URL
+        to your own profile or page if you want.
+      </p>
+      <div class="iframe-wrapper">
+        <iframe
+          src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Ffacebook&tabs=timeline&width=500&height=400&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=false"
+          style="border:none;overflow:hidden"
+          scrolling="no"
+          frameborder="0"
+          allowfullscreen="true"
+          allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+        </iframe>
+      </div>
+      <p class="tiny">
+        To point this at your own stuff: edit the <code>href=</code> parameter in the iframe URL.
+      </p>
     </div>
 
   </div>
 
   <script>
-    /* Palantír Search → Gemini */
-    const geminiForm = document.getElementById("geminiForm");
-    const geminiQuery = document.getElementById("geminiQuery");
-    const openGeminiBtn = document.getElementById("openGemini");
+    /* Google AI search bar */
+    const googleForm = document.getElementById("googleForm");
+    const googleQuery = document.getElementById("googleQuery");
 
-    geminiForm.addEventListener("submit", (e) => {
+    googleForm.addEventListener("submit", (e) => {
       e.preventDefault();
-      const q = geminiQuery.value.trim();
+      const q = googleQuery.value.trim();
       const url = q
-        ? `https://gemini.google.com/app#q=${encodeURIComponent(q)}`
-        : "https://gemini.google.com/app";
+        ? `https://www.google.com/search?q=${encodeURIComponent(q)}`
+        : "https://www.google.com/";
       window.open(url, "_blank");
     });
-
-    openGeminiBtn.onclick = () =>
-      window.open("https://gemini.google.com/app", "_blank");
 
     /* Josie direct button */
     const openJosieBtn = document.getElementById("openJosie");
@@ -595,7 +589,7 @@
         const stored = JSON.parse(localStorage.getItem("sage_council_notes") || "[]");
         stored.forEach(appendNote);
       } catch {
-        // parchment got soggy, ignore
+        // parchment got soggy, we pretend nothing happened
       }
     })();
 
@@ -679,7 +673,7 @@
       });
     });
 
-    /* initial load */
+    /* initial news load */
     showFeed("fox");
 
     /* Banner fade / parallax on scroll */
