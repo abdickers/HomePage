@@ -1,25 +1,25 @@
-# Sage's Middle-earth Command
+# Sage's Middle-earth Command Homepage
 
-A static GitHub Pages-ready homepage dashboard.
+Static GitHub Pages homepage. Upload everything in this folder to the root of `abdickers/HomePage`.
 
 ## Files
 
 - `index.html` - page structure
-- `styles.css` - Middle-earth command center styling
-- `script.js` - search, tasks, notes, news feeds, clock, theme toggle
+- `styles.css` - visual system and responsive layout
+- `script.js` - local tasks, notes, search, news switching
+- `assets/ring-of-power.svg` - local Ring centerpiece asset
 
-## Deploy to GitHub Pages
+## GitHub Pages
 
-1. Upload these files to `https://github.com/abdickers/HomePage`.
-2. In GitHub, go to **Settings → Pages**.
-3. Set source to **Deploy from branch**.
-4. Pick `main` and `/root`.
-5. Save.
+Repo root should look like:
 
-Your homepage should publish at the GitHub Pages URL for that repo.
+```text
+HomePage/
+  index.html
+  styles.css
+  script.js
+  assets/
+    ring-of-power.svg
+```
 
-## Notes
-
-- Tasks and notes are stored locally in the browser using `localStorage`.
-- News uses RSS through `rss2json`; if it is blocked, each tab still gives you a direct source button.
-- This is static. No backend, no build system, no npm swamp creature.
+No build step. No npm. No hobbit bureaucracy.

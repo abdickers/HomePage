@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" role="img" aria-labelledby="title desc">
+  <title id="title">Ring of Power dashboard asset</title>
+  <desc id="desc">A glowing golden ring with engraved runic marks, built as a local SVG asset.</desc>
+  <defs>
+    <radialGradient id="core" cx="50%" cy="48%" r="52%">
+      <stop offset="0%" stop-color="#030405"/>
+      <stop offset="48%" stop-color="#050707"/>
+      <stop offset="57%" stop-color="#5a350b"/>
+      <stop offset="64%" stop-color="#e8b84d"/>
+      <stop offset="70%" stop-color="#fff0a8"/>
+      <stop offset="76%" stop-color="#ba7620"/>
+      <stop offset="85%" stop-color="#211006"/>
+      <stop offset="100%" stop-color="#010101"/>
+    </radialGradient>
+    <linearGradient id="gold" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#74440d"/>
+      <stop offset=".22" stop-color="#f7d36d"/>
+      <stop offset=".43" stop-color="#fff4b2"/>
+      <stop offset=".57" stop-color="#9f5f14"/>
+      <stop offset=".75" stop-color="#f0b64a"/>
+      <stop offset="1" stop-color="#2d1705"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="1 0 0 0 1  0 .66 0 0 .48  0 0 .25 0 .08  0 0 0 .9 0" result="goldGlow"/>
+      <feMerge><feMergeNode in="goldGlow"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <path id="arcTop" d="M154 400a246 246 0 0 1 492 0"/>
+    <path id="arcBottom" d="M646 400a246 246 0 0 1-492 0"/>
+    <style>
+      .rune{font-family:Georgia,serif;font-size:28px;letter-spacing:7px;fill:#fff3a8;filter:url(#glow)}
+      .smallrune{font-family:Georgia,serif;font-size:19px;letter-spacing:5px;fill:#f2bc43;opacity:.9}
+    </style>
+  </defs>
+  <rect width="800" height="800" fill="none"/>
+  <circle cx="400" cy="400" r="322" fill="none" stroke="#100800" stroke-width="40" opacity=".7"/>
+  <circle cx="400" cy="400" r="286" fill="none" stroke="url(#gold)" stroke-width="70" filter="url(#glow)"/>
+  <circle cx="400" cy="400" r="246" fill="none" stroke="#100805" stroke-width="18" opacity=".85"/>
+  <circle cx="400" cy="400" r="319" fill="none" stroke="#ffda69" stroke-width="4" opacity=".65"/>
+  <circle cx="400" cy="400" r="254" fill="none" stroke="#fff0a4" stroke-width="3" opacity=".45"/>
+  <circle cx="400" cy="400" r="205" fill="url(#core)" opacity=".88"/>
+  <circle cx="400" cy="400" r="132" fill="#020405" opacity=".96"/>
+  <text class="rune"><textPath href="#arcTop" startOffset="6%">ᚠᛟᚱ ᚦᛖ ᚳᛟᛗᛗᚪᚾᛞ ᛟᚠ ᛏᚺᛖ ᛞᚪᚣ</textPath></text>
+  <text class="rune"><textPath href="#arcBottom" startOffset="8%">ᚲᛖᛖᛈ ᛁᛏ ᛋᛖᚳᚱᛖᛏ ᚲᛖᛖᛈ ᛁᛏ ᛋᚪᚠᛖ</textPath></text>
+  <g opacity=".8">
+    <circle cx="400" cy="400" r="300" fill="none" stroke="#4b2706" stroke-width="2" stroke-dasharray="3 13"/>
+    <circle cx="400" cy="400" r="270" fill="none" stroke="#ffe18b" stroke-width="2" stroke-dasharray="20 18" opacity=".5"/>
+  </g>
+</svg>
