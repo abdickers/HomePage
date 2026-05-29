@@ -7,10 +7,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Pro:wght@400;500;600;700&display=swap"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Pro:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
   <style>
     :root {
@@ -26,14 +23,15 @@
 
     * { box-sizing: border-box; }
 
+    /* Locks the body to the exact viewport height to prevent page scrolling */
     html, body {
-      height: 100%;
+      height: 100vh;
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
     }
 
     body {
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
       display: flex;
       flex-direction: column;
       background:
@@ -43,51 +41,46 @@
         url("https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=1920&q=80") center top / cover no-repeat fixed;
       color: var(--text);
       font-family: "Crimson Pro", serif;
-      overflow-x: hidden;
     }
 
     main {
-      flex: 1 0 auto;
+      flex: 1 1 auto;
       display: flex;
       flex-direction: column;
+      height: calc(100vh - 45px); /* Leaves room for the footer */
     }
 
-    /* Fellowship banner */
+    /* Condensed Fellowship banner */
     .banner {
       position: relative;
       width: 100%;
-      height: 240px;
+      height: 80px;
       background: 
-        linear-gradient(to bottom, rgba(3, 4, 6, 0.2), rgba(3, 4, 6, 0.9)),
+        linear-gradient(to bottom, rgba(3, 4, 6, 0.4), rgba(3, 4, 6, 0.9)),
         url("https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1920&q=80") center 35% / cover no-repeat;
       border-bottom: 1px solid rgba(242,211,139,0.25);
-      box-shadow: 0 6px 20px rgba(0,0,0,0.8);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.8);
       display: flex;
-      align-items: flex-end;
+      align-items: center;
       justify-content: center;
-      padding-bottom: 20px;
-      transform-origin: center top;
-      transition: opacity 0.2s ease-out, transform 0.2s ease-out;
-      will-change: opacity, transform;
+      z-index: 10;
     }
 
     /* Palantír search bar */
     .palantir-bar {
-      position: relative;
-      z-index: 10;
       background:
         radial-gradient(circle at top, rgba(242,211,139,0.12), transparent 70%),
         rgba(5, 6, 9, 0.85);
       backdrop-filter: blur(8px);
       border-radius: 999px;
-      padding: 10px 18px;
+      padding: 8px 18px;
       display: flex;
       align-items: center;
       gap: 12px;
       font-family: "Cinzel", serif;
-      width: 92%;
-      max-width: 900px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.9);
+      width: 90%;
+      max-width: 800px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.9);
       border: 1px solid rgba(242,211,139,0.35);
     }
 
@@ -104,8 +97,8 @@
     }
 
     .palantir-orb {
-      width: 14px;
-      height: 14px;
+      width: 12px;
+      height: 12px;
       border-radius: 50%;
       background: radial-gradient(circle at 30% 30%, #ffffff 0, #7fd4ff 25%, #1c2030 65%, #000 100%);
       box-shadow: 0 0 10px rgba(127, 212, 255, 0.8);
@@ -125,7 +118,7 @@
 
     .palantir-input {
       flex: 1;
-      padding: 8px 16px;
+      padding: 6px 14px;
       border-radius: 999px;
       border: 1px solid rgba(242,211,139,0.2);
       background: rgba(0,0,0,0.6);
@@ -141,7 +134,7 @@
     }
 
     .btn {
-      padding: 8px 16px;
+      padding: 6px 14px;
       border-radius: 999px;
       cursor: pointer;
       font-size: 0.75rem;
@@ -172,19 +165,18 @@
       color: #fff;
     }
 
-    /* Grid Layout */
+    /* Fixed 3x2 Grid Layout */
     .layout {
-      padding: 20px;
+      padding: 16px;
       display: grid;
-      grid-template-columns: 1.1fr 1.3fr;
+      grid-template-columns: 1fr 1.2fr 1fr;
+      grid-template-rows: 1fr 1fr;
       grid-template-areas:
-        "calendar council"
-        "news tasks"
-        "fellowship hall";
+        "calendar council news"
+        "hall tasks admin";
       gap: var(--gap);
-      max-width: 1600px;
-      margin: 8px auto 0 auto;
       width: 100%;
+      height: calc(100% - 80px); /* Fill remaining space below header */
       animation: layoutFadeIn 0.5s ease-out both;
     }
 
@@ -198,18 +190,18 @@
       background: var(--panel-bg);
       backdrop-filter: blur(6px);
       border-radius: var(--radius);
-      padding: 16px;
+      padding: 14px;
       box-shadow: 0 12px 28px rgba(0,0,0,0.75);
       border: 1px solid rgba(242,211,139,0.22);
       display: flex;
       flex-direction: column;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+      overflow: hidden; /* Panels handle their own scrolling internally */
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
 
     .panel:hover {
       border-color: rgba(242,211,139,0.5);
       box-shadow: 0 16px 36px rgba(0,0,0,0.85);
-      transform: translateY(-1px);
     }
 
     .panel-title {
@@ -218,19 +210,31 @@
       text-transform: uppercase;
       letter-spacing: 0.12em;
       margin-top: 0;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       font-size: 0.9rem;
       border-bottom: 1px solid rgba(242,211,139,0.15);
       padding-bottom: 6px;
+      flex-shrink: 0;
     }
 
-    .muted { font-size: 0.88rem; color: var(--muted); margin-bottom: 12px; line-height: 1.4; }
-    .tiny { font-size: 0.78rem; color: var(--muted); margin-top: 8px; }
+    .muted { font-size: 0.85rem; color: var(--muted); margin-bottom: 8px; line-height: 1.3; flex-shrink: 0; }
+    
+    /* Internal Panel Scrolling */
+    .scroll-content {
+      flex: 1;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .custom-scroll::-webkit-scrollbar { width: 5px; }
+    .custom-scroll::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+    .custom-scroll::-webkit-scrollbar-thumb { background: rgba(242,211,139,0.2); border-radius: 3px; }
+    .custom-scroll::-webkit-scrollbar-thumb:hover { background: rgba(242,211,139,0.4); }
 
     .iframe-wrapper {
       position: relative;
       flex: 1;
-      min-height: 280px;
+      width: 100%;
       border-radius: 8px;
       overflow: hidden;
       border: 1px solid rgba(242,211,139,0.15);
@@ -239,141 +243,94 @@
 
     iframe { width: 100%; height: 100%; border: none; }
 
-    /* Custom Scrollbar for Panels */
-    .custom-scroll::-webkit-scrollbar { width: 6px; }
-    .custom-scroll::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
-    .custom-scroll::-webkit-scrollbar-thumb { background: rgba(242,211,139,0.2); border-radius: 3px; }
-    .custom-scroll::-webkit-scrollbar-thumb:hover { background: rgba(242,211,139,0.4); }
-
-    /* News list engine styling */
+    /* News list styling */
     #newsContainer { display: flex; flex-direction: column; gap: 8px; }
-    .news-item {
-      padding-bottom: 8px;
-      border-bottom: 1px solid rgba(242,211,139,0.1);
-    }
+    .news-item { padding-bottom: 8px; border-bottom: 1px solid rgba(242,211,139,0.1); }
     .news-item:last-child { border-bottom: none; }
-    .news-title { text-decoration: none; color: #f6f0df; font-size: 0.95rem; font-weight: 500; display: block; }
+    .news-title { text-decoration: none; color: #f6f0df; font-size: 0.9rem; font-weight: 500; display: block; }
     .news-title:hover { color: var(--accent); text-decoration: underline; }
     .news-meta { font-size: 0.75rem; color: var(--muted); margin-top: 2px; }
 
-    .news-tabs { display: inline-flex; gap: 6px; margin-bottom: 12px; }
+    .news-tabs { display: flex; gap: 6px; margin-bottom: 10px; flex-shrink: 0; }
     .news-tab {
-      padding: 4px 12px;
-      border-radius: 999px;
+      flex: 1;
+      padding: 4px;
+      border-radius: 6px;
       border: 1px solid rgba(242,211,139,0.25);
       background: rgba(0,0,0,0.4);
       color: var(--muted);
       font-family: "Cinzel", serif;
       font-size: 0.7rem;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.05em;
       cursor: pointer;
       transition: all 0.15s ease;
     }
     .news-tab-active { background: rgba(242,211,139,0.15); color: var(--accent); border-color: var(--accent); }
 
-    /* Device Pill Grid */
-    .pill-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; margin-top: 6px; }
+    /* Device/Link Pill Grid */
+    .pill-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
     .pill-btn {
-      padding: 10px 14px;
-      border-radius: 10px;
+      padding: 8px 10px;
+      border-radius: 8px;
       border: 1px solid rgba(242,211,139,0.25);
       background: rgba(0,0,0,0.4);
       color: var(--accent);
       font-family: "Cinzel", serif;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       letter-spacing: 0.05em;
       cursor: pointer;
       text-align: left;
       transition: all 0.15s ease;
     }
-    .pill-btn span { display: block; font-family: "Crimson Pro", serif; font-size: 0.75rem; color: var(--muted); margin-top: 2px; text-transform: none; font-weight: 400; }
+    .pill-btn span { display: block; font-family: "Crimson Pro", serif; font-size: 0.7rem; color: var(--muted); margin-top: 2px; text-transform: none; font-weight: 400; }
     .pill-btn:hover { background: rgba(242,211,139,0.08); border-color: var(--accent); transform: translateY(-1px); }
 
-    /* Interactive Quest Log (Tasks) */
-    .task-system { display: flex; flex-direction: column; gap: 10px; }
-    .task-input-row { display: flex; gap: 8px; }
-    .task-list { display: flex; flex-direction: column; gap: 6px; max-height: 200px; overflow-y: auto; padding-right: 4px; }
+    /* Task System */
+    .task-system { display: flex; flex-direction: column; gap: 10px; height: 100%; }
+    .task-input-row { display: flex; gap: 8px; flex-shrink: 0; }
+    .task-list { display: flex; flex-direction: column; gap: 6px; }
     .task-item {
       display: flex;
       align-items: center;
       justify-content: space-between;
       background: rgba(0,0,0,0.25);
-      padding: 6px 12px;
+      padding: 6px 10px;
       border-radius: 6px;
       border-left: 3px solid var(--accent-soft);
     }
-    .task-text { font-size: 0.95rem; }
-    .task-done-btn { background: none; border: none; color: rgba(217, 83, 79, 0.7); cursor: pointer; font-size: 0.8rem; font-family: "Cinzel", serif; }
+    .task-text { font-size: 0.9rem; }
+    .task-done-btn { background: none; border: none; color: rgba(217, 83, 79, 0.7); cursor: pointer; font-size: 0.75rem; font-family: "Cinzel", serif; }
     .task-done-btn:hover { color: #d9534f; }
 
-    /* Inscribe / Dispatch Log */
-    #noteLog { max-height: 140px; overflow-y: auto; margin-bottom: 10px; font-size: 0.95rem; display: flex; flex-direction: column; gap: 4px; }
+    /* Inscribe Log */
+    #noteLog { display: flex; flex-direction: column; gap: 4px; font-size: 0.9rem; margin-bottom: 8px; }
     .note-entry { background: rgba(242,211,139,0.03); padding: 4px 8px; border-radius: 4px; border-bottom: 1px solid rgba(242,211,139,0.05); }
 
-    .quick-prompts { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
-    .prompt-chip { font-size: 0.75rem; border-radius: 999px; padding: 4px 10px; border: 1px solid rgba(242,211,139,0.25); background: rgba(0,0,0,0.4); cursor: pointer; color: var(--text); }
+    .quick-prompts { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; flex-shrink: 0; }
+    .prompt-chip { font-size: 0.7rem; border-radius: 999px; padding: 4px 8px; border: 1px solid rgba(242,211,139,0.25); background: rgba(0,0,0,0.4); cursor: pointer; color: var(--text); }
     .prompt-chip:hover { border-color: var(--accent); background: rgba(242,211,139,0.08); }
 
     /* Grid Mapping */
-    .grid-calendar  { grid-area: calendar; }
-    .grid-council   { grid-area: council; }
-    .grid-news      { grid-area: news; }
-    .grid-tasks     { grid-area: tasks; }
-    .grid-fellowship { grid-area: fellowship; }
-    .grid-hall      { grid-area: hall; }
+    .grid-calendar { grid-area: calendar; }
+    .grid-council  { grid-area: council; }
+    .grid-news     { grid-area: news; }
+    .grid-hall     { grid-area: hall; }
+    .grid-tasks    { grid-area: tasks; }
+    .grid-admin    { grid-area: admin; }
 
-    @media (max-width: 1024px) {
-      .layout {
-        grid-template-columns: 1fr;
-        grid-template-areas:
-          "calendar"
-          "council"
-          "tasks"
-          "news"
-          "hall"
-          "fellowship";
-      }
-    }
-
-    /* Footer Layout */
+    /* Footer */
     .footer {
-      flex: 0 0 auto;
-      padding: 16px 20px;
+      flex: 0 0 45px;
+      padding: 0 20px;
       border-top: 1px solid rgba(242,211,139,0.2);
-      background: linear-gradient(to top, rgba(3,4,6,0.95), rgba(3,4,6,0.8));
-      backdrop-filter: blur(4px);
-      font-size: 0.8rem;
+      background: #030406;
+      font-size: 0.75rem;
       color: var(--muted);
-      margin-top: 40px;
-    }
-
-    .footer-inner {
-      max-width: 1400px;
-      margin: 0 auto;
       display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
       align-items: center;
       justify-content: space-between;
     }
-
-    .footer-col { flex: 1 1 280px; }
-    .footer-quote { font-style: italic; color: #f3e6c2; font-size: 0.85rem; }
-    .footer-links { display: flex; flex-wrap: wrap; gap: 10px; }
-    .footer-link {
-      border-radius: 999px;
-      padding: 4px 12px;
-      border: 1px solid rgba(242,211,139,0.25);
-      background: rgba(0,0,0,0.4);
-      color: var(--accent);
-      font-family: "Cinzel", serif;
-      font-size: 0.7rem;
-      letter-spacing: 0.05em;
-      cursor: pointer;
-      text-decoration: none;
-    }
-    .footer-link:hover { background: rgba(242,211,139,0.12); border-color: var(--accent); }
-    .footer-small { text-align: right; opacity: 0.7; }
+    .footer-quote { font-style: italic; color: #f3e6c2; }
   </style>
 </head>
 
@@ -383,55 +340,39 @@
       <div class="palantir-bar" id="palantirBar">
         <div class="palantir-label">
           <span class="palantir-orb"></span>
-          Palantír Search
+          Palantír
         </div>
-
         <form class="palantir-form" id="googleForm">
-          <input
-            id="googleQuery"
-            type="text"
-            class="palantir-input"
-            placeholder="Cast your query into the ether..." />
+          <input id="googleQuery" type="text" class="palantir-input" placeholder="Cast your query into the ether..." />
           <button class="btn" type="submit">Search</button>
         </form>
       </div>
     </div>
 
     <div class="layout">
-
       <div class="panel grid-calendar">
         <div class="panel-title">Chronicles of the Shire</div>
         <div class="iframe-wrapper">
-          <iframe
-            src="https://calendar.google.com/calendar/embed?src=abdickers%40gmail.com&ctz=America%2FChicago"
-            scrolling="no">
-          </iframe>
+          <iframe src="https://calendar.google.com/calendar/embed?src=abdickers%40gmail.com&ctz=America%2FChicago&showTitle=0&showPrint=0&showTabs=0&showCalendars=0" scrolling="no"></iframe>
         </div>
-        <p class="tiny">Google Calendar Engine integrated natively.</p>
       </div>
 
       <div class="panel grid-council">
         <div class="panel-title">Council of Elrond · Intelligence Hub</div>
-        <p class="muted">Quick launch pathways to local and remote AI instances.</p>
-
-        <div style="display:flex; gap:8px; margin-bottom:12px;">
-          <button class="btn" id="openJosie">Summon Josie</button>
-          <button class="btn btn-secondary" id="openGemini">Open Gemini</button>
+        <p class="muted">Launch pathways to local and remote instances.</p>
+        <div style="display:flex; gap:8px; margin-bottom:8px; flex-shrink: 0;">
+          <button class="btn" id="openJosie" style="flex:1;">Summon Josie</button>
         </div>
-
+        
         <div class="quick-prompts">
-          <div class="prompt-chip" data-prompt="Summarize my architectural deployment data.">System Check</div>
-          <div class="prompt-chip" data-prompt="Generate a query syntax optimization plan.">DB Query Tuning</div>
           <div class="prompt-chip" data-prompt="Draft a clean system automation cron script pattern.">IT Automation</div>
+          <div class="prompt-chip" data-prompt="Analyze WoW log data for Retribution Paladin optimization.">Frear DPS Tuning</div>
         </div>
 
-        <div id="noteLog" class="custom-scroll"></div>
-        <div class="task-input-row">
-          <input
-            id="noteInput"
-            class="palantir-input"
-            placeholder="Inscribe an unwritten thought into local memory..." />
-          <button class="btn btn-secondary" id="saveNote">Inscribe</button>
+        <div class="scroll-content custom-scroll" id="noteLog"></div>
+        <div class="task-input-row" style="margin-top: auto;">
+          <input id="noteInput" class="palantir-input" placeholder="Inscribe local memory..." />
+          <button class="btn btn-secondary" id="saveNote">Log</button>
         </div>
       </div>
 
@@ -441,78 +382,54 @@
           <button class="news-tab news-tab-active" data-feed="fox">Fox News</button>
           <button class="news-tab" data-feed="wowhead">Wowhead</button>
         </div>
-        <div id="newsContainer" class="custom-scroll">Scanning the outer watchtowers…</div>
+        <div class="scroll-content custom-scroll" id="newsContainer">Scanning watchtowers…</div>
+      </div>
+
+      <div class="panel grid-hall">
+        <div class="panel-title">Khazad-dûm · Workspace Array</div>
+        <p class="muted">Direct access points for core data systems.</p>
+        <div class="scroll-content custom-scroll">
+          <div class="pill-grid">
+            <button class="pill-btn" onclick="window.open('https://mail.google.com','_blank')">Gmail<span>Inbox Array</span></button>
+            <button class="pill-btn" onclick="window.open('https://drive.google.com','_blank')">Google Drive<span>Data Vaults</span></button>
+            <button class="pill-btn" onclick="window.open('https://photos.google.com','_blank')">Google Photos<span>Visual Archival</span></button>
+            <button class="pill-btn" onclick="window.open('https://calendar.google.com','_blank')">Calendar<span>Full View</span></button>
+            <button class="pill-btn" onclick="window.open('https://home.google.com','_blank')">Google Home<span>Node Control</span></button>
+            <button class="pill-btn" onclick="window.open('https://home.google.com/routines','_blank')">Routines<span>Sequence Pipelines</span></button>
+          </div>
+        </div>
       </div>
 
       <div class="panel grid-tasks">
         <div class="panel-title">The Westfold Quests</div>
-        <p class="muted">Immediate objectives required to maintain structural operations.</p>
+        <p class="muted">Immediate objectives for operational stability.</p>
         <div class="task-system">
-          <div class="task-input-row">
-            <input id="taskInput" class="palantir-input" placeholder="Forging a new operational objective..." />
+          <div class="scroll-content custom-scroll" id="taskList"></div>
+          <div class="task-input-row" style="margin-top: auto;">
+            <input id="taskInput" class="palantir-input" placeholder="Forging a new objective..." />
             <button class="btn" id="addTaskBtn">Assign</button>
           </div>
-          <div id="taskList" class="task-list custom-scroll"></div>
         </div>
       </div>
 
-      <div class="panel grid-hall">
-        <div class="panel-title">Khazad-dûm · Central Infrastructure</div>
-        <p class="muted">Direct access points for core data systems and account arrays.</p>
-        <div class="pill-grid">
-          <button class="pill-btn" onclick="window.open('https://mail.google.com','_blank')">
-            Gmail<span>Inbox Array</span>
-          </button>
-          <button class="pill-btn" onclick="window.open('https://drive.google.com','_blank')">
-            Google Drive<span>Data Vaults</span>
-          </button>
-          <button class="pill-btn" onclick="window.open('https://photos.google.com','_blank')">
-            Google Photos<span>Visual Archival</span>
-          </button>
-          <button class="pill-btn" onclick="window.open('https://home.google.com','_blank')">
-            Google Home<span>Node Control</span>
-          </button>
-          <button class="pill-btn" onclick="window.open('https://home.google.com/routines','_blank')">
-            Routines<span>Sequence Pipelines</span>
-          </button>
-          <button class="pill-btn" onclick="window.open('https://myaccount.google.com/device-activity','_blank')">
-            Devices<span>Network Identity</span>
-          </button>
+      <div class="panel grid-admin">
+        <div class="panel-title">The Master's Forge · Admin Hub</div>
+        <p class="muted">Infrastructure controls and system administration.</p>
+        <div class="scroll-content custom-scroll">
+          <div class="pill-grid">
+            <button class="pill-btn" onclick="window.open('https://system.netsuite.com/','_blank')">NetSuite<span>ERP Control</span></button>
+            <button class="pill-btn" onclick="window.open('https://login.bigcommerce.com/','_blank')">BigCommerce<span>Storefront Admin</span></button>
+            <button class="pill-btn" onclick="window.open('https://76fireworks.com/','_blank')">Spirit of '76<span>DB Management</span></button>
+            <button class="pill-btn" onclick="window.open('https://worldofwarcraft.blizzard.com/en-us/','_blank')">Armory<span>Frear's Command</span></button>
+          </div>
         </div>
       </div>
-
-      <div class="panel grid-fellowship">
-        <div class="panel-title">The Fellowship · Communication Stream</div>
-        <div class="iframe-wrapper">
-          <iframe
-            src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fadam.dickerson3&tabs=timeline&small_header=true&adapt_container_width=true&hide_cover=true&show_facepile=false"
-            style="overflow:hidden"
-            scrolling="no"
-            allowfullscreen="true"
-            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
-          </iframe>
-        </div>
-      </div>
-
     </div>
   </main>
 
   <footer class="footer">
-    <div class="footer-inner">
-      <div class="footer-col footer-quote">
-        “All we have to decide is what to do with the time that is given us.”
-      </div>
-      <div class="footer-col">
-        <div class="footer-links">
-          <a class="footer-link" onclick="window.scrollTo({top:0,behavior:'smooth'})">Return to Gates</a>
-          <button class="footer-link" onclick="window.scrollTo({top:document.querySelector('.grid-tasks').offsetTop-40,behavior:'smooth'})">Quests</button>
-          <button class="footer-link" onclick="window.scrollTo({top:document.querySelector('.grid-hall').offsetTop-40,behavior:'smooth'})">Infrastructure</button>
-        </div>
-      </div>
-      <div class="footer-col footer-small">
-        Forged by Sage & Josie · One panel to oversee the landscape.
-      </div>
-    </div>
+    <div class="footer-quote">“All we have to decide is what to do with the time that is given us.”</div>
+    <div>Forged by Sage & Josie · One panel to oversee the landscape.</div>
   </footer>
 
   <script>
@@ -526,8 +443,7 @@
     });
 
     /* Platform Activations */
-    document.getElementById("openJosie").onclick = () => window.open("https://chatgpt.com/", "_blank");
-    document.getElementById("openGemini").onclick = () => window.open("https://gemini.google.com/app", "_blank");
+    document.getElementById("openJosie").onclick = () => window.open("https://gemini.google.com/app", "_blank");
 
     /* Prompt Handling */
     document.querySelectorAll(".prompt-chip").forEach(chip => {
@@ -580,6 +496,7 @@
         `;
         taskList.appendChild(item);
       });
+      taskList.scrollTop = taskList.scrollHeight;
     }
 
     window.resolveTask = (index) => {
@@ -617,7 +534,7 @@
         const items = await fetchNews();
         if(!items.length) { newsContainer.textContent = "Beacons dark. Check connectivity."; return; }
         newsContainer.innerHTML = "";
-        items.slice(0, 6).forEach(item => {
+        items.slice(0, 8).forEach(item => {
           const div = document.createElement("div");
           div.className = "news-item";
           div.innerHTML = `<a class="news-title" href="${item.link}" target="_blank">${item.title}</a><div class="news-meta">${item.pubDate}</div>`;
@@ -625,10 +542,11 @@
         });
       } else {
         newsContainer.innerHTML = `
-          <div class="muted">Scraping blocks active on dynamic endpoints. Direct link gates configured:</div>
-          <div style="display:flex; gap:8px; margin-top:8px;">
-            <button class="pill-btn" style="flex:1;" onclick="window.open('https://www.wowhead.com/news','_blank')">Wowhead News</button>
-            <button class="pill-btn" style="flex:1;" onclick="window.open('https://www.wowhead.com/blue-tracker','_blank')">Blue Tracker</button>
+          <div class="muted">Direct link gates configured for class data:</div>
+          <div style="display:flex; flex-direction: column; gap:8px; margin-top:8px;">
+            <button class="pill-btn" onclick="window.open('https://www.wowhead.com/news','_blank')">Wowhead News<span>Global Updates</span></button>
+            <button class="pill-btn" onclick="window.open('https://www.wowhead.com/blue-tracker','_blank')">Blue Tracker<span>Dev Communications</span></button>
+            <button class="pill-btn" onclick="window.open('https://www.wowhead.com/paladin','_blank')">The Silver Hand<span>Paladin Intel</span></button>
           </div>`;
       }
     }
@@ -642,17 +560,7 @@
     });
     switchFeed("fox");
 
-    /* Parallax Alignment Engine */
-    const banner = document.getElementById("banner");
-    const palantirBar = document.getElementById("palantirBar");
-    window.addEventListener("scroll", () => {
-      const y = window.scrollY;
-      if (y < 240) {
-        banner.style.opacity = (1 - y / 240).toString();
-        banner.style.transform = `translateY(${y * -0.1}px)`;
-        palantirBar.style.transform = `translateY(${y * 0.05}px)`;
-      }
-    });
+    /* Removed Scroll/Parallax JS since the page is now completely locked */
   </script>
 </body>
 </html>
