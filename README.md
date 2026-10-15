@@ -96,4 +96,4 @@ Retail shows published event windows, repeating timers, daily reset, weekly bonu
 
 ## Combined repository
 
-This repository includes both Bag End / Nest controls (from InkedSage) and Frear’s Retail / Forever War Room. The existing deployed Nest gateway currently trusts `https://inkedsage.github.io`; moving its live client to `https://abdickers.github.io` requires updating the gateway origin and OAuth return URL, and allowing that frontend origin on the Google OAuth client. Copying this source does not reconfigure the deployed private gateway. Keep the existing Nest service configuration until that hosting migration is explicitly performed.
+This repository includes both Bag End / Nest controls (from InkedSage) and Frear’s Retail / Forever War Room. The checked-in Nest gateway configuration targets `https://abdickers.github.io` and returns to `/HomePage/` after consent. Deploy the gateway to apply this migration: the live gateway still trusts InkedSage because Cloudflare denied the deployment and settings writes. The server-side Google OAuth callback remains on the existing Nest service origin.

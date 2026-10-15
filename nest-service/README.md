@@ -1,6 +1,6 @@
 # Sage Cabin private Nest service
 
-Designed for Adam's personal Cloudflare account, on Workers Free + KV Free. The public dashboard stays at https://inkedsage.github.io/Homepage/. No paid plan, stream relay, database, or domain is required for WebRTC cameras. An RTSP-only camera requires a separate gateway and remains an explicit Google Home link here.
+Designed for Adam's personal Cloudflare account, on Workers Free + KV Free. The public dashboard stays at https://abdickers.github.io/HomePage/. No paid plan, stream relay, database, or domain is required for WebRTC cameras. An RTSP-only camera requires a separate gateway and remains an explicit Google Home link here.
 
 ## Deployment
 
