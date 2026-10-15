@@ -173,11 +173,6 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1792101600,
-              "name": "The Looming Mutagenitor",
-              "startingUt": 1792099800
-            },
-            {
               "endingUt": 1792103400,
               "name": "Mlurkkr Massacre",
               "startingUt": 1792101600
@@ -196,6 +191,11 @@
               "endingUt": 1792108800,
               "name": "The Broodmother's Nest",
               "startingUt": 1792107000
+            },
+            {
+              "endingUt": 1792110600,
+              "name": "The Looming Mutagenitor",
+              "startingUt": 1792108800
             }
           ],
           "icons": ""
@@ -236,8 +236,8 @@
         "content": {
           "lines": [
             {
-              "ending": "17 hr 7 min",
-              "endingShort": "17h",
+              "ending": "16 hr 41 min",
+              "endingShort": "16h",
               "endingUt": 1792162800,
               "icon": "inv_achievement_sanktumoflight",
               "iconLabel": "Eversong Woods",
@@ -246,8 +246,8 @@
               "url": "/zone=16594/the-shadow-enclave"
             },
             {
-              "ending": "17 hr 7 min",
-              "endingShort": "17h",
+              "ending": "16 hr 41 min",
+              "endingShort": "16h",
               "endingUt": 1792162800,
               "icon": "inv_achievement_sanktumoflight",
               "iconLabel": "Silvermoon City",
@@ -330,7 +330,7 @@
       }
     ],
     "source": "https://www.wowhead.com/today-in-wow",
-    "updated": "2026-10-15T21:54:49.716662+00:00"
+    "updated": "2026-10-15T22:18:39.715422+00:00"
   },
   "forever": {
     "events": [
@@ -696,6 +696,6 @@
       }
     ],
     "source": "https://www.wowhead.com/forever/events",
-    "updated": "2026-10-15T21:54:52.489295+00:00"
+    "updated": "2026-10-15T22:18:39.862828+00:00"
   }
 }
