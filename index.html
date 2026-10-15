@@ -7,9 +7,20 @@
   <meta name="description" content="Sage's personal Middle-earth dashboard: calendar, tasks, notes, weather, news, and everyday tools." />
   <meta name="color-scheme" content="dark" />
   <link rel="icon" href="assets/sigil.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/realm-theme.css" />
+  <link rel="stylesheet" href="css/personal-realm.css" />
 </head>
-<body>
+<body data-command-realm="personal">
+  <aside class="realm-sidebar" aria-label="Personal command center">
+    <a class="realm-brand" href="#dashboard"><span class="realm-ring">A</span><span>THE COMMAND<br><strong>CENTER</strong></span></a>
+    <nav class="realm-switch" aria-label="Command center"><a href="https://abdickers.github.io/HomePage/" aria-current="page">The Shire</a><a href="https://adams-middle-earth-command.spirit-of-76-1921.chatgpt.site/">Work</a></nav>
+    <p class="realm-account">PERSONAL<br>abdickers@gmail.com</p>
+    <nav class="realm-nav" aria-label="Dashboard sections"><a href="#dashboard">◇ Overview</a><a href="#tasksPanel">☷ My quests</a><a href="#dailyProvisioning">✦ Daily provisions</a><a href="#notesPanel">✎ Field notes</a><a href="#statusPanel">◉ The beacons</a></nav>
+    <p class="realm-account">One realm. One account.<br>A little less chaos.</p>
+  </aside>
   <a class="skip-link" href="#dashboard">Skip to dashboard</a>
   <header class="hero">
     <div class="hero-top">
@@ -44,7 +55,7 @@
     </div>
 
     <div class="title-wrap">
-      <h1>Sage's <span>Middle-earth Command</span></h1>
+      <p class="hero-eyebrow">YOUR PERSONAL CORNER OF MIDDLE-EARTH</p><h1>Adam’s Middle-earth <span>COMMAND CENTER</span></h1>
       <div class="ornament" aria-hidden="true"></div>
       <p>All that is yours to do, see and know</p>
     </div>
@@ -90,7 +101,7 @@
       <div class="panel-title">
         <h2>AI Tools</h2>
       </div>
-      <div class="app-grid ai-grid" id="aiGrid"></div>
+      <div class="app-grid ai-grid" id="aiGrid"></div><p class="realm-account">ChatGPT: choose abdickers@gmail.com in its account switcher. ChatGPT shares the browser’s current login.</p>
     </section>
 
     <section class="panel tasks-panel" id="tasksPanel">
@@ -115,6 +126,16 @@
         <button id="addTask" type="submit">Assign</button>
       </form>
       <small id="storageState">Tasks and notes are saved in this browser.</small>
+    </section>
+
+    <section class="panel provisions-panel" id="dailyProvisioning">
+      <div class="panel-title"><h2>The Quartermaster</h2><span class="realm-account">DAILY PROVISIONS</span></div>
+      <div class="provision-grid">
+        <article class="provision-card"><span class="provision-symbol walmart-mark" aria-hidden="true">✳</span><h3>Walmart+</h3><p>Groceries, deliveries &amp; member benefits</p><a href="https://www.walmart.com/plus" target="_blank" rel="noopener noreferrer">Membership ↗</a><a href="https://www.walmart.com/orders" target="_blank" rel="noopener noreferrer">Orders ↗</a></article>
+        <article class="provision-card"><span class="provision-symbol amazon-mark" aria-hidden="true">a<span>⌣</span></span><h3>Amazon</h3><p>Your account, parcels &amp; Prime</p><a href="https://www.amazon.com/gp/css/homepage.html" target="_blank" rel="noopener noreferrer">Account ↗</a><a href="https://www.amazon.com/gp/your-account/order-history" target="_blank" rel="noopener noreferrer">Orders ↗</a><a href="https://www.amazon.com/amazonprime" target="_blank" rel="noopener noreferrer">Prime ↗</a></article>
+        <article class="provision-card"><span class="provision-symbol" aria-hidden="true">✧</span><h3>Spark</h3><p id="sparkDescription">Reviewer activities &amp; community</p><a id="sparkLink" href="https://customersparkcommunity.walmart.com/profile" target="_blank" rel="noopener noreferrer">Open Spark Community ↗</a></article>
+      </div>
+      <p class="realm-account">Account shortcuts · sign in with abdickers@gmail.com where applicable. Balances, renewals and delivery data are not connected.</p>
     </section>
 
     <section class="panel tools-panel">
@@ -161,7 +182,7 @@
       </figure>
     </section>
 
-    <section class="panel notes-panel">
+    <section class="panel notes-panel" id="notesPanel">
       <div class="panel-title">
         <h2>The Scribe's Notes</h2>
         <button id="addNote" type="button">New Note</button>
@@ -203,7 +224,7 @@
       <cite id="quoteBy"></cite>
     </section>
 
-    <section class="panel status-panel">
+    <section class="panel status-panel" id="statusPanel">
       <div class="status-columns">
         <div>
           <div class="panel-title flush">
@@ -232,7 +253,7 @@
     <form id="settingsForm" class="dialog-form">
       <label>Your name<input id="settingName" maxlength="40" required /></label>
       <fieldset><legend>Weather location</legend><div class="inline-form"><input id="locationQuery" aria-label="Search for a city" placeholder="Search city or ZIP code" /><button id="findLocation" type="button">Find</button></div><div id="locationResults" role="status"></div><p id="selectedLocation"></p><label>Temperature<select id="settingUnit"><option value="fahrenheit">Fahrenheit (°F)</option><option value="celsius">Celsius (°C)</option></select></label></fieldset>
-      <fieldset><legend>Google Calendar</legend><label>Web OAuth client ID<input id="settingClientId" placeholder="Your ID.apps.googleusercontent.com" /></label><label>Calendar ID<input id="settingCalendarId" placeholder="primary" /></label><p class="help">Calendar access is read-only. Sign in from Chrome or Edge. Your OAuth client must allow this origin: <code id="oauthOrigin"></code>. <a href="https://developers.google.com/calendar/api/quickstart/js" target="_blank" rel="noopener">Google setup guide ↗</a></p></fieldset>
+      <fieldset><legend>Personal identity</legend><p>abdickers@gmail.com</p><p class="help">Calendar only loads after Google confirms this account. Other providers use their own signed-in sessions.</p></fieldset><fieldset><legend>Spark</legend><label>Service<select id="settingSpark"><option value="driver">Spark Driver — deliveries</option><option value="reviewer">Customer Spark — reviews & activities</option></select></label></fieldset><fieldset><legend>Google Calendar</legend><label>Web OAuth client ID<input id="settingClientId" placeholder="Your ID.apps.googleusercontent.com" /></label><label>Calendar ID<input id="settingCalendarId" placeholder="primary" /></label><p class="help">Calendar access is read-only; email identity is checked before reading events. Sign in from Chrome or Edge. Your OAuth client must allow this origin: <code id="oauthOrigin"></code>. <a href="https://developers.google.com/calendar/api/quickstart/js" target="_blank" rel="noopener">Google setup guide ↗</a></p></fieldset>
       <button class="primary-button" type="submit">Save Settings</button>
     </form>
     <fieldset><legend>Backup &amp; restore</legend><p class="help">Download your tasks, notes, links, and settings. Import merges tasks and notes by ID and restores your links and settings. Keep the backup somewhere private.</p><div class="dialog-actions"><button id="exportData" type="button">Export Backup</button><label class="button-label">Import Backup<input id="importData" type="file" accept="application/json,.json" class="sr-only" /></label></div></fieldset>
@@ -241,6 +262,10 @@
   <dialog id="linkDialog" aria-labelledby="linkTitle"><div class="dialog-heading"><h2 id="linkTitle">Your Tools &amp; Links</h2><button type="button" data-close aria-label="Close links">×</button></div><form id="linkForm" class="dialog-form"><input id="linkId" type="hidden" /><label>Name<input id="linkName" maxlength="60" required /></label><label>Website URL<input id="linkUrl" type="url" placeholder="https://example.com" required /></label><label>Section<select id="linkGroup"><option value="tools">Tools &amp; Systems</option><option value="ai">AI Tools</option><option value="quick">Quick Access</option></select></label><p id="linkError" class="form-error" role="status"></p><button class="primary-button" type="submit">Save Link</button></form><div id="manageLinks" class="manage-links"></div></dialog>
   <dialog id="searchDialog" aria-labelledby="searchTitle"><div class="dialog-heading"><h2 id="searchTitle">The Palantir Found</h2><button type="button" data-close aria-label="Close results">×</button></div><div id="searchResults"></div></dialog>
   <div id="toast" class="toast" role="status" hidden><span id="toastText"></span><button id="undoAction" type="button" hidden>Undo</button><button id="dismissToast" type="button" aria-label="Dismiss notification">×</button></div>
+  <aside class="frear-companion" aria-label="Frear companion">
+    <button id="frearToggle" type="button" aria-expanded="true" aria-controls="frearBody">Frear · Grizzly Hills <span aria-hidden="true">◇</span></button>
+    <div id="frearBody"><a href="https://worldofwarcraft.blizzard.com/en-us/character/us/grizzly-hills/frear/" target="_blank" rel="noopener noreferrer"><img src="https://render.worldofwarcraft.com/us/character/grizzly-hills/238/217923310-main-raw.png" alt="Blizzard Armory render of Frear, your dwarf paladin" loading="lazy" /></a><p>Blizzard Armory render · Sep 15<br><a href="https://www.wowhead.com/dressing-room" target="_blank" rel="noopener noreferrer">Open 3D dressing room ↗</a></p></div>
+  </aside>
   <script type="module" src="js/app.js"></script>
 </body>
 </html>

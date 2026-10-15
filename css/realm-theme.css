@@ -1,0 +1,28 @@
+/* Shared by HomePage and WorkHomepage. Copy this file unchanged between repositories. */
+[data-command-realm] {
+ --bg:#101714; --panel:#111c17; --panel-alt:#0b1511;
+ --line:#77613b73; --gold:#d2b36e; --gold-light:#f0d69b; --muted:#a4ae9a;
+ --ink:#e5e8dd; --text:#e5e8dd; --gold-strong:#f0d69b;
+ --line-soft:#77613b45; --shadow:0 5px 24px #0003;
+ font-family:'DM Sans',Arial,sans-serif;
+ background:linear-gradient(#07100ce6,#07100cf5),var(--realm-art) center top/cover fixed;
+ color:var(--text);
+}
+[data-command-realm] .panel {
+ position:relative;border:1px solid var(--line);border-radius:3px;
+ background:linear-gradient(135deg,var(--panel),var(--panel-alt));
+ box-shadow:inset 0 0 0 3px #ad864408,0 5px 24px #0003;
+}
+[data-command-realm] .panel::before,[data-command-realm] .panel::after {
+ content:'';position:absolute;width:17px;height:17px;pointer-events:none;
+ border-color:var(--gold);opacity:.75;
+}
+[data-command-realm] .panel::before {top:-2px;left:-2px;border-top:3px double;border-left:3px double}
+[data-command-realm] .panel::after {bottom:-2px;right:-2px;border-bottom:3px double;border-right:3px double}
+[data-command-realm] .panel h2,[data-command-realm] .panel h3,[data-command-realm] h1 {
+ font-family:'Cormorant Garamond',Georgia,serif;color:var(--gold-light);
+}
+.realm-switch {display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.realm-switch a {padding:8px 12px;border:1px solid var(--line);border-radius:4px;font-size:12px}
+.realm-switch a[aria-current=page] {background:#d2b36e20;color:var(--gold-light);border-color:var(--gold)}
+.realm-account {font-size:11px;color:var(--muted);overflow-wrap:anywhere}

@@ -1,9 +1,10 @@
+import { accountLink, PERSONAL_EMAIL } from './account-links.mjs';
 export const DATA_KEY = 'sage_command_v9';
 export const DEFAULT_SETTINGS = {
   name: 'Sage', unit: 'fahrenheit',
   location: {name: 'Columbia, MO', lat: 38.9517, lon: -92.3341},
   clientId: '644801431816-9f7u70h62fipmebva3llupi2o17b1g80.apps.googleusercontent.com',
-  calendarId: 'primary'
+  calendarId: 'primary', spark: 'reviewer'
 };
 
 export const DEFAULT_LINKS = [
@@ -49,6 +50,7 @@ export function normalizeSettings(value = {}) {
   if (['fahrenheit','celsius'].includes(value.unit)) s.unit = value.unit;
   for (const key of ['clientId','calendarId']) if (typeof value[key] === 'string') s[key] = value[key].trim().slice(0,300);
   if (!s.calendarId) s.calendarId = 'primary';
+  if (['driver','reviewer'].includes(value.spark)) s.spark=value.spark;
   const l = value.location;
   if (l && typeof l.name === 'string' && l.name.trim() && Number.isFinite(l.lat) && Math.abs(l.lat)<=90 && Number.isFinite(l.lon) && Math.abs(l.lon)<=180) {
     s.location = {name:l.name.slice(0,100),lat:l.lat,lon:l.lon};
@@ -69,7 +71,7 @@ export function normalizeData(raw = {}) {
     text:String(Array.isArray(n) ? n[1] || '' : n.text ?? (Array.isArray(n.lines) ? n.lines.join('\n') : '')).slice(0,10000)
   })).slice(0,1000);
   const links = (Array.isArray(raw.links) ? raw.links : DEFAULT_LINKS).filter(l => l && typeof l.name === 'string' && l.name.trim() && safeUrl(l.url)).slice(0,500).map((l,i) => ({
-    id:String(l.id || 'import-link-'+i).slice(0,100),name:l.name.trim().slice(0,60),url:safeUrl(l.url),group:['ai','tools','quick'].includes(l.group) ? l.group : 'tools'
+    id:String(l.id || 'import-link-'+i).slice(0,100),name:l.name.trim().slice(0,60),url:accountLink(l.url,PERSONAL_EMAIL,l.name),group:['ai','tools','quick'].includes(l.group) ? l.group : 'tools'
   }));
   return {version:9,tasks:unique(tasks),notes:unique(notes),links:unique(links),settings:normalizeSettings(raw.settings)};
 }

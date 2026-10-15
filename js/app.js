@@ -1,9 +1,27 @@
+import { accountLink, PERSONAL_EMAIL } from './account-links.mjs';
 import {DATA_KEY, escapeHtml as esc, safeUrl, localDate, normalizeData, readData, mergeBackup, taskGroup, normalizeObservation} from './core.js';
 const $ = id => document.getElementById(id);
 const uid = () => crypto.randomUUID();
 let storage;
 try { storage = window.localStorage; } catch { storage = {getItem:()=>null,setItem:()=>{throw new Error('Storage blocked');}}; }
 let data = readData(storage);
+for (const a of document.querySelectorAll('a[href]')) {
+ const routed=accountLink(a.href,PERSONAL_EMAIL,a.textContent.trim()); if(routed)a.href=routed;
+}
+function renderSpark(){
+ const driver=data.settings.spark!=='reviewer';
+ $('sparkLink').href=driver?'https://www.sparkdriverapp.com/':'https://customersparkcommunity.walmart.com/profile';
+ $('sparkLink').textContent=driver?'Open Spark Driver ↗':'Open Spark Community ↗';
+ $('sparkDescription').textContent=driver?'Delivery work, earnings & driver support':'Reviewer activities & community';
+}
+$('frearToggle').addEventListener('click',()=>{
+ const collapsed=!$('frearBody').hidden; $('frearBody').hidden=collapsed;
+ $('frearToggle').setAttribute('aria-expanded',String(!collapsed));
+ try{storage.setItem('frear-collapsed',String(collapsed));}catch{}
+});
+try{$('frearBody').hidden=storage.getItem('frear-collapsed')==='true';}catch{}
+$('frearToggle').setAttribute('aria-expanded',String(!$('frearBody').hidden));
+
 let calendarDay = new Date(), lastToday = localDate();
 let token = '', tokenExpires = 0, tokenClient = null, calendarRequest = 0;
 let newsRequest = 0, weatherRequest = 0, locationRequest = 0;
@@ -37,17 +55,20 @@ function persist() {
   try { storage.setItem(DATA_KEY, JSON.stringify(data)); $('storageState').textContent='Tasks and notes are saved in this browser.'; return true; }
   catch { $('storageState').textContent='Session only — browser storage is unavailable. Export a backup before closing.'; toast('Could not save in this browser. Use Settings → Export Backup.'); return false; }
 }
-function external(url) { const href = safeUrl(url); if (href) window.open(href,'_blank','noopener,noreferrer'); }
+function external(url) { const href = accountLink(url, PERSONAL_EMAIL); if (href) window.open(href,'_blank','noopener,noreferrer'); }
 function icon(link, kind) {
   const host = new URL(link.url).hostname;
-  return `<span class="${kind}"><img src="https://www.google.com/s2/favicons?domain=${encodeURIComponent(host)}&amp;sz=64" alt="" loading="lazy" /><span class="icon-fallback" hidden>${esc(link.name.slice(0,2).toUpperCase())}</span></span>`;
+  const known={'ChatGPT':'chatgpt.svg','Claude':'claude.svg','Gemini':'gemini.svg','NetSuite':'netsuite.svg','Slack':'slack.svg','BigCommerce':'bigcommerce.svg','Vercel':'vercel.svg','Jira':'jira.svg','Confluence':'confluence.svg','Dotdigital':'dotdigital.png','Zoom':'zoom.svg','GitHub':'github.svg','Cloudflare':'cloudflare.svg','Gmail':'gmail.png','Google Calendar':'calendar.png','My Drive':'drive.png'};
+  const source=known[link.name]?'assets/logos/'+known[link.name]:'https://www.google.com/s2/favicons?domain='+encodeURIComponent(host)+'&sz=64';
+  return `<span class="${kind}"><img src="${esc(source)}" alt="" loading="lazy" /><span class="icon-fallback" hidden>${esc(link.name.slice(0,2).toUpperCase())}</span></span>`;
 }
 function renderLinks() {
+  renderSpark();
   for (const [group,id] of [['ai','aiGrid'],['tools','toolGrid'],['quick','quickList']]) {
     const links = data.links.filter(l=>l.group===group);
     $(id).innerHTML = links.length ? links.map(l=>group==='quick'
-      ? `<a class="quick-item" href="${esc(l.url)}" target="_blank" rel="noopener noreferrer">${icon(l,'quick-icon')}<b>${esc(l.name)}</b><span class="chevron" aria-hidden="true">›</span></a>`
-      : `<a class="app-card" href="${esc(l.url)}" target="_blank" rel="noopener noreferrer">${icon(l,'app-icon')}<span>${esc(l.name)}</span></a>`).join('') : '<p class="empty-state">Add your own links with Add Link.</p>';
+      ? `<a class="quick-item" href="${esc(accountLink(l.url, PERSONAL_EMAIL, l.name))}" target="_blank" rel="noopener noreferrer">${icon(l,'quick-icon')}<b>${esc(l.name)}</b><span class="chevron" aria-hidden="true">›</span></a>`
+      : `<a class="app-card" href="${esc(accountLink(l.url, PERSONAL_EMAIL, l.name))}" target="_blank" rel="noopener noreferrer">${icon(l,'app-icon')}<span>${esc(l.name)}</span></a>`).join('') : '<p class="empty-state">Add your own links with Add Link.</p>';
   }
 }
 function renderTasks() {
@@ -93,7 +114,7 @@ function updateTime() {
 }
 function searchDashboard(query) {
   const q=query.toLowerCase(),matches=[];
-  data.links.filter(l=>`${l.name} ${l.url}`.toLowerCase().includes(q)).forEach(l=>matches.push(`<a class="search-result" href="${esc(l.url)}" target="_blank" rel="noopener noreferrer"><small>Tool · ${esc(l.group)}</small>${esc(l.name)} <span>↗</span></a>`));
+  data.links.filter(l=>`${l.name} ${l.url}`.toLowerCase().includes(q)).forEach(l=>matches.push(`<a class="search-result" href="${esc(accountLink(l.url, PERSONAL_EMAIL, l.name))}" target="_blank" rel="noopener noreferrer"><small>Tool · ${esc(l.group)}</small>${esc(l.name)} <span>↗</span></a>`));
   data.tasks.filter(t=>t.text.toLowerCase().includes(q)).forEach(t=>matches.push(`<button class="search-result" data-find-task="${esc(t.id)}" type="button"><small>Task · ${t.done?'complete':'open'}</small>${esc(t.text)}</button>`));
   data.notes.filter(n=>`${n.title} ${n.text}`.toLowerCase().includes(q)).forEach(n=>matches.push(`<button class="search-result" data-find-note="${esc(n.id)}" type="button"><small>Note</small>${esc(n.title)}</button>`));
   $('searchResults').innerHTML=matches.join('')||'<p class="empty-state">No matches in your tools, tasks, or notes.</p>';$('searchDialog').showModal();
@@ -120,10 +141,16 @@ async function prepareCalendar() {
       const timeout=setTimeout(()=>reject(new Error('Sign-in timed out')),10000);script.onload=()=>{clearTimeout(timeout);resolve();};script.onerror=()=>{clearTimeout(timeout);reject(new Error('Sign-in unavailable'));};document.head.append(script);
     });
     const clientId=data.settings.clientId;
-    tokenClient=google.accounts.oauth2.initTokenClient({client_id:clientId,scope:'https://www.googleapis.com/auth/calendar.events.readonly',include_granted_scopes:false,
-      callback:response=>{
+    tokenClient=google.accounts.oauth2.initTokenClient({client_id:clientId,scope:'openid email https://www.googleapis.com/auth/calendar.events.readonly',login_hint:PERSONAL_EMAIL,include_granted_scopes:false,
+      callback:async response=>{
         if(clientId!==data.settings.clientId)return;$('calendarConnect').disabled=false;
         if(response.error||!response.access_token||!google.accounts.oauth2.hasGrantedAllScopes(response,'https://www.googleapis.com/auth/calendar.events.readonly')){calendarState('Calendar access was not granted. You can try again.','warn');return;}
+        const identityRequest=++calendarRequest;
+        try {
+          const identity=await json('https://openidconnect.googleapis.com/v1/userinfo',{headers:{Authorization:'Bearer '+response.access_token}});
+          if(identityRequest!==calendarRequest||clientId!==data.settings.clientId)return;
+          if(identity.email?.toLowerCase()!==PERSONAL_EMAIL||identity.email_verified!==true){disconnectCalendar();calendarState('Use '+PERSONAL_EMAIL+' for this personal calendar. Other accounts are not loaded.','warn');return;}
+        } catch {if(identityRequest===calendarRequest){disconnectCalendar();calendarState('Could not verify your personal Google account. Connect again.','warn');}return;}
         token=response.access_token;tokenExpires=Date.now()+Number(response.expires_in||3600)*1000;$('calendarConnect').textContent='Refresh';$('calendarDisconnect').hidden=false;loadCalendar();
       },error_callback:error=>{$('calendarConnect').disabled=false;calendarState(error.type==='popup_closed'?'Sign-in closed. Connect again whenever you are ready.':'Google sign-in could not open. Try Chrome or Edge, allow pop-ups, and check the OAuth origin in Settings.','warn');}
     });
@@ -138,7 +165,7 @@ async function loadCalendar() {
   try{
     const result=await json(`https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(data.settings.calendarId)}/events?${params}`,{headers:{Authorization:'Bearer '+activeToken}});
     if(request!==calendarRequest||activeToken!==token)return;const events=(result.items||[]).filter(e=>e.status!=='cancelled');calendarState(events.length?'':'No events scheduled for this day.','ok');
-    $('eventList').innerHTML=events.map(e=>{const allDay=Boolean(e.start?.date),time=allDay?'All day':new Date(e.start.dateTime).toLocaleTimeString([],{hour:'numeric',minute:'2-digit'});const minutes=allDay?0:Math.round((new Date(e.end.dateTime)-new Date(e.start.dateTime))/60000);return `<a class="event-row" href="${esc(safeUrl(e.htmlLink)||'https://calendar.google.com/calendar/u/0/r')}" target="_blank" rel="noopener noreferrer"><span class="event-dot" style="--event:#e6bb62"></span><time>${esc(time)}</time><strong>${esc(e.summary||'Untitled event')}</strong><em>${minutes?minutes+'m':''}</em></a>`;}).join('');
+    $('eventList').innerHTML=events.map(e=>{const allDay=Boolean(e.start?.date),time=allDay?'All day':new Date(e.start.dateTime).toLocaleTimeString([],{hour:'numeric',minute:'2-digit'});const minutes=allDay?0:Math.round((new Date(e.end.dateTime)-new Date(e.start.dateTime))/60000);return `<a class="event-row" href="${esc(accountLink(e.htmlLink||'https://calendar.google.com/calendar/r',PERSONAL_EMAIL))}" target="_blank" rel="noopener noreferrer"><span class="event-dot" style="--event:#e6bb62"></span><time>${esc(time)}</time><strong>${esc(e.summary||'Untitled event')}</strong><em>${minutes?minutes+'m':''}</em></a>`;}).join('');
   }catch(error){if(request!==calendarRequest)return;if(error.status===401){disconnectCalendar();calendarState('Your calendar session expired. Connect again.','warn');}else calendarState(error.status===403?'Google denied calendar access. Enable the Calendar API and check your OAuth test users.':'Calendar could not load. Check the calendar ID in Settings and try Refresh.','warn');}
 }
 function renderNews(items,feed){
@@ -204,7 +231,7 @@ async function loadStatuses(){
   $('incidentText').innerHTML=incidents.length?incidents.slice(0,4).map(i=>`<p><a href="${esc(i.url)}" target="_blank" rel="noopener noreferrer">${esc(i.service)}: ${esc(i.name)} ↗</a></p>`).join(''):'<p>No open incidents reported by the connected feeds.</p>';
   $('incidentText').insertAdjacentHTML('beforeend',`<small>Checked ${new Date().toLocaleTimeString([],{hour:'numeric',minute:'2-digit'})}.${unknown?' '+unknown+' services need a check on their status page.':''}</small>`);
 }
-function openSettings(){const s=data.settings;draftLocation={...s.location};$('settingName').value=s.name;$('settingUnit').value=s.unit;$('settingClientId').value=s.clientId;$('settingCalendarId').value=s.calendarId;$('oauthOrigin').textContent=location.origin;$('selectedLocation').textContent='Selected: '+s.location.name;$('locationQuery').value='';$('locationResults').replaceChildren();$('settingsDialog').showModal();}
+function openSettings(){const s=data.settings;draftLocation={...s.location};$('settingSpark').value=s.spark;$('settingName').value=s.name;$('settingUnit').value=s.unit;$('settingClientId').value=s.clientId;$('settingCalendarId').value=s.calendarId;$('oauthOrigin').textContent=location.origin;$('selectedLocation').textContent='Selected: '+s.location.name;$('locationQuery').value='';$('locationResults').replaceChildren();$('settingsDialog').showModal();}
 function openLinks(){$('linkForm').reset();$('linkId').value='';$('linkError').textContent='';renderLinkManager();$('linkDialog').showModal();}
 function renderLinkManager(){$('manageLinks').innerHTML=data.links.map(l=>`<div><span>${esc(l.name)} <small>${esc(l.group)}</small></span><button type="button" data-edit-link="${esc(l.id)}" aria-label="Edit ${esc(l.name)}">Edit</button><button type="button" data-delete-link="${esc(l.id)}" aria-label="Delete link ${esc(l.name)}">×</button></div>`).join('');}
 $('searchForm').addEventListener('submit',e=>{e.preventDefault();const q=$('searchInput').value.trim();if(q)$('searchScope').value==='dashboard'?searchDashboard(q):external('https://www.google.com/search?q='+encodeURIComponent(q));});
@@ -220,12 +247,12 @@ $('noteForm').addEventListener('submit',e=>{e.preventDefault();const n={id:$('no
 $('deleteNote').addEventListener('click',()=>{const n=data.notes.find(n=>n.id===$('noteId').value);data.notes=data.notes.filter(v=>v!==n);persist();renderNotes();$('noteDialog').close();toast('Note removed.',()=>{data.notes.push(n);persist();renderNotes();});});
 $('themeToggle').addEventListener('click',()=>{const ember=document.body.classList.toggle('ember-mode');$('themeToggle').setAttribute('aria-pressed',ember);try{storage.setItem('sage_theme',ember?'ember':'night');}catch{toast('Theme changed for this session.');}});
 for(const id of ['settingsOpen','footerSettings','weatherLocation'])$(id).addEventListener('click',openSettings);
-$('calendarConnect').addEventListener('click',()=>{if(!data.settings.clientId)return openSettings();if(token)return loadCalendar();if(!tokenClient)return prepareCalendar();calendarState('Choose your Google account in the sign-in window.');tokenClient.requestAccessToken({prompt:''});});
+$('calendarConnect').addEventListener('click',()=>{if(!data.settings.clientId)return openSettings();if(token)return loadCalendar();if(!tokenClient)return prepareCalendar();calendarState('Choose your Google account in the sign-in window.');tokenClient.requestAccessToken({prompt:'select_account',login_hint:PERSONAL_EMAIL});});
 $('calendarDisconnect').addEventListener('click',disconnectCalendar);
 for(const [id,offset] of [['calendarPrev',-1],['calendarNext',1],['calendarToday',0]])$(id).addEventListener('click',()=>{if(offset)calendarDay.setDate(calendarDay.getDate()+offset);else calendarDay=new Date();updateTime();loadCalendar();});
 $('newsTabs').addEventListener('click',e=>{const b=e.target.closest('[data-feed]');if(!b)return;activeFeed=b.dataset.feed;document.querySelectorAll('[data-feed]').forEach(t=>{t.classList.toggle('active',t===b);t.setAttribute('aria-pressed',t===b);});loadNews();});
 $('refreshNews').addEventListener('click',loadNews);$('refreshWeather').addEventListener('click',loadWeather);
-$('settingsForm').addEventListener('submit',e=>{e.preventDefault();const old=data.settings;data.settings=normalizeData({settings:{name:$('settingName').value,unit:$('settingUnit').value,clientId:$('settingClientId').value,calendarId:$('settingCalendarId').value,location:draftLocation}}).settings;const saved=persist();$('settingsDialog').close();updateTime();loadWeather();if(old.clientId!==data.settings.clientId||old.calendarId!==data.settings.calendarId){disconnectCalendar();prepareCalendar();}if(saved)toast('Settings saved.');});
+$('settingsForm').addEventListener('submit',e=>{e.preventDefault();const old=data.settings;data.settings=normalizeData({settings:{spark:$('settingSpark').value,name:$('settingName').value,unit:$('settingUnit').value,clientId:$('settingClientId').value,calendarId:$('settingCalendarId').value,location:draftLocation}}).settings;const saved=persist();$('settingsDialog').close();renderSpark();updateTime();loadWeather();if(old.clientId!==data.settings.clientId||old.calendarId!==data.settings.calendarId){disconnectCalendar();prepareCalendar();}if(saved)toast('Settings saved.');});
 $('findLocation').addEventListener('click',async()=>{
   const q=$('locationQuery').value.trim();if(!q)return;const request=++locationRequest;$('locationResults').textContent='Finding your city...';
   try{const result=await json('https://geocoding-api.open-meteo.com/v1/search?count=5&language=en&format=json&name='+encodeURIComponent(q));if(request!==locationRequest)return;const locations=(result.results||[]).map(l=>({name:[l.name,l.admin1,l.country_code].filter(Boolean).join(', '),lat:l.latitude,lon:l.longitude}));$('locationResults').replaceChildren();if(!locations.length)$('locationResults').textContent='No cities found. Try a nearby city name.';for(const l of locations){const button=document.createElement('button');button.type='button';button.textContent=l.name;button.addEventListener('click',()=>{draftLocation=l;$('selectedLocation').textContent='Selected: '+l.name;$('locationResults').replaceChildren();});$('locationResults').append(button);}}

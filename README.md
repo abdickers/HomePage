@@ -52,3 +52,18 @@ Open `http://127.0.0.1:4173/`. Use an HTTP server rather than opening `index.htm
 GitHub Pages should publish the `main` branch, repository root. Merge the change to publish the repaired HTML and assets. The news workflow needs Actions enabled and repository `contents: write` permission. It uses the built-in `GITHUB_TOKEN`; no custom secret is needed. Branch rules that prohibit bot commits may require allowing this workflow or running the feed refresher manually and committing its output.
 
 Legacy root SVG files and images are retained for compatibility. The active entry point loads only `css/styles.css` and `js/app.js`.
+
+
+## Twin command centers (October 15, 2026)
+
+Personal is canonically https://abdickers.github.io/HomePage/ and uses `abdickers@gmail.com`.
+Work remains owner-private at https://adams-middle-earth-command.spirit-of-76-1921.chatgpt.site/ and uses `dickersona@76fireworks.com`.
+The sidebar switches between the two. The artwork, font pair, dark forest surfaces, gold palette, and ornamental borders match Work. `css/realm-theme.css` and `js/account-links.mjs` are copied unchanged to WorkHomepage's `public/realm-theme.css` and `lib/account-links.mjs`.
+
+Google shortcuts carry the realm's email selector, including saved/custom links and individual events. Calendar requests read-only events plus email identity and rejects a different or unverified account before reading any events. Public OAuth client configuration still requires the Google Cloud owner to authorize the GitHub Pages origin. Other providers keep their own login sessions; the page cannot read or force those identities. ChatGPT account switching is explicit in the UI, not an invented account-selection URL.
+
+The Quartermaster opens Walmart+ membership and orders, Amazon account/orders/Prime, and Walmart Customer Spark Community. These are shortcuts, not connected balances, points, order counts, or membership status. Spark Driver is an optional alternative in Settings. No retail credentials are requested or stored.
+
+Frear's companion uses Blizzard's actual public Armory render for Frear, US Grizzly Hills, dwarf paladin. The snapshot shown by Blizzard was updated September 15, 2026. The companion collapses and remembers the preference. This is a rendered image, not an interactive 3D model; the separate Wowhead Dressing Room can load characters. A true animated 3D companion still needs a verified model/appearance export. No Battle.net password is needed. Image source: https://render.worldofwarcraft.com/us/character/grizzly-hills/238/217923310-main-raw.png .
+
+The high-resolution Middle-earth header is reused from WorkHomepage. It is the saved 3840-pixel display derivative of the existing 1672×941 generated artwork, not a newly generated native 4K image. See WorkHomepage's ASSET-NOTES.md. Browser-local tasks, settings and notes do not migrate automatically from the old InkedSage origin: export a backup there and import it here.
