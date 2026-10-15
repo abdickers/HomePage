@@ -1,0 +1,16 @@
+name: Check dashboard
+on:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Validate application and saved-data behavior
+        run: |
+          node --check js/app.js
+          node --test tests/core.test.js
+          python3 -c "import ast; ast.parse(open('scripts/refresh-feeds.py', encoding='utf-8-sig').read())"
