@@ -11,13 +11,7 @@ const personalMail = initPersonalMail(()=>data.settings.clientId);
 for (const a of document.querySelectorAll('a[href]')) {
  const routed=accountLink(a.href,PERSONAL_EMAIL,a.textContent.trim()); if(routed)a.href=routed;
 }
-$('frearToggle').addEventListener('click',()=>{
- const collapsed=!$('frearBody').hidden; $('frearBody').hidden=collapsed;
- $('frearToggle').setAttribute('aria-expanded',String(!collapsed));
- try{storage.setItem('frear-collapsed',String(collapsed));}catch{}
-});
-try{$('frearBody').hidden=storage.getItem('frear-collapsed')==='true';}catch{}
-$('frearToggle').setAttribute('aria-expanded',String(!$('frearBody').hidden));
+
 
 let calendarDay = new Date(), lastToday = localDate();
 let token = '', tokenExpires = 0, tokenClient = null, calendarRequest = 0;

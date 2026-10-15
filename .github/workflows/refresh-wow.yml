@@ -1,0 +1,32 @@
+name: Refresh WoW event schedules
+on:
+  schedule:
+    - cron: '23 * * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['scripts/refresh-wow.py', '.github/workflows/refresh-wow.yml']
+permissions:
+  contents: write
+concurrency:
+  group: refresh-wow
+  cancel-in-progress: false
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - run: python scripts/refresh-wow.py
+      - name: Save public event schedules
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/wow.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Refresh WoW event schedules'
+            git pull --rebase origin main
+            git push
+          fi
