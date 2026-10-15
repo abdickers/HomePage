@@ -1,5 +1,5 @@
 import { accountLink, PERSONAL_EMAIL } from './account-links.mjs';
-import {DATA_KEY, escapeHtml as esc, safeUrl, localDate, normalizeData, readData, mergeBackup, taskGroup, normalizeObservation} from './core.js';
+import {DATA_KEY, escapeHtml as esc, safeUrl, localDate, normalizeData, readData, mergeBackup, taskGroup, normalizeObservation} from './core.js?v=20261015-realms2';
 const $ = id => document.getElementById(id);
 const uid = () => crypto.randomUUID();
 let storage;

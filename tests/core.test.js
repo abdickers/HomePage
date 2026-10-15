@@ -53,7 +53,7 @@ test('missing weather measurements stay missing, never zero',()=>{
 test('the Pages entry point is HTML and its local resources exist',async()=>{
   const {readFile,access}=await import('node:fs/promises');
   const root=new URL('../',import.meta.url),html=await readFile(new URL('index.html',root),'utf8');
-  assert.match(html,/^<!doctype html>/i);assert.match(html,/<script type="module" src="js\/app.js"><\/script>/);
+  assert.match(html,/^<!doctype html>/i);assert.match(html,/<script type="module" src="js\/app.js(?:\?[^"]+)?"><\/script>/);
   const ids=[...html.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]);assert.equal(ids.length,new Set(ids).size);
   const paths=[...html.matchAll(/\b(?:src|href)="([^"]+)"/g)].map(m=>m[1]).filter(p=>!p.startsWith('#')&&!/^[a-z]+:/i.test(p));
   for(const p of paths)await access(new URL(p,root));
