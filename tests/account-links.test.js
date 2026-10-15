@@ -17,3 +17,8 @@ test('work generic destinations migrate without overwriting customized tenant UR
  assert.equal(accountLink('https://chatgpt.com/',WORK_EMAIL),'https://chatgpt.com/');
  for(const url of ['javascript:alert(1)','https://user:pass@example.com','//example.com'])assert.equal(accountLink(url,WORK_EMAIL),'');
 });
+
+test('legacy Google Calendar event permalinks retain the event and select the realm account',()=>{
+ const link=new URL(accountLink('https://www.google.com/calendar/event?eid=abc&ctz=America/Chicago',WORK_EMAIL));
+ assert.equal(link.hostname,'calendar.google.com');assert.equal(link.searchParams.get('eid'),'abc');assert.equal(link.searchParams.get('authuser'),WORK_EMAIL);
+});

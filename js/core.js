@@ -1,4 +1,4 @@
-import { accountLink, PERSONAL_EMAIL, WORK_URL } from './account-links.mjs';
+import { accountLink, PERSONAL_EMAIL, WORK_URL } from './account-links.mjs?v=20261015-realms3';
 export const DATA_KEY = 'sage_command_v9';
 export const DEFAULT_SETTINGS = {
   name: 'Sage', unit: 'fahrenheit',

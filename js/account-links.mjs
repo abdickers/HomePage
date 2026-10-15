@@ -14,6 +14,7 @@ export function accountLink(value, email, name = '') {
  try {
   const u = new URL(value);
   if (!['http:','https:'].includes(u.protocol) || u.username || u.password) return '';
+  if (['google.com','www.google.com'].includes(u.hostname) && u.pathname.startsWith('/calendar/')) u.hostname='calendar.google.com';
   if (googleHosts.has(u.hostname)) {
    u.pathname = u.pathname.replace(/\/u\/\d+(?=\/|$)/g,'');
    if (u.hostname === 'mail.google.com' && u.pathname === '/') u.pathname = '/mail/';
