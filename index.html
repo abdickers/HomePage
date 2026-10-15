@@ -1,6 +1,246 @@
-:root{
-  --bg:#030504;--panel:rgba(6,12,12,.92);--panel2:rgba(9,16,17,.86);--gold:#e8c46f;--gold2:#9d6a1d;--text:#f0e5cb;--muted:#a89978;--line:rgba(218,163,64,.42);--danger:#d86e57;
-}
-*{box-sizing:border-box}html{background:#030504}body{margin:0;color:var(--text);font-family:Georgia,'Times New Roman',serif;background:radial-gradient(circle at top,#172119 0,#060908 45%,#010202 100%);font-size:18px;min-height:100vh}a{color:inherit;text-decoration:none}button,input{font:inherit}.hero{min-height:430px;background:linear-gradient(180deg,rgba(0,0,0,.05),rgba(1,2,2,.74)),url('../assets/header-panorama.svg') center/cover no-repeat;border-bottom:1px solid var(--line);padding:24px 32px 34px;position:relative;box-shadow:0 22px 60px #000}.hero:after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 16%,rgba(246,203,111,.18),transparent 34%);pointer-events:none}.hero-top,.title-wrap,.search-bar{position:relative;z-index:2}.hero-top{display:flex;align-items:center;justify-content:space-between}.identity{display:flex;align-items:center;gap:16px}.identity img{width:88px;height:88px}.identity strong{display:block;color:#ffdc7c;text-shadow:0 2px 8px #000}.identity span{display:block;color:#eadcc0;font-size:16px;margin-top:4px}.hero-links{display:flex;gap:14px}.hero-links a,.panel-title a,.panel-title button{border:1px solid var(--line);border-radius:11px;background:rgba(3,5,6,.65);padding:10px 16px;color:var(--gold);font-family:Georgia,serif;font-weight:700;cursor:pointer}.title-wrap{text-align:center;margin-top:-40px}.title-wrap h1{margin:0;color:#f1cf84;font-family:Georgia,serif;text-transform:uppercase;letter-spacing:.08em;font-size:62px;line-height:.9;text-shadow:0 5px 18px #000,0 0 20px rgba(234,181,80,.3)}.title-wrap h1 span{font-size:58px}.title-wrap p{margin:18px 0 0;font-size:14px;letter-spacing:.26em;text-transform:uppercase;color:#d8bc73}.search-bar{width:min(1060px,92vw);margin:34px auto 0;display:grid;grid-template-columns:64px auto 1fr auto auto auto;align-items:center;gap:12px;background:rgba(3,6,7,.86);border:1px solid var(--line);border-radius:999px;padding:10px 14px 10px 10px;box-shadow:0 16px 40px #000}.search-bar img{width:58px}.search-bar label{font-size:25px;color:var(--gold);font-weight:700;text-transform:uppercase;letter-spacing:.04em}.search-bar input{height:50px;min-width:250px;background:#050707;border:1px solid rgba(218,163,64,.35);border-radius:14px;color:var(--text);padding:0 18px;outline:none}.search-bar input:focus{border-color:#f2cf75}.search-bar button,.task-add button{height:50px;border:1px solid var(--line);border-radius:12px;background:#0b0c08;color:var(--gold);padding:0 20px;font-weight:700;cursor:pointer}.search-bar button:first-of-type,.task-add button{background:linear-gradient(180deg,#c7963b,#875918);color:#fff7d8}.layout{width:min(1660px,96vw);margin:24px auto 50px;display:grid;grid-template-columns:1fr 1.15fr 1.15fr;grid-template-areas:'calendar ai tasks' 'tools tools quick' 'news news quick' 'weather wisdom quick';gap:16px;align-items:start}.panel{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:17px;box-shadow:0 12px 28px #000;padding:18px;overflow:visible}.panel-title{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(218,163,64,.22);padding-bottom:12px;margin-bottom:16px}.panel h2{margin:0;color:var(--gold);text-transform:uppercase;letter-spacing:.04em;font-size:22px}.calendar{grid-area:calendar}.ai{grid-area:ai}.tasks{grid-area:tasks}.tools{grid-area:tools}.quick{grid-area:quick}.news{grid-area:news}.weather{grid-area:weather}.wisdom{grid-area:wisdom}.calendar-inner{display:grid;grid-template-columns:150px 1fr;gap:16px}.date-box{min-height:190px;border:1px solid rgba(218,163,64,.32);border-radius:13px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#f7d785}.date-box b{font-size:76px;line-height:.9}.date-box span{text-transform:uppercase}.event-list{display:flex;flex-direction:column;gap:11px}.event-list div{display:grid;grid-template-columns:90px 1fr 45px;gap:8px;border-bottom:1px solid rgba(218,163,64,.13);padding-bottom:9px}.event-list i{font-style:normal;color:var(--gold)}.event-list em{font-style:italic;color:#dac9a4}.wide{display:block;width:100%;margin-top:16px;border:1px solid var(--line);border-radius:11px;padding:13px;text-align:center;color:var(--gold);background:rgba(0,0,0,.25);font-weight:700}.as-button{cursor:pointer}.apps{display:grid;gap:14px}.ai-grid{grid-template-columns:repeat(4,minmax(130px,1fr))}.tool-grid{grid-template-columns:repeat(auto-fit,minmax(130px,1fr))}.app-card{min-height:126px;border:1px solid rgba(218,163,64,.38);border-radius:13px;background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(0,0,0,.3));display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;transition:transform .16s,border-color .16s,box-shadow .16s}.app-card:hover{transform:translateY(-3px);border-color:#f5d070;box-shadow:0 0 24px rgba(218,163,64,.18)}.app-icon{width:54px;height:54px;border-radius:15px;display:grid;place-items:center;font-size:30px;font-weight:900;color:var(--icon-color);background:radial-gradient(circle at 30% 20%,var(--icon-hi),var(--icon-bg));box-shadow:inset 0 0 20px rgba(255,255,255,.13),0 8px 18px #000}.app-card span{font-weight:700}.task-columns{display:grid;grid-template-columns:1.35fr .9fr;gap:24px}.task-columns h3{margin:0 0 12px;color:var(--gold);text-transform:uppercase}.task-list{display:flex;flex-direction:column;gap:9px}.task-row{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;border-bottom:1px solid rgba(218,163,64,.13);padding-bottom:8px}.task-row.done label{text-decoration:line-through;color:var(--muted)}.task-row button{background:transparent;border:0;color:var(--danger);cursor:pointer}.task-add{display:grid;grid-template-columns:1fr auto;gap:9px;margin-top:14px}.task-add input{height:50px;background:#050707;border:1px solid rgba(218,163,64,.35);border-radius:11px;color:var(--text);padding:0 12px}.prompt{display:block;width:100%;margin-bottom:12px;padding:18px 12px;border:1px solid rgba(218,163,64,.36);border-radius:13px;background:#081010;color:var(--gold);font-weight:700;cursor:pointer}.quick-list{display:flex;flex-direction:column}.quick-item{display:grid;grid-template-columns:34px 1fr auto;align-items:center;gap:10px;padding:13px 2px;border-bottom:1px solid rgba(218,163,64,.13)}.quick-item b{font-weight:600}.tabs{display:flex;gap:10px;margin-bottom:14px}.tabs button{border:1px solid rgba(218,163,64,.38);border-radius:999px;background:rgba(0,0,0,.25);color:var(--muted);padding:8px 18px;cursor:pointer}.tabs button.active{color:var(--gold);box-shadow:inset 0 -2px 0 var(--gold)}.news-list{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}.news-item{min-height:128px;border-right:1px solid rgba(218,163,64,.16);padding-right:10px}.news-thumb{height:66px;border-radius:8px;background:linear-gradient(135deg,#30312c,#151717);margin-bottom:8px;display:grid;place-items:center;font-size:28px}.news-item a{display:block;font-weight:700;line-height:1.12}.news-item small{display:block;color:var(--muted);font-size:14px;margin-top:6px}.weather-main{display:flex;align-items:center;gap:18px}.cloud{font-size:54px}.weather-main b{font-size:58px;line-height:1;color:#f5d284}.weather-main span{display:block;color:#d9c8a5}.weather-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0}.weather-grid span{border:1px solid rgba(218,163,64,.2);border-radius:11px;padding:10px;color:var(--muted)}.weather-grid b{display:block;color:var(--text)}small{color:var(--muted)}blockquote{margin:10px 0 20px;font-size:27px;line-height:1.28;color:#f2d699;font-style:italic}cite{display:block;text-align:right;color:#d8c8a6;font-size:20px}.footer{width:min(1660px,96vw);margin:0 auto 28px;display:flex;align-items:center;justify-content:space-around;color:#e0b655;font-style:italic}.footer img{height:76px;opacity:.9}
-@media(max-width:1180px){.title-wrap{margin-top:22px}.title-wrap h1{font-size:44px}.title-wrap h1 span{font-size:40px}.search-bar{grid-template-columns:58px 1fr;border-radius:24px}.search-bar label{display:none}.search-bar input,.search-bar button{grid-column:1/-1}.layout{grid-template-columns:1fr;grid-template-areas:'ai' 'tools' 'tasks' 'calendar' 'quick' 'news' 'weather' 'wisdom'}.ai-grid{grid-template-columns:repeat(2,1fr)}.news-list{grid-template-columns:1fr}.task-columns,.calendar-inner{grid-template-columns:1fr}.hero-links{display:none}}
-@media(max-width:680px){body{font-size:16px}.hero{padding:18px}.identity img{width:62px;height:62px}.title-wrap h1{font-size:32px}.title-wrap h1 span{font-size:29px}.layout{width:94vw}.ai-grid,.tool-grid{grid-template-columns:repeat(2,1fr)}.event-list div{grid-template-columns:1fr}.footer{flex-direction:column;gap:8px}}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sage's Middle-earth Command</title>
+  <meta name="description" content="Sage's personal Middle-earth dashboard: calendar, tasks, notes, weather, news, and everyday tools." />
+  <meta name="color-scheme" content="dark" />
+  <link rel="icon" href="assets/sigil.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#dashboard">Skip to dashboard</a>
+  <header class="hero">
+    <div class="hero-top">
+      <div class="identity">
+        <img class="sigil" src="assets/sigil.svg" alt="Sage sigil" />
+        <div class="time-stack">
+          <strong id="greeting">Good Evening, Sage</strong>
+          <span id="clockDate">Loading date...</span>
+          <span id="clockTime">Loading time...</span>
+        </div>
+      </div>
+
+      <nav class="top-actions" aria-label="Top links">
+        <button id="themeToggle" class="top-action" type="button">
+          <span class="top-dot"></span>
+          <span>Theme</span>
+        </button>
+        <button id="settingsOpen" class="top-action" type="button"><span class="settings-icon" aria-hidden="true">⚙</span><span>Settings</span></button>
+        <a class="top-action" href="https://myaccount.google.com/" target="_blank" rel="noopener">
+          <img src="https://www.google.com/s2/favicons?domain=myaccount.google.com&amp;sz=64" alt="" />
+          <span>Account</span>
+        </a>
+        <a class="top-action alert-link" href="https://mail.google.com/" target="_blank" rel="noopener">
+          <img src="https://www.google.com/s2/favicons?domain=gmail.com&amp;sz=64" alt="" />
+          <span>Mail</span>
+        </a>
+        <a class="profile-link" href="https://chatgpt.com/" target="_blank" rel="noopener">
+          <img src="assets/avatars/avatar-06-row2-col2.png" alt="Sage avatar" />
+          <span>Sage</span>
+        </a>
+      </nav>
+    </div>
+
+    <div class="title-wrap">
+      <h1>Sage's <span>Middle-earth Command</span></h1>
+      <div class="ornament" aria-hidden="true"></div>
+      <p>All that is yours to do, see and know</p>
+    </div>
+
+    <form class="command-bar" id="searchForm">
+      <div class="palantir">
+        <img src="assets/palantir.svg" alt="" />
+        <span>Palantir</span>
+      </div>
+      <label class="sr-only" for="searchInput">Search the web or your dashboard</label>
+      <div class="search-field"><input id="searchInput" type="search" placeholder="Search the web, or find a tool..." autocomplete="off" /><select id="searchScope" aria-label="Search in"><option value="web">Web</option><option value="dashboard">Dashboard</option></select></div>
+      <button class="icon-button search-submit" type="submit" aria-label="Search">Search</button>
+      <button class="command-button" id="askAi" type="button">Ask AI</button>
+      <button class="command-button filled" id="newTask" type="button">New Task</button>
+    </form>
+  </header>
+
+  <main class="dashboard" id="dashboard">
+    <section class="panel calendar-panel">
+      <div class="panel-title">
+        <h2>The Calendar</h2>
+        <div class="calendar-actions">
+          <button id="calendarConnect" type="button">Connect Calendar</button>
+          <button id="calendarDisconnect" type="button" hidden>Disconnect</button>
+        </div>
+      </div>
+      <div class="calendar-body">
+        <div class="date-box">
+          <span id="weekday"></span>
+          <b id="daynum"></b>
+          <span id="monthyear"></span>
+          <div class="day-nav"><button id="calendarPrev" type="button" aria-label="Previous day">‹</button><button id="calendarToday" type="button">Today</button><button id="calendarNext" type="button" aria-label="Next day">›</button></div>
+        </div>
+        <div>
+          <div class="calendar-state" id="calendarState" role="status">Connect Google Calendar to see your events here.</div>
+          <div class="event-list" id="eventList"></div>
+        </div>
+      </div>
+      <a class="wide-link" href="https://calendar.google.com/calendar/u/0/r" target="_blank" rel="noopener">Open Google Calendar</a>
+    </section>
+
+    <section class="panel ai-panel">
+      <div class="panel-title">
+        <h2>AI Tools</h2>
+      </div>
+      <div class="app-grid ai-grid" id="aiGrid"></div>
+    </section>
+
+    <section class="panel tasks-panel" id="tasksPanel">
+      <div class="panel-title">
+        <h2>The Tasks of Today</h2>
+        <button id="clearDone" type="button">Clear Done</button>
+      </div>
+      <div class="task-toolbar"><span id="taskCount" aria-live="polite"></span><label><input id="showCompleted" type="checkbox" checked /> Show completed</label></div>
+      <div class="task-columns">
+        <div>
+          <h3>Today</h3>
+          <div id="todayTasks" class="task-list"></div>
+        </div>
+        <div>
+          <h3>Upcoming</h3>
+          <div id="upcomingTasks" class="task-list compact"></div>
+        </div>
+      </div>
+      <form class="task-add" id="taskForm">
+        <label class="sr-only" for="taskInput">New task</label><input id="taskInput" type="text" placeholder="Forge a new objective..." maxlength="300" required />
+        <input id="taskDue" type="date" aria-label="Task due date (optional)" />
+        <button id="addTask" type="submit">Assign</button>
+      </form>
+      <small id="storageState">Tasks and notes are saved in this browser.</small>
+    </section>
+
+    <section class="panel tools-panel">
+      <div class="panel-title">
+        <h2>Tools &amp; Systems</h2>
+        <button id="addLink" type="button">Add Link</button>
+      </div>
+      <div class="app-grid tool-grid" id="toolGrid"></div>
+    </section>
+
+    <section class="panel quick-panel">
+      <div class="panel-title">
+        <h2>Quick Access</h2>
+      </div>
+      <div class="quick-list" id="quickList"></div>
+    </section>
+
+    <section class="panel news-panel">
+      <div class="panel-title">
+        <h2>News from Middle-earth</h2>
+        <div class="panel-actions">
+          <button id="refreshNews" type="button">Refresh</button>
+          <a id="viewSource" href="https://www.foxnews.com/" target="_blank" rel="noopener">Source ↗</a>
+        </div>
+      </div>
+      <div class="tabs" id="newsTabs" role="group" aria-label="News sources">
+        <button class="active" data-feed="fox" type="button" aria-pressed="true">Fox News</button>
+        <button data-feed="wowhead" type="button" aria-pressed="false">Wowhead</button>
+        <button data-feed="tech" type="button" aria-pressed="false">Tech</button>
+      </div>
+      <p id="newsState" class="feed-state" role="status"></p>
+      <div id="newsList" class="news-list"></div>
+      <a id="viewAllNews" class="wide-link" href="https://www.foxnews.com/" target="_blank" rel="noopener">View All News ↗</a>
+    </section>
+
+    <section class="panel fellowship-panel">
+      <div class="panel-title">
+        <h2>The Fellowship</h2>
+      </div>
+      <div class="fellowship-list" id="fellowshipList"></div>
+      <figure class="fellowship-quote">
+        <blockquote>"Not all those who wander are lost."</blockquote>
+        <figcaption>J.R.R. Tolkien</figcaption>
+      </figure>
+    </section>
+
+    <section class="panel notes-panel">
+      <div class="panel-title">
+        <h2>The Scribe's Notes</h2>
+        <button id="addNote" type="button">New Note</button>
+      </div>
+      <div class="note-grid" id="noteGrid"></div>
+      <a class="wide-link notion-link" href="https://www.notion.so/" target="_blank" rel="noopener">
+        <img src="https://www.google.com/s2/favicons?domain=notion.so&amp;sz=64" alt="" />
+        <span>Open Notion</span>
+      </a>
+    </section>
+
+    <section class="panel weather-panel">
+      <div class="panel-title">
+        <h2>Weather in Rohan</h2>
+        <button id="refreshWeather" type="button" aria-label="Refresh weather">↻</button>
+      </div>
+      <div class="weather-main">
+        <div class="weather-icon" id="weatherIcon" aria-hidden="true">☁</div>
+        <div>
+          <b id="weatherTemp">--</b>
+          <span id="weatherDesc">Loading conditions...</span>
+        </div>
+      </div>
+      <div class="weather-grid">
+        <span>Humidity <b id="weatherHumidity">--</b></span>
+        <span>Wind <b id="weatherWind">--</b></span>
+        <span>Rain / last hour <b id="weatherRain">--</b></span>
+        <span>Updated <b id="weatherUpdated">--</b></span>
+      </div>
+      <small id="weatherSource" role="status"></small>
+      <button class="text-button" id="weatherLocation" type="button">Change location</button>
+    </section>
+
+    <section class="panel wisdom-panel">
+      <div class="panel-title">
+        <h2>Words of Wisdom</h2>
+      </div>
+      <blockquote id="quoteText"></blockquote>
+      <cite id="quoteBy"></cite>
+    </section>
+
+    <section class="panel status-panel">
+      <div class="status-columns">
+        <div>
+          <div class="panel-title flush">
+            <h2>System Status</h2>
+          </div>
+          <div id="statusList" class="status-list"></div>
+        </div>
+        <div class="incident-box">
+          <div class="panel-title flush">
+            <h2>Open Incidents</h2>
+          </div>
+          <div id="incidentText" role="status">Checking connected status feeds...</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <img src="assets/ring-footer.svg" alt="Decorative ring" />
+  </footer>
+  <p class="footer-caption">Your tools. Your quests. Your corner of Middle-earth. <button class="text-button" id="footerSettings" type="button">Settings &amp; backup</button></p>
+  <noscript><p class="panel">Enable JavaScript to use dashboard widgets. Your Google tools remain available at <a href="https://workspace.google.com/" target="_blank" rel="noopener">Google Workspace</a>.</p></noscript>
+
+  <dialog id="settingsDialog" aria-labelledby="settingsTitle">
+    <div class="dialog-heading"><h2 id="settingsTitle">Command Settings</h2><button type="button" data-close aria-label="Close settings">×</button></div>
+    <form id="settingsForm" class="dialog-form">
+      <label>Your name<input id="settingName" maxlength="40" required /></label>
+      <fieldset><legend>Weather location</legend><div class="inline-form"><input id="locationQuery" aria-label="Search for a city" placeholder="Search city or ZIP code" /><button id="findLocation" type="button">Find</button></div><div id="locationResults" role="status"></div><p id="selectedLocation"></p><label>Temperature<select id="settingUnit"><option value="fahrenheit">Fahrenheit (°F)</option><option value="celsius">Celsius (°C)</option></select></label></fieldset>
+      <fieldset><legend>Google Calendar</legend><label>Web OAuth client ID<input id="settingClientId" placeholder="Your ID.apps.googleusercontent.com" /></label><label>Calendar ID<input id="settingCalendarId" placeholder="primary" /></label><p class="help">Calendar access is read-only. Sign in from Chrome or Edge. Your OAuth client must allow this origin: <code id="oauthOrigin"></code>. <a href="https://developers.google.com/calendar/api/quickstart/js" target="_blank" rel="noopener">Google setup guide ↗</a></p></fieldset>
+      <button class="primary-button" type="submit">Save Settings</button>
+    </form>
+    <fieldset><legend>Backup &amp; restore</legend><p class="help">Download your tasks, notes, links, and settings. Import merges tasks and notes by ID and restores your links and settings. Keep the backup somewhere private.</p><div class="dialog-actions"><button id="exportData" type="button">Export Backup</button><label class="button-label">Import Backup<input id="importData" type="file" accept="application/json,.json" class="sr-only" /></label></div></fieldset>
+  </dialog>
+  <dialog id="noteDialog" aria-labelledby="noteTitle"><div class="dialog-heading"><h2 id="noteTitle">The Scribe's Note</h2><button type="button" data-close aria-label="Close note">×</button></div><form id="noteForm" class="dialog-form"><input id="noteId" type="hidden" /><label>Title<input id="noteName" maxlength="100" required /></label><label>Note<textarea id="noteText" rows="8" maxlength="10000" required></textarea></label><div class="dialog-actions"><button class="primary-button" type="submit">Save Note</button><button id="deleteNote" type="button">Delete Note</button></div></form></dialog>
+  <dialog id="linkDialog" aria-labelledby="linkTitle"><div class="dialog-heading"><h2 id="linkTitle">Your Tools &amp; Links</h2><button type="button" data-close aria-label="Close links">×</button></div><form id="linkForm" class="dialog-form"><input id="linkId" type="hidden" /><label>Name<input id="linkName" maxlength="60" required /></label><label>Website URL<input id="linkUrl" type="url" placeholder="https://example.com" required /></label><label>Section<select id="linkGroup"><option value="tools">Tools &amp; Systems</option><option value="ai">AI Tools</option><option value="quick">Quick Access</option></select></label><p id="linkError" class="form-error" role="status"></p><button class="primary-button" type="submit">Save Link</button></form><div id="manageLinks" class="manage-links"></div></dialog>
+  <dialog id="searchDialog" aria-labelledby="searchTitle"><div class="dialog-heading"><h2 id="searchTitle">The Palantir Found</h2><button type="button" data-close aria-label="Close results">×</button></div><div id="searchResults"></div></dialog>
+  <div id="toast" class="toast" role="status" hidden><span id="toastText"></span><button id="undoAction" type="button" hidden>Undo</button><button id="dismissToast" type="button" aria-label="Dismiss notification">×</button></div>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

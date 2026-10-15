@@ -1,0 +1,33 @@
+name: Refresh public news feeds
+on:
+  schedule:
+    - cron: '17 * * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['scripts/refresh-feeds.py', '.github/workflows/refresh-feeds.yml']
+permissions:
+  contents: write
+concurrency:
+  group: refresh-news
+  cancel-in-progress: false
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Refresh RSS snapshots
+        run: python scripts/refresh-feeds.py
+      - name: Save public headlines
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/news.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Refresh public news headlines'
+            git pull --rebase origin main
+            git push
+          fi

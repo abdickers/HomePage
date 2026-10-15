@@ -1,0 +1,54 @@
+{
+  "feeds": {
+    "fox": {
+      "items": [
+        {
+          "title": "Tension erupts during House midterm debate as Lawler fact-checks NY Democrat opponent on immigration",
+          "link": "https://www.foxnews.com/politics/tension-erupts-house-midterm-debate-lawler-fact-checks-ny-democrat-opponent-immigration",
+          "pubDate": "2026-10-14T21:35:16-04:00"
+        },
+        {
+          "title": "FBI arrest leads to maximum 90-year sentence for gymnastics coach who recorded minors at Mississippi gym",
+          "link": "https://www.foxnews.com/outkick-sports/fbi-arrest-leads-maximum-90-year-sentence-gymnastics-coach-recorded-minors-mississippi-gym",
+          "pubDate": "2026-10-14T21:19:51-04:00"
+        },
+        {
+          "title": "White House punches back at Chicago Mayor Johnson over reparations demands",
+          "link": "https://www.foxnews.com/media/white-house-slams-chicago-mayor-brandon-johnson-progressive-mayor-hits-trump-wealth-reparations",
+          "pubDate": "2026-10-14T21:08:22-04:00"
+        },
+        {
+          "title": "Canadian singer Joni Mitchell officially becomes American citizen after 62-year journey",
+          "link": "https://www.foxnews.com/entertainment/canadian-singer-joni-mitchell-officially-becomes-american-citizen-after-62-year-journey",
+          "pubDate": "2026-10-14T21:04:39-04:00"
+        }
+      ],
+      "updated": "2026-10-15T01:52:22.212660+00:00"
+    },
+    "wowhead": {
+      "items": [
+        {
+          "title": "Many Labyrinth Bug Fixes - Patch 12.1.5 Hotfixes",
+          "link": "https://www.wowhead.com/news=383424/many-labyrinth-bug-fixes-patch-12-1-5-hotfixes",
+          "pubDate": "2026-10-14T19:55:15-05:00"
+        },
+        {
+          "title": "Loot Sturdy Chests in Labyrinth of Kindo'jan for Lots of Reputation",
+          "link": "https://www.wowhead.com/news=383421/loot-sturdy-chests-in-labyrinth-of-kindojan-for-lots-of-reputation",
+          "pubDate": "2026-10-14T16:23:05-05:00"
+        },
+        {
+          "title": "New Cosmetics Items Available from Patch 12.1.5 Campaign",
+          "link": "https://www.wowhead.com/news=383403/new-cosmetics-items-available-from-patch-12-1-5-campaign",
+          "pubDate": "2026-10-14T13:54:02-05:00"
+        },
+        {
+          "title": "World of Warcraft: Forever Highilghts Launch Dungeons in New Blizzard Video",
+          "link": "https://www.wowhead.com/news=383419/world-of-warcraft-forever-highilghts-launch-dungeons-in-new-blizzard-video",
+          "pubDate": "2026-10-14T12:12:00-05:00"
+        }
+      ],
+      "updated": "2026-10-15T01:52:22.976570+00:00"
+    }
+  }
+}

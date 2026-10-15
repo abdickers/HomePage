@@ -1,0 +1,4 @@
+# Local-only outputs
+__pycache__/
+*.pyc
+qa/

@@ -1,57 +1,54 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1800 420" preserveAspectRatio="xMidYMid slice">
-  <defs>
-    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#0b1218"/>
-      <stop offset=".45" stop-color="#151a1d"/>
-      <stop offset="1" stop-color="#030405"/>
-    </linearGradient>
-    <radialGradient id="sun" cx="55%" cy="28%" r="35%">
-      <stop offset="0" stop-color="#f2d38b" stop-opacity=".55"/>
-      <stop offset=".28" stop-color="#a86d2b" stop-opacity=".22"/>
-      <stop offset="1" stop-color="#000" stop-opacity="0"/>
-    </radialGradient>
-    <filter id="blur"><feGaussianBlur stdDeviation="3"/></filter>
-    <linearGradient id="gold" x1="0" x2="1">
-      <stop offset="0" stop-color="#614016"/><stop offset=".5" stop-color="#f2d38b"/><stop offset="1" stop-color="#7d541d"/>
-    </linearGradient>
-  </defs>
-  <rect width="1800" height="420" fill="url(#sky)"/>
-  <rect width="1800" height="420" fill="url(#sun)"/>
-  <g opacity=".35" filter="url(#blur)">
-    <ellipse cx="430" cy="85" rx="310" ry="44" fill="#29323a"/>
-    <ellipse cx="1180" cy="72" rx="420" ry="55" fill="#2b3035"/>
-  </g>
-  <g fill="#06090a">
-    <path d="M0 340 L95 210 L165 295 L260 135 L385 330 L455 245 L520 340 Z"/>
-    <path d="M370 350 L485 190 L560 280 L650 115 L735 340 L825 210 L930 350 Z" opacity=".9"/>
-    <path d="M860 340 L980 155 L1060 295 L1165 115 L1265 335 L1370 220 L1480 345 Z"/>
-    <path d="M1260 350 L1365 175 L1450 295 L1575 100 L1670 315 L1800 170 L1800 420 L1260 420 Z" opacity=".95"/>
-  </g>
-  <g fill="#11171a" opacity=".9">
-    <path d="M0 365 L110 265 L200 345 L315 205 L445 360 L540 285 L620 365 Z"/>
-    <path d="M515 374 L660 240 L755 330 L870 195 L985 365 L1110 290 L1210 374 Z"/>
-    <path d="M1160 365 L1300 245 L1415 345 L1540 205 L1660 360 L1800 250 L1800 420 L1160 420 Z"/>
-  </g>
-  <g transform="translate(1320 115)" opacity=".85" fill="#101417" stroke="#4e3515" stroke-width="2">
-    <path d="M160 205 L160 95 L190 95 L190 205"/>
-    <path d="M80 205 L80 65 L112 65 L112 205"/>
-    <path d="M120 205 L120 25 L152 25 L152 205"/>
-    <path d="M210 205 L210 50 L245 50 L245 205"/>
-    <path d="M35 205 L35 110 L62 110 L62 205"/>
-    <path d="M12 205 L260 205 L280 245 L0 245 Z"/>
-    <path d="M96 65 L96 15 L105 65 Z" fill="#3b2b14"/>
-    <path d="M136 25 L136 -55 L150 25 Z" fill="#3b2b14"/>
-    <path d="M228 50 L228 -18 L241 50 Z" fill="#3b2b14"/>
-  </g>
-  <g transform="translate(230 120)" opacity=".72" fill="#0d1114" stroke="#4b3213" stroke-width="2">
-    <path d="M58 225 L58 100 L88 100 L88 225"/>
-    <path d="M95 225 L95 55 L130 55 L130 225"/>
-    <path d="M135 225 L135 130 L163 130 L163 225"/>
-    <path d="M15 225 L15 160 L42 160 L42 225"/>
-    <path d="M0 225 L180 225 L205 260 L-22 260 Z"/>
-    <path d="M112 55 L112 -25 L126 55 Z" fill="#3b2b14"/>
-  </g>
-  <rect y="290" width="1800" height="130" fill="url(#sky)" opacity=".55"/>
-  <rect width="1800" height="420" fill="#000" opacity=".22"/>
-  <path d="M0 418 H1800" stroke="url(#gold)" stroke-width="3" opacity=".65"/>
-</svg>
+# Sage's Middle-earth Command
+
+A buildless personal dashboard for [abdickers/HomePage](https://github.com/abdickers/HomePage), hosted on [GitHub Pages](https://abdickers.github.io/HomePage/). The existing Middle-earth artwork and gold/green styling are preserved.
+
+## Use the dashboard
+
+- **Links** open in a separate tab and keep the dashboard available. Use **Add Link** to add, edit, or remove shortcuts in AI Tools, Tools & Systems, and Quick Access. Use your organization's specific NetSuite, Jira, Confluence, and Slack URLs if you want to skip their workspace chooser.
+- **Tasks** support completion, priority stars, optional due dates, Today/Upcoming lists, clearing completed tasks, and undo. Completing a task never modifies a calendar event.
+- **Notes** open in a styled editor and support multiline text, editing, deletion, and undo.
+- **Search** supports web search, Ask AI, and a Dashboard scope that finds saved links, tasks, and notes. Press `/` to focus it.
+- **Settings** configures your display name, weather location and units, and calendar. **Export Backup** downloads a JSON file; **Import Backup** merges tasks/notes by ID and restores links/settings, with an undo option.
+- Tasks, notes, links, settings, and theme are browser-local. They sync between open tabs on the same origin. They do **not** sync across devices or different origins. Older `sage_tasks_v2`, `sage_tasks_v8`, and `sage_notes_v2` data is migrated when available. Export data before changing browsers or clearing site data.
+
+## Google Calendar
+
+The existing public Web OAuth client ID is retained in `js/core.js` and can be replaced in Settings. No secret or access token is stored in the repository or localStorage. Calendar tokens remain in memory until disconnect, expiry, or page reload.
+
+Use **Connect Calendar** in a normal Chrome or Edge tab. This requests only `calendar.events.readonly`, verifies the grant, and shows events for the selected day. Navigate days with the arrows or return to Today. The Open Google Calendar link works even while disconnected.
+
+In the Google Cloud project that owns the client ID:
+
+1. Enable the Google Calendar API and configure the OAuth consent screen.
+2. Use a **Web application** OAuth client.
+3. Add `https://abdickers.github.io` as an authorized JavaScript origin. Add `http://127.0.0.1:4173` and/or `http://localhost:4173` for local preview. Origins do not include `/HomePage/`.
+4. Add your account as a test user if the app is in Testing mode.
+
+An OAuth client ID is public configuration; never add a client secret. Google sign-in can be blocked inside embedded previews. Use the exact page URL in Chrome or Edge. Existing authorizations for broader scopes are managed in your Google account's third-party connections; the dashboard no longer requests Drive or calendar write access.
+
+Google setup: https://developers.google.com/calendar/api/quickstart/js
+
+## Live widgets
+
+- **Weather:** National Weather Service observations, with Open-Meteo forecast fallback. The configured default is Columbia, MO; change the city and °F/°C in Settings. Units are converted according to the NWS unit codes. Rain means the last hour, and missing measurements stay blank rather than becoming zero. Forecast fallback does not pretend to be a personal weather station. No API key is required.
+- **News:** Fox News RSS is read directly; Tech uses the Hacker News Algolia API. Wowhead blocks browser RSS requests, so it uses a timestamped public snapshot in `data/news.json`. The hourly `Refresh public news feeds` GitHub Action refreshes real Fox/Wowhead headlines and commits only this public file. The live page reads the snapshot from the repository so bot commits do not need to rebuild Pages. The action also supports a manual run. Scheduled runs can be delayed or disabled by GitHub after repository inactivity; the displayed timestamp identifies stale snapshots. If feeds fail, their last good snapshot is preserved. No sample headlines are fabricated.
+- **Status:** BigCommerce, Vercel, Slack, OpenAI, and Cloudflare are queried using their public status APIs. Incidents link to the provider. NetSuite links to its official status page; blocked/unavailable APIs display **View status**, not an invented operational state. Checks repeat every five minutes.
+
+External APIs can be blocked by browser extensions or provider outages. Refresh controls and source/status links remain available.
+
+## Preview and verify
+
+No install or build step is required. From the repository root:
+
+```sh
+python -m http.server 4173 --bind 127.0.0.1
+node --test tests/core.test.js
+node --check js/app.js
+python scripts/refresh-feeds.py
+```
+
+Open `http://127.0.0.1:4173/`. Use an HTTP server rather than opening `index.html` as a file, because the application uses ES modules.
+
+GitHub Pages should publish the `main` branch, repository root. Merge the change to publish the repaired HTML and assets. The news workflow needs Actions enabled and repository `contents: write` permission. It uses the built-in `GITHUB_TOKEN`; no custom secret is needed. Branch rules that prohibit bot commits may require allowing this workflow or running the feed refresher manually and committing its output.
+
+Legacy root SVG files and images are retained for compatibility. The active entry point loads only `css/styles.css` and `js/app.js`.
