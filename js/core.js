@@ -1,4 +1,4 @@
-import { accountLink, PERSONAL_EMAIL } from './account-links.mjs';
+import { accountLink, PERSONAL_EMAIL, WORK_URL } from './account-links.mjs';
 export const DATA_KEY = 'sage_command_v9';
 export const DEFAULT_SETTINGS = {
   name: 'Sage', unit: 'fahrenheit',
@@ -7,7 +7,7 @@ export const DEFAULT_SETTINGS = {
   calendarId: 'primary', spark: 'reviewer'
 };
 
-export const DEFAULT_LINKS = [
+const LEGACY_LINKS = [
   ['ChatGPT','https://chatgpt.com/','ai'], ['Claude','https://claude.ai/','ai'],
   ['Gemini','https://gemini.google.com/app','ai'], ['Grok','https://grok.com/','ai'],
   ['Perplexity','https://www.perplexity.ai/','ai'], ['Copilot','https://copilot.microsoft.com/','ai'],
@@ -25,6 +25,19 @@ export const DEFAULT_LINKS = [
   ['Google Keep','https://keep.google.com/','quick'], ['Google Photos','https://photos.google.com/','quick'],
   ['Google Meet','https://meet.google.com/','quick'], ['Recent Files','https://drive.google.com/drive/recent','quick']
 ].map(([name,url,group], i) => ({id:'link-'+i, name,url,group}));
+// Legacy work shortcuts belong in the White Tower. Custom service URLs are retained.
+const WORK_NAMES = new Set(['NetSuite','Slack','BigCommerce','Vercel','Jira','Confluence','Dotdigital','Zoom','Google Admin','Cloudflare']);
+const WORK_DEFAULTS = new Map(LEGACY_LINKS.filter(l=>WORK_NAMES.has(l.name)).map(l=>[l.name,l.url]));
+const WORK_PORTAL = {id:'work-command-center',name:'Work Command Center',url:WORK_URL,group:'tools'};
+export const DEFAULT_LINKS = [...LEGACY_LINKS.filter(l=>!WORK_NAMES.has(l.name)),WORK_PORTAL,
+ {id:'battle-net',name:'Battle.net',url:'https://account.battle.net/',group:'tools'},
+ {id:'wow-armory',name:'Frear · Armory',url:'https://worldofwarcraft.blizzard.com/en-us/character/us/grizzly-hills/frear/',group:'tools'}];
+function migrateLinks(links) {
+ if(!Array.isArray(links))return DEFAULT_LINKS;
+ const kept=links.filter(l=>!l||WORK_DEFAULTS.get(l.name)!==l.url);
+ return kept.length!==links.length&&!kept.some(l=>l?.id===WORK_PORTAL.id)?[...kept,WORK_PORTAL]:kept;
+}
+
 
 export function escapeHtml(value) {
   return String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -70,7 +83,7 @@ export function normalizeData(raw = {}) {
     title:String(Array.isArray(n) ? n[0] || 'Note' : n.title || 'Note').slice(0,100),
     text:String(Array.isArray(n) ? n[1] || '' : n.text ?? (Array.isArray(n.lines) ? n.lines.join('\n') : '')).slice(0,10000)
   })).slice(0,1000);
-  const links = (Array.isArray(raw.links) ? raw.links : DEFAULT_LINKS).filter(l => l && typeof l.name === 'string' && l.name.trim() && safeUrl(l.url)).slice(0,500).map((l,i) => ({
+  const links = migrateLinks(raw.links).filter(l => l && typeof l.name === 'string' && l.name.trim() && safeUrl(l.url)).slice(0,500).map((l,i) => ({
     id:String(l.id || 'import-link-'+i).slice(0,100),name:l.name.trim().slice(0,60),url:accountLink(l.url,PERSONAL_EMAIL,l.name),group:['ai','tools','quick'].includes(l.group) ? l.group : 'tools'
   }));
   return {version:9,tasks:unique(tasks),notes:unique(notes),links:unique(links),settings:normalizeSettings(raw.settings)};

@@ -60,3 +60,11 @@ test('the Pages entry point is HTML and its local resources exist',async()=>{
   const css=await readFile(new URL('css/styles.css',root),'utf8');
   for(const match of css.matchAll(/url\("([^"]+)"\)/g))await access(new URL(match[1],new URL('css/',root)));
 });
+
+test('legacy work shortcuts move to Work without losing custom links or empty preferences',()=>{
+ const result=normalizeData({links:[{id:'link-8',name:'NetSuite',url:'https://system.netsuite.com/',group:'tools'},{id:'custom',name:'NetSuite',url:'https://mycustom.example.com/app',group:'tools'}]});
+ assert.equal(result.links.find(l=>l.id==='link-8'),undefined);
+ assert.equal(result.links.find(l=>l.id==='custom').url,'https://mycustom.example.com/app');
+ assert.equal(result.links.filter(l=>l.id==='work-command-center').length,1);
+ assert.equal(normalizeData({links:[]}).links.length,0);
+});
