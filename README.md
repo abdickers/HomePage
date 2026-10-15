@@ -15,7 +15,7 @@ A buildless personal dashboard for [abdickers/HomePage](https://github.com/abdic
 
 The existing public Web OAuth client ID is retained in `js/core.js` and can be replaced in Settings. No secret or access token is stored in the repository or localStorage. Calendar tokens remain in memory until disconnect, expiry, or page reload.
 
-Use **Connect Calendar** in a normal Chrome or Edge tab. This requests only `calendar.events.readonly`, verifies the grant, and shows events for the selected day. Navigate days with the arrows or return to Today. The Open Google Calendar link works even while disconnected.
+Use **Connect Calendar** in a normal Chrome or Edge tab. This requests `calendar.events.readonly` plus OpenID email identity, verifies the grant and account, and shows events for the selected day. Navigate days with the arrows or return to Today. The Open Google Calendar link works even while disconnected.
 
 In the Google Cloud project that owns the client ID:
 
@@ -62,10 +62,25 @@ The sidebar switches between the two. The artwork, font pair, dark forest surfac
 
 Google shortcuts carry the realm's email selector, including saved/custom links and individual events. Calendar requests read-only events plus email identity and rejects a different or unverified account before reading any events. Public OAuth client configuration still requires the Google Cloud owner to authorize the GitHub Pages origin. Other providers keep their own login sessions; the page cannot read or force those identities. ChatGPT account switching is explicit in the UI, not an invented account-selection URL.
 
-The Quartermaster opens Walmart+ membership and orders, Amazon account/orders/Prime, and Walmart Customer Spark Community. These are shortcuts, not connected balances, points, order counts, or membership status. Spark Driver is an optional alternative in Settings. No retail credentials are requested or stored.
+The Quartermaster opens Walmart+ membership and orders and Amazon account/orders/Prime. Spark was removed at the owner’s request. The optional Gmail receipt reader shows actual source emails after personal Google consent; it does not query retailer accounts, balances or live delivery status. No retail credentials are requested or stored.
 
 Frear's companion uses Blizzard's actual public Armory render for Frear, US Grizzly Hills, dwarf paladin. The snapshot shown by Blizzard was updated September 15, 2026. The companion collapses and remembers the preference. This is a rendered image, not an interactive 3D model; the separate Wowhead Dressing Room can load characters. A true animated 3D companion still needs a verified model/appearance export. No Battle.net password is needed. Image source: https://render.worldofwarcraft.com/us/character/grizzly-hills/238/217923310-main-raw.png .
 
 The high-resolution Middle-earth header is reused from WorkHomepage. It is the saved 3840-pixel display derivative of the existing 1672×941 generated artwork, not a newly generated native 4K image. See WorkHomepage's ASSET-NOTES.md. Browser-local tasks, settings and notes do not migrate automatically from the old InkedSage origin: export a backup there and import it here.
 
 Legacy default work-service tiles on Personal now lead through a single Work Command Center tile. Custom URLs are retained, and tasks/notes are preserved. Personal tools include Battle.net and Frear’s Armory.
+
+
+## Personal Ravens and shopping receipts
+
+Personal has only Gemini and ChatGPT in its AI section. Removed AI services, Canva, Notion and Obsidian are filtered from saved links and backup imports as well as defaults; the static Notion shortcut and Spark configuration are removed. Work is unchanged.
+
+The Ravens mirrors Work's message cards with Primary and Updates tabs. Each reads the matching unread inbox category from **abdickers@gmail.com**, 20 messages at a time, deduplicated into conversations. More conversations loads the next page. Refresh is on demand; reading does not mark mail read. Every card opens the original Gmail conversation with the personal account selector.
+
+Use **Connect personal Gmail** or **Connect shopping receipts**. Both use one in-memory read-only Gmail session, separate from the Calendar token. The Google OpenID identity and Gmail mailbox profile must both match the personal email before message reads begin. Tokens, mail, and receipt records are never written to localStorage, the repository, the Work backend, or AI services. Disconnect and reload clear the private view. Google grants mailbox-wide `gmail.readonly` permission; category/sender queries limit what this page actually reads, not the scope of Google's grant.
+
+Shopping scans the last 180 days for Amazon/Walmart order, receipt, shipping, delivery, pickup and refund emails, 30 messages per page. Sender domains are checked against amazon.com/walmart.com and their subdomains; sender names alone are not trusted. Cards show message date, subject, an order ID if found, and an explicitly labelled unambiguous order total from the plain-text body when available. They are email events, **not current retailer status**. Multiple messages may refer to one order. No spending total is inferred, HTML emails are not executed or displayed, and attachments are not downloaded. Open the source email or retailer Orders link for full details and items.
+
+The Google Cloud owner must enable **Gmail API** for the public OAuth client configured in Settings and allow the `https://abdickers.github.io` JavaScript origin. The consent screen must permit the personal account and read-only Gmail scope. Google may require app verification or a configured test user; the UI reports denied or unavailable access instead of showing fake empty results. This feature requires user sign-in/consent and cannot be confirmed live without that step.
+
+Official references: https://developers.google.com/workspace/gmail/api/reference/rest/v1/users.messages/list and https://developers.google.com/workspace/gmail/api/auth/scopes . The discovered Amazon/Walmart order APIs are seller-oriented, not a consumer-account integration. No suitable consumer-order plugin was found in the current plugin discovery results.

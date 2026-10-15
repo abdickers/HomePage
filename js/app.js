@@ -1,18 +1,15 @@
-import { accountLink, PERSONAL_EMAIL } from './account-links.mjs?v=20261015-realms3';
-import {DATA_KEY, escapeHtml as esc, safeUrl, localDate, normalizeData, readData, mergeBackup, taskGroup, normalizeObservation} from './core.js?v=20261015-realms3';
+import { googleIdentity } from './google-identity.js?v=20261015-personal4';
+import { initPersonalMail } from './personal-mail.js?v=20261015-personal4';
+import { accountLink, PERSONAL_EMAIL } from './account-links.mjs?v=20261015-personal4';
+import {DATA_KEY, escapeHtml as esc, safeUrl, localDate, normalizeData, readData, mergeBackup, taskGroup, normalizeObservation} from './core.js?v=20261015-personal4';
 const $ = id => document.getElementById(id);
 const uid = () => crypto.randomUUID();
 let storage;
 try { storage = window.localStorage; } catch { storage = {getItem:()=>null,setItem:()=>{throw new Error('Storage blocked');}}; }
 let data = readData(storage);
+const personalMail = initPersonalMail(()=>data.settings.clientId);
 for (const a of document.querySelectorAll('a[href]')) {
  const routed=accountLink(a.href,PERSONAL_EMAIL,a.textContent.trim()); if(routed)a.href=routed;
-}
-function renderSpark(){
- const driver=data.settings.spark!=='reviewer';
- $('sparkLink').href=driver?'https://www.sparkdriverapp.com/':'https://customersparkcommunity.walmart.com/profile';
- $('sparkLink').textContent=driver?'Open Spark Driver ↗':'Open Spark Community ↗';
- $('sparkDescription').textContent=driver?'Delivery work, earnings & driver support':'Reviewer activities & community';
 }
 $('frearToggle').addEventListener('click',()=>{
  const collapsed=!$('frearBody').hidden; $('frearBody').hidden=collapsed;
@@ -63,7 +60,6 @@ function icon(link, kind) {
   return `<span class="${kind}"><img src="${esc(source)}" alt="" loading="lazy" /><span class="icon-fallback" hidden>${esc(link.name.slice(0,2).toUpperCase())}</span></span>`;
 }
 function renderLinks() {
-  renderSpark();
   for (const [group,id] of [['ai','aiGrid'],['tools','toolGrid'],['quick','quickList']]) {
     const links = data.links.filter(l=>l.group===group);
     $(id).innerHTML = links.length ? links.map(l=>group==='quick'
@@ -136,10 +132,7 @@ async function prepareCalendar() {
   $('calendarConnect').disabled=true;
   if(!data.settings.clientId){$('calendarConnect').textContent='Set Up Calendar';$('calendarConnect').disabled=false;return;}
   try {
-    if(!window.google?.accounts?.oauth2)await new Promise((resolve,reject)=>{
-      document.querySelector('script[data-google-signin]')?.remove();const script=document.createElement('script');script.src='https://accounts.google.com/gsi/client';script.async=true;script.dataset.googleSignin='true';
-      const timeout=setTimeout(()=>reject(new Error('Sign-in timed out')),10000);script.onload=()=>{clearTimeout(timeout);resolve();};script.onerror=()=>{clearTimeout(timeout);reject(new Error('Sign-in unavailable'));};document.head.append(script);
-    });
+    await googleIdentity();
     const clientId=data.settings.clientId;
     tokenClient=google.accounts.oauth2.initTokenClient({client_id:clientId,scope:'openid email https://www.googleapis.com/auth/calendar.events.readonly',login_hint:PERSONAL_EMAIL,include_granted_scopes:false,
       callback:async response=>{
@@ -231,7 +224,7 @@ async function loadStatuses(){
   $('incidentText').innerHTML=incidents.length?incidents.slice(0,4).map(i=>`<p><a href="${esc(i.url)}" target="_blank" rel="noopener noreferrer">${esc(i.service)}: ${esc(i.name)} ↗</a></p>`).join(''):'<p>No open incidents reported by the connected feeds.</p>';
   $('incidentText').insertAdjacentHTML('beforeend',`<small>Checked ${new Date().toLocaleTimeString([],{hour:'numeric',minute:'2-digit'})}.${unknown?' '+unknown+' services need a check on their status page.':''}</small>`);
 }
-function openSettings(){const s=data.settings;draftLocation={...s.location};$('settingSpark').value=s.spark;$('settingName').value=s.name;$('settingUnit').value=s.unit;$('settingClientId').value=s.clientId;$('settingCalendarId').value=s.calendarId;$('oauthOrigin').textContent=location.origin;$('selectedLocation').textContent='Selected: '+s.location.name;$('locationQuery').value='';$('locationResults').replaceChildren();$('settingsDialog').showModal();}
+function openSettings(){const s=data.settings;draftLocation={...s.location};$('settingName').value=s.name;$('settingUnit').value=s.unit;$('settingClientId').value=s.clientId;$('settingCalendarId').value=s.calendarId;$('oauthOrigin').textContent=location.origin;$('selectedLocation').textContent='Selected: '+s.location.name;$('locationQuery').value='';$('locationResults').replaceChildren();$('settingsDialog').showModal();}
 function openLinks(){$('linkForm').reset();$('linkId').value='';$('linkError').textContent='';renderLinkManager();$('linkDialog').showModal();}
 function renderLinkManager(){$('manageLinks').innerHTML=data.links.map(l=>`<div><span>${esc(l.name)} <small>${esc(l.group)}</small></span><button type="button" data-edit-link="${esc(l.id)}" aria-label="Edit ${esc(l.name)}">Edit</button><button type="button" data-delete-link="${esc(l.id)}" aria-label="Delete link ${esc(l.name)}">×</button></div>`).join('');}
 $('searchForm').addEventListener('submit',e=>{e.preventDefault();const q=$('searchInput').value.trim();if(q)$('searchScope').value==='dashboard'?searchDashboard(q):external('https://www.google.com/search?q='+encodeURIComponent(q));});
@@ -252,7 +245,7 @@ $('calendarDisconnect').addEventListener('click',disconnectCalendar);
 for(const [id,offset] of [['calendarPrev',-1],['calendarNext',1],['calendarToday',0]])$(id).addEventListener('click',()=>{if(offset)calendarDay.setDate(calendarDay.getDate()+offset);else calendarDay=new Date();updateTime();loadCalendar();});
 $('newsTabs').addEventListener('click',e=>{const b=e.target.closest('[data-feed]');if(!b)return;activeFeed=b.dataset.feed;document.querySelectorAll('[data-feed]').forEach(t=>{t.classList.toggle('active',t===b);t.setAttribute('aria-pressed',t===b);});loadNews();});
 $('refreshNews').addEventListener('click',loadNews);$('refreshWeather').addEventListener('click',loadWeather);
-$('settingsForm').addEventListener('submit',e=>{e.preventDefault();const old=data.settings;data.settings=normalizeData({settings:{spark:$('settingSpark').value,name:$('settingName').value,unit:$('settingUnit').value,clientId:$('settingClientId').value,calendarId:$('settingCalendarId').value,location:draftLocation}}).settings;const saved=persist();$('settingsDialog').close();renderSpark();updateTime();loadWeather();if(old.clientId!==data.settings.clientId||old.calendarId!==data.settings.calendarId){disconnectCalendar();prepareCalendar();}if(saved)toast('Settings saved.');});
+$('settingsForm').addEventListener('submit',e=>{e.preventDefault();const old=data.settings;data.settings=normalizeData({settings:{name:$('settingName').value,unit:$('settingUnit').value,clientId:$('settingClientId').value,calendarId:$('settingCalendarId').value,location:draftLocation}}).settings;const saved=persist();$('settingsDialog').close();updateTime();loadWeather();if(old.clientId!==data.settings.clientId||old.calendarId!==data.settings.calendarId){personalMail.disconnect();disconnectCalendar();prepareCalendar();}if(saved)toast('Settings saved.');});
 $('findLocation').addEventListener('click',async()=>{
   const q=$('locationQuery').value.trim();if(!q)return;const request=++locationRequest;$('locationResults').textContent='Finding your city...';
   try{const result=await json('https://geocoding-api.open-meteo.com/v1/search?count=5&language=en&format=json&name='+encodeURIComponent(q));if(request!==locationRequest)return;const locations=(result.results||[]).map(l=>({name:[l.name,l.admin1,l.country_code].filter(Boolean).join(', '),lat:l.latitude,lon:l.longitude}));$('locationResults').replaceChildren();if(!locations.length)$('locationResults').textContent='No cities found. Try a nearby city name.';for(const l of locations){const button=document.createElement('button');button.type='button';button.textContent=l.name;button.addEventListener('click',()=>{draftLocation=l;$('selectedLocation').textContent='Selected: '+l.name;$('locationResults').replaceChildren();});$('locationResults').append(button);}}
@@ -264,13 +257,13 @@ $('linkForm').addEventListener('submit',e=>{e.preventDefault();const url=safeUrl
 $('manageLinks').addEventListener('click',e=>{const edit=e.target.closest('[data-edit-link]'),del=e.target.closest('[data-delete-link]');const l=data.links.find(l=>l.id===(edit?.dataset.editLink||del?.dataset.deleteLink));if(!l)return;if(edit){$('linkId').value=l.id;$('linkName').value=l.name;$('linkUrl').value=l.url;$('linkGroup').value=l.group;$('linkName').focus();}else{data.links=data.links.filter(v=>v!==l);persist();renderLinks();renderLinkManager();toast('Link removed.',()=>{data.links.push(l);persist();renderLinks();renderLinkManager();});}});
 $('searchResults').addEventListener('click',e=>{const note=e.target.closest('[data-find-note]'),task=e.target.closest('[data-find-task]');if(note){$('searchDialog').close();openNote(note.dataset.findNote);}if(task){$('searchDialog').close();$('showCompleted').checked=true;renderTasks();const row=[...document.querySelectorAll('[data-task-id]')].find(r=>r.dataset.taskId===task.dataset.findTask);row?.scrollIntoView({behavior:'smooth',block:'center'});if(row){row.classList.add('highlight');setTimeout(()=>row.classList.remove('highlight'),3000);}}});
 $('exportData').addEventListener('click',()=>{const url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='sage-command-'+localDate()+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),10000);});
-$('importData').addEventListener('change',async e=>{const file=e.target.files[0];if(!file)return;try{if(file.size>5*1024*1024)throw new Error('Backup is too large (maximum 5 MB).');const before=structuredClone(data),incoming=JSON.parse(await file.text());data=mergeBackup(data,incoming);persist();renderLinks();renderTasks();renderNotes();disconnectCalendar();prepareCalendar();updateTime();loadWeather();$('settingsDialog').close();toast('Backup restored.',()=>{data=before;persist();renderLinks();renderTasks();renderNotes();disconnectCalendar();prepareCalendar();updateTime();loadWeather();});}catch(error){toast(error instanceof SyntaxError?'This file is not valid JSON.':error.message);}e.target.value='';});
+$('importData').addEventListener('change',async e=>{const file=e.target.files[0];if(!file)return;try{if(file.size>5*1024*1024)throw new Error('Backup is too large (maximum 5 MB).');const before=structuredClone(data),incoming=JSON.parse(await file.text());data=mergeBackup(data,incoming);persist();renderLinks();renderTasks();renderNotes();personalMail.disconnect();disconnectCalendar();prepareCalendar();updateTime();loadWeather();$('settingsDialog').close();toast('Backup restored.',()=>{data=before;persist();renderLinks();renderTasks();renderNotes();personalMail.disconnect();disconnectCalendar();prepareCalendar();updateTime();loadWeather();});}catch(error){toast(error instanceof SyntaxError?'This file is not valid JSON.':error.message);}e.target.value='';});
 $('undoAction').addEventListener('click',()=>{const action=undo;undo=null;$('toast').hidden=true;action?.();});$('dismissToast').addEventListener('click',()=>{$('toast').hidden=true;undo=null;});
 document.querySelectorAll('[data-close]').forEach(button=>button.addEventListener('click',()=>button.closest('dialog').close()));
 document.querySelectorAll('dialog').forEach(dialog=>dialog.addEventListener('click',e=>{if(e.target!==dialog)return;const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close();}));
 document.addEventListener('error',e=>{if(e.target instanceof HTMLImageElement){e.target.hidden=true;const fallback=e.target.nextElementSibling;if(fallback?.classList.contains('icon-fallback'))fallback.hidden=false;}},true);
 document.addEventListener('keydown',e=>{if(e.key==='/'&&!document.querySelector('dialog[open]')&&!['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName)){e.preventDefault();$('searchInput').focus();}});
-window.addEventListener('storage',e=>{if(e.key===DATA_KEY){const old=data.settings;data=readData(storage);renderLinks();renderTasks();renderNotes();updateTime();if(JSON.stringify(old)!==JSON.stringify(data.settings)){disconnectCalendar();prepareCalendar();loadWeather();}}});
+window.addEventListener('storage',e=>{if(e.key===DATA_KEY){const old=data.settings;data=readData(storage);renderLinks();renderTasks();renderNotes();updateTime();if(JSON.stringify(old)!==JSON.stringify(data.settings)){if(old.clientId!==data.settings.clientId)personalMail.disconnect();disconnectCalendar();prepareCalendar();loadWeather();}}});
 window.addEventListener('online',()=>{loadWeather();loadNews();loadStatuses();});
 try{if(storage.getItem('sage_theme')==='ember')document.body.classList.add('ember-mode');}catch{}
 $('themeToggle').setAttribute('aria-pressed',document.body.classList.contains('ember-mode'));

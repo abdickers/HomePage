@@ -1,10 +1,10 @@
-import { accountLink, PERSONAL_EMAIL, WORK_URL } from './account-links.mjs?v=20261015-realms3';
+import { accountLink, PERSONAL_EMAIL, WORK_URL } from './account-links.mjs?v=20261015-personal4';
 export const DATA_KEY = 'sage_command_v9';
 export const DEFAULT_SETTINGS = {
   name: 'Sage', unit: 'fahrenheit',
   location: {name: 'Columbia, MO', lat: 38.9517, lon: -92.3341},
   clientId: '644801431816-9f7u70h62fipmebva3llupi2o17b1g80.apps.googleusercontent.com',
-  calendarId: 'primary', spark: 'reviewer'
+  calendarId: 'primary'
 };
 
 const LEGACY_LINKS = [
@@ -29,13 +29,22 @@ const LEGACY_LINKS = [
 const WORK_NAMES = new Set(['NetSuite','Slack','BigCommerce','Vercel','Jira','Confluence','Dotdigital','Zoom','Google Admin','Cloudflare']);
 const WORK_DEFAULTS = new Map(LEGACY_LINKS.filter(l=>WORK_NAMES.has(l.name)).map(l=>[l.name,l.url]));
 const WORK_PORTAL = {id:'work-command-center',name:'Work Command Center',url:WORK_URL,group:'tools'};
-export const DEFAULT_LINKS = [...LEGACY_LINKS.filter(l=>!WORK_NAMES.has(l.name)),WORK_PORTAL,
+const REMOVED_NAMES = new Set(['claude','grok','perplexity','copilot','midjourney','runway','canva','notion','obsidian','spark','spark driver','customer spark']);
+const removedHosts = ['claude.ai','grok.com','perplexity.ai','copilot.microsoft.com','midjourney.com','runwayml.com','canva.com','notion.so','obsidian.md','sparkdriverapp.com','customersparkcommunity.walmart.com'];
+function wantedLink(link) {
+ if(!link || typeof link.name!=='string')return true;
+ if(REMOVED_NAMES.has(link.name.toLowerCase().trim()))return false;
+ if(link.group==='ai'&&!['chatgpt','gemini'].includes(link.name.toLowerCase().trim()))return false;
+ try { const host=new URL(link.url).hostname.replace(/^www\./,'');return !removedHosts.some(h=>host===h||host.endsWith('.'+h)); } catch {return true;}
+}
+export const DEFAULT_LINKS = [...LEGACY_LINKS.filter(l=>!WORK_NAMES.has(l.name)&&wantedLink(l)),WORK_PORTAL,
  {id:'battle-net',name:'Battle.net',url:'https://account.battle.net/',group:'tools'},
  {id:'wow-armory',name:'Frear · Armory',url:'https://worldofwarcraft.blizzard.com/en-us/character/us/grizzly-hills/frear/',group:'tools'}];
 function migrateLinks(links) {
  if(!Array.isArray(links))return DEFAULT_LINKS;
- const kept=links.filter(l=>!l||WORK_DEFAULTS.get(l.name)!==l.url);
- return kept.length!==links.length&&!kept.some(l=>l?.id===WORK_PORTAL.id)?[...kept,WORK_PORTAL]:kept;
+ const removedWork=links.some(l=>l&&WORK_DEFAULTS.get(l.name)===l.url);
+ const kept=links.filter(l=>(!l||WORK_DEFAULTS.get(l.name)!==l.url)&&wantedLink(l));
+ return removedWork&&!kept.some(l=>l?.id===WORK_PORTAL.id)?[...kept,WORK_PORTAL]:kept;
 }
 
 
@@ -63,7 +72,6 @@ export function normalizeSettings(value = {}) {
   if (['fahrenheit','celsius'].includes(value.unit)) s.unit = value.unit;
   for (const key of ['clientId','calendarId']) if (typeof value[key] === 'string') s[key] = value[key].trim().slice(0,300);
   if (!s.calendarId) s.calendarId = 'primary';
-  if (['driver','reviewer'].includes(value.spark)) s.spark=value.spark;
   const l = value.location;
   if (l && typeof l.name === 'string' && l.name.trim() && Number.isFinite(l.lat) && Math.abs(l.lat)<=90 && Number.isFinite(l.lon) && Math.abs(l.lon)<=180) {
     s.location = {name:l.name.slice(0,100),lat:l.lat,lon:l.lon};

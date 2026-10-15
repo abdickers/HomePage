@@ -12,5 +12,6 @@ jobs:
       - name: Validate application and saved-data behavior
         run: |
           node --check js/app.js
-          node --test tests/core.test.js
+          node --check js/personal-mail.js
+          node --test tests/*.test.js
           python3 -c "import ast; ast.parse(open('scripts/refresh-feeds.py', encoding='utf-8-sig').read())"

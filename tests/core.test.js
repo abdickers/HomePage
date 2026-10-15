@@ -68,3 +68,10 @@ test('legacy work shortcuts move to Work without losing custom links or empty pr
  assert.equal(result.links.filter(l=>l.id==='work-command-center').length,1);
  assert.equal(normalizeData({links:[]}).links.length,0);
 });
+
+test('requested removals apply to saved links and backups while preserving personal data',()=>{
+ const saved=normalizeData({tasks:[{id:'t',text:'Keep this quest'}],notes:[{id:'n',title:'Keep',text:'Keep this note'}],settings:{spark:'reviewer'},links:[{id:'a',name:'Claude',url:'https://claude.ai/',group:'ai'},{id:'b',name:'Canva',url:'https://www.canva.com/',group:'tools'},{id:'c',name:'My writing app',url:'https://www.notion.so/private',group:'tools'},{id:'d',name:'Gemini',url:'https://gemini.google.com/app',group:'ai'},{id:'e',name:'ChatGPT',url:'https://chatgpt.com/',group:'ai'}]});
+ assert.deepEqual(saved.links.map(l=>l.name),['Gemini','ChatGPT']);assert.equal(saved.tasks[0].text,'Keep this quest');assert.equal(saved.notes[0].text,'Keep this note');assert.equal('spark' in saved.settings,false);
+ assert.deepEqual(DEFAULT_LINKS.filter(l=>l.group==='ai').map(l=>l.name).sort(),['ChatGPT','Gemini']);
+ const restored=mergeBackup(normalizeData(),saved);assert.equal(restored.links.length,2);
+});

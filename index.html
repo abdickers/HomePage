@@ -9,9 +9,9 @@
   <link rel="icon" href="assets/sigil.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=20261015-realms3" />
-  <link rel="stylesheet" href="css/realm-theme.css?v=20261015-realms3" />
-  <link rel="stylesheet" href="css/personal-realm.css?v=20261015-realms3" />
+  <link rel="stylesheet" href="css/styles.css?v=20261015-personal4" />
+  <link rel="stylesheet" href="css/realm-theme.css?v=20261015-personal4" />
+  <link rel="stylesheet" href="css/personal-realm.css?v=20261015-personal4" />
 </head>
 <body data-command-realm="personal">
   <aside class="realm-sidebar" aria-label="Personal command center">
@@ -97,6 +97,14 @@
       <a class="wide-link" href="https://calendar.google.com/calendar/u/0/r" target="_blank" rel="noopener">Open Google Calendar</a>
     </section>
 
+    <section class="panel ravens-panel" id="personalRavens">
+      <div class="panel-title"><h2>✉ The ravens</h2><span class="realm-account">PERSONAL MESSAGES</span></div>
+      <div class="daily-tabs" role="group" aria-label="Personal inbox"><button type="button" data-inbox="primary" aria-pressed="true">Primary</button><button type="button" data-inbox="updates" aria-pressed="false">Updates</button></div>
+      <p class="realm-account" id="ravensCaption">Latest unread Primary conversations · abdickers@gmail.com</p>
+      <p id="ravensState" role="status">Connect your personal Gmail to bring the ravens home.</p><div id="ravensList" class="daily-list"></div>
+      <div class="daily-feed-footer"><button id="mailConnect" type="button">Connect personal Gmail</button><button id="mailRefresh" type="button" disabled>Refresh</button><button id="mailMore" type="button" hidden>More conversations</button><button id="mailDisconnect" type="button" hidden>Disconnect</button><span id="mailReadAt" class="realm-account"></span></div>
+      <details class="mail-privacy"><summary>Connection &amp; privacy</summary><p>Read-only access to abdickers@gmail.com for these inboxes and shopping receipts. Google grants mailbox-wide read access; this page queries only these feeds. Messages and tokens stay in memory in this browser and clear on disconnect or reload. No mail is sent to AI or saved in this public repository.</p><p>If Google blocks sign-in, your OAuth client must allow this website’s origin and enable Gmail API. Use Settings to review the client ID.</p></details>
+    </section>
     <section class="panel ai-panel">
       <div class="panel-title">
         <h2>AI Tools</h2>
@@ -133,9 +141,11 @@
       <div class="provision-grid">
         <article class="provision-card"><span class="provision-symbol walmart-mark" aria-hidden="true">✳</span><h3>Walmart+</h3><p>Groceries, deliveries &amp; member benefits</p><a href="https://www.walmart.com/plus" target="_blank" rel="noopener noreferrer">Membership ↗</a><a href="https://www.walmart.com/orders" target="_blank" rel="noopener noreferrer">Orders ↗</a></article>
         <article class="provision-card"><span class="provision-symbol amazon-mark" aria-hidden="true">a<span>⌣</span></span><h3>Amazon</h3><p>Your account, parcels &amp; Prime</p><a href="https://www.amazon.com/gp/css/homepage.html" target="_blank" rel="noopener noreferrer">Account ↗</a><a href="https://www.amazon.com/gp/your-account/order-history" target="_blank" rel="noopener noreferrer">Orders ↗</a><a href="https://www.amazon.com/amazonprime" target="_blank" rel="noopener noreferrer">Prime ↗</a></article>
-        <article class="provision-card"><span class="provision-symbol" aria-hidden="true">✧</span><h3>Spark</h3><p id="sparkDescription">Reviewer activities &amp; community</p><a id="sparkLink" href="https://customersparkcommunity.walmart.com/profile" target="_blank" rel="noopener noreferrer">Open Spark Community ↗</a></article>
       </div>
-      <p class="realm-account">Account shortcuts · sign in with abdickers@gmail.com where applicable. Balances, renewals and delivery data are not connected.</p>
+      <p class="realm-account"><span>Receipt history from abdickers@gmail.com · last 180 days · email evidence, not live retailer status.</span></p>
+      <div class="daily-feed-footer"><button id="receiptsConnect" type="button">Connect shopping receipts</button><button id="receiptsMore" type="button" hidden>More receipt emails</button><button id="receiptsClear" type="button" hidden>Clear receipt view</button></div>
+      <p id="receiptsState" role="status">Connect personal Gmail to show real Amazon and Walmart receipts here.</p>
+      <div class="receipt-columns"><section aria-label="Walmart receipt history"><h3>Walmart · the supply wagon</h3><div id="walmartReceipts"></div></section><section aria-label="Amazon receipt history"><h3>Amazon · the arriving caravans</h3><div id="amazonReceipts"></div></section></div>
     </section>
 
     <section class="panel tools-panel">
@@ -188,10 +198,6 @@
         <button id="addNote" type="button">New Note</button>
       </div>
       <div class="note-grid" id="noteGrid"></div>
-      <a class="wide-link notion-link" href="https://www.notion.so/" target="_blank" rel="noopener">
-        <img src="https://www.google.com/s2/favicons?domain=notion.so&amp;sz=64" alt="" />
-        <span>Open Notion</span>
-      </a>
     </section>
 
     <section class="panel weather-panel">
@@ -253,7 +259,7 @@
     <form id="settingsForm" class="dialog-form">
       <label>Your name<input id="settingName" maxlength="40" required /></label>
       <fieldset><legend>Weather location</legend><div class="inline-form"><input id="locationQuery" aria-label="Search for a city" placeholder="Search city or ZIP code" /><button id="findLocation" type="button">Find</button></div><div id="locationResults" role="status"></div><p id="selectedLocation"></p><label>Temperature<select id="settingUnit"><option value="fahrenheit">Fahrenheit (°F)</option><option value="celsius">Celsius (°C)</option></select></label></fieldset>
-      <fieldset><legend>Personal identity</legend><p>abdickers@gmail.com</p><p class="help">Calendar only loads after Google confirms this account. Other providers use their own signed-in sessions.</p></fieldset><fieldset><legend>Spark</legend><label>Service<select id="settingSpark"><option value="driver">Spark Driver — deliveries</option><option value="reviewer">Customer Spark — reviews & activities</option></select></label></fieldset><fieldset><legend>Google Calendar</legend><label>Web OAuth client ID<input id="settingClientId" placeholder="Your ID.apps.googleusercontent.com" /></label><label>Calendar ID<input id="settingCalendarId" placeholder="primary" /></label><p class="help">Calendar access is read-only; email identity is checked before reading events. Sign in from Chrome or Edge. Your OAuth client must allow this origin: <code id="oauthOrigin"></code>. <a href="https://developers.google.com/calendar/api/quickstart/js" target="_blank" rel="noopener">Google setup guide ↗</a></p></fieldset>
+      <fieldset><legend>Personal identity</legend><p>abdickers@gmail.com</p><p class="help">Calendar only loads after Google confirms this account. Other providers use their own signed-in sessions.</p></fieldset><fieldset><legend>Google connections</legend><label>Web OAuth client ID<input id="settingClientId" placeholder="Your ID.apps.googleusercontent.com" /></label><label>Calendar ID<input id="settingCalendarId" placeholder="primary" /></label><p class="help">Calendar and Gmail access is read-only. Connect each from its widget; the personal email is verified before reading content. Enable Calendar API and Gmail API for this OAuth client. Sign in from Chrome or Edge. Your OAuth client must allow this origin: <code id="oauthOrigin"></code>. <a href="https://developers.google.com/calendar/api/quickstart/js" target="_blank" rel="noopener">Google setup guide ↗</a></p></fieldset>
       <button class="primary-button" type="submit">Save Settings</button>
     </form>
     <fieldset><legend>Backup &amp; restore</legend><p class="help">Download your tasks, notes, links, and settings. Import merges tasks and notes by ID and restores your links and settings. Keep the backup somewhere private.</p><div class="dialog-actions"><button id="exportData" type="button">Export Backup</button><label class="button-label">Import Backup<input id="importData" type="file" accept="application/json,.json" class="sr-only" /></label></div></fieldset>
@@ -266,6 +272,6 @@
     <button id="frearToggle" type="button" aria-expanded="true" aria-controls="frearBody">Frear · Grizzly Hills <span aria-hidden="true">◇</span></button>
     <div id="frearBody"><a href="https://worldofwarcraft.blizzard.com/en-us/character/us/grizzly-hills/frear/" target="_blank" rel="noopener noreferrer"><img src="https://render.worldofwarcraft.com/us/character/grizzly-hills/238/217923310-main-raw.png" alt="Blizzard Armory render of Frear, your dwarf paladin" loading="lazy" /></a><p>Blizzard Armory render · Sep 15<br><a href="https://www.wowhead.com/dressing-room" target="_blank" rel="noopener noreferrer">Open 3D dressing room ↗</a></p></div>
   </aside>
-  <script type="module" src="js/app.js?v=20261015-realms3"></script>
+  <script type="module" src="js/app.js?v=20261015-personal4"></script>
 </body>
 </html>
