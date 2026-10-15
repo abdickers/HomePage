@@ -1,13 +1,14 @@
 # Sage's Middle-earth Command
 
-A buildless personal dashboard for [abdickers/HomePage](https://github.com/abdickers/HomePage), hosted on [GitHub Pages](https://abdickers.github.io/HomePage/). The existing Middle-earth artwork and gold/green styling are preserved.
+A buildless personal dashboard for [InkedSage/Homepage](https://github.com/InkedSage/Homepage), hosted on [GitHub Pages](https://inkedsage.github.io/Homepage/). The existing Middle-earth artwork and gold/green styling are preserved.
 
 ## Use the dashboard
 
 - **Links** open in a separate tab and keep the dashboard available. Use **Add Link** to add, edit, or remove shortcuts in AI Tools, Tools & Systems, and Quick Access. Use your organization's specific NetSuite, Jira, Confluence, and Slack URLs if you want to skip their workspace chooser.
-- **Tasks** support completion, priority stars, optional due dates, Today/Upcoming lists, clearing completed tasks, and undo. Completing a task never modifies a calendar event.
+- **Home and media** replace the Tasks section. Bag End reserves space for a Nest thermostat and outdoor camera; live access requires a private OAuth backend and device authorization. These cards show disconnected state until that integration is configured.
+- **Music and video** link to YouTube recommendations, YouTube Music Liked Music and playlists. A video can be pinned in this browser and loaded only when Play is clicked. YouTube does not expose a personal Home recommendation feed through its public API.
 - **Notes** open in a styled editor and support multiline text, editing, deletion, and undo.
-- **Search** supports web search, Ask AI, and a Dashboard scope that finds saved links, tasks, and notes. Press `/` to focus it.
+- **Search** supports web search, Ask AI, and a Dashboard scope that finds saved links and notes. Press `/` to focus it.
 - **Settings** configures your display name, weather location and units, and calendar. **Export Backup** downloads a JSON file; **Import Backup** merges tasks/notes by ID and restores links/settings, with an undo option.
 - Tasks, notes, links, settings, and theme are browser-local. They sync between open tabs on the same origin. They do **not** sync across devices or different origins. Older `sage_tasks_v2`, `sage_tasks_v8`, and `sage_notes_v2` data is migrated when available. Export data before changing browsers or clearing site data.
 
@@ -21,7 +22,7 @@ In the Google Cloud project that owns the client ID:
 
 1. Enable the Google Calendar API and configure the OAuth consent screen.
 2. Use a **Web application** OAuth client.
-3. Add `https://abdickers.github.io` as an authorized JavaScript origin. Add `http://127.0.0.1:4173` and/or `http://localhost:4173` for local preview. Origins do not include `/HomePage/`.
+3. Add `https://inkedsage.github.io` as an authorized JavaScript origin. Add `http://127.0.0.1:4173` and/or `http://localhost:4173` for local preview. Origins do not include `/HomePage/`.
 4. Add your account as a test user if the app is in Testing mode.
 
 An OAuth client ID is public configuration; never add a client secret. Google sign-in can be blocked inside embedded previews. Use the exact page URL in Chrome or Edge. Existing authorizations for broader scopes are managed in your Google account's third-party connections; the dashboard no longer requests Drive or calendar write access.
@@ -56,7 +57,7 @@ Legacy root SVG files and images are retained for compatibility. The active entr
 
 ## Twin command centers (October 15, 2026)
 
-Personal is canonically https://abdickers.github.io/HomePage/ and uses `abdickers@gmail.com`.
+Personal is canonically https://inkedsage.github.io/Homepage/ and uses `abdickers@gmail.com`.
 Work remains owner-private at https://adams-middle-earth-command.spirit-of-76-1921.chatgpt.site/ and uses `dickersona@76fireworks.com`.
 The sidebar switches between the two. The artwork, font pair, dark forest surfaces, gold palette, and ornamental borders match Work. `css/realm-theme.css` and `js/account-links.mjs` are copied unchanged to WorkHomepage's `public/realm-theme.css` and `lib/account-links.mjs`.
 
@@ -66,7 +67,7 @@ The Quartermaster opens Walmart+ membership and orders and Amazon account/orders
 
 Frear's companion uses Blizzard's actual public Armory render for Frear, US Grizzly Hills, dwarf paladin. The snapshot shown by Blizzard was updated September 15, 2026. The companion collapses and remembers the preference. This is a rendered image, not an interactive 3D model; the separate Wowhead Dressing Room can load characters. A true animated 3D companion still needs a verified model/appearance export. No Battle.net password is needed. Image source: https://render.worldofwarcraft.com/us/character/grizzly-hills/238/217923310-main-raw.png .
 
-The high-resolution Middle-earth header is reused from WorkHomepage. It is the saved 3840-pixel display derivative of the existing 1672×941 generated artwork, not a newly generated native 4K image. See WorkHomepage's ASSET-NOTES.md. Browser-local tasks, settings and notes do not migrate automatically from the old InkedSage origin: export a backup there and import it here.
+The high-resolution Middle-earth header is reused from WorkHomepage. It is the saved 3840-pixel display derivative of the existing 1672×941 generated artwork, not a newly generated native 4K image. See WorkHomepage's ASSET-NOTES.md. The live personal dashboard remains on the InkedSage origin. Browser-local tasks, settings and notes from the temporary abdickers deployment can be moved with Export backup and Import backup.
 
 Legacy default work-service tiles on Personal now lead through a single Work Command Center tile. Custom URLs are retained, and tasks/notes are preserved. Personal tools include Battle.net and Frear’s Armory.
 
@@ -81,7 +82,7 @@ Use **Connect personal Gmail** or **Connect shopping receipts**. Both use one in
 
 Shopping scans the last 180 days for Amazon/Walmart order, receipt, shipping, delivery, pickup and refund emails, 30 messages per page. Sender domains are checked against amazon.com/walmart.com and their subdomains; sender names alone are not trusted. Cards show message date, subject, an order ID if found, and an explicitly labelled unambiguous order total from the plain-text body when available. They are email events, **not current retailer status**. Multiple messages may refer to one order. No spending total is inferred, HTML emails are not executed or displayed, and attachments are not downloaded. Open the source email or retailer Orders link for full details and items.
 
-The Google Cloud owner must enable **Gmail API** for the public OAuth client configured in Settings and allow the `https://abdickers.github.io` JavaScript origin. The consent screen must permit the personal account and read-only Gmail scope. Google may require app verification or a configured test user; the UI reports denied or unavailable access instead of showing fake empty results. This feature requires user sign-in/consent and cannot be confirmed live without that step.
+The Google Cloud owner must enable **Gmail API** for the public OAuth client configured in Settings and allow the `https://inkedsage.github.io` JavaScript origin. The consent screen must permit the personal account and read-only Gmail scope. Google may require app verification or a configured test user; the UI reports denied or unavailable access instead of showing fake empty results. This feature requires user sign-in/consent and cannot be confirmed live without that step.
 
 Official references: https://developers.google.com/workspace/gmail/api/reference/rest/v1/users.messages/list and https://developers.google.com/workspace/gmail/api/auth/scopes . The discovered Amazon/Walmart order APIs are seller-oriented, not a consumer-account integration. No suitable consumer-order plugin was found in the current plugin discovery results.
 
@@ -92,3 +93,7 @@ The Personal dashboard has a full-width WoW section with a large, uncropped Armo
 `scripts/refresh-wow.py` reads Wowhead’s public US Today in WoW structured page data and its separate Forever events calendar into `data/wow.json`. GitHub Actions refreshes hourly, preserving each edition’s last successful snapshot independently. No Blizzard secret, login, or character credentials are needed. The Refresh button fetches the latest repository snapshot; it does not initiate an upstream crawl.
 
 Retail shows published event windows, repeating timers, daily reset, weekly bonuses and world activities. Countdowns update every 30 seconds; expired finite windows disappear. Untimed activities are explicitly snapshots; after three hours they say Last known and repeating projections stop. Forever supplies calendar date ranges, not verified exact realm reset/spawn times, so the panel shows dates and a direct source calendar instead of borrowing Retail timers. Source schema changes, missing schedules and portrait failures have visible fallbacks. Source links remain available during outages. Public schedules do not track individual character completion, lockouts or live realm status.
+
+## Combined repository
+
+This repository includes both Bag End / Nest controls (from InkedSage) and Frear’s Retail / Forever War Room. The existing deployed Nest gateway currently trusts `https://inkedsage.github.io`; moving its live client to `https://abdickers.github.io` requires updating the gateway origin and OAuth return URL, and allowing that frontend origin on the Google OAuth client. Copying this source does not reconfigure the deployed private gateway. Keep the existing Nest service configuration until that hosting migration is explicitly performed.

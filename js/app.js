@@ -1,7 +1,10 @@
-import { googleIdentity } from './google-identity.js?v=20261015-personal4';
-import { initPersonalMail } from './personal-mail.js?v=20261015-personal4';
-import { accountLink, PERSONAL_EMAIL } from './account-links.mjs?v=20261015-personal4';
-import {DATA_KEY, escapeHtml as esc, safeUrl, localDate, normalizeData, readData, mergeBackup, taskGroup, normalizeObservation} from './core.js?v=20261015-personal4';
+import {initNest} from './nest.js?v=20261015-personal7';
+import {NEST_SERVICE_URL} from './nest-config.js?v=20261015-personal7';
+import {initMedia} from './media.js?v=20261015-personal7';
+import { googleIdentity } from './google-identity.js?v=20261015-personal7';
+import { initPersonalMail } from './personal-mail.js?v=20261015-personal7';
+import { accountLink, PERSONAL_EMAIL } from './account-links.mjs?v=20261015-personal7';
+import {DATA_KEY, escapeHtml as esc, safeUrl, localDate, normalizeData, readData, mergeBackup, normalizeObservation} from './core.js?v=20261015-personal7';
 const $ = id => document.getElementById(id);
 const uid = () => crypto.randomUUID();
 let storage;
@@ -43,7 +46,7 @@ function toast(message, action) {
   toastTimer = setTimeout(()=>{ $('toast').hidden=true; undo=null; }, action ? 15000 : 7000);
 }
 function persist() {
-  try { storage.setItem(DATA_KEY, JSON.stringify(data)); $('storageState').textContent='Tasks and notes are saved in this browser.'; return true; }
+  try { storage.setItem(DATA_KEY, JSON.stringify(data)); $('storageState').textContent='Notes and settings are saved in this browser.'; return true; }
   catch { $('storageState').textContent='Session only — browser storage is unavailable. Export a backup before closing.'; toast('Could not save in this browser. Use Settings → Export Backup.'); return false; }
 }
 function external(url) { const href = accountLink(url, PERSONAL_EMAIL); if (href) window.open(href,'_blank','noopener,noreferrer'); }
@@ -61,29 +64,6 @@ function renderLinks() {
       : `<a class="app-card" href="${esc(accountLink(l.url, PERSONAL_EMAIL, l.name))}" target="_blank" rel="noopener noreferrer">${icon(l,'app-icon')}<span>${esc(l.name)}</span></a>`).join('') : '<p class="empty-state">Add your own links with Add Link.</p>';
   }
 }
-function renderTasks() {
-  const today = localDate(), visible = data.tasks.filter(t=>$('showCompleted').checked || !t.done);
-  const open = data.tasks.filter(t=>!t.done).length;
-  $('taskCount').textContent=`${open} open · ${data.tasks.length-open} complete`;
-  $('clearDone').disabled = !data.tasks.some(t=>t.done);
-  for (const [group,id] of [['today','todayTasks'],['upcoming','upcomingTasks']]) {
-    const items = visible.filter(t=>taskGroup(t,today)===group).sort((a,b)=>Number(a.done)-Number(b.done) || Number(b.star)-Number(a.star) || a.due.localeCompare(b.due));
-    $(id).innerHTML = items.length ? items.map(t=>`<div class="task-row ${t.done?'done':''}" data-task-id="${esc(t.id)}"><input type="checkbox" aria-label="Complete ${esc(t.text)}" ${t.done?'checked':''} /><div class="task-copy"><span>${esc(t.text)}</span>${t.due?`<time class="${t.due<today&&!t.done?'overdue':''}" datetime="${t.due}">${t.due<today&&!t.done?'Overdue · ':''}${new Date(t.due+'T12:00:00').toLocaleDateString([],{month:'short',day:'numeric'})}</time>`:''}</div><button class="star-task" type="button" data-action="star" aria-pressed="${t.star}" aria-label="Prioritize ${esc(t.text)}">${t.star?'★':'☆'}</button><button class="delete-task" type="button" data-action="delete" aria-label="Delete ${esc(t.text)}">×</button></div>`).join('') : `<p class="empty-state">${group==='today'?'No quests waiting. Add your next objective below.':'Give a task a future date to see it here.'}</p>`;
-  }
-}
-function removeTask(id) {
-  const item=data.tasks.find(t=>t.id===id),at=data.tasks.findIndex(t=>t.id===id);if(!item)return;
-  data.tasks.splice(at,1);persist();renderTasks();toast('Task removed.',()=>{data.tasks.splice(at,0,item);persist();renderTasks();});
-}
-function taskInteraction(event) {
-  const row=event.target.closest('[data-task-id]');if(!row)return;
-  const task=data.tasks.find(t=>t.id===row.dataset.taskId);if(!task)return;
-  if(event.type==='change'&&event.target.matches('input[type=checkbox]'))task.done=event.target.checked;
-  else if(event.type==='click'&&event.target.closest('[data-action=star]'))task.star=!task.star;
-  else if(event.type==='click'&&event.target.closest('[data-action=delete]'))return removeTask(task.id);
-  else return;
-  persist();renderTasks();
-}
 function renderNotes() {
   $('noteGrid').innerHTML=data.notes.length?data.notes.map(n=>`<button class="note" type="button" data-note-id="${esc(n.id)}" aria-label="Edit note: ${esc(n.title)}"><h3>${esc(n.title)}</h3><p>${esc(n.text)}</p><small>Edit note ↗</small></button>`).join(''):'<button class="note empty-note" type="button" data-new-note><h3>Make room for an idea.</h3><p>Write your first note. It will be here when you return.</p><small>+ New Note</small></button>';
 }
@@ -96,7 +76,7 @@ function renderFellowship() {
 }
 function updateTime() {
   const now=new Date(),today=localDate(now);
-  if(today!==lastToday){if(localDate(calendarDay)===lastToday){calendarDay=now;loadCalendar();}lastToday=today;renderTasks();}
+  if(today!==lastToday){if(localDate(calendarDay)===lastToday){calendarDay=now;loadCalendar();}lastToday=today;}
   $('greeting').textContent=`Good ${now.getHours()<12?'Morning':now.getHours()<17?'Afternoon':'Evening'}, ${data.settings.name}`;
   $('clockDate').textContent=now.toLocaleDateString([],{weekday:'long',month:'long',day:'numeric',year:'numeric'});
   $('clockTime').textContent=now.toLocaleTimeString([],{hour:'numeric',minute:'2-digit'});
@@ -105,9 +85,8 @@ function updateTime() {
 function searchDashboard(query) {
   const q=query.toLowerCase(),matches=[];
   data.links.filter(l=>`${l.name} ${l.url}`.toLowerCase().includes(q)).forEach(l=>matches.push(`<a class="search-result" href="${esc(accountLink(l.url, PERSONAL_EMAIL, l.name))}" target="_blank" rel="noopener noreferrer"><small>Tool · ${esc(l.group)}</small>${esc(l.name)} <span>↗</span></a>`));
-  data.tasks.filter(t=>t.text.toLowerCase().includes(q)).forEach(t=>matches.push(`<button class="search-result" data-find-task="${esc(t.id)}" type="button"><small>Task · ${t.done?'complete':'open'}</small>${esc(t.text)}</button>`));
   data.notes.filter(n=>`${n.title} ${n.text}`.toLowerCase().includes(q)).forEach(n=>matches.push(`<button class="search-result" data-find-note="${esc(n.id)}" type="button"><small>Note</small>${esc(n.title)}</button>`));
-  $('searchResults').innerHTML=matches.join('')||'<p class="empty-state">No matches in your tools, tasks, or notes.</p>';$('searchDialog').showModal();
+  $('searchResults').innerHTML=matches.join('')||'<p class="empty-state">No matches in your tools or notes.</p>';$('searchDialog').showModal();
 }
 async function json(url,options={}) {
   const timeout=AbortSignal.timeout(12000),signal=options.signal?AbortSignal.any([options.signal,timeout]):timeout;
@@ -167,7 +146,7 @@ async function loadNews(){
     else{
       try{
         if(feed==='wowhead'){
-          const source=location.hostname==='abdickers.github.io'?'https://raw.githubusercontent.com/abdickers/HomePage/main/data/news.json':'data/news.json';
+          const source=location.hostname==='inkedsage.github.io'?'https://raw.githubusercontent.com/InkedSage/Homepage/main/data/news.json':'data/news.json';
           let snapshot;
           try{snapshot=await json(source,{signal:newsController.signal,cache:'no-cache'});}
           catch{snapshot=await json('data/news.json',{signal:newsController.signal});}
@@ -223,11 +202,6 @@ function openLinks(){$('linkForm').reset();$('linkId').value='';$('linkError').t
 function renderLinkManager(){$('manageLinks').innerHTML=data.links.map(l=>`<div><span>${esc(l.name)} <small>${esc(l.group)}</small></span><button type="button" data-edit-link="${esc(l.id)}" aria-label="Edit ${esc(l.name)}">Edit</button><button type="button" data-delete-link="${esc(l.id)}" aria-label="Delete link ${esc(l.name)}">×</button></div>`).join('');}
 $('searchForm').addEventListener('submit',e=>{e.preventDefault();const q=$('searchInput').value.trim();if(q)$('searchScope').value==='dashboard'?searchDashboard(q):external('https://www.google.com/search?q='+encodeURIComponent(q));});
 $('askAi').addEventListener('click',()=>{const q=$('searchInput').value.trim();external(q?'https://chatgpt.com/?q='+encodeURIComponent(q):'https://chatgpt.com/');});
-$('newTask').addEventListener('click',()=>{$('tasksPanel').scrollIntoView({behavior:'smooth',block:'center'});$('taskInput').focus({preventScroll:true});});
-$('taskForm').addEventListener('submit',e=>{e.preventDefault();const text=$('taskInput').value.trim();if(!text)return;data.tasks.push({id:uid(),text,done:false,star:false,due:$('taskDue').value,created:new Date().toISOString()});persist();renderTasks();$('taskForm').reset();$('taskInput').focus();});
-for(const id of ['todayTasks','upcomingTasks']){$(id).addEventListener('change',taskInteraction);$(id).addEventListener('click',taskInteraction);}
-$('showCompleted').addEventListener('change',renderTasks);
-$('clearDone').addEventListener('click',()=>{const removed=data.tasks.filter(t=>t.done);data.tasks=data.tasks.filter(t=>!t.done);persist();renderTasks();toast('Completed tasks cleared.',()=>{data.tasks.push(...removed);persist();renderTasks();});});
 $('addNote').addEventListener('click',()=>openNote());
 $('noteGrid').addEventListener('click',e=>{const n=e.target.closest('[data-note-id],[data-new-note]');if(n)openNote(n.dataset.noteId);});
 $('noteForm').addEventListener('submit',e=>{e.preventDefault();const n={id:$('noteId').value||uid(),title:$('noteName').value.trim(),text:$('noteText').value.trim()};if(!n.title||!n.text)return;const index=data.notes.findIndex(v=>v.id===n.id);if(index<0)data.notes.push(n);else data.notes[index]=n;persist();renderNotes();$('noteDialog').close();});
@@ -249,20 +223,24 @@ $('locationQuery').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventD
 $('addLink').addEventListener('click',openLinks);
 $('linkForm').addEventListener('submit',e=>{e.preventDefault();const url=safeUrl($('linkUrl').value),name=$('linkName').value.trim();if(!url||!name){$('linkError').textContent='Use a name and a full http:// or https:// address.';return;}const link={id:$('linkId').value||uid(),name,url,group:$('linkGroup').value},i=data.links.findIndex(l=>l.id===link.id);if(i<0)data.links.push(link);else data.links[i]=link;persist();renderLinks();renderLinkManager();$('linkForm').reset();$('linkId').value='';$('linkError').textContent='';toast('Link saved.');});
 $('manageLinks').addEventListener('click',e=>{const edit=e.target.closest('[data-edit-link]'),del=e.target.closest('[data-delete-link]');const l=data.links.find(l=>l.id===(edit?.dataset.editLink||del?.dataset.deleteLink));if(!l)return;if(edit){$('linkId').value=l.id;$('linkName').value=l.name;$('linkUrl').value=l.url;$('linkGroup').value=l.group;$('linkName').focus();}else{data.links=data.links.filter(v=>v!==l);persist();renderLinks();renderLinkManager();toast('Link removed.',()=>{data.links.push(l);persist();renderLinks();renderLinkManager();});}});
-$('searchResults').addEventListener('click',e=>{const note=e.target.closest('[data-find-note]'),task=e.target.closest('[data-find-task]');if(note){$('searchDialog').close();openNote(note.dataset.findNote);}if(task){$('searchDialog').close();$('showCompleted').checked=true;renderTasks();const row=[...document.querySelectorAll('[data-task-id]')].find(r=>r.dataset.taskId===task.dataset.findTask);row?.scrollIntoView({behavior:'smooth',block:'center'});if(row){row.classList.add('highlight');setTimeout(()=>row.classList.remove('highlight'),3000);}}});
+$('searchResults').addEventListener('click',e=>{const note=e.target.closest('[data-find-note]');if(note){$('searchDialog').close();openNote(note.dataset.findNote);}});
 $('exportData').addEventListener('click',()=>{const url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='sage-command-'+localDate()+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),10000);});
-$('importData').addEventListener('change',async e=>{const file=e.target.files[0];if(!file)return;try{if(file.size>5*1024*1024)throw new Error('Backup is too large (maximum 5 MB).');const before=structuredClone(data),incoming=JSON.parse(await file.text());data=mergeBackup(data,incoming);persist();renderLinks();renderTasks();renderNotes();personalMail.disconnect();disconnectCalendar();prepareCalendar();updateTime();loadWeather();$('settingsDialog').close();toast('Backup restored.',()=>{data=before;persist();renderLinks();renderTasks();renderNotes();personalMail.disconnect();disconnectCalendar();prepareCalendar();updateTime();loadWeather();});}catch(error){toast(error instanceof SyntaxError?'This file is not valid JSON.':error.message);}e.target.value='';});
+$('importData').addEventListener('change',async e=>{const file=e.target.files[0];if(!file)return;try{if(file.size>5*1024*1024)throw new Error('Backup is too large (maximum 5 MB).');const before=structuredClone(data),incoming=JSON.parse(await file.text());data=mergeBackup(data,incoming);persist();renderLinks();renderNotes();personalMail.disconnect();disconnectCalendar();prepareCalendar();updateTime();loadWeather();$('settingsDialog').close();toast('Backup restored.',()=>{data=before;persist();renderLinks();renderNotes();personalMail.disconnect();disconnectCalendar();prepareCalendar();updateTime();loadWeather();});}catch(error){toast(error instanceof SyntaxError?'This file is not valid JSON.':error.message);}e.target.value='';});
 $('undoAction').addEventListener('click',()=>{const action=undo;undo=null;$('toast').hidden=true;action?.();});$('dismissToast').addEventListener('click',()=>{$('toast').hidden=true;undo=null;});
 document.querySelectorAll('[data-close]').forEach(button=>button.addEventListener('click',()=>button.closest('dialog').close()));
 document.querySelectorAll('dialog').forEach(dialog=>dialog.addEventListener('click',e=>{if(e.target!==dialog)return;const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close();}));
 document.addEventListener('error',e=>{if(e.target instanceof HTMLImageElement){e.target.hidden=true;const fallback=e.target.nextElementSibling;if(fallback?.classList.contains('icon-fallback'))fallback.hidden=false;}},true);
 document.addEventListener('keydown',e=>{if(e.key==='/'&&!document.querySelector('dialog[open]')&&!['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName)){e.preventDefault();$('searchInput').focus();}});
-window.addEventListener('storage',e=>{if(e.key===DATA_KEY){const old=data.settings;data=readData(storage);renderLinks();renderTasks();renderNotes();updateTime();if(JSON.stringify(old)!==JSON.stringify(data.settings)){if(old.clientId!==data.settings.clientId)personalMail.disconnect();disconnectCalendar();prepareCalendar();loadWeather();}}});
+window.addEventListener('storage',e=>{if(e.key===DATA_KEY){const old=data.settings;data=readData(storage);renderLinks();renderNotes();updateTime();if(JSON.stringify(old)!==JSON.stringify(data.settings)){if(old.clientId!==data.settings.clientId)personalMail.disconnect();disconnectCalendar();prepareCalendar();loadWeather();}}});
 window.addEventListener('online',()=>{loadWeather();loadNews();loadStatuses();});
 try{if(storage.getItem('sage_theme')==='ember')document.body.classList.add('ember-mode');}catch{}
 $('themeToggle').setAttribute('aria-pressed',document.body.classList.contains('ember-mode'));
 document.querySelectorAll('a[target="_blank"]').forEach(a=>a.rel='noopener noreferrer');
-renderLinks();renderTasks();renderNotes();renderFellowship();updateTime();persist();
+renderLinks();renderNotes();renderFellowship();updateTime();persist();
 const quote=quotes[Math.floor(Date.now()/86400000)%quotes.length];$('quoteText').textContent='“'+quote[0]+'”';$('quoteBy').textContent=quote[1];
 prepareCalendar();loadNews();loadWeather();loadStatuses();
 setInterval(updateTime,30000);setInterval(loadWeather,10*60*1000);setInterval(loadStatuses,5*60*1000);setInterval(loadNews,15*60*1000);
+
+initMedia(storage);
+
+initNest(NEST_SERVICE_URL);

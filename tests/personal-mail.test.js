@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {initPersonalMail} from '../js/personal-mail.js';
+import {initPersonalMail,googleReadError} from '../js/personal-mail.js';
 const tick=()=>new Promise(setImmediate);
 function fixture({email='abdickers@gmail.com',closed=false}={}){
  const elements=new Map();
@@ -41,4 +41,16 @@ test('closing the Google popup clears the pending grant and permits retry',async
  const f=fixture({closed:true});initPersonalMail(()=> 'public-client-id');await tick();
  f.element('receiptsConnect').listeners.click();await tick();
  assert.match(f.element('receiptsState').textContent,/Sign-in closed/);assert.equal(f.element('receiptsConnect').disabled,false);assert.equal(f.element('mailConnect').disabled,false);assert.equal(f.calls.length,0);
+});
+
+test('Google API failures distinguish disabled API, missing scopes, policy and rate limits without exposing provider text',()=>{
+ const url='https://gmail.googleapis.com/gmail/v1/users/me/profile';
+ assert.match(googleReadError(403,{error:{details:[{reason:'SERVICE_DISABLED',metadata:{consumer:'projects/123456'}}]}},url),/disabled in Google Cloud project 123456/);
+ assert.match(googleReadError(403,{error:{errors:[{reason:'insufficientPermissions'}]}},url),/read-only Gmail scope/);
+ assert.match(googleReadError(403,{error:{errors:[{reason:'domainPolicy'}]}},url),/account policy/);
+ assert.match(googleReadError(403,{error:{errors:[{reason:'userRateLimitExceeded'}]}},url),/limiting requests/);
+ assert.match(googleReadError(403,{error:{errors:[{reason:'dailyLimitExceeded'}]}},url),/daily API quota/);
+ assert.match(googleReadError(403,null,url),/Gmail rejected.*403/);
+ assert.match(googleReadError(403,null,'https://openidconnect.googleapis.com/v1/userinfo'),/Google identity rejected/);
+ assert.doesNotMatch(googleReadError(403,{error:{message:'secret-token-user-email',errors:[{reason:'<script>secret</script>'}]}},url),/secret|script/);
 });

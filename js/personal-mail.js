@@ -1,17 +1,35 @@
-import {googleIdentity} from './google-identity.js?v=20261015-personal4';
-import {PERSONAL_EMAIL} from './account-links.mjs?v=20261015-personal4';
-import {escapeHtml as esc} from './core.js?v=20261015-personal4';
-import {INBOX_QUERIES,RECEIPT_QUERY,personalIdentity,uniqueConversations,receiptRecord} from './mail-data.js?v=20261015-personal4';
+import {googleIdentity} from './google-identity.js?v=20261015-personal6';
+import {PERSONAL_EMAIL} from './account-links.mjs?v=20261015-personal6';
+import {escapeHtml as esc} from './core.js?v=20261015-personal6';
+import {INBOX_QUERIES,RECEIPT_QUERY,personalIdentity,uniqueConversations,receiptRecord} from './mail-data.js?v=20261015-personal6';
 const SCOPE='https://www.googleapis.com/auth/gmail.readonly';
 const $=id=>document.getElementById(id);
 const stamp=timestamp=>timestamp?new Date(timestamp).toLocaleString([],{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}):'';
+export function googleReadError(status,body,url){
+ const error=body?.error||{};
+ const reasons=[...(Array.isArray(error.errors)?error.errors.map(x=>x?.reason):[]),...(Array.isArray(error.details)?error.details.map(x=>x?.reason):[])].filter(x=>typeof x==='string');
+ const has=(...codes)=>codes.some(code=>reasons.includes(code));
+ const endpoint=url.includes('openidconnect.googleapis.com')?'Google identity':'Gmail';
+ if(status===401)return 'Your Google session expired. Disconnect and connect again.';
+ if(status===429||has('rateLimitExceeded','userRateLimitExceeded','RATE_LIMIT_EXCEEDED','RESOURCE_EXHAUSTED'))return 'Google is limiting requests. Wait a moment, then refresh. Reconnecting will not fix a rate limit.';
+ if(has('dailyLimitExceeded','DAILY_LIMIT_EXCEEDED'))return 'The Google Cloud project has reached its daily API quota. Check its Gmail API quotas before retrying.';
+ if(has('accessNotConfigured','SERVICE_DISABLED')||(status===403&&/has not been used|is disabled/i.test(error.message||''))){
+  const detail=Array.isArray(error.details)?error.details.find(x=>/^projects\/\d+$/.test(x?.metadata?.consumer||'')):null;
+  const project=detail?.metadata.consumer.split('/')[1];
+  return 'Gmail API is disabled'+(project?' in Google Cloud project '+project:' in the OAuth client’s Google Cloud project')+'. Enable Gmail API there, wait a few minutes, then connect again.';
+ }
+ if(has('insufficientPermissions','ACCESS_TOKEN_SCOPE_INSUFFICIENT'))return 'Google did not authorize the required read-only Gmail scope. Disconnect, reconnect, and grant Gmail read access for abdickers@gmail.com.';
+ if(has('domainPolicy','ORG_RESTRICTION_VIOLATION'))return 'Google account policy blocks this app from reading Gmail. Check the account administrator’s app access policy.';
+ const reason=reasons.find(x=>/^[A-Za-z][A-Za-z0-9_]{0,63}$/.test(x));
+ if(status===403)return endpoint+' rejected the request (403'+(reason?' · '+reason:'')+'). Check the OAuth project’s API access and account permissions. No message content was loaded by this failed request.';
+ return endpoint+' could not load (HTTP '+status+'). Please try again.';
+}
 async function readJSON(url,token,signal){
  const response=await fetch(url,{headers:{Authorization:'Bearer '+token},credentials:'omit',cache:'no-store',signal});
  if(!response.ok){
-  if(response.status===401)throw Error('Your Gmail session expired. Disconnect and connect again.');
-  if(response.status===403)throw Error('Google denied Gmail access. Enable Gmail API in the Google Cloud project for your OAuth client, check the consent/test-user configuration, then reconnect.');
-  if(response.status===429)throw Error('Google is limiting requests. Please try again shortly.');
-  throw Error('Gmail could not load. Please try again.');
+  let body;try{body=await response.json();}catch{}
+  // Use only recognized reason codes and a numeric project ID, never raw provider messages or tokens.
+  throw Error(googleReadError(response.status,body,url));
  }
  return response.json();
 }

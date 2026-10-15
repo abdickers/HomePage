@@ -1,9 +1,9 @@
 /** Account hints route Google links; other providers retain their own browser sessions. */
 export const PERSONAL_EMAIL = 'abdickers@gmail.com';
 export const WORK_EMAIL = 'dickersona@76fireworks.com';
-export const PERSONAL_URL = 'https://abdickers.github.io/HomePage/';
+export const PERSONAL_URL = 'https://inkedsage.github.io/Homepage/';
 export const WORK_URL = 'https://adams-middle-earth-command.spirit-of-76-1921.chatgpt.site/';
-const googleHosts = new Set(['mail.google.com','calendar.google.com','drive.google.com','docs.google.com','keep.google.com','photos.google.com','meet.google.com','myaccount.google.com','gemini.google.com']);
+const googleHosts = new Set(['mail.google.com','calendar.google.com','drive.google.com','docs.google.com','keep.google.com','photos.google.com','meet.google.com','myaccount.google.com','gemini.google.com','home.google.com']);
 const workDefaults = {
  'https://slack.com/':'https://76fireworks.slack.com/',
  'https://dotdigital.com/':'https://login.dotdigital.com/',

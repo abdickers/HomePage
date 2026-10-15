@@ -1,4 +1,4 @@
-import { accountLink, PERSONAL_EMAIL } from './account-links.mjs?v=20261015-personal4';
+import { accountLink, PERSONAL_EMAIL } from './account-links.mjs?v=20261015-personal6';
 export const INBOX_QUERIES={primary:'in:inbox category:primary is:unread',updates:'in:inbox category:updates is:unread'};
 export const RECEIPT_QUERY='newer_than:180d -in:spam -in:trash {from:amazon.com from:walmart.com} {subject:order subject:shipped subject:delivered subject:refund subject:receipt subject:"on the way" subject:pickup}';
 export function personalIdentity(identity,profile){return identity?.email_verified===true&&String(identity.email).toLowerCase()===PERSONAL_EMAIL&&String(profile?.emailAddress).toLowerCase()===PERSONAL_EMAIL;}

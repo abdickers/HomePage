@@ -1,0 +1,33 @@
+{
+  "$schema": "../../../work/nest-tooling/node_modules/wrangler/config-schema.json",
+  "name": "sage-cabin-nest",
+  "account_id": "5e6a580fb3f9a04573693f7c6c123fbd",
+  "main": "worker.mjs",
+  "compatibility_date": "2026-10-15",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "workers_dev": true,
+  "preview_urls": false,
+  "observability": {
+    "enabled": true,
+    "logs": {
+      "enabled": true,
+      "invocation_logs": false
+    },
+    "head_sampling_rate": 1,
+    "redact_query_string": true
+  },
+  "vars": {
+    "FRONTEND_ORIGIN": "https://inkedsage.github.io",
+    "OWNER_EMAIL": "abdickers@gmail.com",
+    "NEST_PROJECT_ID": "36aad5a3-335e-4665-a687-9783ae584571",
+    "GOOGLE_CLIENT_ID": "644801431816-9f7u70h62fipmebva3llupi2o17b1g80.apps.googleusercontent.com"
+  },
+  "kv_namespaces": [
+    {
+      "binding": "NEST_KV",
+      "id": "141d76a39b1e476dbe134dcf578f85a0"
+    }
+  ]
+}

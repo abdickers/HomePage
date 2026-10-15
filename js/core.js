@@ -1,4 +1,4 @@
-import { accountLink, PERSONAL_EMAIL, WORK_URL } from './account-links.mjs?v=20261015-personal4';
+import { accountLink, PERSONAL_EMAIL, WORK_URL } from './account-links.mjs?v=20261015-personal6';
 export const DATA_KEY = 'sage_command_v9';
 export const DEFAULT_SETTINGS = {
   name: 'Sage', unit: 'fahrenheit',
@@ -16,7 +16,7 @@ const LEGACY_LINKS = [
   ['BigCommerce','https://login.bigcommerce.com/','tools'], ['Vercel','https://vercel.com/dashboard','tools'],
   ['Jira','https://start.atlassian.com/','tools'], ['Confluence','https://start.atlassian.com/','tools'],
   ['Dotdigital','https://login.dotdigital.com/','tools'], ['Zoom','https://zoom.us/signin','tools'],
-  ['GitHub','https://github.com/abdickers/HomePage','tools'], ['Google Admin','https://admin.google.com/','tools'],
+  ['GitHub','https://github.com/InkedSage/Homepage','tools'], ['Google Admin','https://admin.google.com/','tools'],
   ['Cloudflare','https://dash.cloudflare.com/','tools'], ['Canva','https://www.canva.com/','tools'],
   ['Notion','https://www.notion.so/','tools'], ['Obsidian','https://obsidian.md/','tools'],
   ['My Drive','https://drive.google.com/drive/my-drive','quick'], ['Gmail','https://mail.google.com/','quick'],

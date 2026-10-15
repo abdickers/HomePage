@@ -2,3 +2,10 @@
 __pycache__/
 *.pyc
 qa/
+node_modules/
+.wrangler/
+.dev.vars*
+.env*
+*credentials*.json
+*client_secret*.json
+worker-configuration.d.ts
