@@ -1,0 +1,391 @@
+[
+  {
+    "file": "assets/expansion/treasury-hidden-mine-door.webp",
+    "source": "treasury-hidden-mine-door.png",
+    "crop": null,
+    "width": 960,
+    "height": 640,
+    "bytes": 233792,
+    "alpha_preserved": true
+  },
+  {
+    "file": "assets/expansion/lonely-mountain-treasury.webp",
+    "source": "lonely-mountain-treasury.png",
+    "crop": null,
+    "width": 1916,
+    "height": 821,
+    "bytes": 292568,
+    "alpha_preserved": true
+  },
+  {
+    "file": "assets/expansion/bree-prancing-pony-news-board.webp",
+    "source": "bree-prancing-pony-news-board.png",
+    "crop": null,
+    "width": 1672,
+    "height": 941,
+    "bytes": 397508,
+    "alpha_preserved": true
+  },
+  {
+    "file": "assets/expansion/treasury-hidden-mine-door-small.webp",
+    "source": "treasury-hidden-mine-door.png",
+    "crop": null,
+    "width": 480,
+    "height": 320,
+    "bytes": 58968,
+    "alpha_preserved": true
+  },
+  {
+    "file": "assets/expansion/bree-prancing-pony-news-board-small.webp",
+    "source": "bree-prancing-pony-news-board.png",
+    "crop": null,
+    "width": 768,
+    "height": 432,
+    "bytes": 97906,
+    "alpha_preserved": true
+  },
+  {
+    "file": "assets/expansion/bree-board-quiet-wood.webp",
+    "source": "bree-prancing-pony-news-board.png",
+    "crop": [
+      600,
+      300,
+      1100,
+      600
+    ],
+    "width": 500,
+    "height": 300,
+    "bytes": 30144,
+    "alpha_preserved": true
+  },
+  {
+    "file": "assets/expansion/bree-board-bottom-rail.webp",
+    "source": "bree-prancing-pony-news-board.png",
+    "crop": [
+      0,
+      780,
+      1672,
+      941
+    ],
+    "width": 1672,
+    "height": 161,
+    "bytes": 71728,
+    "alpha_preserved": true
+  },
+  {
+    "file": "assets/expansion/hobbit-heating-fireplace.webp",
+    "source": "hobbit-heating-fireplace.png",
+    "crop": null,
+    "width": 288,
+    "height": 233,
+    "bytes": 26744,
+    "alpha_preserved": true
+  },
+  {
+    "file": "assets/expansion/hobbit-heating-fireplace-small.webp",
+    "source": "hobbit-heating-fireplace.png",
+    "crop": null,
+    "width": 192,
+    "height": 156,
+    "bytes": 14410,
+    "alpha_preserved": true
+  },
+  {
+    "file": "assets/expansion/hobbit-cooling-open-window.webp",
+    "source": "hobbit-cooling-open-window.png",
+    "crop": null,
+    "width": 288,
+    "height": 192,
+    "bytes": 22004,
+    "alpha_preserved": true
+  },
+  {
+    "file": "assets/expansion/hobbit-cooling-open-window-small.webp",
+    "source": "hobbit-cooling-open-window.png",
+    "crop": null,
+    "width": 192,
+    "height": 128,
+    "bytes": 12432,
+    "alpha_preserved": true
+  },
+  {
+    "file": "assets/expansion/hobbit-icon-fireplace-128.webp",
+    "source": "hobbit-home-icon-atlas.png",
+    "crop": [
+      8,
+      21,
+      521,
+      508
+    ],
+    "width": 128,
+    "height": 122,
+    "bytes": 10416,
+    "alpha_preserved": true
+  },
+  {
+    "file": "assets/expansion/hobbit-icon-fireplace-64.webp",
+    "source": "hobbit-home-icon-atlas.png",
+    "crop": [
+      8,
+      21,
+      521,
+      508
+    ],
+    "width": 64,
+    "height": 61,
+    "bytes": 3730,
+    "alpha_preserved": true
+  },
+  {
+    "file": "assets/expansion/hobbit-icon-gate-128.webp",
+    "source": "hobbit-home-icon-atlas.png",
+    "crop": [
+      530,
+      62,
+      1045,
+      506
+    ],
+    "width": 128,
+    "height": 110,
+    "bytes": 9630,
+    "alpha_preserved": true
+  },
+  {
+    "file": "assets/expansion/hobbit-icon-gate-64.webp",
+    "source": "hobbit-home-icon-atlas.png",
+    "crop": [
+      530,
+      62,
+      1045,
+      506
+    ],
+    "width": 64,
+    "height": 55,
+    "bytes": 3380,
+    "alpha_preserved": true
+  },
+  {
+    "file": "assets/expansion/hobbit-icon-lantern-128.webp",
+    "source": "hobbit-home-icon-atlas.png",
+    "crop": [
+      1104,
+      21,
+      1520,
+      515
+    ],
+    "width": 128,
+    "height": 152,
+    "bytes": 10276,
+    "alpha_preserved": true
+  },
+  {
+    "file": "assets/expansion/hobbit-icon-lantern-64.webp",
+    "source": "hobbit-home-icon-atlas.png",
+    "crop": [
+      1104,
+      21,
+      1520,
+      515
+    ],
+    "width": 64,
+    "height": 76,
+    "bytes": 4092,
+    "alpha_preserved": true
+  },
+  {
+    "file": "assets/expansion/hobbit-icon-key-128.webp",
+    "source": "hobbit-home-icon-atlas.png",
+    "crop": [
+      18,
+      526,
+      514,
+      998
+    ],
+    "width": 128,
+    "height": 122,
+    "bytes": 6706,
+    "alpha_preserved": true
+  },
+  {
+    "file": "assets/expansion/hobbit-icon-key-64.webp",
+    "source": "hobbit-home-icon-atlas.png",
+    "crop": [
+      18,
+      526,
+      514,
+      998
+    ],
+    "width": 64,
+    "height": 61,
+    "bytes": 2582,
+    "alpha_preserved": true
+  },
+  {
+    "file": "assets/expansion/hobbit-icon-window-128.webp",
+    "source": "hobbit-home-icon-atlas.png",
+    "crop": [
+      539,
+      518,
+      1025,
+      991
+    ],
+    "width": 128,
+    "height": 125,
+    "bytes": 7528,
+    "alpha_preserved": true
+  },
+  {
+    "file": "assets/expansion/hobbit-icon-window-64.webp",
+    "source": "hobbit-home-icon-atlas.png",
+    "crop": [
+      539,
+      518,
+      1025,
+      991
+    ],
+    "width": 64,
+    "height": 62,
+    "bytes": 2892,
+    "alpha_preserved": true
+  },
+  {
+    "file": "assets/expansion/hobbit-icon-basket-128.webp",
+    "source": "hobbit-home-icon-atlas.png",
+    "crop": [
+      1027,
+      522,
+      1520,
+      990
+    ],
+    "width": 128,
+    "height": 122,
+    "bytes": 10246,
+    "alpha_preserved": true
+  },
+  {
+    "file": "assets/expansion/hobbit-icon-basket-64.webp",
+    "source": "hobbit-home-icon-atlas.png",
+    "crop": [
+      1027,
+      522,
+      1520,
+      990
+    ],
+    "width": 64,
+    "height": 61,
+    "bytes": 3592,
+    "alpha_preserved": true
+  },
+  {
+    "file": "assets/expansion/hobbit-oak-top-left.webp",
+    "source": "hobbit-oak-ivy-frame.png",
+    "crop": [
+      0,
+      0,
+      340,
+      470
+    ],
+    "width": 340,
+    "height": 470,
+    "bytes": 43808,
+    "alpha_preserved": true
+  },
+  {
+    "file": "assets/expansion/hobbit-oak-top-right.webp",
+    "source": "hobbit-oak-ivy-frame.png",
+    "crop": [
+      1332,
+      0,
+      1672,
+      300
+    ],
+    "width": 340,
+    "height": 300,
+    "bytes": 31596,
+    "alpha_preserved": true
+  },
+  {
+    "file": "assets/expansion/hobbit-oak-bottom-left.webp",
+    "source": "hobbit-oak-ivy-frame.png",
+    "crop": [
+      0,
+      691,
+      340,
+      941
+    ],
+    "width": 340,
+    "height": 250,
+    "bytes": 22604,
+    "alpha_preserved": true
+  },
+  {
+    "file": "assets/expansion/hobbit-oak-bottom-right.webp",
+    "source": "hobbit-oak-ivy-frame.png",
+    "crop": [
+      1332,
+      581,
+      1672,
+      941
+    ],
+    "width": 340,
+    "height": 360,
+    "bytes": 33202,
+    "alpha_preserved": true
+  },
+  {
+    "file": "assets/expansion/hobbit-oak-top.webp",
+    "source": "hobbit-oak-ivy-frame.png",
+    "crop": [
+      400,
+      0,
+      600,
+      130
+    ],
+    "width": 200,
+    "height": 130,
+    "bytes": 5154,
+    "alpha_preserved": true
+  },
+  {
+    "file": "assets/expansion/hobbit-oak-bottom.webp",
+    "source": "hobbit-oak-ivy-frame.png",
+    "crop": [
+      400,
+      800,
+      600,
+      941
+    ],
+    "width": 200,
+    "height": 141,
+    "bytes": 5322,
+    "alpha_preserved": true
+  },
+  {
+    "file": "assets/expansion/hobbit-oak-left.webp",
+    "source": "hobbit-oak-ivy-frame.png",
+    "crop": [
+      0,
+      580,
+      170,
+      640
+    ],
+    "width": 170,
+    "height": 60,
+    "bytes": 1752,
+    "alpha_preserved": true
+  },
+  {
+    "file": "assets/expansion/hobbit-oak-right.webp",
+    "source": "hobbit-oak-ivy-frame.png",
+    "crop": [
+      1490,
+      280,
+      1672,
+      330
+    ],
+    "width": 182,
+    "height": 50,
+    "bytes": 2158,
+    "alpha_preserved": true
+  }
+]

@@ -1,0 +1,11 @@
+Apply this new Middle-earth asset expansion to my existing homepage. Read START-HERE.md, PLACEMENT-AND-BEHAVIOR.md and asset-manifest.json; inspect the actual images. Follow repository instructions and preserve existing changes, especially ongoing Plaid work. This is a visual enhancement and disclosure-interaction task, not a bank, email, or Nest backend rewrite.
+
+1. Implement the budget's closed mine-door gateway and expanded Lonely Mountain treasury theme using the supplied assets and specified accessible disclosure behavior. Keep existing real budget components, authentication and financial privacy intact.
+2. Restyle the news section as the Prancing Pony/Bree noticeboard with real HTML parchment article cards. Retain source switching and feed behavior.
+3. Give Bag End the supplied oak/ivy border and matching small icons. Preserve camera and device controls.
+4. Use hobbit-heating-fireplace.png for confirmed heating MODE and hobbit-cooling-open-window.png for confirmed cooling MODE. Follow the complete mode/activity table in PLACEMENT-AND-BEHAVIOR.md, including Auto, Off, idle, disconnected, stale data, and failed mode changes. Display temperature and actual HVAC activity separately. Do not imply heat is running just because Heat mode is selected. Do not use the old closed window for cooling.
+5. Preserve the beloved existing hero/header and previously approved email/Warcraft improvements. Do not reset or overwrite unrelated work.
+
+Copy sources with stable filenames; optimize delivery derivatives without changing original artwork. Extract atlas icons with reviewed bounds. Render frames responsively with fixed ornaments and flexible edges. Avoid squashing imagery or putting live text into images. Do not add fake smart-home controls.
+
+Verify build and relevant state logic. Check HEAT/COOL idle and active, AUTO heating/cooling/idle, OFF, unknown, stale, and update failure states. Check budget disclosure with keyboard, focus restoration, reduced motion and no hidden tabbable content. Visually inspect at roughly 390px, 768px and 1440px widths: readable cards, sharp small icons, no ornament overlap, no horizontal overflow, no broken live controls. Report actual verification and any remaining limitations. Follow existing deployment authorization; this prompt requests implementation and preview, not a new public deployment.
