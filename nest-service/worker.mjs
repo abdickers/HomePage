@@ -1,4 +1,6 @@
 // Personal Nest gateway. No Google credentials or raw Google tokens reach GitHub Pages.
+import {GOOGLE_SCOPES,GMAIL_SCOPE,CALENDAR_SCOPE,googleReadTarget} from './google-read.mjs';
+export const SESSION_SECONDS=30*86400;
 const trait = (d, name) => d.traits?.['sdm.devices.traits.' + name] || {};
 const enc = new TextEncoder();
 const random = () => Array.from(crypto.getRandomValues(new Uint8Array(32)), b => b.toString(16).padStart(2,'0')).join('');
@@ -16,21 +18,21 @@ async function seal(env,value){const iv=crypto.getRandomValues(new Uint8Array(12
 async function unseal(env,value){const v=JSON.parse(value);return JSON.parse(new TextDecoder().decode(await crypto.subtle.decrypt({name:'AES-GCM',iv:Uint8Array.from(atob(v.iv),c=>c.charCodeAt(0))},await key(env),Uint8Array.from(atob(v.data),c=>c.charCodeAt(0)))));}
 async function getRecord(env,id){const raw=await env.NEST_KV.get(id);return raw?unseal(env,raw):null;}
 async function putRecord(env,id,value,ttl){await env.NEST_KV.put(id,await seal(env,value),ttl?{expirationTtl:ttl}:{});}
-async function provider(url,options={}){
+async function provider(url,options={},limit=262144){
  let r;try{r=await fetch(url,{...options,signal:AbortSignal.timeout(15000),redirect:'error'});}catch{fail(502,'Google could not be reached. Retry in a moment.');}
- const body=await boundedJson(r);
+ const body=await boundedJson(r,limit);
  if(!r.ok){const reason=body.error?.status||body.error;
-  if(r.status===401||reason==='invalid_grant')fail(401,'Google authorization expired. Reconnect Nest.');
-  if(r.status===403)fail(403,'Google denied device access. Check SDM API and selected Nest permissions.');
-  if(r.status===429)fail(429,'Nest is rate limiting requests. Wait before trying again.');
-  fail(502,'Nest could not complete this request. Check device state and retry.');}
+  if(r.status===401||reason==='invalid_grant')fail(401,'Google authorization expired. Reconnect your personal account.');
+  if(r.status===403)fail(403,url.includes('smartdevicemanagement')?'Google denied device access. Check SDM API and selected Nest permissions.':'Google denied read access. Check that Gmail and Calendar APIs are enabled and their read-only permissions were granted.');
+  if(r.status===429)fail(429,'Google is rate limiting requests. Wait before trying again.');
+  fail(502,'Google could not complete this request. Check the connection and retry.');}
  return body;
 }
 async function exchange(env,fields){return provider('https://oauth2.googleapis.com/token',{method:'POST',body:new URLSearchParams({client_id:env.GOOGLE_CLIENT_ID,client_secret:env.GOOGLE_CLIENT_SECRET,...fields})});}
-async function access(env){const record=await getRecord(env,'owner');if(!record)fail(401,'Connect your personal Nest account first.');
+async function access(env,kind='nest'){const ownerKey=kind==='google'?'google:owner':'owner';const record=await getRecord(env,ownerKey);if(!record)fail(401,'Connect your personal '+(kind==='google'?'Google':'Nest')+' account first.');
  if(record.expires>Date.now()+60000)return record.access;
  const result=await exchange(env,{grant_type:'refresh_token',refresh_token:record.refresh});
- record.access=result.access_token;record.expires=Date.now()+result.expires_in*1000;await putRecord(env,'owner',record);return record.access;
+ record.access=result.access_token;if(result.refresh_token)record.refresh=result.refresh_token;record.expires=Date.now()+result.expires_in*1000;await putRecord(env,ownerKey,record);return record.access;
 }
 async function sdm(env,path,body){return provider('https://smartdevicemanagement.googleapis.com/v1/'+path,{headers:{Authorization:'Bearer '+await access(env),...(body?{'Content-Type':'application/json'}:{})},...(body?{method:'POST',body:JSON.stringify(body)}:{})});}
 export function presentDevice(d){return {id:d.name.split('/').pop(),name:trait(d,'Info').customName||d.parentRelations?.[0]?.displayName||'Nest device',type:d.type?.split('.').pop(),online:trait(d,'Connectivity').status||'UNKNOWN',temperature:trait(d,'Temperature').ambientTemperatureCelsius,humidity:trait(d,'Humidity').ambientHumidityPercent,scale:trait(d,'Settings').temperatureScale||'FAHRENHEIT',mode:trait(d,'ThermostatMode').mode,modes:trait(d,'ThermostatMode').availableModes||[],eco:trait(d,'ThermostatEco').mode,hvac:trait(d,'ThermostatHvac').status,setpoint:trait(d,'ThermostatTemperatureSetpoint'),protocols:trait(d,'CameraLiveStream').supportedProtocols||[]};}
@@ -52,45 +54,65 @@ export function thermostatCommand(d,input){
 }
 function headers(env){return {'Content-Type':'application/json','Cache-Control':'no-store','Access-Control-Allow-Origin':env.FRONTEND_ORIGIN,'Access-Control-Allow-Methods':'GET, POST, OPTIONS','Access-Control-Allow-Headers':'Authorization, Content-Type','Vary':'Origin','Referrer-Policy':'no-referrer','X-Content-Type-Options':'nosniff'};}
 function ready(env){return Boolean(env.NEST_KV&&env.GOOGLE_CLIENT_ID&&env.GOOGLE_CLIENT_SECRET&&env.TOKEN_ENCRYPTION_KEY);}
-async function authorize(request,env){
+async function authorize(request,env,kind='nest'){
  if(request.headers.get('Origin')!==env.FRONTEND_ORIGIN)fail(403,'Untrusted dashboard origin.');
  const bearer=request.headers.get('Authorization')?.match(/^Bearer ([a-f0-9]{64})$/)?.[1];if(!bearer)fail(401,'Sign in to your personal Nest account.');
- const id=await hash(bearer),session=await getRecord(env,'session:'+id);if(!session||session.expires<Date.now())fail(401,'Nest session expired. Reconnect.');return id;
+ const id=await hash(bearer),session=await getRecord(env,'session:'+id);if(!session||session.expires<=Date.now()||(session.kind||'nest')!==kind)fail(401,'Your saved session expired. Reconnect.');
+ if(session.expires<Date.now()+23*86400000){session.expires=Date.now()+SESSION_SECONDS*1000;await putRecord(env,'session:'+id,session,SESSION_SECONDS);}
+ return {id,expires:session.expires};
 }
 async function device(env,id){if(!/^[A-Za-z0-9_-]{1,256}$/.test(id||''))fail(400,'Invalid device.');return sdm(env,`enterprises/${env.NEST_PROJECT_ID}/devices/${id}`);}
-function page(env,message,session){const nonce=random();const payload=JSON.stringify({type:'sage-nest-connected',session}).replaceAll('<','\\u003c');return new Response(`<!doctype html><meta name="viewport" content="width=device-width"><title>Bag End · Nest</title><style nonce="${nonce}">body{font:18px system-ui;background:#101c18;color:#eadba2;margin:10vh auto;max-width:580px;padding:24px}a{color:inherit}</style><h1>⌂ Bag End</h1><p>${message}</p><a href="${env.FRONTEND_ORIGIN}/HomePage/${session?'#nest-session='+session:''}">Return to your dashboard</a>${session?`<script nonce="${nonce}">if(window.opener){window.opener.postMessage(${payload},${JSON.stringify(env.FRONTEND_ORIGIN)});window.close();}</script>`:''}`,{headers:{'Content-Type':'text/html;charset=UTF-8','Cache-Control':'no-store','Referrer-Policy':'no-referrer','Content-Security-Policy':`default-src 'none'; style-src 'nonce-${nonce}'; script-src 'nonce-${nonce}'; frame-ancestors 'none'; base-uri 'none'`}});}
+function page(env,message,session,kind='nest'){const nonce=random();const payload=JSON.stringify({type:'sage-'+kind+'-connected',session}).replaceAll('<','\\u003c');return new Response(`<!doctype html><meta name="viewport" content="width=device-width"><title>Sage · Google connection</title><style nonce="${nonce}">body{font:18px system-ui;background:#101c18;color:#eadba2;margin:10vh auto;max-width:580px;padding:24px}a{color:inherit}</style><h1>Your personal realm</h1><p>${message}</p><a href="${env.FRONTEND_ORIGIN}/HomePage/${session?'#'+kind+'-session='+session:''}">Return to your dashboard</a>${session?`<script nonce="${nonce}">if(window.opener){window.opener.postMessage(${payload},${JSON.stringify(env.FRONTEND_ORIGIN)});window.close();}</script>`:''}`,{headers:{'Content-Type':'text/html;charset=UTF-8','Cache-Control':'no-store','Referrer-Policy':'no-referrer','Content-Security-Policy':`default-src 'none'; style-src 'nonce-${nonce}'; script-src 'nonce-${nonce}'; frame-ancestors 'none'; base-uri 'none'`}});}
 export default {async fetch(request,env){
- const url=new URL(request.url);let response;
+ const url=new URL(request.url);let response,authorizedSession;
  try{
   if(url.pathname==='/health')return new Response(JSON.stringify({service:'sage-cabin',configured:ready(env)}),{headers:headers(env)});
   if(request.method==='OPTIONS'){if(request.headers.get('Origin')!==env.FRONTEND_ORIGIN)fail(403,'Untrusted dashboard origin.');return new Response(null,{status:204,headers:headers(env)});}
   if(!ready(env))fail(503,'Nest service setup is incomplete. Server credentials are still needed.');
   if(url.pathname==='/auth/start'&&request.method==='GET'){
-   const state=random();const auth=new URL(`https://nestservices.google.com/partnerconnections/${env.NEST_PROJECT_ID}/auth`);
+   const kind=url.searchParams.get('service')||'nest';if(!['nest','google'].includes(kind))fail(400,'Unknown connection.');
+   const state=random();const auth=new URL(kind==='google'?'https://accounts.google.com/o/oauth2/v2/auth':`https://nestservices.google.com/partnerconnections/${env.NEST_PROJECT_ID}/auth`);
    // PCM supplies its own login_hint after account selection; forwarding one duplicates it.
-   for(const [k,v]of Object.entries({client_id:env.GOOGLE_CLIENT_ID,redirect_uri:url.origin+'/auth/callback',response_type:'code',scope:'openid email https://www.googleapis.com/auth/sdm.service',access_type:'offline',prompt:'consent',state}))auth.searchParams.set(k,v);
-   await putRecord(env,'state:'+await hash(state),{expires:Date.now()+600000},600);
+   for(const [k,v]of Object.entries({client_id:env.GOOGLE_CLIENT_ID,redirect_uri:url.origin+'/auth/callback',response_type:'code',scope:kind==='google'?GOOGLE_SCOPES:'openid email https://www.googleapis.com/auth/sdm.service',access_type:'offline',prompt:'consent',state}))auth.searchParams.set(k,v);
+   await putRecord(env,'state:'+await hash(state),{expires:Date.now()+600000,kind},600);
    return new Response(null,{status:302,headers:{Location:auth.href,'Set-Cookie':`__Host-nest-state=${state}; Path=/; Secure; HttpOnly; SameSite=Lax; Max-Age=600`,'Cache-Control':'no-store','Referrer-Policy':'no-referrer'}});
   }
   if(url.pathname==='/auth/callback'&&request.method==='GET'){
    const state=url.searchParams.get('state')||'',cookie=request.headers.get('Cookie')?.match(/(?:^|; )__Host-nest-state=([a-f0-9]{64})(?:;|$)/)?.[1];
    if(!/^[a-f0-9]{64}$/.test(state)||!cookie||await hash(state)!==await hash(cookie))fail(400,'Authorization state did not match. Start again from Bag End.');
    const record=await getRecord(env,'state:'+await hash(state));if(!record||record.expires<Date.now())fail(400,'Authorization expired. Start again.');await env.NEST_KV.delete('state:'+await hash(state));
-   if(url.searchParams.has('error'))return page(env,'Google access was declined. No devices were connected.');
+   const kind=record.kind||'nest';
+   if(url.searchParams.has('error'))return page(env,'Google access was declined. No new connection was saved.');
    const code=url.searchParams.get('code');if(!code||code.length>4096)fail(400,'Missing authorization code.');
    const result=await exchange(env,{code,grant_type:'authorization_code',redirect_uri:url.origin+'/auth/callback'});
    const who=await provider('https://openidconnect.googleapis.com/v1/userinfo',{headers:{Authorization:'Bearer '+result.access_token}});
    if(who.email_verified!==true||who.email?.toLowerCase()!==env.OWNER_EMAIL.toLowerCase())fail(403,'Use the personal Google account assigned to this dashboard.');
-   // Verify real device access before storing credentials or issuing an app session.
-   await provider(`https://smartdevicemanagement.googleapis.com/v1/enterprises/${env.NEST_PROJECT_ID}/devices`,{headers:{Authorization:'Bearer '+result.access_token}});
-   const previous=await getRecord(env,'owner');if(!result.refresh_token&&!previous?.refresh)fail(401,'Google did not grant offline access. Reconnect with consent.');
-   await putRecord(env,'owner',{access:result.access_token,refresh:result.refresh_token||previous.refresh,expires:Date.now()+result.expires_in*1000});
-   const session=random();await putRecord(env,'session:'+await hash(session),{expires:Date.now()+8*3600000},8*3600);
-   response=page(env,'Your personal Nest connection is ready. Return to Bag End.',session);response.headers.set('Set-Cookie','__Host-nest-state=; Path=/; Secure; HttpOnly; SameSite=Lax; Max-Age=0');return response;
+   if(kind==='google'){
+    const scopes=new Set((result.scope||'').split(' '));if(![GMAIL_SCOPE,CALENDAR_SCOPE].every(scope=>scopes.has(scope)))fail(403,'Grant read-only Gmail and Calendar access to remember this Google connection.');
+    const profile=await provider('https://gmail.googleapis.com/gmail/v1/users/me/profile',{headers:{Authorization:'Bearer '+result.access_token}});
+    if(profile.emailAddress?.toLowerCase()!==env.OWNER_EMAIL.toLowerCase())fail(403,'Use the personal Gmail account assigned to this dashboard.');
+   }else{
+    // Verify real device access before storing credentials or issuing an app session.
+    await provider(`https://smartdevicemanagement.googleapis.com/v1/enterprises/${env.NEST_PROJECT_ID}/devices`,{headers:{Authorization:'Bearer '+result.access_token}});
+   }
+   const ownerKey=kind==='google'?'google:owner':'owner',previous=await getRecord(env,ownerKey);if(!result.refresh_token&&!previous?.refresh)fail(401,'Google did not grant offline access. Reconnect with consent.');
+   await putRecord(env,ownerKey,{access:result.access_token,refresh:result.refresh_token||previous.refresh,expires:Date.now()+result.expires_in*1000});
+   const session=random();await putRecord(env,'session:'+await hash(session),{expires:Date.now()+SESSION_SECONDS*1000,kind},SESSION_SECONDS);
+   response=page(env,kind==='google'?'Your personal Gmail and Calendar connection is ready.':'Your personal Nest connection is ready. Return to Bag End.',session,kind);response.headers.set('Set-Cookie','__Host-nest-state=; Path=/; Secure; HttpOnly; SameSite=Lax; Max-Age=0');return response;
   }
-  const session=await authorize(request,env);
+  const kind=url.pathname.startsWith('/google/')?'google':'nest';
+  const {id:session,expires:sessionExpiresAt}=await authorize(request,env,kind);
+  authorizedSession=session;
+  if(kind==='google'){
+   if(url.pathname==='/google/disconnect'&&request.method==='POST'){await env.NEST_KV.delete('session:'+session);return new Response('{}',{headers:headers(env)});}
+   if(request.method!=='GET')fail(405,'This connection supports read-only Google requests.');
+   if(url.pathname==='/google/session'){await access(env,'google');return new Response(JSON.stringify({email:env.OWNER_EMAIL,expiresAt:sessionExpiresAt}),{headers:headers(env)});}
+   const target=url.pathname==='/google/read'?googleReadTarget(url.searchParams.get('url')):null;if(!target)fail(400,'This Google read endpoint is not allowed.');
+   const result=await provider(target,{headers:{Authorization:'Bearer '+await access(env,'google')}},1048576);
+   return new Response(JSON.stringify(result),{headers:headers(env)});
+  }
   if(url.pathname==='/devices'&&request.method==='GET'){
-   const result=await sdm(env,`enterprises/${env.NEST_PROJECT_ID}/devices`);return new Response(JSON.stringify({devices:(result.devices||[]).map(presentDevice),updatedAt:new Date().toISOString()}),{headers:headers(env)});
+   const result=await sdm(env,`enterprises/${env.NEST_PROJECT_ID}/devices`);return new Response(JSON.stringify({devices:(result.devices||[]).map(presentDevice),updatedAt:new Date().toISOString(),sessionExpiresAt}),{headers:headers(env)});
   }
   if(request.method!=='POST')fail(404,'Unknown endpoint.');
   if(!request.headers.get('Content-Type')?.startsWith('application/json'))fail(415,'Use JSON.');
@@ -114,5 +136,5 @@ export default {async fetch(request,env){
   }
   if(url.pathname==='/camera/stop')await env.NEST_KV.delete('stream:'+session);
   return new Response('{}',{headers:headers(env)});
- }catch(error){const known=error instanceof Failure;return new Response(JSON.stringify({error:known?error.message:'Nest service encountered an error. Please retry.'}),{status:known?error.status:500,headers:headers(env)});}
+ }catch(error){const known=error instanceof Failure;if(known&&error.status===401&&authorizedSession){try{await env.NEST_KV.delete('session:'+authorizedSession);}catch{}}return new Response(JSON.stringify({error:known?error.message:'The private service encountered an error. Please retry.'}),{status:known?error.status:500,headers:headers(env)});}
 }};

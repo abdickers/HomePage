@@ -42,6 +42,13 @@ test('closing the Google popup clears the pending grant and permits retry',async
  f.element('receiptsConnect').listeners.click();await tick();
  assert.match(f.element('receiptsState').textContent,/Sign-in closed/);assert.equal(f.element('receiptsConnect').disabled,false);assert.equal(f.element('mailConnect').disabled,false);assert.equal(f.calls.length,0);
 });
+test('a remembered private Google connection restores the inbox without requesting a browser OAuth token',async()=>{
+ const f=fixture();let connected=true,changed;
+ const connection={ready:async()=>{},connected:()=>connected,sessionId:()=> 'd'.repeat(64),expiresAt:()=>Date.now()+100000,connect:async()=>{},read:async url=>(await global.fetch(url)).json(),subscribe:listener=>{changed=listener;},disconnect:()=>{connected=false;changed(false);}};
+ const controller=initPersonalMail(()=> 'public-client-id',connection);await tick();await tick();
+ assert.equal(f.grants.length,0);assert.match(f.element('ravensList').innerHTML,/Real fixture content/);assert.equal(f.element('mailRefresh').disabled,false);
+ controller.disconnect();assert.equal(f.element('ravensList').innerHTML,'');assert.equal(f.element('mailRefresh').disabled,true);await tick();
+});
 
 test('Google API failures distinguish disabled API, missing scopes, policy and rate limits without exposing provider text',()=>{
  const url='https://gmail.googleapis.com/gmail/v1/users/me/profile';

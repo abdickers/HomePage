@@ -1,14 +1,17 @@
-// Session stays in this page's memory. Google tokens are held by the private service.
+import {readSession,rememberSession,forgetSession,sessionKey} from './remembered-session.js';
+// Remember only a revocable dashboard session. Google tokens stay on the service.
 export function initNest(serviceUrl='') {
  const $=id=>document.getElementById(id),status=$('nestStatus');if(!status)return;
  const connect=$('nestConnect'),refresh=$('nestRefresh'),disconnect=$('nestDisconnect');
  let base;try{const u=new URL(serviceUrl);if(u.protocol!=='https:'||u.username||u.password)throw Error();base=u.origin;}catch{status.textContent='Private Nest hosting is being configured. Google Home is available below.';connect.disabled=true;return;}
  connect.disabled=true;
- let session='',popup=null,devices=[],peer=null,stream=null,stopTimer=null,busy=false;
+ let storage;try{storage=window.localStorage;}catch{}
+ const saved=readSession(storage,'nest',base);
+ let session=saved?.session||'',popup=null,devices=[],peer=null,stream=null,stopTimer=null,busy=false;
  const message=text=>{status.textContent=text;};
- async function api(path,body){const r=await fetch(base+path,{method:body?'POST':'GET',headers:{Authorization:'Bearer '+session,...(body?{'Content-Type':'application/json'}:{})},...(body?{body:JSON.stringify(body)}:{}),cache:'no-store',credentials:'omit',signal:AbortSignal.timeout(20000)});const data=await r.json();if(!r.ok){if(r.status===401){session='';refresh.disabled=true;disconnect.hidden=true;}throw Error(data.error||'Nest request failed.');}return data;}
+ async function api(path,body){const r=await fetch(base+path,{method:body?'POST':'GET',headers:{Authorization:'Bearer '+session,...(body?{'Content-Type':'application/json'}:{})},...(body?{body:JSON.stringify(body)}:{}),cache:'no-store',credentials:'omit',signal:AbortSignal.timeout(20000)});const data=await r.json();if(!r.ok){if(r.status===401){session='';forgetSession(storage,'nest');refresh.disabled=true;disconnect.hidden=true;devices=[];void stop();renderThermostat();renderCamera();}throw Error(data.error||'Nest request failed.');}return data;}
  const fragment=new URLSearchParams(location.hash.slice(1));
- if(/^[a-f0-9]{64}$/.test(fragment.get('nest-session')||'')){session=fragment.get('nest-session');history.replaceState(null,'',location.pathname+location.search+'#homePanel');void load();}
+ if(/^[a-f0-9]{64}$/.test(fragment.get('nest-session')||'')){session=fragment.get('nest-session');history.replaceState(null,'',location.pathname+location.search+'#homePanel');}
  const cToDisplay=(c,d)=>typeof c==='number'?Math.round(d.scale==='CELSIUS'?c:c*9/5+32):'—';
  const toC=(v,d)=>d.scale==='CELSIUS'?Number(v):(Number(v)-32)*5/9;
  const selected=kind=>devices.find(d=>d.id===$(kind==='thermostat'?'nestThermostat':'nestCamera').value);
@@ -19,7 +22,7 @@ export function initNest(serviceUrl='') {
   $('nestApply').disabled=d.online!=='ONLINE'||d.mode==='OFF'||d.eco==='MANUAL_ECO';$('nestModeApply').disabled=d.online!=='ONLINE';
  }
  function renderCamera(){const d=selected('camera');$('nestPlay').disabled=!d||!d.protocols.includes('WEB_RTC');$('nestCameraInfo').textContent=d?(d.protocols.includes('WEB_RTC')?d.name+' · ready to watch':d.name+' · RTSP gateway required; view in Google Home'):'No camera shared with Sage Cabin.';}
- async function load(){if(!session||busy)return;busy=true;refresh.disabled=true;message('Checking the hearth and the gate…');try{const result=await api('/devices');devices=result.devices;options('nestThermostat',devices.filter(d=>d.type==='THERMOSTAT'));options('nestCamera',devices.filter(d=>d.protocols.length),/outdoor|front|gate|porch/i);renderThermostat();renderCamera();message('Checked '+new Date(result.updatedAt).toLocaleTimeString([],{hour:'numeric',minute:'2-digit'})+' · refreshes every minute');disconnect.hidden=false;connect.textContent='Reconnect Nest';}catch(e){message(e.message);}finally{busy=false;refresh.disabled=!session;}}
+ async function load(){if(!session||busy)return;const credential=session;busy=true;refresh.disabled=true;message('Checking the hearth and the gate…');try{const result=await api('/devices');if(session!==credential)return;devices=result.devices;const remembered=rememberSession(storage,'nest',base,session,result.sessionExpiresAt);options('nestThermostat',devices.filter(d=>d.type==='THERMOSTAT'));options('nestCamera',devices.filter(d=>d.protocols.length),/outdoor|front|gate|porch/i);renderThermostat();renderCamera();message('Checked '+new Date(result.updatedAt).toLocaleTimeString([],{hour:'numeric',minute:'2-digit'})+' · refreshes every minute'+(remembered?' · sign-in remembered':' · browser storage unavailable'));disconnect.hidden=false;connect.textContent='Reconnect Nest';}catch(e){message(e.message);}finally{busy=false;refresh.disabled=!session;}}
  async function stop(){clearTimeout(stopTimer);const previous=stream;stream=null;peer?.close();peer=null;$('nestVideo').srcObject=null;$('nestVideo').hidden=true;$('nestCameraArt').hidden=false;$('nestStop').hidden=true;renderCamera();if(previous&&session){try{await api('/camera/stop',previous);}catch(e){message('Video closed. '+e.message);}}}
  connect.addEventListener('click',()=>{popup=window.open(base+'/auth/start','sageNestConnect','popup,width=620,height=760');message(popup?'Choose abdickers@gmail.com in the Nest window.':'Allow the Nest sign-in popup, then try again.');});
  window.addEventListener('message',async event=>{if(event.origin!==base||event.source!==popup||event.data?.type!=='sage-nest-connected'||!/^[a-f0-9]{64}$/.test(event.data.session||''))return;session=event.data.session;popup=null;await load();});
@@ -40,9 +43,10 @@ export function initNest(serviceUrl='') {
   }catch(e){message(e.message);await stop();}
  });
  $('nestStop').addEventListener('click',async()=>{await stop();message('The watch is resting.');});
- disconnect.addEventListener('click',async()=>{await stop();try{await api('/disconnect',{});}catch{}session='';devices=[];renderThermostat();renderCamera();refresh.disabled=true;disconnect.hidden=true;connect.textContent='Connect personal Nest';message('Signed out here. Manage persistent Nest permissions in Google Home.');});
+ disconnect.addEventListener('click',async()=>{forgetSession(storage,'nest');await stop();try{await api('/disconnect',{});}catch{}session='';forgetSession(storage,'nest');devices=[];renderThermostat();renderCamera();refresh.disabled=true;disconnect.hidden=true;connect.textContent='Connect personal Nest';message('Signed out of this browser. Manage persistent Nest permissions in Google Home.');});
+ window.addEventListener('storage',event=>{if(event.key!==sessionKey('nest'))return;const next=readSession(storage,'nest',base);if(!next){session='';devices=[];void stop();renderThermostat();renderCamera();refresh.disabled=true;disconnect.hidden=true;message('Signed out of Nest in another tab.');}else if(next.session!==session){session=next.session;void load();}});
  document.addEventListener('visibilitychange',()=>{if(document.hidden)void stop();});
  window.addEventListener('pagehide',()=>{peer?.close();peer=null;});
  setInterval(()=>{if(session&&!document.hidden&&!busy)void load();},60000);
- fetch(base+'/health',{cache:'no-store'}).then(r=>r.json()).then(r=>{connect.disabled=!r.configured;message(r.configured?'Connect Sage Cabin to bring the hearth and gate into view.':'Private service is online. Google credentials still need to be installed.');}).catch(()=>message('Private Nest service is unavailable. Open Google Home below.'));
+ fetch(base+'/health',{cache:'no-store'}).then(r=>r.json()).then(r=>{connect.disabled=!r.configured;if(r.configured&&session)void load();else message(r.configured?'Connect Sage Cabin once; this browser will remember your sign-in.':'Private service is online. Google credentials still need to be installed.');}).catch(()=>message('Private Nest service is unavailable. Open Google Home below.'));
 }
