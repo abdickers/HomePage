@@ -73,6 +73,34 @@
     "alpha_preserved": true
   },
   {
+    "file": "assets/expansion/bree-board-left-post.webp",
+    "source": "bree-prancing-pony-news-board.png",
+    "crop": [
+      315,
+      350,
+      400,
+      550
+    ],
+    "width": 85,
+    "height": 200,
+    "bytes": 5628,
+    "alpha_preserved": true
+  },
+  {
+    "file": "assets/expansion/bree-board-right-post.webp",
+    "source": "bree-prancing-pony-news-board.png",
+    "crop": [
+      1435,
+      450,
+      1500,
+      600
+    ],
+    "width": 65,
+    "height": 150,
+    "bytes": 3480,
+    "alpha_preserved": true
+  },
+  {
     "file": "assets/expansion/hobbit-heating-fireplace.webp",
     "source": "hobbit-heating-fireplace.png",
     "crop": null,
@@ -386,6 +414,24 @@
     "width": 182,
     "height": 50,
     "bytes": 2158,
+    "alpha_preserved": true
+  },
+  {
+    "file": "assets/expansion/one-ring-footer.webp",
+    "source": "one-ring-footer.png",
+    "crop": null,
+    "width": 480,
+    "height": 320,
+    "bytes": 43300,
+    "alpha_preserved": true
+  },
+  {
+    "file": "assets/expansion/one-ring-footer-small.webp",
+    "source": "one-ring-footer.png",
+    "crop": null,
+    "width": 256,
+    "height": 171,
+    "bytes": 17272,
     "alpha_preserved": true
   }
 ]

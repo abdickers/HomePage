@@ -1,8 +1,8 @@
 # Middle-earth expansion implementation and verification
 
 Prepared on `codex/middle-earth-expansion`, based on main `d142049` (including
-the latest public news and Warcraft snapshots). This is a local preview;
-GitHub Pages and the private Worker have not been deployed for this expansion.
+the latest public news and Warcraft snapshots). The user has now authorized publishing the checked visual expansion to GitHub Pages.
+The private Worker is outside this presentation-only deployment.
 
 ## Scope
 
@@ -40,8 +40,8 @@ manifest. The pack's instructions remain in `design/expansion-pack/`.
 | Heating fireplace | 1393 × 1129 RGBA |
 | Cooling open window | 1536 × 1024 RGBA |
 
-`scripts/prepare-expansion-assets.py` generates 31 WebP derivatives totaling
-1,478,870 bytes. It verifies source checksums and decoded alpha against each
+`scripts/prepare-expansion-assets.py` generates 35 WebP derivatives, including the later ring update
+and continuous noticeboard posts. It verifies source checksums and decoded alpha against each
 prepared image. No source is edited, upscaled, or filtered by dark pixel color.
 Coordinates and delivery dimensions are recorded in `derivative-manifest.json`.
 
@@ -53,10 +53,14 @@ retained for future supported functionality, without inventing light/lock contro
 
 The Bree scene's top retains the pony sign and lantern at their source aspect
 ratio. A quiet central wood crop and separate lower rail accommodate arbitrarily
-long live headlines. Mobile/tablet use a shallow scene header and cards below.
+long live headlines. All widths now place the notices on the board, as requested in the follow-up.
+Quiet measured post strips continue down the flexible board body; a separate
+lower rail closes the scene. Tablet/mobile use one readable column of notices.
 All article text, links, source tabs and timestamps remain HTML. The treasury
 scene is used once behind opaque financial surfaces, with the existing Dwarven
-outer frame. These are native assets, not 4K masters; full-width treasury imagery
+outer frame. The closed entrance now has its own fixed-corner Dwarven border.
+Weather reuses the Elven frame, and the Quartermaster reuses the oak/ivy frame
+with an independent, wrapping header. These are native assets, not 4K masters; full-width treasury imagery
 does not provide true 2x density on every large screen and is deliberately subdued.
 
 ## Thermostat state behavior
@@ -111,3 +115,22 @@ from other local preview tabs. It does not contact Google, Plaid or Nest. Privat
 signed-in data and real camera/thermostat behavior need verification on the authorized
 live origin after a separately approved deployment. Existing origin restrictions
 are preserved; private connections are intentionally unavailable on localhost.
+
+## Follow-up artwork
+
+The updated footer ring, supplied as onering_Image.png in Command Center, is
+retained unchanged as assets/expansion/originals/one-ring-footer.png. Its native
+size is 1536 × 1024 RGBA, with 480px and 256px alpha-preserving WebP delivery
+variants. The full ring, inscriptions and warm translucent halo are retained;
+no dark pixels were removed. Provenance and checksum are recorded separately
+in design/expansion-pack/footer-ring-manifest.json, preserving the original
+seven-file supplied manifest.
+
+Follow-up checks: all 105 tests and application/Python syntax checks passed again.
+The 390px, 768px and 1440px layouts were inspected with real public headline
+content, with no horizontal overflow or clipped article text. The supplied ring
+loaded with its halo on the actual dark footer. Elven weather, oak provisions and
+Dwarven entrance frames left controls clear. Enter opened the treasury, Close
+restored entrance focus, and closed content had zero visible tab stops and was inert.
+All 134 original IDs and 27 links were preserved; header, mail and Warcraft markup
+remains unchanged. No Google, Plaid, Nest or Cloudflare configuration was modified.

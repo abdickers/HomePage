@@ -37,6 +37,9 @@ save('treasury-hidden-mine-door', 'treasury-hidden-mine-door-small', width=480)
 save('bree-prancing-pony-news-board', 'bree-prancing-pony-news-board-small', width=768)
 save('bree-prancing-pony-news-board', 'bree-board-quiet-wood', (600,300,1100,600), width=500)
 save('bree-prancing-pony-news-board', 'bree-board-bottom-rail', (0,780,1672,941))
+# Quiet stretches of the board posts, checked away from the pony and lantern.
+save('bree-prancing-pony-news-board', 'bree-board-left-post', (315,350,400,550))
+save('bree-prancing-pony-news-board', 'bree-board-right-post', (1435,450,1500,600))
 for name in ['hobbit-heating-fireplace', 'hobbit-cooling-open-window']:
     # Keep every nonzero-alpha pixel and the source's lighting halo.
     save(name, name, width=288)
@@ -60,6 +63,13 @@ frame = {'top-left': (0,0,340,470), 'top-right': (1332,0,1672,300),
          'left': (0,580,170,640), 'right': (1490,280,1672,330)}
 for part, box in frame.items():
     save('hobbit-oak-ivy-frame', 'hobbit-oak-'+part, box)
+
+# Later supplied footer update: preserve its full alpha halo and 3:2 artwork.
+ring = SOURCE / 'one-ring-footer.png'
+assert hashlib.sha256(ring.read_bytes()).hexdigest() == 'cb8faa827082d80fca604dd1b1c803c49b27425f55d23a02a3a39978fa569bfe'
+assert Image.open(ring).size == (1536, 1024)
+save('one-ring-footer', 'one-ring-footer', width=480)
+save('one-ring-footer', 'one-ring-footer-small', width=256)
 
 (OUT / 'derivative-manifest.json').write_text(json.dumps(records, indent=2)+'\n')
 sheet = Image.new('RGB', (1000, 680), '#122118')

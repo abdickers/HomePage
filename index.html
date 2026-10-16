@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="css/personal-realm.css?v=20261015-homewide1" />
   <link rel="stylesheet" href="css/budget.css?v=20261016-budget4" />
   <link rel="stylesheet" href="css/epic-realm.css?v=20261016-art1" />
-  <link rel="stylesheet" href="css/realm-expansion.css?v=20261016-expansion1" />
+  <link rel="stylesheet" href="css/realm-expansion.css?v=20261016-expansion2" />
 </head>
 <body data-command-realm="personal">
   <aside class="realm-sidebar" aria-label="Personal command center">
@@ -153,7 +153,8 @@
       </div>
     </section>
 
-    <section class="panel provisions-panel" id="dailyProvisioning">
+    <section class="panel provisions-panel oak-framed" id="dailyProvisioning">
+      <div class="oak-frame" aria-hidden="true"><span class="oak-top-left"></span><span class="oak-top-right"></span><span class="oak-bottom-left"></span><span class="oak-bottom-right"></span><span class="oak-top"></span><span class="oak-bottom"></span><span class="oak-left"></span><span class="oak-right"></span></div>
       <div class="panel-title"><div class="section-identity"><img class="section-icon" src="assets/redesign/icon-provisions.webp" width="64" height="64" alt="" aria-hidden="true" loading="lazy" decoding="async" /><div><span class="section-kicker">Well stocked for the journey</span><h2>The Quartermaster</h2></div></div><span class="realm-account">DAILY PROVISIONS</span></div>
       <div class="provision-grid">
         <article class="provision-card"><span class="provision-symbol walmart-mark" aria-hidden="true">✳</span><h3>Walmart+</h3><p>Groceries, deliveries &amp; member benefits</p><a href="https://www.walmart.com/plus" target="_blank" rel="noopener noreferrer">Membership ↗</a><a href="https://www.walmart.com/orders" target="_blank" rel="noopener noreferrer">Orders ↗</a></article>
@@ -219,7 +220,7 @@
 
 
 
-    <section class="panel weather-panel">
+    <section class="panel weather-panel art-frame elven-frame">
       <div class="panel-title">
         <div class="section-identity"><img class="section-icon" src="assets/redesign/icon-weather.webp" width="64" height="64" alt="" aria-hidden="true" loading="lazy" decoding="async" /><div><span class="section-kicker">Under an open sky</span><h2>Weather in Rohan</h2></div></div>
         <button id="refreshWeather" type="button" aria-label="Refresh weather">↻</button>
@@ -252,7 +253,7 @@
   </main>
 
   <footer class="footer">
-    <img src="assets/ring-footer.svg" alt="Decorative ring" />
+    <picture aria-hidden="true"><source srcset="assets/expansion/one-ring-footer-small.webp 256w, assets/expansion/one-ring-footer.webp 480w" sizes="(max-width: 760px) 156px, 192px" /><img src="assets/expansion/one-ring-footer.webp" width="480" height="320" alt="" loading="lazy" decoding="async" /></picture>
   </footer>
   <p class="footer-caption">Your tools. Your quests. Your corner of Middle-earth. <button class="text-button" id="footerSettings" type="button">Settings &amp; backup</button></p>
   <noscript><p class="panel">Enable JavaScript to use dashboard widgets. Your Google tools remain available at <a href="https://workspace.google.com/" target="_blank" rel="noopener">Google Workspace</a>.</p></noscript>

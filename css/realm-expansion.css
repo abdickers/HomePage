@@ -1,4 +1,4 @@
-/* Second art pack: scoped to Bag End, the Treasury disclosure and Bree news.
+/* Second art pack: scoped to framed panels, the Treasury disclosure and Bree news.
    The hero, parchment mail, Alliance portrait and other approved styles remain. */
 
 .realm-dashboard > .oak-framed {
@@ -21,7 +21,8 @@
 .oak-frame .oak-left, .oak-frame .oak-right { background-repeat: repeat-y; }
 .oak-frame .oak-left { top: calc(470 * var(--oak-unit)); bottom: calc(250 * var(--oak-unit)); left: 0; width: calc(170 * var(--oak-unit)); background-image: url('../assets/expansion/hobbit-oak-left.webp'); background-size: 100% calc(60 * var(--oak-unit)); }
 .oak-frame .oak-right { top: calc(300 * var(--oak-unit)); bottom: calc(360 * var(--oak-unit)); right: 0; width: calc(182 * var(--oak-unit)); background-image: url('../assets/expansion/hobbit-oak-right.webp'); background-size: 100% calc(50 * var(--oak-unit)); }
-.realm-dashboard .oak-framed > .panel-title { min-height: 100px; padding-right: 156px; }
+.realm-dashboard .home-panel.oak-framed > .panel-title { min-height: 100px; padding-right: 156px; }
+.realm-dashboard .provisions-panel.oak-framed > .panel-title { flex-wrap: wrap; gap: 16px; }
 .oak-framed .bag-end-emblem { width: 128px; height: 128px; top: 48px; right: 64px; }
 .home-small-icon { width: 28px; height: 28px; display: inline-block; object-fit: contain; flex: 0 0 auto; pointer-events: none; }
 .realm-dashboard .oak-framed .home-device { display: grid; grid-template-columns: 128px minmax(0,1fr); gap: 20px; align-items: center; }
@@ -56,7 +57,8 @@
 }
 .treasury-entrance picture, .treasury-entrance img { display: block; width: 100%; }
 .treasury-entrance img { height: auto; aspect-ratio: 3/2; object-fit: cover; pointer-events: none; }
-.treasury-door-caption { position: absolute; inset: auto 0 0; display: grid; gap: 5px; padding: 40px 28px 22px; background: linear-gradient(transparent,#070e12ee 60%); pointer-events: none; }
+.treasury-entrance::before { content: ''; position: absolute; inset: 0; z-index: 2; border: 46px solid transparent; border-image: var(--art-border) var(--art-slice) / 46px / 0 round; pointer-events: none; }
+.treasury-door-caption { position: absolute; inset: auto 0 0; display: grid; gap: 5px; padding: 44px 46px 38px; background: linear-gradient(transparent,#070e12ee 60%); pointer-events: none; }
 .treasury-door-caption strong { font: 600 clamp(29px,2.5vw,38px)/1.1 'Cormorant Garamond',Georgia,serif; color: #f5e6c2; }
 .treasury-door-caption small { font-size: 12px; color: #dbceb4; }
 .treasury-door-caption .section-kicker { font-size: 8px; margin-bottom: 3px; color: #e3cb92; }
@@ -75,14 +77,15 @@
 @keyframes treasury-reveal { from { opacity: 0; } to { opacity: 1; } }
 @keyframes treasury-door-fade { from { opacity: 1; } to { opacity: 0; } }
 
-/* The central wooden board supports real HTML notices. Artwork always keeps
-   its aspect ratio; narrow screens use a shallow scene above the articles. */
+/* Notices share the scene's grid cell at every width, so they are pinned to
+   the board. The quiet wood and lower rail extend around long live headlines. */
 .realm-dashboard > .bree-news { background: linear-gradient(145deg,#2b231a,#151b17); border-color: #9d815967; }
 .bree-news .panel-title { align-items: start; flex-wrap: wrap; }
 .bree-news .panel-actions { display: flex; flex-wrap: wrap; gap: 8px; }
 .bree-board { position: relative; display: grid; background: #24190f url('../assets/expansion/bree-board-quiet-wood.webp') center / 250px 150px repeat; border: 1px solid #82644288; border-radius: 4px; overflow: hidden; }
+.bree-board::before { content: ''; position: absolute; inset: 0; background-image: url('../assets/expansion/bree-board-left-post.webp'),url('../assets/expansion/bree-board-right-post.webp'); background-position: 19.85% top,89.29% top; background-size: 5.1% auto,3.9% auto; background-repeat: repeat-y; pointer-events: none; }
 .bree-art, .bree-board .news-list { grid-area: 1/1; min-width: 0; }
-.bree-art { display: block; align-self: start; width: 100%; aspect-ratio: 1672/650; overflow: hidden; pointer-events: none; mask-image: linear-gradient(#000 calc(100% - 32px),transparent); }
+.bree-art { display: block; position: relative; align-self: start; width: 100%; aspect-ratio: 1672/650; overflow: hidden; pointer-events: none; mask-image: linear-gradient(#000 calc(100% - 32px),transparent); }
 .bree-art img { display: block; width: 100%; height: auto; pointer-events: none; }
 .bree-board::after { content: ''; position: absolute; inset: auto 0 0; aspect-ratio: 1672/161; background: url('../assets/expansion/bree-board-bottom-rail.webp') center / 100% 100%; pointer-events: none; mask-image: linear-gradient(transparent,#000 20px); }
 .realm-dashboard .bree-board .news-list { position: relative; z-index: 1; margin: 0; padding: 14% 11% 12% 20%; display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 13px; align-content: center; }
@@ -94,6 +97,8 @@
 .realm-dashboard .bree-news .news-item small { color: #654a2e; font-size: 10px; margin-top: auto; }
 .realm-dashboard .bree-news .news-item a:focus-visible { outline-color: #803821; }
 .bree-news #viewAllNews { margin-top: 18px; }
+.footer > picture { display: block; width: 192px; }
+.footer > picture img { display: block; width: 100%; height: auto; filter: none; }
 
 @media(max-width:1100px) {
   .realm-dashboard > .oak-framed { padding: 62px 56px 48px; }
@@ -101,15 +106,12 @@
 }
 @media(max-width:1000px) {
   .realm-dashboard > .bree-news { grid-column: 1/-1; }
-  .bree-board { display: block; }
-  .bree-board::after { display: none; }
-  .bree-art { height: 210px; aspect-ratio: auto; mask-image: none; }
-  .bree-art img { height: 100%; object-fit: cover; object-position: center 30%; }
-  .realm-dashboard .bree-board .news-list { padding: 18px; grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .realm-dashboard .bree-board .news-list { grid-template-columns: 1fr; }
+  .realm-dashboard .bree-news .news-item a { font-size: 20px; }
 }
 @media(max-width:760px) {
   .realm-dashboard > .oak-framed { --oak-unit: .22px; padding: 62px 30px 44px; }
-  .realm-dashboard .oak-framed > .panel-title { padding-right: 92px; min-height: 122px; margin-bottom: 18px; }
+  .realm-dashboard .home-panel.oak-framed > .panel-title { padding-right: 92px; min-height: 122px; margin-bottom: 18px; }
   .oak-framed .bag-end-emblem { width: 92px; height: 92px; top: 64px; right: 30px; }
   .realm-dashboard .oak-framed .home-device { grid-template-columns: 88px minmax(0,1fr); gap: 12px; }
   .climate-art, .climate-art img { width: 88px; height: 100px; }
@@ -123,11 +125,12 @@
   .realm-dashboard .oak-framed .camera-preview { min-height: 200px; }
   .realm-dashboard .oak-framed .home-panel p, .realm-dashboard .oak-framed .home-privacy { overflow-wrap: anywhere; }
   .realm-dashboard > .treasury-panel:not(.is-open) { padding: 0; }
-  .treasury-door-caption { padding: 36px 22px 18px; }
-  .bree-art { height: 175px; }
-  .realm-dashboard .bree-board .news-list { padding: 16px; grid-template-columns: 1fr; gap: 14px; }
-  .realm-dashboard .bree-news .news-item { padding: 24px 20px 18px; }
-  .realm-dashboard .bree-news .news-item a { font-size: 22px; }
+  .treasury-entrance::before { border-width: 34px; border-image-width: 34px; }
+  .treasury-door-caption { padding: 36px 34px 28px; }
+  .realm-dashboard .bree-board .news-list { grid-template-columns: 1fr; gap: 14px; }
+  .realm-dashboard .bree-news .news-item { padding: 24px 14px 16px; }
+  .realm-dashboard .bree-news .news-item a { font-size: 20px; }
+  .footer > picture { width: 156px; }
 }
 @media(prefers-reduced-motion:reduce) {
   .treasury-panel *, .treasury-entrance::after { animation: none !important; transition: none !important; }
