@@ -1,4 +1,4 @@
-import {initNest} from './nest.js?v=20261015-remember1';
+import {initNest} from './nest.js?v=20261016-expansion1';
 import {NEST_SERVICE_URL} from './nest-config.js?v=20261015-personal7';
 import {createGoogleConnection} from './google-connection.js?v=20261015-remember1';
 import {initBudget} from './budget.js?v=20261016-budget4';

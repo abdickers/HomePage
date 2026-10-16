@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="css/personal-realm.css?v=20261015-homewide1" />
   <link rel="stylesheet" href="css/budget.css?v=20261016-budget4" />
   <link rel="stylesheet" href="css/epic-realm.css?v=20261016-art1" />
+  <link rel="stylesheet" href="css/realm-expansion.css?v=20261016-expansion2" />
 </head>
 <body data-command-realm="personal">
   <aside class="realm-sidebar" aria-label="Personal command center">
@@ -111,17 +112,24 @@
       </div><span class="scroll-paper-edge scroll-paper-right" aria-hidden="true"></span></div>
       <div class="scroll-cap scroll-cap-bottom" aria-hidden="true"><img src="assets/redesign/ravens-roller-left.webp" width="180" height="176" alt="" loading="lazy" decoding="async" /><span></span><img src="assets/redesign/ravens-roller-right.webp" width="180" height="176" alt="" loading="lazy" decoding="async" /></div>
     </section>
-    <section class="panel home-panel" id="homePanel">
+    <section class="panel home-panel oak-framed" id="homePanel">
+ <div class="oak-frame" aria-hidden="true"><span class="oak-top-left"></span><span class="oak-top-right"></span><span class="oak-bottom-left"></span><span class="oak-bottom-right"></span><span class="oak-top"></span><span class="oak-bottom"></span><span class="oak-left"></span><span class="oak-right"></span></div>
  <img class="bag-end-emblem" src="assets/redesign/hobbit-bag-end-door.webp" width="180" height="180" alt="" aria-hidden="true" loading="lazy" decoding="async" />
  <div class="panel-title"><div><span class="section-kicker">There is no place like home</span><h2>Bag End</h2></div><span class="realm-account">SAGE CABIN · GOOGLE NEST</span></div>
  <div class="home-devices">
-  <div class="nest-hearth"><article class="home-device"><div class="temperature-dial"><span id="nestTemperature">—</span><small>°</small></div><div><h3 class="hearth-heading"><img class="hearth-icon" src="assets/redesign/icon-hearth.webp" width="44" height="44" alt="" aria-hidden="true" loading="lazy" decoding="async" />The hearth</h3><select id="nestThermostat" aria-label="Thermostat" hidden></select><p id="nestThermostatInfo">Your personal thermostat</p></div></article>
+  <div class="nest-hearth"><article class="home-device">
+   <div class="climate-art" aria-hidden="true"><img id="nestModeArt" width="144" height="144" sizes="(max-width: 760px) 88px, 128px" alt="" decoding="async" hidden /><span id="nestNeutralGlyph" class="climate-neutral">°</span></div>
+   <div class="climate-reading"><h3 class="hearth-heading"><img class="home-small-icon" src="assets/expansion/hobbit-icon-window-64.webp" srcset="assets/expansion/hobbit-icon-window-64.webp 64w, assets/expansion/hobbit-icon-window-128.webp 128w" sizes="28px" width="28" height="28" alt="" aria-hidden="true" loading="lazy" decoding="async" />The hearth</h3>
+   <div class="ambient-reading"><div class="temperature-dial"><span id="nestTemperature">—</span><small id="nestTemperatureUnit">°F</small></div><small id="nestTemperatureLabel">Ambient temperature</small></div>
+   <p class="climate-state"><strong id="nestConfirmedMode">Status unavailable</strong><span aria-hidden="true"> · </span><span id="nestActivity">Activity unavailable</span></p>
+   <p id="nestLastChecked" class="climate-checked" hidden></p><p id="nestStateNote" class="climate-note" hidden></p>
+   <select id="nestThermostat" aria-label="Thermostat" hidden></select><p id="nestThermostatInfo">Your personal thermostat</p></div></article>
   <div id="nestControls" class="nest-controls" hidden>
    <div class="media-actions"><label>Mode <select id="nestMode"></select></label><button id="nestModeApply" type="button">Apply mode</button></div>
    <div class="media-actions"><label>Heat <span id="nestHeatUnit">°F</span><input id="nestHeat" type="number" required></label><label>Cool <span id="nestCoolUnit">°F</span><input id="nestCool" type="number" required></label><button id="nestApply" type="button">Apply temperature</button></div>
   </div>
  </div>
- <div class="nest-watch"><article class="camera-preview"><div id="nestCameraArt"><svg viewBox="0 0 400 190" aria-hidden="true"><path d="M0 160 110 35l72 87 65-103 153 145v26H0Z" fill="#243c32"/><path d="m120 190 45-70h80l35 70Z" fill="#78916c"/><circle cx="210" cy="160" r="24" fill="#14261d"/><path d="M0 181q200-45 400 0" fill="none" stroke="#c6ac65"/></svg></div><video id="nestVideo" controls autoplay muted playsinline hidden aria-label="Live outdoor Nest camera"></video><span>◉ The watch at the gate</span><select id="nestCamera" aria-label="Camera" hidden></select><small id="nestCameraInfo">Private outdoor camera</small></article>
+ <div class="nest-watch"><article class="camera-preview"><div id="nestCameraArt"><svg viewBox="0 0 400 190" aria-hidden="true"><path d="M0 160 110 35l72 87 65-103 153 145v26H0Z" fill="#243c32"/><path d="m120 190 45-70h80l35 70Z" fill="#78916c"/><circle cx="210" cy="160" r="24" fill="#14261d"/><path d="M0 181q200-45 400 0" fill="none" stroke="#c6ac65"/></svg></div><video id="nestVideo" controls autoplay muted playsinline hidden aria-label="Live outdoor Nest camera"></video><span class="gate-label"><img class="home-small-icon" src="assets/expansion/hobbit-icon-gate-64.webp" srcset="assets/expansion/hobbit-icon-gate-64.webp 64w, assets/expansion/hobbit-icon-gate-128.webp 128w" sizes="32px" width="32" height="32" alt="" aria-hidden="true" loading="lazy" decoding="async" />The watch at the gate</span><select id="nestCamera" aria-label="Camera" hidden></select><small id="nestCameraInfo">Private outdoor camera</small></article>
   <div class="media-actions"><button id="nestPlay" type="button" disabled>▶ Watch the gate</button><button id="nestStop" type="button" hidden>Stop video</button></div></div>
  </div>
  <div class="nest-footer"><p id="nestStatus" role="status" aria-live="polite">Preparing your private Nest connection…</p>
@@ -129,9 +137,12 @@
       <p class="realm-account home-privacy">abdickers@gmail.com · Nest remembers this browser for up to 30 days, renewed while active. Sign out to forget it. Video stops when you leave this tab.</p>
 </section>
 
-    <section class="panel budget-panel art-frame vault-frame" id="budgetPanel" aria-labelledby="budgetTitle">
+    <section class="panel budget-panel art-frame vault-frame treasury-panel" id="budgetPanel" aria-labelledby="budgetTitle">
+      <button id="treasuryEntrance" class="treasury-entrance" type="button" aria-label="Open the Treasury" aria-expanded="false" aria-controls="treasuryContent"><picture><source media="(max-width: 760px)" srcset="assets/expansion/treasury-hidden-mine-door-small.webp 480w, assets/expansion/treasury-hidden-mine-door.webp 960w" sizes="calc(100vw - 32px)" /><img src="assets/expansion/treasury-hidden-mine-door.webp" width="960" height="640" alt="" loading="lazy" decoding="async" /></picture><span class="treasury-door-caption"><span class="section-kicker">Beneath the Lonely Mountain</span><strong>Open the Treasury</strong><small>Budget &amp; bills</small></span></button>
+      <div id="treasuryTransition" class="treasury-transition" aria-hidden="true" hidden></div>
+      <div id="treasuryContent" class="treasury-content" hidden inert>
       <span class="frame-medallion" aria-hidden="true"></span>
-      <div class="budget-heading"><div class="section-identity"><img class="section-icon" src="assets/redesign/icon-treasury.webp" width="64" height="64" alt="" aria-hidden="true" loading="lazy" decoding="async" /><div><span class="budget-eyebrow">YOUR PRIVATE FINANCIAL LEDGER</span><h2 id="budgetTitle">The Treasury</h2><p>Budget &amp; bills · your private financial ledger.</p></div></div><div class="budget-actions"><button id="budgetPrivacy" type="button" aria-pressed="true">Show amounts</button><button id="budgetRefresh" type="button" disabled>Refresh budget</button></div></div>
+      <div class="budget-heading"><div class="section-identity"><img class="section-icon" src="assets/redesign/icon-treasury.webp" width="64" height="64" alt="" aria-hidden="true" loading="lazy" decoding="async" /><div><span class="budget-eyebrow">YOUR PRIVATE FINANCIAL LEDGER</span><h2 id="budgetTitle">The Treasury</h2><p>Budget &amp; bills</p></div></div><div class="budget-actions"><button id="treasuryClose" type="button">Close Treasury</button><button id="budgetPrivacy" type="button" aria-pressed="true">Show amounts</button><button id="budgetRefresh" type="button" disabled>Refresh budget</button></div></div>
       <p id="budgetState" role="status">Sign in with your personal Google account to open your private budget.</p>
       <button id="budgetUnlock" type="button">Open private budget</button>
       <div id="budgetPrivate" hidden>
@@ -139,9 +150,11 @@
         <nav class="budget-tabs" aria-label="Budget views"><button type="button" data-budget-tab="overview" aria-pressed="true">At a glance</button><button type="button" data-budget-tab="bills" aria-pressed="false">Bills &amp; renewals</button><button type="button" data-budget-tab="spending" aria-pressed="false">Spending</button><button type="button" data-budget-tab="review" aria-pressed="false">Review</button><button type="button" data-budget-tab="connections" aria-pressed="false">Connections &amp; plans</button></nav>
         <div id="budgetView"></div>
       </div>
+      </div>
     </section>
 
-    <section class="panel provisions-panel" id="dailyProvisioning">
+    <section class="panel provisions-panel oak-framed" id="dailyProvisioning">
+      <div class="oak-frame" aria-hidden="true"><span class="oak-top-left"></span><span class="oak-top-right"></span><span class="oak-bottom-left"></span><span class="oak-bottom-right"></span><span class="oak-top"></span><span class="oak-bottom"></span><span class="oak-left"></span><span class="oak-right"></span></div>
       <div class="panel-title"><div class="section-identity"><img class="section-icon" src="assets/redesign/icon-provisions.webp" width="64" height="64" alt="" aria-hidden="true" loading="lazy" decoding="async" /><div><span class="section-kicker">Well stocked for the journey</span><h2>The Quartermaster</h2></div></div><span class="realm-account">DAILY PROVISIONS</span></div>
       <div class="provision-grid">
         <article class="provision-card"><span class="provision-symbol walmart-mark" aria-hidden="true">✳</span><h3>Walmart+</h3><p>Groceries, deliveries &amp; member benefits</p><a href="https://www.walmart.com/plus" target="_blank" rel="noopener noreferrer">Membership ↗</a><a href="https://www.walmart.com/orders" target="_blank" rel="noopener noreferrer">Orders ↗</a></article>
@@ -187,9 +200,9 @@
       <div class="quick-list" id="quickList"></div>
     </section>
 
-    <section class="panel news-panel">
+    <section class="panel news-panel bree-news">
       <div class="panel-title">
-        <div class="section-identity"><img class="section-icon" src="assets/redesign/icon-news.webp" width="64" height="64" alt="" aria-hidden="true" loading="lazy" decoding="async" /><div><span class="section-kicker">Word from the wider world</span><h2>News from Middle-earth</h2></div></div>
+        <div class="section-identity"><img class="section-icon" src="assets/redesign/icon-news.webp" width="64" height="64" alt="" aria-hidden="true" loading="lazy" decoding="async" /><div><span class="section-kicker">The Prancing Pony noticeboard</span><h2>News from Bree</h2></div></div>
         <div class="panel-actions">
           <button id="refreshNews" type="button">Refresh</button>
           <a id="viewSource" href="https://www.foxnews.com/" target="_blank" rel="noopener">Source ↗</a>
@@ -201,13 +214,13 @@
         <button data-feed="tech" type="button" aria-pressed="false">Tech</button>
       </div>
       <p id="newsState" class="feed-state" role="status"></p>
-      <div id="newsList" class="news-list"></div>
+      <div class="bree-board"><picture class="bree-art" aria-hidden="true"><source media="(max-width: 1000px)" srcset="assets/expansion/bree-prancing-pony-news-board-small.webp 768w, assets/expansion/bree-prancing-pony-news-board.webp 1672w" sizes="(max-width: 760px) calc(100vw - 80px), calc(100vw - 240px)" /><img src="assets/expansion/bree-prancing-pony-news-board.webp" width="1672" height="941" alt="" loading="lazy" decoding="async" /></picture><div id="newsList" class="news-list"></div></div>
       <a id="viewAllNews" class="wide-link" href="https://www.foxnews.com/" target="_blank" rel="noopener">View All News ↗</a>
     </section>
 
 
 
-    <section class="panel weather-panel">
+    <section class="panel weather-panel art-frame elven-frame">
       <div class="panel-title">
         <div class="section-identity"><img class="section-icon" src="assets/redesign/icon-weather.webp" width="64" height="64" alt="" aria-hidden="true" loading="lazy" decoding="async" /><div><span class="section-kicker">Under an open sky</span><h2>Weather in Rohan</h2></div></div>
         <button id="refreshWeather" type="button" aria-label="Refresh weather">↻</button>
@@ -240,7 +253,7 @@
   </main>
 
   <footer class="footer">
-    <img src="assets/ring-footer.svg" alt="Decorative ring" />
+    <picture aria-hidden="true"><source srcset="assets/expansion/one-ring-footer-small.webp 256w, assets/expansion/one-ring-footer.webp 480w" sizes="(max-width: 760px) 156px, 192px" /><img src="assets/expansion/one-ring-footer.webp" width="480" height="320" alt="" loading="lazy" decoding="async" /></picture>
   </footer>
   <p class="footer-caption">Your tools. Your quests. Your corner of Middle-earth. <button class="text-button" id="footerSettings" type="button">Settings &amp; backup</button></p>
   <noscript><p class="panel">Enable JavaScript to use dashboard widgets. Your Google tools remain available at <a href="https://workspace.google.com/" target="_blank" rel="noopener">Google Workspace</a>.</p></noscript>
@@ -260,7 +273,8 @@
   <dialog id="searchDialog" aria-labelledby="searchTitle"><div class="dialog-heading"><h2 id="searchTitle">The Palantir Found</h2><button type="button" data-close aria-label="Close results">×</button></div><div id="searchResults"></div></dialog>
   <div id="toast" class="toast" role="status" hidden><span id="toastText"></span><button id="undoAction" type="button" hidden>Undo</button><button id="dismissToast" type="button" aria-label="Dismiss notification">×</button></div>
   <dialog id="budgetDialog" aria-label="Budget editor"><div id="budgetDialogBody"></div></dialog>
-  <script type="module" src="js/app.js?v=20261016-budget4"></script>
+  <script type="module" src="js/realm-expansion.js?v=20261016-expansion1"></script>
+  <script type="module" src="js/app.js?v=20261016-expansion1"></script>
   <script type="module" src="js/wow.js?v=20261015-wow8"></script>
 </body>
 </html>

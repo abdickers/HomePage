@@ -1,0 +1,137 @@
+/* Second art pack: scoped to framed panels, the Treasury disclosure and Bree news.
+   The hero, parchment mail, Alliance portrait and other approved styles remain. */
+
+.realm-dashboard > .oak-framed {
+  --oak-unit: .3px;
+  padding: 62px 66px 52px;
+  border: 0;
+  background: radial-gradient(ellipse at 80% 0,#b78b3024,transparent 55%),#122017;
+  isolation: isolate;
+}
+.oak-frame { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+.oak-frame span { position: absolute; background-repeat: no-repeat; background-size: 100% 100%; pointer-events: none; }
+.oak-top-left, .oak-top-right, .oak-bottom-left, .oak-bottom-right { width: calc(340 * var(--oak-unit)); }
+.oak-top-left { top: 0; left: 0; height: calc(470 * var(--oak-unit)); background-image: url('../assets/expansion/hobbit-oak-top-left.webp'); }
+.oak-top-right { top: 0; right: 0; height: calc(300 * var(--oak-unit)); background-image: url('../assets/expansion/hobbit-oak-top-right.webp'); }
+.oak-bottom-left { bottom: 0; left: 0; height: calc(250 * var(--oak-unit)); background-image: url('../assets/expansion/hobbit-oak-bottom-left.webp'); }
+.oak-bottom-right { bottom: 0; right: 0; height: calc(360 * var(--oak-unit)); background-image: url('../assets/expansion/hobbit-oak-bottom-right.webp'); }
+.oak-frame .oak-top, .oak-frame .oak-bottom { left: calc(340 * var(--oak-unit)); right: calc(340 * var(--oak-unit)); background-repeat: repeat-x; }
+.oak-frame .oak-top { top: 0; height: calc(130 * var(--oak-unit)); background-image: url('../assets/expansion/hobbit-oak-top.webp'); background-size: calc(200 * var(--oak-unit)) 100%; }
+.oak-frame .oak-bottom { bottom: 0; height: calc(141 * var(--oak-unit)); background-image: url('../assets/expansion/hobbit-oak-bottom.webp'); background-size: calc(200 * var(--oak-unit)) 100%; }
+.oak-frame .oak-left, .oak-frame .oak-right { background-repeat: repeat-y; }
+.oak-frame .oak-left { top: calc(470 * var(--oak-unit)); bottom: calc(250 * var(--oak-unit)); left: 0; width: calc(170 * var(--oak-unit)); background-image: url('../assets/expansion/hobbit-oak-left.webp'); background-size: 100% calc(60 * var(--oak-unit)); }
+.oak-frame .oak-right { top: calc(300 * var(--oak-unit)); bottom: calc(360 * var(--oak-unit)); right: 0; width: calc(182 * var(--oak-unit)); background-image: url('../assets/expansion/hobbit-oak-right.webp'); background-size: 100% calc(50 * var(--oak-unit)); }
+.realm-dashboard .home-panel.oak-framed > .panel-title { min-height: 100px; padding-right: 156px; }
+.realm-dashboard .provisions-panel.oak-framed > .panel-title { flex-wrap: wrap; gap: 16px; }
+.oak-framed .bag-end-emblem { width: 128px; height: 128px; top: 48px; right: 64px; }
+.home-small-icon { width: 28px; height: 28px; display: inline-block; object-fit: contain; flex: 0 0 auto; pointer-events: none; }
+.realm-dashboard .oak-framed .home-device { display: grid; grid-template-columns: 128px minmax(0,1fr); gap: 20px; align-items: center; }
+.climate-art { width: 128px; height: 144px; display: grid; place-items: center; }
+.climate-art img { display: block; width: 128px; height: 144px; object-fit: contain; pointer-events: none; }
+.climate-neutral { display: grid; place-items: center; width: 94px; height: 94px; border: 1px solid #ad986b; border-radius: 50%; color: #d2c7a8; font: 64px Georgia,serif; background: #1e2f23; }
+.climate-reading { min-width: 0; }
+.realm-dashboard .oak-framed .hearth-heading { font-size: 24px; gap: 8px; }
+.ambient-reading { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin: 12px 0; }
+.realm-dashboard .oak-framed .temperature-dial { width: auto; height: auto; flex-basis: auto; min-width: 0; background: none; box-shadow: none; border: 0; color: #fff1d5; padding: 0; font-size: 44px; line-height: 1; display: flex; gap: 2px; align-items: start; }
+.realm-dashboard .oak-framed .temperature-dial small { font: 15px 'DM Sans',sans-serif; margin-top: 6px; }
+.ambient-reading > small { max-width: 88px; color: #c5cbbd; font-size: 11px; line-height: 1.5; }
+.realm-dashboard .home-device .climate-state { font-size: 13px; line-height: 1.6; color: #f0e6ce; }
+.climate-state strong { font-weight: 600; }
+.realm-dashboard .home-device .climate-checked, .realm-dashboard .home-device .climate-note { font-size: 11px; color: #e0c996; }
+.realm-dashboard .home-device #nestThermostatInfo { font-size: 11px; color: #bfcbb9; }
+.gate-label { display: flex; align-items: center; gap: 10px; }
+.gate-label img { width: 32px; height: 32px; }
+.realm-dashboard .oak-framed .camera-preview { min-height: 250px; }
+.realm-dashboard .oak-framed .nest-controls { margin-top: 20px; border-top: 1px solid #9e86564d; padding-top: 16px; }
+.realm-dashboard .oak-framed .media-actions { gap: 10px; }
+
+/* Closed gateway occupies only a compact card. Hidden financial content is
+   both hidden and inert; its existing Google/amount privacy remains separate. */
+.realm-dashboard > .treasury-panel:not(.is-open) { padding: 0; border: 0; background: none; box-shadow: none; }
+.realm-dashboard > .treasury-panel:not(.is-open)::before { display: none; }
+.realm-dashboard .treasury-panel .treasury-entrance {
+  display: block; position: relative; width: min(100%,480px); margin-inline: auto;
+  padding: 0; overflow: hidden; text-align: left; background: #131a1a;
+  border: 1px solid #ad97636b; border-radius: 5px; box-shadow: 0 12px 36px #0005;
+  color: #f7ebcf; isolation: isolate;
+}
+.treasury-entrance picture, .treasury-entrance img { display: block; width: 100%; }
+.treasury-entrance img { height: auto; aspect-ratio: 3/2; object-fit: cover; pointer-events: none; }
+.treasury-entrance::before { content: ''; position: absolute; inset: 0; z-index: 2; border: 46px solid transparent; border-image: var(--art-border) var(--art-slice) / 46px / 0 round; pointer-events: none; }
+.treasury-door-caption { position: absolute; inset: auto 0 0; display: grid; gap: 5px; padding: 44px 46px 38px; background: linear-gradient(transparent,#070e12ee 60%); pointer-events: none; }
+.treasury-door-caption strong { font: 600 clamp(29px,2.5vw,38px)/1.1 'Cormorant Garamond',Georgia,serif; color: #f5e6c2; }
+.treasury-door-caption small { font-size: 12px; color: #dbceb4; }
+.treasury-door-caption .section-kicker { font-size: 8px; margin-bottom: 3px; color: #e3cb92; }
+.treasury-entrance::after { content: ''; position: absolute; left: 50%; top: 10%; width: 1px; height: 50%; box-shadow: 0 0 20px 5px #efb55b; opacity: 0; transition: opacity 180ms; pointer-events: none; }
+.treasury-entrance:is(:hover,:focus-visible)::after { opacity: .4; }
+.realm-dashboard > .treasury-panel.is-open { background: linear-gradient(180deg,#0c151955,#11191bef 600px),url('../assets/expansion/lonely-mountain-treasury.webp') center top / 100% auto no-repeat,#11191b; }
+.treasury-content { min-width: 0; }
+.treasury-panel.is-opening .treasury-content { animation: treasury-reveal 280ms ease-out both; }
+.treasury-transition { position: absolute; left: 50%; top: 0; width: min(100%,480px); aspect-ratio: 3/2; transform: translateX(-50%); z-index: 3; background: url('../assets/expansion/treasury-hidden-mine-door.webp') center / cover; pointer-events: none; }
+.treasury-panel.is-opening .treasury-transition { animation: treasury-door-fade 280ms ease-out both; }
+.realm-dashboard .treasury-panel #budgetState { background: #101819e8; padding: 12px 16px; border-radius: 3px; }
+.realm-dashboard .treasury-panel :is(.budget-card,.budget-block,.budget-account,.budget-limits) { background: #101819f5; }
+.realm-dashboard .treasury-panel .budget-heading { flex-wrap: wrap; }
+.realm-dashboard .treasury-panel .budget-heading p { color: #e3d6b9; }
+.realm-dashboard .treasury-panel #treasuryClose { border-color: #bba674; color: #f3e4bd; }
+@keyframes treasury-reveal { from { opacity: 0; } to { opacity: 1; } }
+@keyframes treasury-door-fade { from { opacity: 1; } to { opacity: 0; } }
+
+/* Notices share the scene's grid cell at every width, so they are pinned to
+   the board. The quiet wood and lower rail extend around long live headlines. */
+.realm-dashboard > .bree-news { background: linear-gradient(145deg,#2b231a,#151b17); border-color: #9d815967; }
+.bree-news .panel-title { align-items: start; flex-wrap: wrap; }
+.bree-news .panel-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.bree-board { position: relative; display: grid; background: #24190f url('../assets/expansion/bree-board-quiet-wood.webp') center / 250px 150px repeat; border: 1px solid #82644288; border-radius: 4px; overflow: hidden; }
+.bree-board::before { content: ''; position: absolute; inset: 0; background-image: url('../assets/expansion/bree-board-left-post.webp'),url('../assets/expansion/bree-board-right-post.webp'); background-position: 19.85% top,89.29% top; background-size: 5.1% auto,3.9% auto; background-repeat: repeat-y; pointer-events: none; }
+.bree-art, .bree-board .news-list { grid-area: 1/1; min-width: 0; }
+.bree-art { display: block; position: relative; align-self: start; width: 100%; aspect-ratio: 1672/650; overflow: hidden; pointer-events: none; mask-image: linear-gradient(#000 calc(100% - 32px),transparent); }
+.bree-art img { display: block; width: 100%; height: auto; pointer-events: none; }
+.bree-board::after { content: ''; position: absolute; inset: auto 0 0; aspect-ratio: 1672/161; background: url('../assets/expansion/bree-board-bottom-rail.webp') center / 100% 100%; pointer-events: none; mask-image: linear-gradient(transparent,#000 20px); }
+.realm-dashboard .bree-board .news-list { position: relative; z-index: 1; margin: 0; padding: 14% 11% 12% 20%; display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 13px; align-content: center; }
+.realm-dashboard .bree-news .news-item { position: relative; display: flex; flex-direction: column; gap: 10px; min-width: 0; padding: 24px 15px 16px; background: #efddb9; color: #352719; border: 1px solid #967340; border-radius: 2px; box-shadow: 0 4px 10px #0005; }
+.bree-news .news-item::before { content: ''; position: absolute; top: 8px; left: calc(50% - 3px); width: 6px; height: 6px; border-radius: 50%; background: #785636; box-shadow: 0 1px 2px #0006; pointer-events: none; }
+.realm-dashboard .bree-news .news-icon { width: 22px; height: 22px; }
+.realm-dashboard .bree-news .news-item a { color: #392918; font: 600 18px/1.32 'Cormorant Garamond',Georgia,serif; text-decoration-thickness: 1px; text-underline-offset: 3px; overflow-wrap: anywhere; }
+.realm-dashboard .bree-news .news-item a:hover { text-decoration: underline; }
+.realm-dashboard .bree-news .news-item small { color: #654a2e; font-size: 10px; margin-top: auto; }
+.realm-dashboard .bree-news .news-item a:focus-visible { outline-color: #803821; }
+.bree-news #viewAllNews { margin-top: 18px; }
+.footer > picture { display: block; width: 192px; }
+.footer > picture img { display: block; width: 100%; height: auto; filter: none; }
+
+@media(max-width:1100px) {
+  .realm-dashboard > .oak-framed { padding: 62px 56px 48px; }
+  .oak-framed .bag-end-emblem { right: 54px; }
+}
+@media(max-width:1000px) {
+  .realm-dashboard > .bree-news { grid-column: 1/-1; }
+  .realm-dashboard .bree-board .news-list { grid-template-columns: 1fr; }
+  .realm-dashboard .bree-news .news-item a { font-size: 20px; }
+}
+@media(max-width:760px) {
+  .realm-dashboard > .oak-framed { --oak-unit: .22px; padding: 62px 30px 44px; }
+  .realm-dashboard .home-panel.oak-framed > .panel-title { padding-right: 92px; min-height: 122px; margin-bottom: 18px; }
+  .oak-framed .bag-end-emblem { width: 92px; height: 92px; top: 64px; right: 30px; }
+  .realm-dashboard .oak-framed .home-device { grid-template-columns: 88px minmax(0,1fr); gap: 12px; }
+  .climate-art, .climate-art img { width: 88px; height: 100px; }
+  .climate-neutral { width: 68px; height: 68px; font-size: 48px; }
+  .realm-dashboard .oak-framed .nest-hearth { padding: 17px 12px; }
+  .realm-dashboard .oak-framed .hearth-heading { font-size: 20px; gap: 6px; }
+  .hearth-heading .home-small-icon { width: 24px; height: 24px; }
+  .realm-dashboard .oak-framed .temperature-dial { font-size: 42px; }
+  .ambient-reading { gap: 8px; }
+  .ambient-reading > small { font-size: 10px; }
+  .realm-dashboard .oak-framed .camera-preview { min-height: 200px; }
+  .realm-dashboard .oak-framed .home-panel p, .realm-dashboard .oak-framed .home-privacy { overflow-wrap: anywhere; }
+  .realm-dashboard > .treasury-panel:not(.is-open) { padding: 0; }
+  .treasury-entrance::before { border-width: 34px; border-image-width: 34px; }
+  .treasury-door-caption { padding: 36px 34px 28px; }
+  .realm-dashboard .bree-board .news-list { grid-template-columns: 1fr; gap: 14px; }
+  .realm-dashboard .bree-news .news-item { padding: 24px 14px 16px; }
+  .realm-dashboard .bree-news .news-item a { font-size: 20px; }
+  .footer > picture { width: 156px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .treasury-panel *, .treasury-entrance::after { animation: none !important; transition: none !important; }
+}

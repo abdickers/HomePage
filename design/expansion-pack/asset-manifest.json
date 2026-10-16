@@ -1,0 +1,70 @@
+[
+  {
+    "file": "assets/treasury-hidden-mine-door.png",
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGB",
+    "alpha_extrema": null,
+    "sha256": "85f2da4a112f6899f904ba2a7b77adc5c050bd987f98e172cee0c60c23cdcd70"
+  },
+  {
+    "file": "assets/lonely-mountain-treasury.png",
+    "width": 1916,
+    "height": 821,
+    "mode": "RGB",
+    "alpha_extrema": null,
+    "sha256": "e869b38a666cb9d2d96166d8cc0b98b94b7f3d60489cd9f73ed19b13d41a49f4"
+  },
+  {
+    "file": "assets/bree-prancing-pony-news-board.png",
+    "width": 1672,
+    "height": 941,
+    "mode": "RGB",
+    "alpha_extrema": null,
+    "sha256": "d095550cdd05cde90feb1cfd20368563af7663ead3021113e52b0a5f18996f9a"
+  },
+  {
+    "file": "assets/hobbit-oak-ivy-frame.png",
+    "width": 1672,
+    "height": 941,
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "1b302fbf5c6332d6ea0ed19c4e66362a51dcffc4cc180c01f55526e7bfb7f5a6"
+  },
+  {
+    "file": "assets/hobbit-home-icon-atlas.png",
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      254
+    ],
+    "sha256": "f37fb0f29663e5c718452d7486db2f835d05ea4c7235d3c7bc12fa12a5a2446c"
+  },
+  {
+    "file": "assets/hobbit-heating-fireplace.png",
+    "width": 1393,
+    "height": 1129,
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "sha256": "4a8e0bb59cdb9483afa31409933ad79cf0152ee0e98e1f729e9f4259632f179d"
+  },
+  {
+    "file": "assets/hobbit-cooling-open-window.png",
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      254
+    ],
+    "sha256": "c909dbc3577f3fc25d9f7e332ed8f531a54c36a3f717a2902589f249e54183b7"
+  }
+]
