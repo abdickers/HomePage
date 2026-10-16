@@ -1,5 +1,5 @@
 import {BudgetStore} from './store.mjs';
-import {BudgetError,plaidConfigured,plaidEnvironment,plaidCall,bankCandidates,institutionSupported,verifyWebhook} from './plaid.mjs';
+import {BudgetError,plaidConfigured,plaidEnvironment,plaidCall,createBankLink,bankCandidates,institutionSupported,verifyWebhook} from './plaid.mjs';
 import {buildSummary,money,validDate,merchantFor} from './domain.mjs';
 import {runBudgetJob,storeAccounts} from './sync.mjs';
 
@@ -123,9 +123,10 @@ export async function handleBudget(request,env,owner,sessionId,deps) {
     const candidates=await bankCandidates(env,deps.boundedJson);if(!candidates.length)throw new BudgetError(409,'No Central Bank institution currently matches centralbank.net and both Balance and Transactions. Live linking is blocked until coverage is verified.','BANK_COVERAGE');
     const update=input.itemId?await store.get('item',id(input.itemId)):null;if(input.itemId&&!update)throw new BudgetError(404,'Bank connection not found.');
     const token=update?await deps.getRecord(env,update.tokenKey):null;
-    const result=await plaidCall(env,'/link/token/create',{client_name:'Sage personal budget',user:{client_user_id:owner},country_codes:['US'],language:'en',redirect_uri:env.FRONTEND_ORIGIN+'/HomePage/',webhook:url.origin+'/budget/plaid/webhook',...(update?{access_token:token?.access}:{products:['transactions'],transactions:{days_requested:365}})},deps.boundedJson);
+    const {result,nonOAuthSandbox}=await createBankLink(env,{client_name:'Sage personal budget',user:{client_user_id:owner},country_codes:['US'],language:'en',redirect_uri:env.FRONTEND_ORIGIN+'/HomePage/',webhook:url.origin+'/budget/plaid/webhook',...(update?{access_token:token?.access}:{products:['transactions'],transactions:{days_requested:365}})},deps.boundedJson);
+    if(nonOAuthSandbox)await store.put('diagnostic','plaid-setup',{operation:'/link/token/create',field:'redirect_uri',code:'SANDBOX_NON_OAUTH_LINK',checkedAt:new Date().toISOString()});
     await store.put('link-attempt','current',{id:'current',expires:Date.now()+30*60000,itemId:update?.id||null,environment:plaidEnvironment(env)});
-    return json(env,{linkToken:result.link_token,expiration:result.expiration,environment:plaidEnvironment(env),institutions:candidates,update:!!update});
+    return json(env,{linkToken:result.link_token,expiration:result.expiration,environment:plaidEnvironment(env),institutions:candidates,update:!!update,nonOAuthSandbox});
   }
   if(path==='/exchange'){
     if(typeof input.publicToken!=='string'||input.publicToken.length>2048)throw new BudgetError(400,'Invalid Link response.');
@@ -177,7 +178,7 @@ export async function handleBudget(request,env,owner,sessionId,deps) {
     await store.db.batch(['budget_records','budget_jobs','budget_sync_stage'].map(table=>store.statement(`DELETE FROM ${table} WHERE owner_id=?`,owner)));return json(env,{deleted:true});
   }
   throw new BudgetError(404,'Unknown budget operation.');
-  }finally{if(lock)await store.unlock(lock);}
+  }catch(error){if(error instanceof BudgetError&&error.details)await store.put('diagnostic','plaid-setup',{...error.details,code:error.code,checkedAt:new Date().toISOString()});throw error;}finally{if(lock)await store.unlock(lock);}
 }
 
 export async function startBudgetMail(request,env,deps) {

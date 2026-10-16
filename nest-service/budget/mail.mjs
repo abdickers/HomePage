@@ -23,9 +23,9 @@ export function parseBudgetMessage(message,email,sourceId) {
   const subject=header('subject'),from=header('from'),body=messageText(message.payload||{}),text=subject+'\n'+body;
   const merchant=merchantFor(subject+' '+from+' '+body.slice(0,12000));
   if(!merchant&&!/subscription|invoice|renewal|amount due|payment confirmation/i.test(subject))return null;
-  const amounts=[];
+  const amounts=[];let invalidAmount=false;
   for(const match of text.matchAll(/(?:order total|total paid|amount paid|amount due|balance due|payment amount|new price|renewal price|total|charged|payment of|paid|refund(?: amount)?)[\s:,-]{0,12}(?:USD\s*|US)?\$\s*([0-9]+(?:,[0-9]{3})*(?:\.[0-9]{2})?)/gi)){
-    amounts.push({value:money(match[1].replaceAll(',','')),evidence:match[0].slice(0,160)});
+    try{amounts.push({value:money(match[1].replaceAll(',','')),evidence:match[0].slice(0,160)});}catch{invalidAmount=true;}
   }
   const values=[...new Set(amounts.map(a=>a.value))],dates=explicitDate(text),dateValues=[...new Set(dates.map(d=>d.value))];
   const frequency=/\b(annually|annual (?:plan|subscription|membership)|per year|yearly|every 12 months)\b/i.test(text)?'annual':/\b(monthly|per month|every month)\b/i.test(text)?'monthly':/\b(quarterly|every 3 months)\b/i.test(text)?'quarterly':null;
@@ -34,7 +34,7 @@ export function parseBudgetMessage(message,email,sourceId) {
   const payment=/payment (?:received|confirmed|successful|completed)|successfully (?:paid|charged)|receipt|thank you for your (?:payment|order)|total paid|amount paid/i.test(text)&&!/payment (?:failed|declined|unsuccessful)/i.test(subject);
   const invoice=/amount due|balance due|invoice|payment due/i.test(text);
   const priceChange=/price (?:change|increase|will)|new price|rate (?:change|increase)/i.test(text);
-  const conflicts=[];if(values.length>1)conflicts.push('Several labeled totals; amount needs review');if(dateValues.length>1)conflicts.push('Several due or renewal dates; date needs review');if(priceChange)conflicts.push('Price change notice; confirm the effective price and date');
+  const conflicts=[];if(invalidAmount)conflicts.push('A labeled amount is outside the supported range; confirm it manually');if(values.length>1)conflicts.push('Several labeled totals; amount needs review');if(dateValues.length>1)conflicts.push('Several due or renewal dates; date needs review');if(priceChange)conflicts.push('Price change notice; confirm the effective price and date');
   const order=text.match(/(?:order|invoice)(?:\s+(?:number|no\.?|id))?[\s:#-]{1,12}([A-Z0-9][A-Z0-9-]{4,60})/i)?.[1]||null;
   const received=new Date(Number(message.internalDate));if(Number.isNaN(received.getTime()))return null;
   const serviceName=merchant?.id==='google-home'?text.match(/Google Home (?:Pro|Premium)|Google Nest Aware|Nest Aware(?: Plus)?/i)?.[0]:null;
