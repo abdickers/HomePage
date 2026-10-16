@@ -173,29 +173,29 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1792170000,
-              "name": "The Malformed Leviathan",
-              "startingUt": 1792168200
-            },
-            {
-              "endingUt": 1792171800,
+              "endingUt": 1792180800,
               "name": "The Broodmother's Nest",
-              "startingUt": 1792170000
+              "startingUt": 1792179000
             },
             {
-              "endingUt": 1792173600,
+              "endingUt": 1792182600,
               "name": "The Looming Mutagenitor",
-              "startingUt": 1792171800
+              "startingUt": 1792180800
             },
             {
-              "endingUt": 1792175400,
+              "endingUt": 1792184400,
               "name": "Mlurkkr Massacre",
-              "startingUt": 1792173600
+              "startingUt": 1792182600
             },
             {
-              "endingUt": 1792177200,
+              "endingUt": 1792186200,
               "name": "Siege at the Whispering Marsh",
-              "startingUt": 1792175400
+              "startingUt": 1792184400
+            },
+            {
+              "endingUt": 1792188000,
+              "name": "The Malformed Leviathan",
+              "startingUt": 1792186200
             }
           ],
           "icons": ""
@@ -236,14 +236,18 @@
         "content": {
           "lines": [
             {
-              "ending": "22 hr 12 min",
-              "endingShort": "22h",
+              "ending": "19 hr 48 sec",
+              "endingShort": "19h",
               "endingUt": 1792249200,
-              "name": "Active"
+              "icon": "inv_achievement_zone_zulaman1",
+              "iconLabel": "Zul'Aman",
+              "iconUrl": "/zone=15947/zulaman",
+              "name": "Zul'Aman: Atal'Aman",
+              "url": "/zone=16556/atalaman"
             },
             {
-              "ending": "22 hr 12 min",
-              "endingShort": "22h",
+              "ending": "19 hr 48 sec",
+              "endingShort": "19h",
               "endingUt": 1792249200,
               "name": "Active"
             }
@@ -322,7 +326,7 @@
       }
     ],
     "source": "https://www.wowhead.com/today-in-wow",
-    "updated": "2026-10-16T16:47:59.363092+00:00"
+    "updated": "2026-10-16T19:59:28.121158+00:00"
   },
   "forever": {
     "events": [
@@ -688,6 +692,6 @@
       }
     ],
     "source": "https://www.wowhead.com/forever/events",
-    "updated": "2026-10-16T16:47:59.508121+00:00"
+    "updated": "2026-10-16T19:59:28.321993+00:00"
   }
 }
