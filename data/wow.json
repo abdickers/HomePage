@@ -173,29 +173,29 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1792180800,
-              "name": "The Broodmother's Nest",
-              "startingUt": 1792179000
-            },
-            {
-              "endingUt": 1792182600,
+              "endingUt": 1792191600,
               "name": "The Looming Mutagenitor",
-              "startingUt": 1792180800
+              "startingUt": 1792189800
             },
             {
-              "endingUt": 1792184400,
+              "endingUt": 1792193400,
               "name": "Mlurkkr Massacre",
-              "startingUt": 1792182600
+              "startingUt": 1792191600
             },
             {
-              "endingUt": 1792186200,
+              "endingUt": 1792195200,
               "name": "Siege at the Whispering Marsh",
-              "startingUt": 1792184400
+              "startingUt": 1792193400
             },
             {
-              "endingUt": 1792188000,
+              "endingUt": 1792197000,
               "name": "The Malformed Leviathan",
-              "startingUt": 1792186200
+              "startingUt": 1792195200
+            },
+            {
+              "endingUt": 1792198800,
+              "name": "The Broodmother's Nest",
+              "startingUt": 1792197000
             }
           ],
           "icons": ""
@@ -236,20 +236,24 @@
         "content": {
           "lines": [
             {
-              "ending": "19 hr 48 sec",
-              "endingShort": "19h",
+              "ending": "16 hr 5 min",
+              "endingShort": "16h",
+              "endingUt": 1792249200,
+              "icon": "inv_zone_voidstorm",
+              "iconLabel": "Voidstorm",
+              "iconUrl": "/zone=15458/voidstorm",
+              "name": "Voidstorm: Shadowguard Point",
+              "url": "/zone=16549/shadowguard-point"
+            },
+            {
+              "ending": "16 hr 5 min",
+              "endingShort": "16h",
               "endingUt": 1792249200,
               "icon": "inv_achievement_zone_zulaman1",
               "iconLabel": "Zul'Aman",
               "iconUrl": "/zone=15947/zulaman",
               "name": "Zul'Aman: Atal'Aman",
               "url": "/zone=16556/atalaman"
-            },
-            {
-              "ending": "19 hr 48 sec",
-              "endingShort": "19h",
-              "endingUt": 1792249200,
-              "name": "Active"
             }
           ],
           "icons": ""
@@ -326,7 +330,7 @@
       }
     ],
     "source": "https://www.wowhead.com/today-in-wow",
-    "updated": "2026-10-16T19:59:28.121158+00:00"
+    "updated": "2026-10-16T22:54:15.425210+00:00"
   },
   "forever": {
     "events": [
@@ -692,6 +696,6 @@
       }
     ],
     "source": "https://www.wowhead.com/forever/events",
-    "updated": "2026-10-16T19:59:28.321993+00:00"
+    "updated": "2026-10-16T22:54:15.684246+00:00"
   }
 }
