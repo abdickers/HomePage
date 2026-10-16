@@ -27,6 +27,20 @@ test('Google consent grants only the read scopes, stores encrypted credentials s
  assert.equal(f.writes.find(write=>write.key.startsWith('session:')).options.expirationTtl,SESSION_SECONDS);assert.ok(result.html.includes(origin+'/HomePage/#google-session='));
  const session=await worker.fetch(authenticated(result.session,'/google/session'),f.env),body=await session.json();assert.equal(body.email,'abdickers@gmail.com');assert.ok(body.expiresAt>Date.now()+29*86400000);assert.doesNotMatch(JSON.stringify(body),/private-/);
 });
+
+test('Google token, identity, and Gmail requests use the redirect mode supported by Workers',async t=>{
+ const result=await connect(t,fixture());assert.equal(result.response.status,200);assert.equal(result.calls.length,3);
+ for(const call of result.calls)assert.equal(call.options.redirect,'manual',call.url);
+});
+
+test('an upstream redirect stops OAuth without following it or saving Google credentials',async t=>{
+ const f=fixture(),calls=[];
+ t.mock.method(globalThis,'fetch',async(url,options)=>{calls.push({url:String(url),options});return new Response('not JSON',{status:307,headers:{Location:'https://untrusted.test/collect'}});});
+ const start=await worker.fetch(new Request(base+'/auth/start?service=google'),f.env),state=new URL(start.headers.get('Location')).searchParams.get('state');
+ const response=await worker.fetch(new Request(base+'/auth/callback?code=fixture&state='+state,{headers:{Cookie:'__Host-nest-state='+state}}),f.env);
+ assert.equal(response.status,502);assert.match((await response.json()).error,/unexpected redirect/);assert.equal(calls.length,1);assert.equal(calls[0].options.redirect,'manual');
+ assert.equal(f.records.has('google:owner'),false);assert.equal([...f.records.keys()].some(key=>key.startsWith('session:')),false);
+});
 test('wrong Google accounts and missing read scopes cannot store a persistent owner connection',async t=>{
  const f=fixture(),result=await connect(t,f,{email:'other@example.com'});assert.equal(result.response.status,403);assert.equal(f.records.has('google:owner'),false);assert.equal(result.calls.length,2);
 });

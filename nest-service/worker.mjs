@@ -19,7 +19,10 @@ async function unseal(env,value){const v=JSON.parse(value);return JSON.parse(new
 async function getRecord(env,id){const raw=await env.NEST_KV.get(id);return raw?unseal(env,raw):null;}
 async function putRecord(env,id,value,ttl){await env.NEST_KV.put(id,await seal(env,value),ttl?{expirationTtl:ttl}:{});}
 async function provider(url,options={},limit=262144){
- let r;try{r=await fetch(url,{...options,signal:AbortSignal.timeout(15000),redirect:'error'});}catch{fail(502,'Google could not be reached. Retry in a moment.');}
+ // Workers supports manual/follow, but rejects redirect:'error' before any I/O.
+ // Handle redirects ourselves so Google credentials never follow a Location.
+ let r;try{r=await fetch(url,{...options,signal:AbortSignal.timeout(15000),redirect:'manual'});}catch{fail(502,'Google could not be reached. Retry in a moment.');}
+ if(r.status>=300&&r.status<400){await r.body?.cancel();fail(502,'Google returned an unexpected redirect. No credentials were forwarded.');}
  const body=await boundedJson(r,limit);
  if(!r.ok){const reason=body.error?.status||body.error;
   if(r.status===401||reason==='invalid_grant')fail(401,'Google authorization expired. Reconnect your personal account.');
