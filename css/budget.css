@@ -15,3 +15,5 @@
 @media(min-width:1281px){.dashboard>.budget-panel{grid-row:3!important}.provisions-panel,.ai-panel{grid-row:4!important}}
 @media(max-width:1100px){.budget-cards{grid-template-columns:1fr 1fr}}
 @media(max-width:760px){.dashboard>.budget-panel{padding:18px;grid-row:auto!important}.budget-heading{align-items:flex-start;flex-direction:column}.budget-heading h2{font-size:29px}.budget-columns{grid-template-columns:1fr;gap:0}.budget-card{padding:14px}.budget-card>strong{font-size:28px}.budget-form-pair{grid-template-columns:1fr}.budget-list>li{flex-direction:column}.budget-row-actions{justify-content:flex-start}.budget-table td,.budget-table th{padding-right:8px}.budget-cards{gap:10px}.budget-tabs{gap:6px}.budget-tabs button{flex:1 1 auto}}
+
+.budget-limits{border:1px solid var(--line);padding:14px;min-width:0}.budget-limits legend{color:var(--gold-light);font-size:13px}.budget-limit-row{display:grid;grid-template-columns:1fr 1fr auto;gap:10px;align-items:end;padding:10px 0;border-bottom:1px solid var(--line)}.budget-limits>button{margin-top:14px}@media(max-width:560px){.budget-limit-row{grid-template-columns:1fr}.budget-limit-row>button{justify-self:start}}

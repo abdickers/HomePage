@@ -56,3 +56,9 @@ Discovery starts with a frozen 366-day window, paginates 15 relevant messages pe
 `npm test` covers existing homepage behavior plus integer-cent calculations, date boundaries, deduplication, pending replacements, refunds, projections, merchant aliases, conservative email parsing, institution verification, signed/tampered/stale webhooks, actual SQLite owner isolation, atomic pagination/promotion, cursor restart/backoff, source purge, manual corrections, and financial route authentication. Local workerd/D1 checks additionally verify runtime compatibility. Desktop and phone UI checks use an explicitly labeled local fixture, never a real account balance.
 
 Live connections still require credentials and the account owner's consent. A deployment, passing tests, or a public institution listing is not evidence of a connected bank or completed Gmail backfill.
+
+### Setup troubleshooting and private editing
+
+Cushion and limit editors open while dashboard amounts are hidden. Their amount fields stay masked until you choose **Show amounts in this editor**, which does not reveal the dashboard behind the dialog. Category limits use separate rows with add/remove controls.
+
+If a new Sandbox Link token is rejected with `INVALID_FIELD`, the service can retry once with only the optional OAuth redirect removed. Use **First Platypus Bank**, a non-OAuth Sandbox institution, for that test. A successful retry isolates the return-URI validation issue. Production and existing-item update mode always retain the exact registered `/HomePage/` return URL and never use this fallback. Fixed field names and operation codes can be retained for troubleshooting; raw provider responses and credentials are not retained in diagnostics.
