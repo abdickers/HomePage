@@ -18,15 +18,21 @@ for a in json.loads((ROOT / 'design/expansion-pack/asset-manifest.json').read_te
     assert hashlib.sha256(p.read_bytes()).hexdigest() == a['sha256']
     assert Image.open(p).size == (a['width'], a['height'])
 
-def save(source, name, box=None, width=None):
+def save(source, name, box=None, width=None, file_format='WEBP'):
     im = Image.open(SOURCE / (source + '.png')).convert('RGBA')
     if box:
         im = im.crop(box)
     if width and im.width > width:
         im = im.resize((width, round(im.height * width / im.width)), Image.Resampling.LANCZOS)
-    p = OUT / (name + '.webp')
-    im.save(p, 'WEBP', quality=88, method=6, exact=True)
-    assert not ImageChops.difference(im.getchannel('A'), Image.open(p).convert('RGBA').getchannel('A')).getbbox()
+    p = OUT / (name + ('.png' if file_format == 'PNG' else '.webp'))
+    if file_format == 'PNG':
+        im.save(p, 'PNG', optimize=True)
+    else:
+        im.save(p, 'WEBP', quality=88, method=6, exact=True)
+    decoded = Image.open(p).convert('RGBA')
+    assert not ImageChops.difference(im.getchannel('A'), decoded.getchannel('A')).getbbox()
+    if file_format == 'PNG':
+        assert im.tobytes() == decoded.tobytes()
     records.append(dict(file=p.relative_to(ROOT).as_posix(), source=source+'.png', crop=box,
                         width=im.width, height=im.height, bytes=p.stat().st_size, alpha_preserved=True))
 
@@ -63,6 +69,9 @@ frame = {'top-left': (0,0,340,470), 'top-right': (1332,0,1672,300),
          'left': (0,580,170,640), 'right': (1490,280,1672,330)}
 for part, box in frame.items():
     save('hobbit-oak-ivy-frame', 'hobbit-oak-'+part, box)
+    # Lossless color/alpha copies for the CSS frame. Keep the original measured
+    # bounds and every source pixel; transparent artwork must not be whitened.
+    save('hobbit-oak-ivy-frame', 'hobbit-oak-'+part+'-color', box, file_format='PNG')
 
 # Later supplied footer update: preserve its full alpha halo and 3:2 artwork.
 ring = SOURCE / 'one-ring-footer.png'

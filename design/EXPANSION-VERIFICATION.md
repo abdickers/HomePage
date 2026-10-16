@@ -134,3 +134,27 @@ Dwarven entrance frames left controls clear. Enter opened the treasury, Close
 restored entrance focus, and closed content had zero visible tab stops and was inert.
 All 134 original IDs and 27 links were preserved; header, mail and Warcraft markup
 remains unchanged. No Google, Plaid, Nest or Cloudflare configuration was modified.
+
+## Chrome Hobbit-border color compatibility repair
+
+The owner reported white Hobbit corners and side posts in Chrome. The original
+artwork, served assets and application CSS contain their correct brown/green
+colors, and the report could not be reproduced in the available Codex browser.
+Chrome itself is not connected for direct profile verification.
+
+Bag End and Quartermaster now use eight lossless PNG delivery crops with new
+color filenames. Each decoded RGBA pixel is checked against its original crop.
+The source PNG and old WebP derivatives remain intact. Only the screen-reader-
+hidden, noninteractive oak-frame layer declares color-scheme: only light, using
+Chrome’s documented per-element opt-out from automatic darkening. This does not
+change the dark panel, controls, privacy toggles or user forced-color preferences.
+Reference: https://developer.chrome.com/blog/auto-dark-theme#per_element_opt-out
+
+The generator now records 43 derivatives including the eight PNG alternatives.
+All 105 application tests pass. Final confirmation of the original Chrome-profile
+washout requires the owner to reload the deployed correction in that browser.
+
+The PNG repair was visually inspected at 390px, 768px and 1440px, including
+both full-width Bag End and Quartermaster. No horizontal overflow was observed.
+The decorative layer computes to light only while receipt controls retain their
+normal scheme; hidden artwork remains noninteractive and screen-reader-hidden.

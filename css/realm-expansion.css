@@ -8,19 +8,21 @@
   background: radial-gradient(ellipse at 80% 0,#b78b3024,transparent 55%),#122017;
   isolation: isolate;
 }
-.oak-frame { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+/* Chrome's automatic darkening must not recolor transparent decorative art.
+   This opt-out contains no controls and does not change the panel's theme. */
+.oak-frame { position: absolute; inset: 0; z-index: 2; pointer-events: none; color-scheme: only light; }
 .oak-frame span { position: absolute; background-repeat: no-repeat; background-size: 100% 100%; pointer-events: none; }
 .oak-top-left, .oak-top-right, .oak-bottom-left, .oak-bottom-right { width: calc(340 * var(--oak-unit)); }
-.oak-top-left { top: 0; left: 0; height: calc(470 * var(--oak-unit)); background-image: url('../assets/expansion/hobbit-oak-top-left.webp'); }
-.oak-top-right { top: 0; right: 0; height: calc(300 * var(--oak-unit)); background-image: url('../assets/expansion/hobbit-oak-top-right.webp'); }
-.oak-bottom-left { bottom: 0; left: 0; height: calc(250 * var(--oak-unit)); background-image: url('../assets/expansion/hobbit-oak-bottom-left.webp'); }
-.oak-bottom-right { bottom: 0; right: 0; height: calc(360 * var(--oak-unit)); background-image: url('../assets/expansion/hobbit-oak-bottom-right.webp'); }
+.oak-top-left { top: 0; left: 0; height: calc(470 * var(--oak-unit)); background-image: url('../assets/expansion/hobbit-oak-top-left-color.png'); }
+.oak-top-right { top: 0; right: 0; height: calc(300 * var(--oak-unit)); background-image: url('../assets/expansion/hobbit-oak-top-right-color.png'); }
+.oak-bottom-left { bottom: 0; left: 0; height: calc(250 * var(--oak-unit)); background-image: url('../assets/expansion/hobbit-oak-bottom-left-color.png'); }
+.oak-bottom-right { bottom: 0; right: 0; height: calc(360 * var(--oak-unit)); background-image: url('../assets/expansion/hobbit-oak-bottom-right-color.png'); }
 .oak-frame .oak-top, .oak-frame .oak-bottom { left: calc(340 * var(--oak-unit)); right: calc(340 * var(--oak-unit)); background-repeat: repeat-x; }
-.oak-frame .oak-top { top: 0; height: calc(130 * var(--oak-unit)); background-image: url('../assets/expansion/hobbit-oak-top.webp'); background-size: calc(200 * var(--oak-unit)) 100%; }
-.oak-frame .oak-bottom { bottom: 0; height: calc(141 * var(--oak-unit)); background-image: url('../assets/expansion/hobbit-oak-bottom.webp'); background-size: calc(200 * var(--oak-unit)) 100%; }
+.oak-frame .oak-top { top: 0; height: calc(130 * var(--oak-unit)); background-image: url('../assets/expansion/hobbit-oak-top-color.png'); background-size: calc(200 * var(--oak-unit)) 100%; }
+.oak-frame .oak-bottom { bottom: 0; height: calc(141 * var(--oak-unit)); background-image: url('../assets/expansion/hobbit-oak-bottom-color.png'); background-size: calc(200 * var(--oak-unit)) 100%; }
 .oak-frame .oak-left, .oak-frame .oak-right { background-repeat: repeat-y; }
-.oak-frame .oak-left { top: calc(470 * var(--oak-unit)); bottom: calc(250 * var(--oak-unit)); left: 0; width: calc(170 * var(--oak-unit)); background-image: url('../assets/expansion/hobbit-oak-left.webp'); background-size: 100% calc(60 * var(--oak-unit)); }
-.oak-frame .oak-right { top: calc(300 * var(--oak-unit)); bottom: calc(360 * var(--oak-unit)); right: 0; width: calc(182 * var(--oak-unit)); background-image: url('../assets/expansion/hobbit-oak-right.webp'); background-size: 100% calc(50 * var(--oak-unit)); }
+.oak-frame .oak-left { top: calc(470 * var(--oak-unit)); bottom: calc(250 * var(--oak-unit)); left: 0; width: calc(170 * var(--oak-unit)); background-image: url('../assets/expansion/hobbit-oak-left-color.png'); background-size: 100% calc(60 * var(--oak-unit)); }
+.oak-frame .oak-right { top: calc(300 * var(--oak-unit)); bottom: calc(360 * var(--oak-unit)); right: 0; width: calc(182 * var(--oak-unit)); background-image: url('../assets/expansion/hobbit-oak-right-color.png'); background-size: 100% calc(50 * var(--oak-unit)); }
 .realm-dashboard .home-panel.oak-framed > .panel-title { min-height: 100px; padding-right: 156px; }
 .realm-dashboard .provisions-panel.oak-framed > .panel-title { flex-wrap: wrap; gap: 16px; }
 .oak-framed .bag-end-emblem { width: 128px; height: 128px; top: 48px; right: 64px; }
