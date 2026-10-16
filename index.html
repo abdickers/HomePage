@@ -12,13 +12,14 @@
   <link rel="stylesheet" href="css/styles.css?v=20261015-wow8" />
   <link rel="stylesheet" href="css/realm-theme.css?v=20261015-wow8" />
   <link rel="stylesheet" href="css/personal-realm.css?v=20261015-homewide1" />
+  <link rel="stylesheet" href="css/budget.css?v=20261015-budget1" />
 </head>
 <body data-command-realm="personal">
   <aside class="realm-sidebar" aria-label="Personal command center">
     <a class="realm-brand" href="#dashboard"><span class="realm-ring">A</span><span>THE COMMAND<br><strong>CENTER</strong></span></a>
     <nav class="realm-switch" aria-label="Command center"><a href="https://abdickers.github.io/HomePage/" aria-current="page">The Shire</a><a href="https://adams-middle-earth-command.spirit-of-76-1921.chatgpt.site/">Work</a></nav>
     <p class="realm-account">PERSONAL<br>abdickers@gmail.com</p>
-    <nav class="realm-nav" aria-label="Dashboard sections"><a href="#dashboard">◇ Overview</a><a href="#homePanel">⌂ Bag End</a><a href="#wowPanel">⚔ WoW war room</a><a href="#dailyProvisioning">✦ Daily provisions</a></nav>
+    <nav class="realm-nav" aria-label="Dashboard sections"><a href="#dashboard">◇ Overview</a><a href="#homePanel">⌂ Bag End</a><a href="#budgetPanel">◇ The Steward · Budget</a><a href="#wowPanel">⚔ WoW war room</a><a href="#dailyProvisioning">✦ Daily provisions</a></nav>
     <p class="realm-account">One realm. One account.<br>A little less chaos.</p>
   </aside>
   <a class="skip-link" href="#dashboard">Skip to dashboard</a>
@@ -121,6 +122,17 @@
  <div class="media-actions"><button id="nestConnect" type="button">Connect personal Nest</button><button id="nestRefresh" type="button" disabled>Refresh</button><button id="nestDisconnect" type="button" hidden>Sign out</button><a href="https://home.google.com/" target="_blank" rel="noopener noreferrer">Google Home ↗</a></div></div>
       <p class="realm-account home-privacy">abdickers@gmail.com · Nest remembers this browser for up to 30 days, renewed while active. Sign out to forget it. Video stops when you leave this tab.</p>
 </section>
+
+    <section class="panel budget-panel" id="budgetPanel" aria-labelledby="budgetTitle">
+      <div class="budget-heading"><div><span class="budget-eyebrow">YOUR PRIVATE FINANCIAL LEDGER</span><h2 id="budgetTitle">The Steward · Budget</h2><p>Balances, bills, and the road ahead.</p></div><div class="budget-actions"><button id="budgetPrivacy" type="button" aria-pressed="true">Show amounts</button><button id="budgetRefresh" type="button" disabled>Refresh budget</button></div></div>
+      <p id="budgetState" role="status">Sign in with your personal Google account to open your private budget.</p>
+      <button id="budgetUnlock" type="button">Open private budget</button>
+      <div id="budgetPrivate" hidden>
+        <p id="budgetSandbox" class="budget-notice" hidden>Bank sandbox · test bank data only. Sandbox balances are excluded from real spending and balance estimates.</p>
+        <nav class="budget-tabs" aria-label="Budget views"><button type="button" data-budget-tab="overview" aria-pressed="true">At a glance</button><button type="button" data-budget-tab="bills" aria-pressed="false">Bills &amp; renewals</button><button type="button" data-budget-tab="spending" aria-pressed="false">Spending</button><button type="button" data-budget-tab="review" aria-pressed="false">Review</button><button type="button" data-budget-tab="connections" aria-pressed="false">Connections &amp; plans</button></nav>
+        <div id="budgetView"></div>
+      </div>
+    </section>
 
     <section class="panel provisions-panel" id="dailyProvisioning">
       <div class="panel-title"><h2>The Quartermaster</h2><span class="realm-account">DAILY PROVISIONS</span></div>
@@ -240,7 +252,8 @@
   <dialog id="linkDialog" aria-labelledby="linkTitle"><div class="dialog-heading"><h2 id="linkTitle">Your Tools &amp; Links</h2><button type="button" data-close aria-label="Close links">×</button></div><form id="linkForm" class="dialog-form"><input id="linkId" type="hidden" /><label>Name<input id="linkName" maxlength="60" required /></label><label>Website URL<input id="linkUrl" type="url" placeholder="https://example.com" required /></label><label>Section<select id="linkGroup"><option value="tools">Tools &amp; Systems</option><option value="ai">AI Tools</option><option value="quick">Quick Access</option></select></label><p id="linkError" class="form-error" role="status"></p><button class="primary-button" type="submit">Save Link</button></form><div id="manageLinks" class="manage-links"></div></dialog>
   <dialog id="searchDialog" aria-labelledby="searchTitle"><div class="dialog-heading"><h2 id="searchTitle">The Palantir Found</h2><button type="button" data-close aria-label="Close results">×</button></div><div id="searchResults"></div></dialog>
   <div id="toast" class="toast" role="status" hidden><span id="toastText"></span><button id="undoAction" type="button" hidden>Undo</button><button id="dismissToast" type="button" aria-label="Dismiss notification">×</button></div>
-  <script type="module" src="js/app.js?v=20261015-homewide1"></script>
+  <dialog id="budgetDialog" aria-label="Budget editor"><div id="budgetDialogBody"></div></dialog>
+  <script type="module" src="js/app.js?v=20261015-budget1"></script>
   <script type="module" src="js/wow.js?v=20261015-wow8"></script>
 </body>
 </html>

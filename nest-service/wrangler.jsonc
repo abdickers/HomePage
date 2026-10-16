@@ -22,8 +22,12 @@
     "FRONTEND_ORIGIN": "https://abdickers.github.io",
     "OWNER_EMAIL": "abdickers@gmail.com",
     "NEST_PROJECT_ID": "36aad5a3-335e-4665-a687-9783ae584571",
-    "GOOGLE_CLIENT_ID": "644801431816-9f7u70h62fipmebva3llupi2o17b1g80.apps.googleusercontent.com"
+    "GOOGLE_CLIENT_ID": "644801431816-9f7u70h62fipmebva3llupi2o17b1g80.apps.googleusercontent.com",
+    "BUDGET_SECONDARY_EMAIL": "sage4997@gmail.com",
+    "PLAID_ENV": "sandbox"
   },
+  "triggers": {"crons": ["*/10 * * * *"]},
+  "d1_databases": [{"binding":"BUDGET_DB","database_name":"sage-home-budget","database_id":"51cdb6ed-7a8f-45ec-a6bb-e72f4b85fec3","migrations_dir":"migrations"}],
   "kv_namespaces": [
     {
       "binding": "NEST_KV",
