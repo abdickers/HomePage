@@ -1,0 +1,506 @@
+[
+  {
+    "file": "assets/redesign/hobbit-bag-end-door.webp",
+    "width": 600,
+    "height": 600,
+    "source": "hobbit-bag-end-door.png",
+    "crop": null,
+    "bytes": 173454,
+    "alpha_preserved": true
+  },
+  {
+    "file": "assets/redesign/gondor-white-tree-crest.webp",
+    "width": 256,
+    "height": 384,
+    "source": "gondor-white-tree-crest.png",
+    "crop": null,
+    "bytes": 33818,
+    "alpha_preserved": true
+  },
+  {
+    "file": "assets/redesign/wow-alliance-portrait-frame.webp",
+    "width": 1024,
+    "height": 1536,
+    "source": "wow-alliance-portrait-frame.png",
+    "crop": null,
+    "bytes": 287094,
+    "alpha_preserved": true
+  },
+  {
+    "file": "assets/redesign/frear-armory-trimmed.webp",
+    "width": 547,
+    "height": 611,
+    "source": "frear-armory.png",
+    "crop": [
+      525,
+      390,
+      1072,
+      1001
+    ],
+    "bytes": 53934,
+    "alpha_preserved": true
+  },
+  {
+    "file": "assets/redesign/elven-panel-frame-nine-slice.webp",
+    "width": 1080,
+    "height": 1080,
+    "source": "elven-panel-frame.png",
+    "crop": null,
+    "bytes": 176722,
+    "alpha_preserved": true,
+    "slice": 360,
+    "quiet_rails": {
+      "top": [
+        400,
+        0,
+        600,
+        360
+      ],
+      "bottom": [
+        400,
+        664,
+        600,
+        1024
+      ],
+      "left": [
+        0,
+        360,
+        360,
+        412
+      ],
+      "right": [
+        1176,
+        360,
+        1536,
+        412
+      ]
+    }
+  },
+  {
+    "file": "assets/redesign/dwarven-vault-frame-nine-slice.webp",
+    "width": 960,
+    "height": 960,
+    "source": "dwarven-vault-frame.png",
+    "crop": null,
+    "bytes": 156546,
+    "alpha_preserved": true,
+    "slice": 320,
+    "quiet_rails": {
+      "top": [
+        340,
+        0,
+        450,
+        320
+      ],
+      "bottom": [
+        340,
+        934,
+        450,
+        1254
+      ],
+      "left": [
+        0,
+        340,
+        320,
+        475
+      ],
+      "right": [
+        934,
+        340,
+        1254,
+        475
+      ]
+    }
+  },
+  {
+    "file": "assets/redesign/dwarven-vault-gem.webp",
+    "width": 280,
+    "height": 207,
+    "source": "dwarven-vault-frame.png",
+    "crop": [
+      492,
+      6,
+      772,
+      213
+    ],
+    "bytes": 21424,
+    "alpha_preserved": true
+  },
+  {
+    "file": "assets/redesign/ravens-scroll-top.webp",
+    "width": 1223,
+    "height": 176,
+    "source": "ravens-email-scroll.png",
+    "crop": [
+      0,
+      12,
+      1223,
+      188
+    ],
+    "bytes": 55362,
+    "alpha_preserved": true
+  },
+  {
+    "file": "assets/redesign/icon-calendar.webp",
+    "width": 289,
+    "height": 384,
+    "source": "section-icon-atlas.png",
+    "crop": [
+      20,
+      51,
+      309,
+      435
+    ],
+    "bytes": 45380,
+    "alpha_preserved": true
+  },
+  {
+    "file": "assets/redesign/icon-raven.webp",
+    "width": 313,
+    "height": 370,
+    "source": "section-icon-atlas.png",
+    "crop": [
+      316,
+      49,
+      629,
+      419
+    ],
+    "bytes": 38692,
+    "alpha_preserved": true
+  },
+  {
+    "file": "assets/redesign/icon-bag-end.webp",
+    "width": 314,
+    "height": 340,
+    "source": "section-icon-atlas.png",
+    "crop": [
+      627,
+      93,
+      941,
+      433
+    ],
+    "bytes": 53436,
+    "alpha_preserved": true
+  },
+  {
+    "file": "assets/redesign/icon-hearth.webp",
+    "width": 313,
+    "height": 333,
+    "source": "section-icon-atlas.png",
+    "crop": [
+      941,
+      100,
+      1254,
+      433
+    ],
+    "bytes": 56470,
+    "alpha_preserved": true
+  },
+  {
+    "file": "assets/redesign/icon-provisions.webp",
+    "width": 329,
+    "height": 327,
+    "source": "section-icon-atlas.png",
+    "crop": [
+      4,
+      481,
+      333,
+      808
+    ],
+    "bytes": 48356,
+    "alpha_preserved": true
+  },
+  {
+    "file": "assets/redesign/icon-treasury.webp",
+    "width": 310,
+    "height": 358,
+    "source": "section-icon-atlas.png",
+    "crop": [
+      648,
+      456,
+      958,
+      814
+    ],
+    "bytes": 47054,
+    "alpha_preserved": true
+  },
+  {
+    "file": "assets/redesign/icon-ai-orb.webp",
+    "width": 294,
+    "height": 350,
+    "source": "section-icon-atlas.png",
+    "crop": [
+      960,
+      463,
+      1254,
+      813
+    ],
+    "bytes": 44002,
+    "alpha_preserved": true
+  },
+  {
+    "file": "assets/redesign/icon-news.webp",
+    "width": 314,
+    "height": 360,
+    "source": "section-icon-atlas.png",
+    "crop": [
+      0,
+      854,
+      314,
+      1214
+    ],
+    "bytes": 36852,
+    "alpha_preserved": true
+  },
+  {
+    "file": "assets/redesign/icon-key.webp",
+    "width": 272,
+    "height": 367,
+    "source": "section-icon-atlas.png",
+    "crop": [
+      982,
+      834,
+      1254,
+      1201
+    ],
+    "bytes": 31416,
+    "alpha_preserved": true
+  },
+  {
+    "file": "assets/redesign/ravens-scroll-middle.webp",
+    "width": 1223,
+    "height": 128,
+    "source": "ravens-email-scroll.png",
+    "crop": [
+      0,
+      430,
+      1223,
+      558
+    ],
+    "bytes": 12742,
+    "alpha_preserved": true
+  },
+  {
+    "file": "assets/redesign/ravens-scroll-bottom.webp",
+    "width": 1223,
+    "height": 176,
+    "source": "ravens-email-scroll.png",
+    "crop": [
+      0,
+      12,
+      1223,
+      188
+    ],
+    "bytes": 55384,
+    "alpha_preserved": true,
+    "transform": "vertical reflection of clean top roller; no sliced-off quill"
+  },
+  {
+    "file": "assets/redesign/icon-war-room.webp",
+    "width": 334,
+    "height": 377,
+    "source": "section-icon-atlas.png",
+    "crop": [
+      313,
+      441,
+      647,
+      818
+    ],
+    "bytes": 52396,
+    "alpha_preserved": true,
+    "isolation_polygon": [
+      [
+        313,
+        441
+      ],
+      [
+        647,
+        441
+      ],
+      [
+        647,
+        818
+      ],
+      [
+        337,
+        818
+      ],
+      [
+        337,
+        550
+      ],
+      [
+        313,
+        520
+      ]
+    ]
+  },
+  {
+    "file": "assets/redesign/icon-weather.webp",
+    "width": 338,
+    "height": 369,
+    "source": "section-icon-atlas.png",
+    "crop": [
+      307,
+      831,
+      645,
+      1200
+    ],
+    "bytes": 55404,
+    "alpha_preserved": true,
+    "isolation_polygon": [
+      [
+        307,
+        831
+      ],
+      [
+        627,
+        831
+      ],
+      [
+        627,
+        1015
+      ],
+      [
+        645,
+        1015
+      ],
+      [
+        645,
+        1200
+      ],
+      [
+        307,
+        1200
+      ]
+    ]
+  },
+  {
+    "file": "assets/redesign/icon-wisdom.webp",
+    "width": 348,
+    "height": 390,
+    "source": "section-icon-atlas.png",
+    "crop": [
+      628,
+      826,
+      976,
+      1216
+    ],
+    "bytes": 58368,
+    "alpha_preserved": true,
+    "isolation_polygon": [
+      [
+        628,
+        826
+      ],
+      [
+        976,
+        826
+      ],
+      [
+        976,
+        1216
+      ],
+      [
+        656,
+        1216
+      ],
+      [
+        656,
+        1120
+      ],
+      [
+        644,
+        1030
+      ],
+      [
+        628,
+        1010
+      ]
+    ]
+  },
+  {
+    "file": "assets/redesign/ravens-roller-left.webp",
+    "width": 180,
+    "height": 176,
+    "source": "ravens-email-scroll.png",
+    "crop": [
+      0,
+      12,
+      180,
+      188
+    ],
+    "bytes": 11670,
+    "alpha_preserved": true
+  },
+  {
+    "file": "assets/redesign/ravens-roller-center.webp",
+    "width": 120,
+    "height": 176,
+    "source": "ravens-email-scroll.png",
+    "crop": [
+      300,
+      12,
+      420,
+      188
+    ],
+    "bytes": 4498,
+    "alpha_preserved": true
+  },
+  {
+    "file": "assets/redesign/ravens-roller-right.webp",
+    "width": 180,
+    "height": 176,
+    "source": "ravens-email-scroll.png",
+    "crop": [
+      1043,
+      12,
+      1223,
+      188
+    ],
+    "bytes": 12120,
+    "alpha_preserved": true
+  },
+  {
+    "file": "assets/redesign/ravens-paper-left.webp",
+    "width": 160,
+    "height": 128,
+    "source": "ravens-email-scroll.png",
+    "crop": [
+      100,
+      430,
+      260,
+      558
+    ],
+    "bytes": 5788,
+    "alpha_preserved": true
+  },
+  {
+    "file": "assets/redesign/ravens-paper-center.webp",
+    "width": 256,
+    "height": 128,
+    "source": "ravens-email-scroll.png",
+    "crop": [
+      320,
+      430,
+      576,
+      558
+    ],
+    "bytes": 674,
+    "alpha_preserved": true
+  },
+  {
+    "file": "assets/redesign/ravens-paper-right.webp",
+    "width": 160,
+    "height": 128,
+    "source": "ravens-email-scroll.png",
+    "crop": [
+      960,
+      430,
+      1120,
+      558
+    ],
+    "bytes": 5014,
+    "alpha_preserved": true
+  }
+]

@@ -1,0 +1,327 @@
+/* Presentation only. The hero and all widget/auth/data modules are unchanged. */
+.realm-dashboard {
+  --ink: #f1e9d8;
+  --text: #f1e9d8;
+  --muted: #bbc4b7;
+  --line: #9b85534d;
+  --line-soft: #9b855333;
+  color: var(--text);
+  gap: 26px;
+  align-items: start;
+}
+.realm-dashboard > .panel { align-self: start; padding: 30px; }
+.realm-dashboard > .panel::before,
+.realm-dashboard > .panel::after { display: none; }
+.realm-dashboard > .panel { grid-row: auto !important; }
+.realm-dashboard .panel-title { gap: 16px; margin-bottom: 22px; padding-bottom: 18px; }
+.realm-dashboard .panel h2 { font-size: clamp(27px, 2.1vw, 36px); line-height: 1.08; }
+.realm-dashboard .panel p { line-height: 1.65; }
+.realm-dashboard .realm-account { font-size: 12px; color: var(--muted); }
+.realm-dashboard .panel-title .realm-account { white-space: normal; }
+.section-identity { display: flex; align-items: center; gap: 14px; min-width: 0; }
+.section-identity > div { min-width: 0; }
+.section-icon { display: block; flex: 0 0 58px; width: 58px; height: 64px; object-fit: contain; pointer-events: none; }
+.section-kicker { display: block; margin-bottom: 6px; color: #cbb885; font-size: 10px; font-weight: 600; letter-spacing: 1.8px; text-transform: uppercase; }
+.realm-dashboard :where(button, a, input, select, textarea, summary):focus-visible {
+  outline: 3px solid #ffe3a0; outline-offset: 4px;
+}
+.realm-dashboard :where(button, .wide-link) { min-height: 42px; }
+.realm-dashboard .app-card > span:last-child { color: var(--ink); }
+.realm-dashboard .nav-art, .nav-art { width: 28px; height: 28px; object-fit: contain; pointer-events: none; }
+.realm-nav a:has(.nav-art) { display: flex; align-items: center; gap: 8px; }
+
+/* Fixed corners, repeated quiet rails, transparent center. The source sheets
+   deliberately exclude central emblems so those cannot stretch with the rails. */
+.realm-dashboard > .art-frame { padding: 42px 36px 34px; isolation: isolate; }
+.realm-dashboard > .art-frame::before {
+  display: block; content: ''; position: absolute; inset: 0;
+  width: auto; height: auto; border: 64px solid transparent;
+  border-radius: 0; opacity: 1; pointer-events: none; z-index: -1;
+  border-image: var(--art-border) var(--art-slice) / 64px / 0 round;
+}
+.elven-frame {
+  --art-border: url('../assets/redesign/elven-panel-frame-nine-slice.webp');
+  --art-slice: 360;
+}
+.realm-dashboard > .elven-frame { background: radial-gradient(ellipse at 50% 0, #29433465, transparent 65%), #101e17; border: 0; box-shadow: 0 16px 36px #0003; }
+.realm-dashboard > .calendar-panel { grid-column: span 4; }
+.realm-dashboard > .ravens-panel { grid-column: span 8; }
+.realm-dashboard .calendar-panel .panel-title { align-items: start; flex-direction: column; gap: 16px; }
+.realm-dashboard .calendar-actions { display: flex; flex-wrap: wrap; }
+.realm-dashboard .calendar-body { grid-template-columns: 96px minmax(0, 1fr); gap: 16px; align-items: start; }
+.realm-dashboard .date-box { min-height: 140px; padding: 12px 6px; background: #08160d77; border-color: #aa956744; }
+.realm-dashboard .date-box b { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 60px; }
+.realm-dashboard .date-box span { font-size: 11px; color: #f1e5c9; }
+.realm-dashboard .day-nav { display: grid; width: 100%; grid-template-columns: 24px minmax(0,1fr) 24px; gap: 2px; }
+.realm-dashboard .day-nav button { min-height: 32px; padding: 1px; font-size: 10px; width: auto; min-width: 0; }
+.realm-dashboard .day-nav button:first-child, .realm-dashboard .day-nav button:last-child { font-size: 17px; min-width: 0; }
+.realm-dashboard .calendar-state { color: var(--muted); font-size: 13px; overflow-wrap: anywhere; }
+.realm-dashboard .event-list { max-height: 310px; }
+.realm-dashboard .event-row { grid-template-columns: 7px 58px minmax(0,1fr); font-size: 13px; padding: 11px 0; }
+.realm-dashboard .event-row em { grid-column: 2/-1; font-size: 11px; }
+.realm-dashboard .event-row strong { color: var(--ink); }
+.realm-dashboard .calendar-panel .wide-link { margin-top: 18px; }
+
+/* A letter, rather than a stretched square scroll. The 180:176 roller heads
+   stay proportional; only quiet roller/paper textures repeat between them. */
+.realm-dashboard > .parchment-scroll { --scroll-end: 76px; --scroll-edge: 34px; padding: 0; background: none; border: 0; box-shadow: none; color: #352616; }
+.scroll-cap { display: grid; grid-template-columns: var(--scroll-end) minmax(0,1fr) var(--scroll-end); height: calc(var(--scroll-end) * 176 / 180); width: 100%; position: relative; line-height: 0; pointer-events: none; }
+.scroll-cap img { display: block; width: 100%; height: 100%; }
+.scroll-cap > span { background: url('../assets/redesign/ravens-roller-center.webp') center / auto 100% repeat-x; }
+.scroll-cap::before { content: ''; position: absolute; inset: 0 calc(var(--scroll-end) - 12px); background: url('../assets/redesign/ravens-roller-center.webp') center / auto 100% repeat-x; }
+.scroll-cap > img, .scroll-cap > span { position: relative; }
+.scroll-cap > img:first-child { mask-image: linear-gradient(to right,#000 calc(100% - 10px),transparent); }
+.scroll-cap > img:last-child { mask-image: linear-gradient(to right,transparent,#000 10px); }
+.scroll-cap-bottom { transform: scaleY(-1); }
+.scroll-paper {
+  position: relative; margin: -1px calc(var(--scroll-end) * .58); padding: 0;
+  display: grid; grid-template-columns: var(--scroll-edge) minmax(0,1fr) var(--scroll-edge);
+  background: none;
+  --ink: #352616; --text: #352616; --muted: #604a31; --line: #8764445c; --line-soft: #8764443d;
+}
+.scroll-content { min-width: 0; padding: 0 8px; background: #edddb8 url('../assets/redesign/ravens-paper-center.webp') center / 128px 64px repeat; }
+.scroll-paper-edge { pointer-events: none; background-size: 100% auto; background-repeat: repeat-y; }
+.scroll-paper-left { background-image: url('../assets/redesign/ravens-paper-left.webp'); }
+.scroll-paper-right { background-image: url('../assets/redesign/ravens-paper-right.webp'); }
+.realm-dashboard .scroll-paper h2 { color: #3d2914; }
+.scroll-paper .section-kicker, .realm-dashboard .scroll-paper .realm-account { color: #695135; }
+.scroll-paper .section-icon { flex-basis: 58px; height: 62px; }
+.realm-dashboard .scroll-paper .panel-title { border-color: #92724f77; flex-wrap: wrap; padding-bottom: 16px; margin-bottom: 16px; }
+.realm-dashboard .scroll-paper .panel-title > .realm-account { font-size: 10px; letter-spacing: 1.4px; }
+.scroll-paper #ravensState { color: #4f3920; font-size: 14px; }
+.scroll-paper .daily-tabs { margin: 0 0 14px; }
+.scroll-paper .daily-tabs button, .scroll-paper .daily-feed-footer button {
+  background: #e8d3aa; color: #392a1b; border-color: #90734c; font-weight: 600;
+}
+.scroll-paper .daily-tabs button[aria-pressed=true] { background: #473320; border-color: #473320; color: #fff4dc; }
+.scroll-paper .daily-list { grid-template-columns: minmax(0,1fr); max-height: 420px; scrollbar-color: #8c6840 #e5d0aa; overscroll-behavior: auto; padding-right: 8px; }
+.scroll-paper .daily-entry { grid-template-columns: 28px minmax(0,1fr) 14px; gap: 12px; padding: 15px 0; color: #352616; border-color: #98744955; }
+.scroll-paper .daily-entry strong { font-size: 15px; color: #352616; line-height: 1.45; font-weight: 700; }
+.scroll-paper .daily-entry small, .scroll-paper .daily-entry time, .scroll-paper .daily-entry span span { color: #604a31; font-size: 12px; }
+.scroll-paper .daily-entry span span { font-size: 13px; line-height: 1.6; }
+.scroll-paper .daily-entry:hover { background: #99703e10; }
+.scroll-paper .raven-seal { border-color: #8e342c; color: #fff0cf; background: radial-gradient(circle at 35% 30%,#a1453d,#66251f); box-shadow: 0 2px 3px #3c221a30; }
+.scroll-paper .mail-privacy { color: #604a31; padding: 14px 0 8px; margin: 0; font-size: 12px; }
+.scroll-paper .mail-privacy summary { color: #4a301a; font-weight: 600; min-height: 34px; }
+.scroll-paper .daily-feed-footer { margin-top: 18px; padding-bottom: 6px; }
+.scroll-paper :where(button, a, summary):focus-visible { outline-color: #6f2e20; }
+
+/* Oak and lamplight: artwork beside the home section, never over its controls. */
+.realm-dashboard > .home-panel { padding: 32px; border-color: #a88a4c80; background: radial-gradient(ellipse at 90% 0,#c5933325,transparent 52%), linear-gradient(135deg,#1a2a1c,#111c15 70%); }
+.bag-end-emblem { position: absolute; width: 180px; height: 180px; object-fit: contain; top: 12px; right: 30px; pointer-events: none; }
+.realm-dashboard .home-panel > .panel-title { min-height: 136px; padding-right: 200px; justify-content: start; align-items: center; gap: 20px; flex-wrap: wrap; }
+.realm-dashboard .home-panel h2 { font-size: 42px; margin-top: 8px; }
+.realm-dashboard .home-devices { grid-template-columns: minmax(0,.95fr) minmax(0,1.05fr); gap: 26px; }
+.realm-dashboard .nest-hearth { padding: 24px; background: linear-gradient(135deg,#2e392574,#0b1711); border-color: #a58a4c70; }
+.hearth-heading { display: flex; align-items: center; gap: 10px; }
+.hearth-icon { width: 44px; height: 44px; object-fit: contain; pointer-events: none; }
+.realm-dashboard .temperature-dial { width: 112px; flex-basis: 112px; border-color: #c6a463; background: radial-gradient(circle at 35% 28%,#425b39,#112217); color: #fff0cf; box-shadow: 0 0 28px #d3a54f18; }
+.realm-dashboard .home-panel button { color: #f2ddb0; background: #17271c; border-color: #b1945866; }
+.realm-dashboard .home-panel input, .realm-dashboard .home-panel select { color: #f6ecda; background: #101d14; border-color: #af986d; }
+.realm-dashboard .camera-preview { aspect-ratio: 16/8; min-height: 240px; border-color: #b6995970; background: #0c1710; }
+.realm-dashboard .camera-preview video { max-height: 360px; }
+.realm-dashboard .camera-preview > span { color: #fff2db; }
+.realm-dashboard .home-device h3 { font-size: 25px; }
+.realm-dashboard .home-device p { color: var(--muted); font-size: 13px; }
+.realm-dashboard > .provisions-panel { background: radial-gradient(ellipse at 10% 0,#9b763527,transparent 75%), linear-gradient(145deg,#20291b,#101c15); border-color: #9f865d66; }
+.realm-dashboard .provision-card { padding: 22px; border-color: #a48c5c55; background: #0e1b1366; gap: 12px; }
+.realm-dashboard .receipt-columns > section > div:empty { display: none; }
+.realm-dashboard .receipt-columns > section { align-self: start; }
+.realm-dashboard .receipt-columns h3 { margin-bottom: 8px; }
+.realm-dashboard .receipt-entry, .realm-dashboard .daily-entry { overflow-wrap: anywhere; }
+
+/* Dwarven outer architecture; financial data remains on quiet HTML surfaces. */
+.vault-frame { --art-border: url('../assets/redesign/dwarven-vault-frame-nine-slice.webp'); --art-slice: 320; }
+.realm-dashboard > .vault-frame { padding: 52px 42px 42px; background: radial-gradient(ellipse at 50% 0,#70512524,transparent 70%), #171b1a; border: 0; box-shadow: 0 18px 38px #0004; }
+.realm-dashboard > .vault-frame::before { border-width: 68px; border-image-width: 68px; }
+.frame-medallion { position: absolute; top: -7px; left: 50%; width: 90px; height: 67px; transform: translateX(-50%); background: url('../assets/redesign/dwarven-vault-gem.webp') center / contain no-repeat; pointer-events: none; }
+.realm-dashboard .budget-heading { margin-bottom: 22px; gap: 24px; padding-bottom: 22px; }
+.realm-dashboard .budget-heading h2 { font-size: 38px; }
+.realm-dashboard .budget-heading .section-icon { width: 66px; height: 72px; flex-basis: 66px; }
+.realm-dashboard .budget-heading p { font-size: 13px; color: var(--muted); }
+.realm-dashboard .budget-eyebrow { font-size: 9px; letter-spacing: 1.7px; }
+.realm-dashboard .budget-card { background: #101817; border-color: #8c7c5c55; }
+.realm-dashboard .budget-card strong { color: #f4e6c7; }
+.realm-dashboard .budget-block { background: #10181755; padding: 16px; border-radius: 3px; }
+.realm-dashboard .budget-columns { gap: 20px; }
+.realm-dashboard .budget-table { font-size: 13px; }
+.realm-dashboard .budget-table th { color: #c5c9bc; }
+.realm-dashboard .budget-tabs button[aria-pressed=true] { background: #6a5433; color: #fff3d8; border-color: #cfb477; }
+.realm-dashboard .budget-tag { color: #d0d2c7; }
+
+/* Gondor has silver stone and useful, compact service cards. */
+.realm-dashboard > .gondor-panel { background: linear-gradient(135deg,#222b30,#12191e); border: 1px solid #98a6ab5c; box-shadow: inset 0 0 0 4px #bac4c508,0 12px 32px #0003; }
+.realm-dashboard .gondor-panel .section-kicker { color: #c2c9c8; }
+.realm-dashboard .gondor-panel h2 { color: #f2ead7; }
+.gondor-crest { width: 66px; height: 99px; object-fit: contain; pointer-events: none; flex: 0 0 66px; }
+.realm-dashboard .gondor-panel .panel-title { border-color: #a4afb147; }
+.realm-dashboard .tool-grid { grid-template-columns: repeat(auto-fit,minmax(124px,1fr)); gap: 14px; }
+.realm-dashboard .gondor-panel .app-card { min-height: 124px; background: #101b22; border-color: #8d9da84d; padding: 16px 10px; }
+.realm-dashboard .gondor-panel .app-card:hover { border-color: #c6d7de; background: #1b2c36; }
+.realm-dashboard .gondor-panel .app-icon { background: #ffffff0c; }
+.realm-dashboard .gondor-panel .app-icon:has(img[src*="github.svg"]) { background: #e5e3dc; }
+.realm-dashboard .quick-panel .quick-list > a { min-height: 54px; padding-block: 12px; }
+.realm-dashboard .quick-panel a { color: #f1e9d8; }
+.realm-dashboard .quick-panel .section-icon { height: 60px; }
+@media(min-width: 761px) {
+  .realm-dashboard .quick-panel .quick-list { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 0 16px; }
+  .realm-dashboard .quick-panel .quick-item { grid-template-columns: 22px minmax(0,1fr); gap: 8px; }
+  .realm-dashboard .quick-panel .chevron { display: none; }
+}
+
+/* A distinct Alliance / Ironforge zone. The lion frame is proportional and
+   stays on the portrait alone. The trimmed image preserves the full character. */
+.realm-dashboard > .wow-panel { padding: 34px; overflow: visible; border: 2px solid #917247; border-radius: 5px; background: radial-gradient(ellipse at 7% 30%,#a76c2527,transparent 50%), repeating-linear-gradient(0deg,#ffffff02 0 1px,transparent 1px 62px),linear-gradient(135deg,#202b34,#111a24 60%,#1a2128); box-shadow: inset 0 0 0 5px #344354,inset 0 0 0 7px #806c4144,0 20px 40px #0005; }
+.realm-dashboard .wow-heading { gap: 22px; flex-wrap: wrap; border-color: #b3955a66; }
+.realm-dashboard .wow-heading h2 { font-size: 40px; color: #f7e3af; }
+.realm-dashboard .wow-heading p { color: #d1d7db; font-size: 14px; }
+.realm-dashboard .wow-heading .section-icon { flex-basis: 72px; width: 72px; height: 80px; }
+.realm-dashboard .wow-switch { border: 1px solid #af8d49; padding: 4px; background: #0a131f; border-radius: 4px; gap: 4px; }
+.realm-dashboard .wow-switch button { border-color: #4c6b8c; background: #172c45; color: #e5edf5; font-weight: 600; }
+.realm-dashboard .wow-switch button[aria-pressed=true] { border-color: #dfbb6c; background: linear-gradient(#315b85,#173b65); color: #ffdfa0; box-shadow: inset 0 -3px #c6a257; }
+.realm-dashboard .wow-layout { grid-template-columns: minmax(320px,.9fr) minmax(0,1.25fr); gap: 30px; align-items: start; }
+.realm-dashboard .wow-character { border: 0; border-radius: 0; background: none; overflow: visible; }
+.realm-dashboard .wow-character-badge { padding: 0 8px 15px; color: #d8bf83; font-size: 10px; letter-spacing: 2px; }
+.realm-dashboard .wow-portrait-link { position: relative; display: block; width: min(100%,460px); aspect-ratio: 2/3; min-height: 0; margin: 0 auto; flex: none; isolation: isolate; border-radius: 12%; background: radial-gradient(ellipse at 50% 56%,#3b4b5b,#111b29 54%,transparent 69%); }
+.realm-dashboard .wow-portrait-link #frearPortrait { position: absolute; width: 67%; height: 68%; top: 16%; left: 16.5%; object-fit: contain; filter: drop-shadow(0 14px 15px #0009); }
+.realm-dashboard .wow-portrait-link .alliance-portrait-frame { display: block; position: absolute; width: 100%; height: 100%; inset: 0; object-fit: contain; filter: none; z-index: 1; pointer-events: none; }
+.realm-dashboard #wowPortraitFallback { position: absolute; inset: 28% 22%; color: #f1e7cb; font-size: 15px; }
+.realm-dashboard .wow-character-caption { border: 0; padding: 20px 8px 0; background: none; }
+.realm-dashboard .wow-character-caption h3 { font-size: 38px; color: #f6e2b0; }
+.realm-dashboard .wow-character-caption p { color: #d4dce1; }
+.realm-dashboard .wow-character-caption small { color: #aab9c9; }
+.realm-dashboard .wow-character-actions a { border: 1px solid #6e8298; background: #14293c; padding: 10px 12px; color: #e1eaf3; border-radius: 3px; }
+.realm-dashboard .wow-briefing { padding-top: 9px; }
+.realm-dashboard .wow-briefing-heading { align-items: center; }
+.realm-dashboard .wow-briefing h3 { color: #f2e3c3; font-size: 28px; }
+.realm-dashboard .wow-briefing-heading button { background: #18314d; color: #fae5ae; border-color: #957b48; }
+.realm-dashboard .wow-events { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 14px; max-height: 690px; padding: 3px 8px 5px 3px; scrollbar-color: #9c8052 #121f30; }
+.realm-dashboard .wow-event { position: relative; color: #342819; border: 1px solid #ad8b53; border-radius: 3px; padding: 18px; background: linear-gradient(135deg,#f0e2bf,#d5bd8f); box-shadow: inset 0 0 0 3px #8c714f25,0 4px 8px #0002; }
+.realm-dashboard .wow-event:hover { background: linear-gradient(135deg,#fff0ce,#e3cda2); border-color: #ffe0a3; transform: none; }
+.realm-dashboard .wow-event h4 { color: #302414; font-family: 'Cormorant Garamond',Georgia,serif; font-weight: 700; font-size: 23px; margin: 8px 0; }
+.realm-dashboard .wow-event p { color: #503c25; font-size: 13px; line-height: 1.6; }
+.realm-dashboard .wow-event-label { color: #4f3d28; font-size: 10px; font-weight: 700; }
+.realm-dashboard .wow-event.is-active { border-left: 4px solid #34563c; }
+.realm-dashboard .wow-event.is-active .wow-event-label { color: #234a30; }
+.realm-dashboard .wow-event-link { color: #563e19; font-size: 12px; font-weight: 700; }
+.realm-dashboard .wow-event:focus-visible { outline-color: #ffe3a0; outline-offset: 3px; }
+.realm-dashboard .wow-note, .realm-dashboard .wow-briefing > #wowFeedState { color: #bbc8d5; }
+.realm-dashboard .wow-panel > .wide-link { color: #f0dba4; }
+.realm-dashboard .wow-briefing > .wide-link { color: #f0dba4; border-color: #a28a59; background: #142a41; }
+
+@media(min-width: 1600px) {
+  .realm-dashboard > .calendar-panel { grid-column: span 4; }
+  .realm-dashboard > .ravens-panel { grid-column: span 8; }
+  .realm-dashboard .calendar-panel .panel-title { flex-direction: row; align-items: center; }
+}
+@media(max-width: 1439px) and (min-width: 1001px) {
+  .realm-dashboard > .calendar-panel { grid-column: span 5; }
+  .realm-dashboard > .ravens-panel { grid-column: span 7; }
+  .realm-dashboard .scroll-paper .daily-feed-footer button { padding-inline: 9px; }
+  .realm-dashboard .wow-layout { grid-template-columns: minmax(280px,.85fr) minmax(0,1fr); }
+  .realm-dashboard .wow-events { grid-template-columns: 1fr; }
+}
+@media(max-width: 1100px) {
+  .realm-dashboard > .panel { padding: 26px; }
+  .realm-dashboard > .art-frame { padding: 40px 28px 30px; }
+  .realm-dashboard > .parchment-scroll { padding: 0; }
+  .realm-dashboard .home-devices { grid-template-columns: 1fr; }
+  .realm-dashboard .wow-layout { grid-template-columns: minmax(250px,.8fr) minmax(0,1fr); gap: 20px; }
+  .realm-dashboard .wow-events { grid-template-columns: 1fr; }
+  .realm-dashboard .budget-cards { grid-template-columns: 1fr 1fr; }
+}
+@media(max-width: 1000px) {
+  .realm-dashboard > .calendar-panel, .realm-dashboard > .ravens-panel,
+  .realm-dashboard > .provisions-panel, .realm-dashboard > .ai-panel,
+  .realm-dashboard > .tools-panel, .realm-dashboard > .quick-panel { grid-column: 1/-1; }
+  .realm-dashboard .calendar-panel .panel-title { flex-direction: row; align-items: center; }
+  .realm-dashboard .wow-layout { grid-template-columns: 1fr; }
+  .realm-dashboard .wow-character { width: min(100%,460px); margin: 0 auto; }
+  .realm-dashboard .wow-events { grid-template-columns: 1fr 1fr; max-height: none; }
+  .realm-dashboard .budget-columns { grid-template-columns: 1fr; }
+  .realm-dashboard .budget-heading { flex-wrap: wrap; }
+  .realm-dashboard .budget-heading h2 { font-size: 34px; }
+}
+@media(max-width: 760px) {
+  .realm-dashboard { gap: 22px; margin-inline: 16px; }
+  .realm-dashboard > .panel { grid-column: 1/-1; padding: 24px 22px; }
+  .realm-dashboard > .art-frame { padding: 34px 24px 28px; }
+  .realm-dashboard > .art-frame::before { border-width: 48px; border-image-width: 48px; }
+  .realm-dashboard > .parchment-scroll { padding: 0; }
+  .realm-dashboard > .parchment-scroll { --scroll-end: 52px; --scroll-edge: 18px; }
+  .scroll-cap > img:first-child { mask-image: linear-gradient(to right,#000 calc(100% - 5px),transparent); }
+  .scroll-cap > img:last-child { mask-image: linear-gradient(to right,transparent,#000 5px); }
+  .realm-dashboard .panel h2 { font-size: 28px; }
+  .section-kicker { font-size: 9px; letter-spacing: 1.2px; }
+  .section-identity { gap: 11px; }
+  .section-icon { flex-basis: 45px; width: 45px; height: 54px; }
+  .realm-dashboard .calendar-panel .panel-title { flex-wrap: wrap; }
+  .realm-dashboard .calendar-body { grid-template-columns: 1fr; gap: 16px; }
+  .realm-dashboard .calendar-actions { width: 100%; }
+  .realm-dashboard .calendar-actions button { width: auto; }
+  .realm-dashboard .date-box { min-height: 0; display: grid; grid-template-columns: minmax(0,1fr) 48px 88px; gap: 0 10px; padding: 13px; text-align: left; justify-items: start; }
+  .realm-dashboard .date-box > span:first-child { grid-column: 1; grid-row: 1; }
+  .realm-dashboard .date-box > b { grid-column: 2; grid-row: 1/3; font-size: 52px; }
+  .realm-dashboard .date-box > span:nth-child(3) { grid-column: 1; grid-row: 2; }
+  .realm-dashboard .date-box .day-nav { grid-column: 3; grid-row: 1/3; margin: 0; }
+  .realm-dashboard .scroll-paper .section-icon { flex-basis: 42px; width: 42px; height: 48px; }
+  .realm-dashboard .scroll-paper .daily-entry { grid-template-columns: 24px minmax(0,1fr) 12px; gap: 8px; }
+  .realm-dashboard .scroll-paper .daily-entry strong { font-size: 14px; }
+  .realm-dashboard .scroll-paper .daily-entry span span { font-size: 13px; }
+  .realm-dashboard .scroll-paper .raven-seal { width: 24px; height: 24px; }
+  .scroll-paper .daily-list { max-height: 420px; padding-right: 4px; }
+  .realm-dashboard .scroll-paper .daily-feed-footer button { flex: 1 1 auto; font-size: 11px; padding-inline: 7px; }
+  .realm-dashboard .scroll-paper .realm-account { font-size: 11px; }
+  .realm-dashboard .scroll-paper .mail-privacy { font-size: 11px; }
+  .bag-end-emblem { width: 120px; height: 120px; right: 12px; top: 12px; }
+  .realm-dashboard .home-panel > .panel-title { min-height: 125px; padding-right: 110px; gap: 8px; }
+  .realm-dashboard .home-panel h2 { font-size: 34px; }
+  .realm-dashboard .home-panel .section-kicker { max-width: 135px; }
+  .realm-dashboard .home-panel .panel-title .realm-account { font-size: 9px; }
+  .realm-dashboard .nest-hearth { padding: 18px 14px; }
+  .realm-dashboard .home-device { gap: 14px; }
+  .realm-dashboard .temperature-dial { flex-basis: 86px; width: 86px; height: 86px; font-size: 34px; }
+  .realm-dashboard .home-device h3 { font-size: 22px; gap: 6px; }
+  .hearth-icon { width: 34px; height: 34px; }
+  .realm-dashboard .camera-preview { min-height: 180px; aspect-ratio: 16/10; padding-inline: 12px; }
+  .realm-dashboard .home-panel input { min-width: 64px; width: 72px; }
+  .realm-dashboard .provision-card { padding: 16px; }
+  .realm-dashboard > .vault-frame { padding: 42px 24px 32px; }
+  .frame-medallion { width: 66px; height: 49px; top: -4px; }
+  .realm-dashboard .budget-heading { flex-direction: column; align-items: start; gap: 18px; }
+  .realm-dashboard .budget-heading .section-icon { flex-basis: 44px; width: 44px; height: 54px; }
+  .realm-dashboard .budget-heading h2 { font-size: 30px; }
+  .realm-dashboard .budget-heading .budget-actions { gap: 6px; }
+  .realm-dashboard .budget-heading p { font-size: 12px; }
+  .realm-dashboard .budget-eyebrow { font-size: 8px; }
+  .realm-dashboard .budget-block { padding: 12px 0; }
+  .realm-dashboard .budget-cards { gap: 10px; }
+  .realm-dashboard .budget-card { padding: 13px 10px; }
+  .realm-dashboard .budget-card strong { font-size: 27px; }
+  .realm-dashboard .gondor-panel .panel-title { flex-wrap: wrap; }
+  .gondor-crest { flex-basis: 50px; width: 50px; height: 75px; }
+  .realm-dashboard .tool-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; }
+  .realm-dashboard .gondor-panel .app-card { min-height: 116px; }
+  .realm-dashboard > .wow-panel { padding: 28px 19px; }
+  .realm-dashboard .wow-heading h2 { font-size: 31px; }
+  .realm-dashboard .wow-heading .section-icon { flex-basis: 47px; width: 47px; height: 61px; }
+  .realm-dashboard .wow-heading p { font-size: 12px; }
+  .realm-dashboard .wow-heading { padding-bottom: 18px; }
+  .realm-dashboard .wow-switch { width: 100%; }
+  .realm-dashboard .wow-switch button { flex: 1; padding-inline: 10px; font-size: 13px; }
+  .realm-dashboard .wow-character-badge { font-size: 9px; letter-spacing: 1.4px; }
+  .realm-dashboard .wow-character-caption { padding: 16px 0 0; }
+  .realm-dashboard .wow-character-caption h3 { font-size: 34px; }
+  .realm-dashboard .wow-character-caption p { font-size: 12px; }
+  .realm-dashboard .wow-character-actions { gap: 8px; font-size: 11px; }
+  .realm-dashboard .wow-events { grid-template-columns: 1fr; }
+  .realm-dashboard .wow-event { padding: 18px; }
+  .realm-dashboard .wow-event h4 { font-size: 23px; }
+  .realm-dashboard .wow-briefing h3 { font-size: 25px; }
+  .realm-dashboard .wow-briefing-heading { gap: 8px; }
+  .realm-dashboard .wow-briefing-heading button { padding-inline: 12px; }
+}
+@media(prefers-reduced-motion: reduce) {
+  .realm-dashboard *, .realm-dashboard *::before, .realm-dashboard *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  .realm-dashboard .app-card:hover { transform: none; }
+}
