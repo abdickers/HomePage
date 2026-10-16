@@ -1,0 +1,86 @@
+[
+  {
+    "file": "assets/elven-panel-frame.png",
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      254
+    ],
+    "center_alpha": 0,
+    "sha256": "cf55ed6091ce712416748be4dd125bea7262e351be8e86600d0231805d1888e9"
+  },
+  {
+    "file": "assets/section-icon-atlas.png",
+    "width": 1254,
+    "height": 1254,
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "center_alpha": 0,
+    "sha256": "19b8d89481c2de5bf3a713a3af304d6c94a1d2b56fef21d08d65ac86df81263e"
+  },
+  {
+    "file": "assets/ravens-email-scroll.png",
+    "width": 1223,
+    "height": 1286,
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "center_alpha": 253,
+    "sha256": "f16cea44fcefa6cae34d36965ef73ae4bf4512130788d9ec230c8b99bc531c82"
+  },
+  {
+    "file": "assets/gondor-white-tree-crest.png",
+    "width": 1024,
+    "height": 1536,
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      254
+    ],
+    "center_alpha": 253,
+    "sha256": "f96457c1461c78267808ed73d990a464d214be695393ed742a19252205da5f1f"
+  },
+  {
+    "file": "assets/dwarven-vault-frame.png",
+    "width": 1254,
+    "height": 1254,
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "center_alpha": 0,
+    "sha256": "376829cf9e93fa99754db614aeeb86d756ff501e4256b148718e9f9782740920"
+  },
+  {
+    "file": "assets/hobbit-bag-end-door.png",
+    "width": 1254,
+    "height": 1254,
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "center_alpha": 253,
+    "sha256": "5a2aa85166023f17fb4199d179ea3b70075406c7e335c60772b321a773ded870"
+  },
+  {
+    "file": "assets/wow-alliance-portrait-frame.png",
+    "width": 1024,
+    "height": 1536,
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      254
+    ],
+    "center_alpha": 0,
+    "sha256": "20f1f8057d46044e22d9f1c7108575a90b5e84e65658b935b95f2e6981bc46aa"
+  }
+]
