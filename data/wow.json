@@ -79,11 +79,6 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1792162808,
-              "name": "Harandar",
-              "startingUt": 1792134000
-            },
-            {
               "endingUt": 1792191608,
               "name": "Eversong Woods",
               "startingUt": 1792162800
@@ -127,6 +122,11 @@
               "endingUt": 1792422008,
               "name": "Eversong Woods",
               "startingUt": 1792393200
+            },
+            {
+              "endingUt": 1792450808,
+              "name": "Harandar",
+              "startingUt": 1792422000
             }
           ],
           "icons": ""
@@ -173,29 +173,29 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1792152000,
+              "endingUt": 1792170000,
               "name": "The Malformed Leviathan",
-              "startingUt": 1792150200
+              "startingUt": 1792168200
             },
             {
-              "endingUt": 1792153800,
+              "endingUt": 1792171800,
               "name": "The Broodmother's Nest",
-              "startingUt": 1792152000
+              "startingUt": 1792170000
             },
             {
-              "endingUt": 1792155600,
+              "endingUt": 1792173600,
               "name": "The Looming Mutagenitor",
-              "startingUt": 1792153800
+              "startingUt": 1792171800
             },
             {
-              "endingUt": 1792157400,
+              "endingUt": 1792175400,
               "name": "Mlurkkr Massacre",
-              "startingUt": 1792155600
+              "startingUt": 1792173600
             },
             {
-              "endingUt": 1792159200,
+              "endingUt": 1792177200,
               "name": "Siege at the Whispering Marsh",
-              "startingUt": 1792157400
+              "startingUt": 1792175400
             }
           ],
           "icons": ""
@@ -236,34 +236,16 @@
         "content": {
           "lines": [
             {
-              "ending": "3 hr 21 min",
-              "endingShort": "3h",
-              "endingUt": 1792162800,
-              "icon": "achievement_zone_isleofqueldanas",
-              "iconLabel": "Isle of Quel'Danas",
-              "iconUrl": "/zone=16182/isle-of-queldanas",
-              "name": "Isle of Quel'Danas: Parhelion Plaza",
-              "url": "/zone=16542/parhelion-plaza"
+              "ending": "22 hr 12 min",
+              "endingShort": "22h",
+              "endingUt": 1792249200,
+              "name": "Active"
             },
             {
-              "ending": "3 hr 21 min",
-              "endingShort": "3h",
-              "endingUt": 1792162800,
-              "icon": "inv_achievement_sanktumoflight",
-              "iconLabel": "Eversong Woods",
-              "iconUrl": "/zone=15968/eversong-woods",
-              "name": "Eversong Woods: The Shadow Enclave",
-              "url": "/zone=16594/the-shadow-enclave"
-            },
-            {
-              "ending": "3 hr 21 min",
-              "endingShort": "3h",
-              "endingUt": 1792162800,
-              "icon": "inv_achievement_sanktumoflight",
-              "iconLabel": "Silvermoon City",
-              "iconUrl": "/zone=15969/silvermoon-city",
-              "name": "Silvermoon City: The Darkway",
-              "url": "/zone=16642/the-darkway"
+              "ending": "22 hr 12 min",
+              "endingShort": "22h",
+              "endingUt": 1792249200,
+              "name": "Active"
             }
           ],
           "icons": ""
@@ -340,7 +322,7 @@
       }
     ],
     "source": "https://www.wowhead.com/today-in-wow",
-    "updated": "2026-10-16T11:38:21.742939+00:00"
+    "updated": "2026-10-16T16:47:59.363092+00:00"
   },
   "forever": {
     "events": [
@@ -706,6 +688,6 @@
       }
     ],
     "source": "https://www.wowhead.com/forever/events",
-    "updated": "2026-10-16T11:38:21.881874+00:00"
+    "updated": "2026-10-16T16:47:59.508121+00:00"
   }
 }
