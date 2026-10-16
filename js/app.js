@@ -1,7 +1,7 @@
 import {initNest} from './nest.js?v=20261015-remember1';
 import {NEST_SERVICE_URL} from './nest-config.js?v=20261015-personal7';
 import {createGoogleConnection} from './google-connection.js?v=20261015-remember1';
-import {initBudget} from './budget.js?v=20261015-budget1';
+import {initBudget} from './budget.js?v=20261015-budget2';
 import { initPersonalMail } from './personal-mail.js?v=20261015-remember1';
 import { accountLink, PERSONAL_EMAIL } from './account-links.mjs?v=20261015-personal7';
 import {DATA_KEY, escapeHtml as esc, safeUrl, localDate, normalizeData, readData, mergeBackup, normalizeObservation} from './core.js?v=20261015-personal7';
