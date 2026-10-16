@@ -96,3 +96,7 @@ Retail shows published event windows, repeating timers, daily reset, weekly bonu
 ## Combined repository
 
 This repository includes both Bag End / Nest controls (from InkedSage) and Frear’s Retail / Forever War Room. The gateway configuration targets exactly `https://abdickers.github.io` and returns to `/HomePage/` after consent. Deploy `nest-service/wrangler.jsonc` with `--keep-vars`, preserving the existing secrets and KV namespace. The server-side Google OAuth callback remains on the existing Nest service origin. Partner Connections Manager supplies the Nest login hint; the app must not add a duplicate hint.
+
+## Private budget
+
+The Steward adds an authenticated budget ledger backed by the existing Cloudflare Worker, private D1 storage, Plaid Link, and read-only Gmail discovery. See [BUDGET-SETUP.md](BUDGET-SETUP.md) for credential entry, production eligibility and costs, deployment order, privacy controls, and connection verification. Real data is available only after authorized connections; Sandbox data is explicitly labeled.

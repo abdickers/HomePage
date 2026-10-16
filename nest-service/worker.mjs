@@ -1,5 +1,8 @@
 // Personal Nest gateway. No Google credentials or raw Google tokens reach GitHub Pages.
 import {GOOGLE_SCOPES,GMAIL_SCOPE,CALENDAR_SCOPE,googleReadTarget} from './google-read.mjs';
+import {handleBudget,startBudgetMail,completeBudgetMail,plaidWebhook} from './budget/handler.mjs';
+import {BudgetError} from './budget/plaid.mjs';
+import {scheduledBudget} from './budget/sync.mjs';
 export const SESSION_SECONDS=30*86400;
 const trait = (d, name) => d.traits?.['sdm.devices.traits.' + name] || {};
 const enc = new TextEncoder();
@@ -59,19 +62,33 @@ function headers(env){return {'Content-Type':'application/json','Cache-Control':
 function ready(env){return Boolean(env.NEST_KV&&env.GOOGLE_CLIENT_ID&&env.GOOGLE_CLIENT_SECRET&&env.TOKEN_ENCRYPTION_KEY);}
 async function authorize(request,env,kind='nest'){
  if(request.headers.get('Origin')!==env.FRONTEND_ORIGIN)fail(403,'Untrusted dashboard origin.');
- const bearer=request.headers.get('Authorization')?.match(/^Bearer ([a-f0-9]{64})$/)?.[1];if(!bearer)fail(401,'Sign in to your personal Nest account.');
+ const bearer=request.headers.get('Authorization')?.match(/^Bearer ([a-f0-9]{64})$/)?.[1];if(!bearer)fail(401,'Sign in to your personal '+(kind==='google'?'Google':'Nest')+' account.');
  const id=await hash(bearer),session=await getRecord(env,'session:'+id);if(!session||session.expires<=Date.now()||(session.kind||'nest')!==kind)fail(401,'Your saved session expired. Reconnect.');
  if(session.expires<Date.now()+23*86400000){session.expires=Date.now()+SESSION_SECONDS*1000;await putRecord(env,'session:'+id,session,SESSION_SECONDS);}
  return {id,expires:session.expires};
 }
 async function device(env,id){if(!/^[A-Za-z0-9_-]{1,256}$/.test(id||''))fail(400,'Invalid device.');return sdm(env,`enterprises/${env.NEST_PROJECT_ID}/devices/${id}`);}
 function page(env,message,session,kind='nest'){const nonce=random();const payload=JSON.stringify({type:'sage-'+kind+'-connected',session}).replaceAll('<','\\u003c');return new Response(`<!doctype html><meta name="viewport" content="width=device-width"><title>Sage · Google connection</title><style nonce="${nonce}">body{font:18px system-ui;background:#101c18;color:#eadba2;margin:10vh auto;max-width:580px;padding:24px}a{color:inherit}</style><h1>Your personal realm</h1><p>${message}</p><a href="${env.FRONTEND_ORIGIN}/HomePage/${session?'#'+kind+'-session='+session:''}">Return to your dashboard</a>${session?`<script nonce="${nonce}">if(window.opener){window.opener.postMessage(${payload},${JSON.stringify(env.FRONTEND_ORIGIN)});window.close();}</script>`:''}`,{headers:{'Content-Type':'text/html;charset=UTF-8','Cache-Control':'no-store','Referrer-Policy':'no-referrer','Content-Security-Policy':`default-src 'none'; style-src 'nonce-${nonce}'; script-src 'nonce-${nonce}'; frame-ancestors 'none'; base-uri 'none'`}});}
+function budgetDependencies(){return {hash,random,getRecord,putRecord,access,exchange,provider,boundedJson};}
+async function budgetOwner(env,sessionId){
+ const session=await getRecord(env,'session:'+sessionId);
+ if(!session)fail(401,'Your saved session expired. Reconnect.');
+ if(session.ownerEmail&&session.ownerEmail!==env.OWNER_EMAIL.toLowerCase())fail(403,'This session does not own this budget.');
+ if(!session.ownerEmail){
+  const who=await provider('https://openidconnect.googleapis.com/v1/userinfo',{headers:{Authorization:'Bearer '+await access(env,'google')}});
+  if(who.email_verified!==true||who.email?.toLowerCase()!==env.OWNER_EMAIL.toLowerCase())fail(403,'Use the personal owner account for this budget.');
+  session.ownerEmail=who.email.toLowerCase();await putRecord(env,'session:'+sessionId,session,Math.max(60,Math.ceil((session.expires-Date.now())/1000)));
+ }
+ return hash(session.ownerEmail);
+}
 export default {async fetch(request,env){
  const url=new URL(request.url);let response,authorizedSession;
  try{
   if(url.pathname==='/health')return new Response(JSON.stringify({service:'sage-cabin',configured:ready(env)}),{headers:headers(env)});
   if(request.method==='OPTIONS'){if(request.headers.get('Origin')!==env.FRONTEND_ORIGIN)fail(403,'Untrusted dashboard origin.');return new Response(null,{status:204,headers:headers(env)});}
   if(!ready(env))fail(503,'Nest service setup is incomplete. Server credentials are still needed.');
+  if(url.pathname==='/budget/plaid/webhook')return await plaidWebhook(request,env,budgetDependencies());
+  if(url.pathname==='/auth/budget-mail'&&request.method==='GET')return await startBudgetMail(request,env,budgetDependencies());
   if(url.pathname==='/auth/start'&&request.method==='GET'){
    const kind=url.searchParams.get('service')||'nest';if(!['nest','google'].includes(kind))fail(400,'Unknown connection.');
    const state=random();const auth=new URL(kind==='google'?'https://accounts.google.com/o/oauth2/v2/auth':`https://nestservices.google.com/partnerconnections/${env.NEST_PROJECT_ID}/auth`);
@@ -89,6 +106,7 @@ export default {async fetch(request,env){
    const code=url.searchParams.get('code');if(!code||code.length>4096)fail(400,'Missing authorization code.');
    const result=await exchange(env,{code,grant_type:'authorization_code',redirect_uri:url.origin+'/auth/callback'});
    const who=await provider('https://openidconnect.googleapis.com/v1/userinfo',{headers:{Authorization:'Bearer '+result.access_token}});
+   if(kind==='budget-mail')return await completeBudgetMail(env,record,result,who,budgetDependencies());
    if(who.email_verified!==true||who.email?.toLowerCase()!==env.OWNER_EMAIL.toLowerCase())fail(403,'Use the personal Google account assigned to this dashboard.');
    if(kind==='google'){
     const scopes=new Set((result.scope||'').split(' '));if(![GMAIL_SCOPE,CALENDAR_SCOPE].every(scope=>scopes.has(scope)))fail(403,'Grant read-only Gmail and Calendar access to remember this Google connection.');
@@ -100,12 +118,13 @@ export default {async fetch(request,env){
    }
    const ownerKey=kind==='google'?'google:owner':'owner',previous=await getRecord(env,ownerKey);if(!result.refresh_token&&!previous?.refresh)fail(401,'Google did not grant offline access. Reconnect with consent.');
    await putRecord(env,ownerKey,{access:result.access_token,refresh:result.refresh_token||previous.refresh,expires:Date.now()+result.expires_in*1000});
-   const session=random();await putRecord(env,'session:'+await hash(session),{expires:Date.now()+SESSION_SECONDS*1000,kind},SESSION_SECONDS);
+   const session=random();await putRecord(env,'session:'+await hash(session),{expires:Date.now()+SESSION_SECONDS*1000,kind,ownerEmail:env.OWNER_EMAIL.toLowerCase()},SESSION_SECONDS);
    response=page(env,kind==='google'?'Your personal Gmail and Calendar connection is ready.':'Your personal Nest connection is ready. Return to Bag End.',session,kind);response.headers.set('Set-Cookie','__Host-nest-state=; Path=/; Secure; HttpOnly; SameSite=Lax; Max-Age=0');return response;
   }
-  const kind=url.pathname.startsWith('/google/')?'google':'nest';
+  const kind=url.pathname.startsWith('/google/')||url.pathname.startsWith('/budget/')?'google':'nest';
   const {id:session,expires:sessionExpiresAt}=await authorize(request,env,kind);
   authorizedSession=session;
+  if(url.pathname.startsWith('/budget/'))return await handleBudget(request,env,await budgetOwner(env,session),session,budgetDependencies());
   if(kind==='google'){
    if(url.pathname==='/google/disconnect'&&request.method==='POST'){await env.NEST_KV.delete('session:'+session);return new Response('{}',{headers:headers(env)});}
    if(request.method!=='GET')fail(405,'This connection supports read-only Google requests.');
@@ -139,5 +158,5 @@ export default {async fetch(request,env){
   }
   if(url.pathname==='/camera/stop')await env.NEST_KV.delete('stream:'+session);
   return new Response('{}',{headers:headers(env)});
- }catch(error){const known=error instanceof Failure;if(known&&error.status===401&&authorizedSession){try{await env.NEST_KV.delete('session:'+authorizedSession);}catch{}}return new Response(JSON.stringify({error:known?error.message:'The private service encountered an error. Please retry.'}),{status:known?error.status:500,headers:headers(env)});}
-}};
+ }catch(error){const known=error instanceof Failure||error instanceof BudgetError;if(known&&error.status===401&&authorizedSession){try{await env.NEST_KV.delete('session:'+authorizedSession);}catch{}}return new Response(JSON.stringify({error:known?error.message:'The private service encountered an error. Please retry.',...(error instanceof BudgetError?{code:error.code}:{})}),{status:known?error.status:500,headers:headers(env)});}
+},async scheduled(event,env,ctx){ctx.waitUntil(scheduledBudget(env,budgetDependencies()).catch(()=>{console.error(JSON.stringify({event:'budget_scheduled_sync_failed',message:'Sync did not finish; saved data was retained.'}));}));}};
