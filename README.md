@@ -5,10 +5,9 @@ A buildless personal dashboard for [abdickers/HomePage](https://github.com/abdic
 ## Use the dashboard
 
 - **Links** open in a separate tab and keep the dashboard available. Use **Add Link** to add, edit, or remove shortcuts in AI Tools, Tools & Systems, and Quick Access. Use your organization's specific NetSuite, Jira, Confluence, and Slack URLs if you want to skip their workspace chooser.
-- **Home and media** replace the Tasks section. Bag End reserves space for a Nest thermostat and outdoor camera; live access requires a private OAuth backend and device authorization. These cards show disconnected state until that integration is configured.
-- **Music and video** link to YouTube recommendations, YouTube Music Liked Music and playlists. A video can be pinned in this browser and loaded only when Play is clicked. YouTube does not expose a personal Home recommendation feed through its public API.
-- **Notes** open in a styled editor and support multiline text, editing, deletion, and undo.
-- **Search** supports web search, Ask AI, and a Dashboard scope that finds saved links and notes. Press `/` to focus it.
+- **Bag End** spans the dashboard with thermostat controls beside the private Nest camera. The layout stacks on smaller screens. Connect Nest once to restore devices automatically on later visits.
+- The music, video, System Status, Scribe’s Notes, and Fellowship sections have been removed. Fellowship artwork remains in `assets/avatars/` for future use. Existing tasks and notes remain in browser backups.
+- **Search** supports web search, Ask AI, and a Dashboard scope that finds saved links. Press `/` to focus it.
 - **Settings** configures your display name, weather location and units, and calendar. **Export Backup** downloads a JSON file; **Import Backup** merges tasks/notes by ID and restores links/settings, with an undo option.
 - Tasks, notes, links, settings, and theme are browser-local. They sync between open tabs on the same origin. They do **not** sync across devices or different origins. Older `sage_tasks_v2`, `sage_tasks_v8`, and `sage_notes_v2` data is migrated when available. Export data before changing browsers or clearing site data.
 

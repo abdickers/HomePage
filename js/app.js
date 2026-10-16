@@ -1,6 +1,5 @@
 import {initNest} from './nest.js?v=20261015-remember1';
 import {NEST_SERVICE_URL} from './nest-config.js?v=20261015-personal7';
-import {initMedia} from './media.js?v=20261015-personal7';
 import {createGoogleConnection} from './google-connection.js?v=20261015-remember1';
 import { initPersonalMail } from './personal-mail.js?v=20261015-remember1';
 import { accountLink, PERSONAL_EMAIL } from './account-links.mjs?v=20261015-personal7';
@@ -27,14 +26,6 @@ const feeds = {
   wowhead:{name:'Wowhead',rss:'https://www.wowhead.com/news/rss/all',url:'https://www.wowhead.com/news'},
   tech:{name:'Hacker News',url:'https://news.ycombinator.com/'}
 };
-const services = [
-  {name:'NetSuite',url:'https://status.netsuite.com/'},
-  {name:'BigCommerce',url:'https://status.bigcommerce.com/',api:'https://status.bigcommerce.com/api/v2/summary.json'},
-  {name:'Vercel',url:'https://www.vercel-status.com/',api:'https://www.vercel-status.com/api/v2/summary.json'},
-  {name:'Slack',url:'https://slack-status.com/',api:'https://slack-status.com/api/v2.0.0/current'},
-  {name:'OpenAI',url:'https://status.openai.com/',api:'https://status.openai.com/api/v2/summary.json'},
-  {name:'Cloudflare',url:'https://www.cloudflarestatus.com/',api:'https://www.cloudflarestatus.com/api/v2/summary.json'}
-];
 const quotes = [
   ['All we have to decide is what to do with the time that is given us.','Gandalf'],
   ['Not all those who wander are lost.','J.R.R. Tolkien'],
@@ -47,7 +38,7 @@ function toast(message, action) {
   toastTimer = setTimeout(()=>{ $('toast').hidden=true; undo=null; }, action ? 15000 : 7000);
 }
 function persist() {
-  try { storage.setItem(DATA_KEY, JSON.stringify(data)); $('storageState').textContent='Notes and settings are saved in this browser.'; return true; }
+  try { storage.setItem(DATA_KEY, JSON.stringify(data)); $('storageState').textContent='Settings are saved in this browser.'; return true; }
   catch { $('storageState').textContent='Session only — browser storage is unavailable. Export a backup before closing.'; toast('Could not save in this browser. Use Settings → Export Backup.'); return false; }
 }
 function external(url) { const href = accountLink(url, PERSONAL_EMAIL); if (href) window.open(href,'_blank','noopener,noreferrer'); }
@@ -65,16 +56,6 @@ function renderLinks() {
       : `<a class="app-card" href="${esc(accountLink(l.url, PERSONAL_EMAIL, l.name))}" target="_blank" rel="noopener noreferrer">${icon(l,'app-icon')}<span>${esc(l.name)}</span></a>`).join('') : '<p class="empty-state">Add your own links with Add Link.</p>';
   }
 }
-function renderNotes() {
-  $('noteGrid').innerHTML=data.notes.length?data.notes.map(n=>`<button class="note" type="button" data-note-id="${esc(n.id)}" aria-label="Edit note: ${esc(n.title)}"><h3>${esc(n.title)}</h3><p>${esc(n.text)}</p><small>Edit note ↗</small></button>`).join(''):'<button class="note empty-note" type="button" data-new-note><h3>Make room for an idea.</h3><p>Write your first note. It will be here when you return.</p><small>+ New Note</small></button>';
-}
-function openNote(id) {
-  const n=data.notes.find(n=>n.id===id);$('noteId').value=n?.id||'';$('noteName').value=n?.title||'';$('noteText').value=n?.text||'';$('deleteNote').hidden=!n;$('noteDialog').showModal();
-}
-function renderFellowship() {
-  const members=[['Frodo','11-row3-col3'],['Gandalf','06-row2-col2'],['Aragorn','10-row3-col2'],['Legolas','09-row3-col1'],['Gimli','07-row2-col3'],['Samwise','12-row3-col4'],['Merry & Pippin','13-row4-col4']];
-  $('fellowshipList').innerHTML=members.map(([name,img])=>`<figure class="fellowship-member"><img src="assets/avatars/avatar-${img}.png" alt="${esc(name)}" loading="lazy" /><figcaption>${esc(name)}</figcaption></figure>`).join('');
-}
 function updateTime() {
   const now=new Date(),today=localDate(now);
   if(today!==lastToday){if(localDate(calendarDay)===lastToday){calendarDay=now;loadCalendar();}lastToday=today;}
@@ -86,8 +67,7 @@ function updateTime() {
 function searchDashboard(query) {
   const q=query.toLowerCase(),matches=[];
   data.links.filter(l=>`${l.name} ${l.url}`.toLowerCase().includes(q)).forEach(l=>matches.push(`<a class="search-result" href="${esc(accountLink(l.url, PERSONAL_EMAIL, l.name))}" target="_blank" rel="noopener noreferrer"><small>Tool · ${esc(l.group)}</small>${esc(l.name)} <span>↗</span></a>`));
-  data.notes.filter(n=>`${n.title} ${n.text}`.toLowerCase().includes(q)).forEach(n=>matches.push(`<button class="search-result" data-find-note="${esc(n.id)}" type="button"><small>Note</small>${esc(n.title)}</button>`));
-  $('searchResults').innerHTML=matches.join('')||'<p class="empty-state">No matches in your tools or notes.</p>';$('searchDialog').showModal();
+  $('searchResults').innerHTML=matches.join('')||'<p class="empty-state">No matching links found.</p>';$('searchDialog').showModal();
 }
 async function json(url,options={}) {
   const timeout=AbortSignal.timeout(12000),signal=options.signal?AbortSignal.any([options.signal,timeout]):timeout;
@@ -174,27 +154,11 @@ async function loadWeather(){
   }catch{if(request!==weatherRequest)return;displayWeather({description:'Weather unavailable'},'Weather services unavailable');$('weatherSource').textContent='Could not load weather for '+l.name+'. Try Refresh.';}
   finally{if(request===weatherRequest)$('refreshWeather').disabled=false;}
 }
-async function loadStatuses(){
-  const rows=await Promise.all(services.map(async service=>{
-    if(!service.api)return {...service,state:'View status',tone:'unknown',incidents:[]};
-    try{const result=await json(service.api);if(service.name==='Slack'){if(!['ok','active'].includes(result.status))throw new Error('Invalid status');return {...service,state:result.status==='ok'?'Operational':'Incident reported',tone:result.status==='ok'?'good':'warn',incidents:result.active_incidents||[]};}
-      if(!result.status||!['none','minor','major','critical','maintenance'].includes(result.status.indicator))throw new Error('Invalid status');return {...service,state:result.status.description||'View status',tone:result.status.indicator==='none'?'good':'warn',incidents:(result.incidents||[]).filter(i=>!['resolved','postmortem'].includes(i.status))};
-    }catch{return {...service,state:'View status',tone:'unknown',incidents:[]};}
-  }));
-  $('statusList').innerHTML=rows.map(s=>`<a class="status-row" href="${s.url}" target="_blank" rel="noopener noreferrer"><span class="status-dot ${s.tone}"></span><span>${esc(s.name)}</span><b class="${s.tone}">${esc(s.state)} ↗</b></a>`).join('');
-  const incidents=rows.flatMap(s=>s.incidents.map(i=>({service:s.name,name:i.name||i.title||'Incident reported',url:safeUrl(i.shortlink||i.url)||s.url}))),unknown=rows.filter(s=>s.tone==='unknown').length;
-  $('incidentText').innerHTML=incidents.length?incidents.slice(0,4).map(i=>`<p><a href="${esc(i.url)}" target="_blank" rel="noopener noreferrer">${esc(i.service)}: ${esc(i.name)} ↗</a></p>`).join(''):'<p>No open incidents reported by the connected feeds.</p>';
-  $('incidentText').insertAdjacentHTML('beforeend',`<small>Checked ${new Date().toLocaleTimeString([],{hour:'numeric',minute:'2-digit'})}.${unknown?' '+unknown+' services need a check on their status page.':''}</small>`);
-}
 function openSettings(){const s=data.settings;draftLocation={...s.location};$('settingName').value=s.name;$('settingUnit').value=s.unit;$('settingClientId').value=s.clientId;$('settingCalendarId').value=s.calendarId;$('oauthOrigin').textContent=location.origin;$('selectedLocation').textContent='Selected: '+s.location.name;$('locationQuery').value='';$('locationResults').replaceChildren();$('settingsDialog').showModal();}
 function openLinks(){$('linkForm').reset();$('linkId').value='';$('linkError').textContent='';renderLinkManager();$('linkDialog').showModal();}
 function renderLinkManager(){$('manageLinks').innerHTML=data.links.map(l=>`<div><span>${esc(l.name)} <small>${esc(l.group)}</small></span><button type="button" data-edit-link="${esc(l.id)}" aria-label="Edit ${esc(l.name)}">Edit</button><button type="button" data-delete-link="${esc(l.id)}" aria-label="Delete link ${esc(l.name)}">×</button></div>`).join('');}
 $('searchForm').addEventListener('submit',e=>{e.preventDefault();const q=$('searchInput').value.trim();if(q)$('searchScope').value==='dashboard'?searchDashboard(q):external('https://www.google.com/search?q='+encodeURIComponent(q));});
 $('askAi').addEventListener('click',()=>{const q=$('searchInput').value.trim();external(q?'https://chatgpt.com/?q='+encodeURIComponent(q):'https://chatgpt.com/');});
-$('addNote').addEventListener('click',()=>openNote());
-$('noteGrid').addEventListener('click',e=>{const n=e.target.closest('[data-note-id],[data-new-note]');if(n)openNote(n.dataset.noteId);});
-$('noteForm').addEventListener('submit',e=>{e.preventDefault();const n={id:$('noteId').value||uid(),title:$('noteName').value.trim(),text:$('noteText').value.trim()};if(!n.title||!n.text)return;const index=data.notes.findIndex(v=>v.id===n.id);if(index<0)data.notes.push(n);else data.notes[index]=n;persist();renderNotes();$('noteDialog').close();});
-$('deleteNote').addEventListener('click',()=>{const n=data.notes.find(n=>n.id===$('noteId').value);data.notes=data.notes.filter(v=>v!==n);persist();renderNotes();$('noteDialog').close();toast('Note removed.',()=>{data.notes.push(n);persist();renderNotes();});});
 $('themeToggle').addEventListener('click',()=>{const ember=document.body.classList.toggle('ember-mode');$('themeToggle').setAttribute('aria-pressed',ember);try{storage.setItem('sage_theme',ember?'ember':'night');}catch{toast('Theme changed for this session.');}});
 for(const id of ['settingsOpen','footerSettings','weatherLocation'])$(id).addEventListener('click',openSettings);
 $('calendarConnect').addEventListener('click',()=>{if(googleConnection.connected())return token?loadCalendar():restoreCalendar();calendarState('Choose '+PERSONAL_EMAIL+' and grant read-only Gmail and Calendar access.');void googleConnection.connect().catch(error=>calendarState(error.message,'warn'));});
@@ -212,24 +176,21 @@ $('locationQuery').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventD
 $('addLink').addEventListener('click',openLinks);
 $('linkForm').addEventListener('submit',e=>{e.preventDefault();const url=safeUrl($('linkUrl').value),name=$('linkName').value.trim();if(!url||!name){$('linkError').textContent='Use a name and a full http:// or https:// address.';return;}const link={id:$('linkId').value||uid(),name,url,group:$('linkGroup').value},i=data.links.findIndex(l=>l.id===link.id);if(i<0)data.links.push(link);else data.links[i]=link;persist();renderLinks();renderLinkManager();$('linkForm').reset();$('linkId').value='';$('linkError').textContent='';toast('Link saved.');});
 $('manageLinks').addEventListener('click',e=>{const edit=e.target.closest('[data-edit-link]'),del=e.target.closest('[data-delete-link]');const l=data.links.find(l=>l.id===(edit?.dataset.editLink||del?.dataset.deleteLink));if(!l)return;if(edit){$('linkId').value=l.id;$('linkName').value=l.name;$('linkUrl').value=l.url;$('linkGroup').value=l.group;$('linkName').focus();}else{data.links=data.links.filter(v=>v!==l);persist();renderLinks();renderLinkManager();toast('Link removed.',()=>{data.links.push(l);persist();renderLinks();renderLinkManager();});}});
-$('searchResults').addEventListener('click',e=>{const note=e.target.closest('[data-find-note]');if(note){$('searchDialog').close();openNote(note.dataset.findNote);}});
 $('exportData').addEventListener('click',()=>{const url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='sage-command-'+localDate()+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),10000);});
-$('importData').addEventListener('change',async e=>{const file=e.target.files[0];if(!file)return;try{if(file.size>5*1024*1024)throw new Error('Backup is too large (maximum 5 MB).');const before=structuredClone(data),incoming=JSON.parse(await file.text());data=mergeBackup(data,incoming);persist();renderLinks();renderNotes();personalMail.disconnect(false);disconnectCalendar(false);prepareCalendar();updateTime();loadWeather();$('settingsDialog').close();toast('Backup restored.',()=>{data=before;persist();renderLinks();renderNotes();personalMail.disconnect(false);disconnectCalendar(false);prepareCalendar();updateTime();loadWeather();});}catch(error){toast(error instanceof SyntaxError?'This file is not valid JSON.':error.message);}e.target.value='';});
+$('importData').addEventListener('change',async e=>{const file=e.target.files[0];if(!file)return;try{if(file.size>5*1024*1024)throw new Error('Backup is too large (maximum 5 MB).');const before=structuredClone(data),incoming=JSON.parse(await file.text());data=mergeBackup(data,incoming);persist();renderLinks();personalMail.disconnect(false);disconnectCalendar(false);prepareCalendar();updateTime();loadWeather();$('settingsDialog').close();toast('Backup restored.',()=>{data=before;persist();renderLinks();personalMail.disconnect(false);disconnectCalendar(false);prepareCalendar();updateTime();loadWeather();});}catch(error){toast(error instanceof SyntaxError?'This file is not valid JSON.':error.message);}e.target.value='';});
 $('undoAction').addEventListener('click',()=>{const action=undo;undo=null;$('toast').hidden=true;action?.();});$('dismissToast').addEventListener('click',()=>{$('toast').hidden=true;undo=null;});
 document.querySelectorAll('[data-close]').forEach(button=>button.addEventListener('click',()=>button.closest('dialog').close()));
 document.querySelectorAll('dialog').forEach(dialog=>dialog.addEventListener('click',e=>{if(e.target!==dialog)return;const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close();}));
 document.addEventListener('error',e=>{if(e.target instanceof HTMLImageElement){e.target.hidden=true;const fallback=e.target.nextElementSibling;if(fallback?.classList.contains('icon-fallback'))fallback.hidden=false;}},true);
 document.addEventListener('keydown',e=>{if(e.key==='/'&&!document.querySelector('dialog[open]')&&!['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName)){e.preventDefault();$('searchInput').focus();}});
-window.addEventListener('storage',e=>{if(e.key===DATA_KEY){const old=data.settings;data=readData(storage);renderLinks();renderNotes();updateTime();if(JSON.stringify(old)!==JSON.stringify(data.settings)){if(old.clientId!==data.settings.clientId)personalMail.disconnect(false);disconnectCalendar(false);prepareCalendar();loadWeather();}}});
-window.addEventListener('online',()=>{loadWeather();loadNews();loadStatuses();});
+window.addEventListener('storage',e=>{if(e.key===DATA_KEY){const old=data.settings;data=readData(storage);renderLinks();updateTime();if(JSON.stringify(old)!==JSON.stringify(data.settings)){if(old.clientId!==data.settings.clientId)personalMail.disconnect(false);disconnectCalendar(false);prepareCalendar();loadWeather();}}});
+window.addEventListener('online',()=>{loadWeather();loadNews();});
 try{if(storage.getItem('sage_theme')==='ember')document.body.classList.add('ember-mode');}catch{}
 $('themeToggle').setAttribute('aria-pressed',document.body.classList.contains('ember-mode'));
 document.querySelectorAll('a[target="_blank"]').forEach(a=>a.rel='noopener noreferrer');
-renderLinks();renderNotes();renderFellowship();updateTime();persist();
+renderLinks();updateTime();persist();
 const quote=quotes[Math.floor(Date.now()/86400000)%quotes.length];$('quoteText').textContent='“'+quote[0]+'”';$('quoteBy').textContent=quote[1];
-prepareCalendar();loadNews();loadWeather();loadStatuses();
-setInterval(updateTime,30000);setInterval(loadWeather,10*60*1000);setInterval(loadStatuses,5*60*1000);setInterval(loadNews,15*60*1000);
-
-initMedia(storage);
+prepareCalendar();loadNews();loadWeather();
+setInterval(updateTime,30000);setInterval(loadWeather,10*60*1000);setInterval(loadNews,15*60*1000);
 
 initNest(NEST_SERVICE_URL);
