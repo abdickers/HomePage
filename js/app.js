@@ -1,8 +1,8 @@
-import {initNest} from './nest.js?v=20261015-personal7';
+import {initNest} from './nest.js?v=20261015-remember1';
 import {NEST_SERVICE_URL} from './nest-config.js?v=20261015-personal7';
 import {initMedia} from './media.js?v=20261015-personal7';
-import { googleIdentity } from './google-identity.js?v=20261015-personal7';
-import { initPersonalMail } from './personal-mail.js?v=20261015-personal7';
+import {createGoogleConnection} from './google-connection.js?v=20261015-remember1';
+import { initPersonalMail } from './personal-mail.js?v=20261015-remember1';
 import { accountLink, PERSONAL_EMAIL } from './account-links.mjs?v=20261015-personal7';
 import {DATA_KEY, escapeHtml as esc, safeUrl, localDate, normalizeData, readData, mergeBackup, normalizeObservation} from './core.js?v=20261015-personal7';
 const $ = id => document.getElementById(id);
@@ -10,14 +10,15 @@ const uid = () => crypto.randomUUID();
 let storage;
 try { storage = window.localStorage; } catch { storage = {getItem:()=>null,setItem:()=>{throw new Error('Storage blocked');}}; }
 let data = readData(storage);
-const personalMail = initPersonalMail(()=>data.settings.clientId);
+const googleConnection=createGoogleConnection(NEST_SERVICE_URL,{storage});
+const personalMail = initPersonalMail(()=>data.settings.clientId,googleConnection);
 for (const a of document.querySelectorAll('a[href]')) {
  const routed=accountLink(a.href,PERSONAL_EMAIL,a.textContent.trim()); if(routed)a.href=routed;
 }
 
 
 let calendarDay = new Date(), lastToday = localDate();
-let token = '', tokenExpires = 0, tokenClient = null, calendarRequest = 0;
+let token = '', calendarRequest = 0;
 let newsRequest = 0, weatherRequest = 0, locationRequest = 0;
 let activeFeed = 'fox', undo = null, toastTimer, draftLocation;
 let newsController, weatherController;
@@ -100,39 +101,27 @@ async function readRss(url,signal){
   return [...doc.querySelectorAll('item')].slice(0,4).map(item=>({title:item.querySelector('title')?.textContent||'',link:safeUrl(item.querySelector('link')?.textContent),pubDate:item.querySelector('pubDate')?.textContent||''}));
 }
 function calendarState(message,tone='neutral'){$('calendarState').textContent=message;$('calendarState').dataset.tone=tone;$('calendarState').hidden=!message;}
-function disconnectCalendar(){token='';tokenExpires=0;calendarRequest++;$('calendarConnect').textContent='Connect Calendar';$('calendarConnect').disabled=false;$('calendarDisconnect').hidden=true;$('eventList').replaceChildren();calendarState('Connect Google Calendar to see your events here.');}
+function disconnectCalendar(endConnection=true){token='';calendarRequest++;$('calendarConnect').textContent='Connect personal Google';$('calendarConnect').disabled=false;$('calendarDisconnect').hidden=true;$('eventList').replaceChildren();calendarState('Connect personal Google once for Gmail and Calendar. This browser will remember your sign-in.');if(endConnection!==false)googleConnection.disconnect();}
+function restoreCalendar(){
+ if(!googleConnection.connected())return;
+ const changed=token!==googleConnection.sessionId();token=googleConnection.sessionId();$('calendarConnect').textContent='Refresh';$('calendarConnect').disabled=false;$('calendarDisconnect').hidden=false;if(changed)void loadCalendar();
+}
 async function prepareCalendar() {
   $('calendarConnect').disabled=true;
-  if(!data.settings.clientId){$('calendarConnect').textContent='Set Up Calendar';$('calendarConnect').disabled=false;return;}
-  try {
-    await googleIdentity();
-    const clientId=data.settings.clientId;
-    tokenClient=google.accounts.oauth2.initTokenClient({client_id:clientId,scope:'openid email https://www.googleapis.com/auth/calendar.events.readonly',login_hint:PERSONAL_EMAIL,include_granted_scopes:false,
-      callback:async response=>{
-        if(clientId!==data.settings.clientId)return;$('calendarConnect').disabled=false;
-        if(response.error||!response.access_token||!google.accounts.oauth2.hasGrantedAllScopes(response,'https://www.googleapis.com/auth/calendar.events.readonly')){calendarState('Calendar access was not granted. You can try again.','warn');return;}
-        const identityRequest=++calendarRequest;
-        try {
-          const identity=await json('https://openidconnect.googleapis.com/v1/userinfo',{headers:{Authorization:'Bearer '+response.access_token}});
-          if(identityRequest!==calendarRequest||clientId!==data.settings.clientId)return;
-          if(identity.email?.toLowerCase()!==PERSONAL_EMAIL||identity.email_verified!==true){disconnectCalendar();calendarState('Use '+PERSONAL_EMAIL+' for this personal calendar. Other accounts are not loaded.','warn');return;}
-        } catch {if(identityRequest===calendarRequest){disconnectCalendar();calendarState('Could not verify your personal Google account. Connect again.','warn');}return;}
-        token=response.access_token;tokenExpires=Date.now()+Number(response.expires_in||3600)*1000;$('calendarConnect').textContent='Refresh';$('calendarDisconnect').hidden=false;loadCalendar();
-      },error_callback:error=>{$('calendarConnect').disabled=false;calendarState(error.type==='popup_closed'?'Sign-in closed. Connect again whenever you are ready.':'Google sign-in could not open. Try Chrome or Edge, allow pop-ups, and check the OAuth origin in Settings.','warn');}
-    });
-    $('calendarConnect').textContent='Connect Calendar';$('calendarConnect').disabled=false;
-  }catch{tokenClient=null;$('calendarConnect').disabled=false;$('calendarConnect').textContent='Retry Connection';calendarState('Google sign-in is unavailable. Retry, or open Google Calendar below.','warn');}
+  await googleConnection.ready();
+  if(googleConnection.connected())restoreCalendar();else{disconnectCalendar(false);if(googleConnection.error())calendarState(googleConnection.error(),'warn');}
 }
+googleConnection.subscribe(connected=>{if(connected)restoreCalendar();else disconnectCalendar(false);});
 async function loadCalendar() {
-  if(!token)return;if(Date.now()>=tokenExpires){disconnectCalendar();calendarState('Your calendar session expired. Connect again.','warn');return;}
+  if(!token||!googleConnection.connected())return;
   const request=++calendarRequest,activeToken=token;$('eventList').replaceChildren();calendarState('Loading your calendar...');
   const start=new Date(calendarDay);start.setHours(0,0,0,0);const end=new Date(start);end.setDate(end.getDate()+1);
   const params=new URLSearchParams({singleEvents:'true',orderBy:'startTime',timeMin:start.toISOString(),timeMax:end.toISOString(),maxResults:'50'});
   try{
-    const result=await json(`https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(data.settings.calendarId)}/events?${params}`,{headers:{Authorization:'Bearer '+activeToken}});
+    const result=await googleConnection.read(`https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(data.settings.calendarId)}/events?${params}`);
     if(request!==calendarRequest||activeToken!==token)return;const events=(result.items||[]).filter(e=>e.status!=='cancelled');calendarState(events.length?'':'No events scheduled for this day.','ok');
     $('eventList').innerHTML=events.map(e=>{const allDay=Boolean(e.start?.date),time=allDay?'All day':new Date(e.start.dateTime).toLocaleTimeString([],{hour:'numeric',minute:'2-digit'});const minutes=allDay?0:Math.round((new Date(e.end.dateTime)-new Date(e.start.dateTime))/60000);return `<a class="event-row" href="${esc(accountLink(e.htmlLink||'https://calendar.google.com/calendar/r',PERSONAL_EMAIL))}" target="_blank" rel="noopener noreferrer"><span class="event-dot" style="--event:#e6bb62"></span><time>${esc(time)}</time><strong>${esc(e.summary||'Untitled event')}</strong><em>${minutes?minutes+'m':''}</em></a>`;}).join('');
-  }catch(error){if(request!==calendarRequest)return;if(error.status===401){disconnectCalendar();calendarState('Your calendar session expired. Connect again.','warn');}else calendarState(error.status===403?'Google denied calendar access. Enable the Calendar API and check your OAuth test users.':'Calendar could not load. Check the calendar ID in Settings and try Refresh.','warn');}
+  }catch(error){if(request!==calendarRequest)return;calendarState(error.message||'Calendar could not load. Check the calendar ID and try Refresh.','warn');}
 }
 function renderNews(items,feed){
   $('newsList').innerHTML=items.slice(0,4).map(item=>{const url=safeUrl(item.link);if(!url)return '';const d=new Date(item.pubDate),date=Number.isNaN(d.getTime())?'':d.toLocaleString([],{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'});return `<article class="news-item">${icon({name:feeds[feed].name,url},'news-icon')}<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(item.title)}</a><small>${esc(date||feeds[feed].name)}</small></article>`;}).join('');
@@ -208,12 +197,12 @@ $('noteForm').addEventListener('submit',e=>{e.preventDefault();const n={id:$('no
 $('deleteNote').addEventListener('click',()=>{const n=data.notes.find(n=>n.id===$('noteId').value);data.notes=data.notes.filter(v=>v!==n);persist();renderNotes();$('noteDialog').close();toast('Note removed.',()=>{data.notes.push(n);persist();renderNotes();});});
 $('themeToggle').addEventListener('click',()=>{const ember=document.body.classList.toggle('ember-mode');$('themeToggle').setAttribute('aria-pressed',ember);try{storage.setItem('sage_theme',ember?'ember':'night');}catch{toast('Theme changed for this session.');}});
 for(const id of ['settingsOpen','footerSettings','weatherLocation'])$(id).addEventListener('click',openSettings);
-$('calendarConnect').addEventListener('click',()=>{if(!data.settings.clientId)return openSettings();if(token)return loadCalendar();if(!tokenClient)return prepareCalendar();calendarState('Choose your Google account in the sign-in window.');tokenClient.requestAccessToken({prompt:'select_account',login_hint:PERSONAL_EMAIL});});
-$('calendarDisconnect').addEventListener('click',disconnectCalendar);
+$('calendarConnect').addEventListener('click',()=>{if(googleConnection.connected())return token?loadCalendar():restoreCalendar();calendarState('Choose '+PERSONAL_EMAIL+' and grant read-only Gmail and Calendar access.');void googleConnection.connect().catch(error=>calendarState(error.message,'warn'));});
+$('calendarDisconnect').addEventListener('click',()=>disconnectCalendar());
 for(const [id,offset] of [['calendarPrev',-1],['calendarNext',1],['calendarToday',0]])$(id).addEventListener('click',()=>{if(offset)calendarDay.setDate(calendarDay.getDate()+offset);else calendarDay=new Date();updateTime();loadCalendar();});
 $('newsTabs').addEventListener('click',e=>{const b=e.target.closest('[data-feed]');if(!b)return;activeFeed=b.dataset.feed;document.querySelectorAll('[data-feed]').forEach(t=>{t.classList.toggle('active',t===b);t.setAttribute('aria-pressed',t===b);});loadNews();});
 $('refreshNews').addEventListener('click',loadNews);$('refreshWeather').addEventListener('click',loadWeather);
-$('settingsForm').addEventListener('submit',e=>{e.preventDefault();const old=data.settings;data.settings=normalizeData({settings:{name:$('settingName').value,unit:$('settingUnit').value,clientId:$('settingClientId').value,calendarId:$('settingCalendarId').value,location:draftLocation}}).settings;const saved=persist();$('settingsDialog').close();updateTime();loadWeather();if(old.clientId!==data.settings.clientId||old.calendarId!==data.settings.calendarId){personalMail.disconnect();disconnectCalendar();prepareCalendar();}if(saved)toast('Settings saved.');});
+$('settingsForm').addEventListener('submit',e=>{e.preventDefault();const old=data.settings;data.settings=normalizeData({settings:{name:$('settingName').value,unit:$('settingUnit').value,clientId:$('settingClientId').value,calendarId:$('settingCalendarId').value,location:draftLocation}}).settings;const saved=persist();$('settingsDialog').close();updateTime();loadWeather();if(old.clientId!==data.settings.clientId||old.calendarId!==data.settings.calendarId){personalMail.disconnect(false);disconnectCalendar(false);prepareCalendar();}if(saved)toast('Settings saved.');});
 $('findLocation').addEventListener('click',async()=>{
   const q=$('locationQuery').value.trim();if(!q)return;const request=++locationRequest;$('locationResults').textContent='Finding your city...';
   try{const result=await json('https://geocoding-api.open-meteo.com/v1/search?count=5&language=en&format=json&name='+encodeURIComponent(q));if(request!==locationRequest)return;const locations=(result.results||[]).map(l=>({name:[l.name,l.admin1,l.country_code].filter(Boolean).join(', '),lat:l.latitude,lon:l.longitude}));$('locationResults').replaceChildren();if(!locations.length)$('locationResults').textContent='No cities found. Try a nearby city name.';for(const l of locations){const button=document.createElement('button');button.type='button';button.textContent=l.name;button.addEventListener('click',()=>{draftLocation=l;$('selectedLocation').textContent='Selected: '+l.name;$('locationResults').replaceChildren();});$('locationResults').append(button);}}
@@ -225,13 +214,13 @@ $('linkForm').addEventListener('submit',e=>{e.preventDefault();const url=safeUrl
 $('manageLinks').addEventListener('click',e=>{const edit=e.target.closest('[data-edit-link]'),del=e.target.closest('[data-delete-link]');const l=data.links.find(l=>l.id===(edit?.dataset.editLink||del?.dataset.deleteLink));if(!l)return;if(edit){$('linkId').value=l.id;$('linkName').value=l.name;$('linkUrl').value=l.url;$('linkGroup').value=l.group;$('linkName').focus();}else{data.links=data.links.filter(v=>v!==l);persist();renderLinks();renderLinkManager();toast('Link removed.',()=>{data.links.push(l);persist();renderLinks();renderLinkManager();});}});
 $('searchResults').addEventListener('click',e=>{const note=e.target.closest('[data-find-note]');if(note){$('searchDialog').close();openNote(note.dataset.findNote);}});
 $('exportData').addEventListener('click',()=>{const url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='sage-command-'+localDate()+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),10000);});
-$('importData').addEventListener('change',async e=>{const file=e.target.files[0];if(!file)return;try{if(file.size>5*1024*1024)throw new Error('Backup is too large (maximum 5 MB).');const before=structuredClone(data),incoming=JSON.parse(await file.text());data=mergeBackup(data,incoming);persist();renderLinks();renderNotes();personalMail.disconnect();disconnectCalendar();prepareCalendar();updateTime();loadWeather();$('settingsDialog').close();toast('Backup restored.',()=>{data=before;persist();renderLinks();renderNotes();personalMail.disconnect();disconnectCalendar();prepareCalendar();updateTime();loadWeather();});}catch(error){toast(error instanceof SyntaxError?'This file is not valid JSON.':error.message);}e.target.value='';});
+$('importData').addEventListener('change',async e=>{const file=e.target.files[0];if(!file)return;try{if(file.size>5*1024*1024)throw new Error('Backup is too large (maximum 5 MB).');const before=structuredClone(data),incoming=JSON.parse(await file.text());data=mergeBackup(data,incoming);persist();renderLinks();renderNotes();personalMail.disconnect(false);disconnectCalendar(false);prepareCalendar();updateTime();loadWeather();$('settingsDialog').close();toast('Backup restored.',()=>{data=before;persist();renderLinks();renderNotes();personalMail.disconnect(false);disconnectCalendar(false);prepareCalendar();updateTime();loadWeather();});}catch(error){toast(error instanceof SyntaxError?'This file is not valid JSON.':error.message);}e.target.value='';});
 $('undoAction').addEventListener('click',()=>{const action=undo;undo=null;$('toast').hidden=true;action?.();});$('dismissToast').addEventListener('click',()=>{$('toast').hidden=true;undo=null;});
 document.querySelectorAll('[data-close]').forEach(button=>button.addEventListener('click',()=>button.closest('dialog').close()));
 document.querySelectorAll('dialog').forEach(dialog=>dialog.addEventListener('click',e=>{if(e.target!==dialog)return;const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close();}));
 document.addEventListener('error',e=>{if(e.target instanceof HTMLImageElement){e.target.hidden=true;const fallback=e.target.nextElementSibling;if(fallback?.classList.contains('icon-fallback'))fallback.hidden=false;}},true);
 document.addEventListener('keydown',e=>{if(e.key==='/'&&!document.querySelector('dialog[open]')&&!['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName)){e.preventDefault();$('searchInput').focus();}});
-window.addEventListener('storage',e=>{if(e.key===DATA_KEY){const old=data.settings;data=readData(storage);renderLinks();renderNotes();updateTime();if(JSON.stringify(old)!==JSON.stringify(data.settings)){if(old.clientId!==data.settings.clientId)personalMail.disconnect();disconnectCalendar();prepareCalendar();loadWeather();}}});
+window.addEventListener('storage',e=>{if(e.key===DATA_KEY){const old=data.settings;data=readData(storage);renderLinks();renderNotes();updateTime();if(JSON.stringify(old)!==JSON.stringify(data.settings)){if(old.clientId!==data.settings.clientId)personalMail.disconnect(false);disconnectCalendar(false);prepareCalendar();loadWeather();}}});
 window.addEventListener('online',()=>{loadWeather();loadNews();loadStatuses();});
 try{if(storage.getItem('sage_theme')==='ember')document.body.classList.add('ember-mode');}catch{}
 $('themeToggle').setAttribute('aria-pressed',document.body.classList.contains('ember-mode'));

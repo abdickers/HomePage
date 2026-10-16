@@ -33,14 +33,15 @@ async function readJSON(url,token,signal){
  }
  return response.json();
 }
-export function initPersonalMail(getClientId){
+export function initPersonalMail(getClientId,connection=null){
  let token='',expiry=0,clientId='',pending=null,oauthClient=null,loadedClient='',epoch=0,preparing=false;
  let active='primary',mailCursor='',receiptCursor='',mailItems=[],receipts=[];
  let mailBusy=false,receiptBusy=false,mailRequest=0,receiptRequest=0;
  let controller=new AbortController();
- const connected=()=>!!token&&Date.now()<expiry&&clientId===getClientId();
+ const connected=()=>!!token&&(connection?connection.connected():Date.now()<expiry)&&clientId===getClientId();
+ const read=(url,credential,signal)=>connection?connection.read(url,{signal}):readJSON(url,credential,signal);
  function setControls(){
-  $('mailConnect').textContent=connected()?'Personal Gmail connected':'Connect personal Gmail';
+  $('mailConnect').textContent=connected()?'Personal Google connected':'Connect Gmail & Calendar';
   $('mailConnect').disabled=connected()||!!pending||preparing;
   $('mailRefresh').disabled=!connected()||mailBusy;
   $('mailDisconnect').hidden=!token&&!pending;
@@ -53,6 +54,7 @@ export function initPersonalMail(getClientId){
  async function prepare(){
   if(preparing)return;preparing=true;setControls();
   try{
+   if(connection){await connection.ready();oauthClient={backend:true};loadedClient=getClientId();return;}
    await googleIdentity();const id=getClientId();
    if(!id)throw Error('Set a Google Web OAuth client ID in Settings first.');
    if(loadedClient!==id){
@@ -61,18 +63,30 @@ export function initPersonalMail(getClientId){
     oauthClient={client,callbacks};loadedClient=id;
    }
   }catch(error){$('ravensState').textContent=error.message;$('receiptsState').textContent=error.message;}
-  finally{preparing=false;setControls();}
+  finally{preparing=false;setControls();if(connection?.connected()&&!token&&!mailBusy)void loadMail();}
  }
- function disconnect(){
+ function disconnect(endConnection=true){
   epoch++;mailRequest++;receiptRequest++;controller.abort();controller=new AbortController();
   pending?.reject(Error('Gmail connection closed.'));pending=null;token='';expiry=0;clientId='';mailItems=[];receipts=[];mailCursor='';receiptCursor='';mailBusy=false;receiptBusy=false;
   $('ravensList').replaceChildren();$('walmartReceipts').replaceChildren();$('amazonReceipts').replaceChildren();
   $('ravensState').textContent='Connect your personal Gmail to bring the ravens home.';
   $('receiptsState').textContent='Connect personal Gmail to show real Amazon and Walmart receipts here.';$('mailReadAt').textContent='';
+  if(connection&&endConnection!==false)connection.disconnect();
   oauthClient=null;loadedClient='';setControls();prepare();
  }
  function authorize(){
   if(connected())return Promise.resolve();
+  if(connection)return (async()=>{
+   const grantEpoch=epoch,grantClient=getClientId();await connection.connect();
+   const grantToken=connection.sessionId();
+   const [identity,profile]=await Promise.all([
+    connection.read('https://openidconnect.googleapis.com/v1/userinfo',{signal:controller.signal}),
+    connection.read('https://gmail.googleapis.com/gmail/v1/users/me/profile',{signal:controller.signal})
+   ]);
+   if(grantEpoch!==epoch||grantClient!==getClientId())throw Error('Connection changed. Please connect again.');
+   if(!personalIdentity(identity,profile))throw Error('Use '+PERSONAL_EMAIL+'. No inbox or receipt content was loaded from the other account.');
+   token=grantToken;expiry=connection.expiresAt();clientId=grantClient;setControls();
+  })();
   if(pending)return pending.promise;
   if(!oauthClient||loadedClient!==getClientId())throw Error('Google sign-in is preparing. Check your OAuth client in Settings and try again.');
   const grantEpoch=++epoch,grantClient=getClientId();
@@ -102,13 +116,13 @@ export function initPersonalMail(getClientId){
   if(!connected())throw Error('Connect '+PERSONAL_EMAIL+' to load this feed.');
   const activeToken=token,activeEpoch=epoch,signal=controller.signal;
   const params=new URLSearchParams({q:query,maxResults:format==='full'?'30':'20'});if(cursor)params.set('pageToken',cursor);
-  const page=await readJSON('https://gmail.googleapis.com/gmail/v1/users/me/messages?'+params,activeToken,signal);
+  const page=await read('https://gmail.googleapis.com/gmail/v1/users/me/messages?'+params,activeToken,signal);
   if((page.messages!==undefined&&!Array.isArray(page.messages))||(page.messages===undefined&&page.resultSizeEstimate!==0))throw Error('Google returned an unfamiliar message list. Refresh to try again.');
   const messages=page.messages||[],results=new Array(messages.length);let next=0;
   await Promise.all(Array.from({length:Math.min(4,messages.length)},async()=>{
    while(next<messages.length){const i=next++,id=messages[i].id;if(!/^[a-f0-9]{1,64}$/i.test(id))throw Error('Google returned an invalid message reference.');
     const options=new URLSearchParams({format});if(format==='metadata')for(const name of ['From','Subject','Date'])options.append('metadataHeaders',name);
-    results[i]=await readJSON('https://gmail.googleapis.com/gmail/v1/users/me/messages/'+id+'?'+options,activeToken,signal);
+    results[i]=await read('https://gmail.googleapis.com/gmail/v1/users/me/messages/'+id+'?'+options,activeToken,signal);
    }
   }));
   if(activeEpoch!==epoch||activeToken!==token||clientId!==getClientId())throw Error('Connection changed. Refresh the feed.');
@@ -157,5 +171,6 @@ export function initPersonalMail(getClientId){
   $('ravensCaption').textContent=`Latest unread ${category==='primary'?'Primary':'Updates'} conversations · ${PERSONAL_EMAIL}`;
   $('ravensState').textContent='Connect your personal Gmail to load this inbox.';setControls();if(connected())loadMail();
  });
+ if(connection)connection.subscribe(isConnected=>{if(isConnected){if(!mailBusy)void loadMail();}else disconnect(false);});
  setControls();prepare();return {disconnect};
 }

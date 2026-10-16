@@ -78,8 +78,8 @@
       <div class="panel-title">
         <h2>The Calendar</h2>
         <div class="calendar-actions">
-          <button id="calendarConnect" type="button">Connect Calendar</button>
-          <button id="calendarDisconnect" type="button" hidden>Disconnect</button>
+          <button id="calendarConnect" type="button">Connect personal Google</button>
+          <button id="calendarDisconnect" type="button" hidden>Sign out Google</button>
         </div>
       </div>
       <div class="calendar-body">
@@ -102,8 +102,8 @@
       <div class="daily-tabs" role="group" aria-label="Personal inbox"><button type="button" data-inbox="primary" aria-pressed="true">Primary</button><button type="button" data-inbox="updates" aria-pressed="false">Updates</button></div>
       <p class="realm-account" id="ravensCaption">Latest unread Primary conversations · abdickers@gmail.com</p>
       <p id="ravensState" role="status">Connect your personal Gmail to bring the ravens home.</p><div id="ravensList" class="daily-list"></div>
-      <div class="daily-feed-footer"><button id="mailConnect" type="button">Connect personal Gmail</button><button id="mailRefresh" type="button" disabled>Refresh</button><button id="mailMore" type="button" hidden>More conversations</button><button id="mailDisconnect" type="button" hidden>Disconnect</button><span id="mailReadAt" class="realm-account"></span></div>
-      <details class="mail-privacy"><summary>Connection &amp; privacy</summary><p>Read-only access to abdickers@gmail.com for these inboxes and shopping receipts. Google grants mailbox-wide read access; this page queries only these feeds. Messages and tokens stay in memory in this browser and clear on disconnect or reload. No mail is sent to AI or saved in this public repository.</p><p>If Google blocks sign-in, your OAuth client must allow this website’s origin and enable Gmail API. Use Settings to review the client ID.</p></details>
+      <div class="daily-feed-footer"><button id="mailConnect" type="button">Connect Gmail &amp; Calendar</button><button id="mailRefresh" type="button" disabled>Refresh</button><button id="mailMore" type="button" hidden>More conversations</button><button id="mailDisconnect" type="button" hidden>Sign out Google</button><span id="mailReadAt" class="realm-account"></span></div>
+      <details class="mail-privacy"><summary>Connection &amp; privacy</summary><p>One personal Google connection supplies read-only Gmail and Calendar access. Google grants mailbox-wide read access; this page queries only these feeds. Google credentials stay encrypted on the private service. This browser remembers a revocable dashboard session for up to 30 days, renewed while active. Signing out Google disconnects both Gmail and Calendar here.</p><p>Message and receipt content stays in memory and clears on reload or sign-out. No mail is sent to AI or saved in this public repository. Gmail and Calendar APIs must be enabled in the gateway’s Google project.</p></details>
     </section>
     <section class="panel home-panel" id="homePanel">
  <div class="panel-title"><h2>⌂ Bag End</h2><span class="realm-account">SAGE CABIN · GOOGLE NEST</span></div>
@@ -118,7 +118,7 @@
  </div>
  <p id="nestStatus" role="status" aria-live="polite">Preparing your private Nest connection…</p>
  <div class="media-actions"><button id="nestConnect" type="button">Connect personal Nest</button><button id="nestRefresh" type="button" disabled>Refresh</button><button id="nestDisconnect" type="button" hidden>Sign out</button><a href="https://home.google.com/" target="_blank" rel="noopener noreferrer">Google Home ↗</a></div>
- <p class="realm-account">abdickers@gmail.com · Sign-in is separate from Gmail. Video stops when you leave this tab.</p>
+      <p class="realm-account">abdickers@gmail.com · Nest remembers this browser for up to 30 days, renewed while active. Sign out to forget it. Video stops when you leave this tab.</p>
 </section>
     <section class="panel music-panel" id="musicPanel">
       <div class="panel-title"><h2>♫ The Prancing Pony</h2><span class="realm-account">YOUTUBE MUSIC</span></div>
@@ -275,7 +275,7 @@
     <form id="settingsForm" class="dialog-form">
       <label>Your name<input id="settingName" maxlength="40" required /></label>
       <fieldset><legend>Weather location</legend><div class="inline-form"><input id="locationQuery" aria-label="Search for a city" placeholder="Search city or ZIP code" /><button id="findLocation" type="button">Find</button></div><div id="locationResults" role="status"></div><p id="selectedLocation"></p><label>Temperature<select id="settingUnit"><option value="fahrenheit">Fahrenheit (°F)</option><option value="celsius">Celsius (°C)</option></select></label></fieldset>
-      <fieldset><legend>Personal identity</legend><p>abdickers@gmail.com</p><p class="help">Calendar only loads after Google confirms this account. Other providers use their own signed-in sessions.</p></fieldset><fieldset><legend>Google connections</legend><label>Web OAuth client ID<input id="settingClientId" placeholder="Your ID.apps.googleusercontent.com" /></label><label>Calendar ID<input id="settingCalendarId" placeholder="primary" /></label><p class="help">Calendar and Gmail access is read-only. Connect each from its widget; the personal email is verified before reading content. Enable Calendar API and Gmail API for this OAuth client. Sign in from Chrome or Edge. Your OAuth client must allow this origin: <code id="oauthOrigin"></code>. <a href="https://developers.google.com/calendar/api/quickstart/js" target="_blank" rel="noopener">Google setup guide ↗</a></p></fieldset>
+      <fieldset><legend>Personal identity</legend><p>abdickers@gmail.com</p><p class="help">Google confirms this account before loading personal information. Other providers use their own signed-in sessions.</p></fieldset><fieldset><legend>Google connections</legend><input id="settingClientId" type="hidden" /><label>Calendar ID<input id="settingCalendarId" placeholder="primary" /></label><p class="help">Connect once from Gmail or Calendar for read-only access to both. This browser remembers your sign-in. Sign out Google to forget it. Nest connects and signs out separately.</p><code id="oauthOrigin" hidden></code></fieldset>
       <button class="primary-button" type="submit">Save Settings</button>
     </form>
     <fieldset><legend>Backup &amp; restore</legend><p class="help">Download your tasks, notes, links, and settings. Import merges tasks and notes by ID and restores your links and settings. Keep the backup somewhere private.</p><div class="dialog-actions"><button id="exportData" type="button">Export Backup</button><label class="button-label">Import Backup<input id="importData" type="file" accept="application/json,.json" class="sr-only" /></label></div></fieldset>
@@ -284,7 +284,7 @@
   <dialog id="linkDialog" aria-labelledby="linkTitle"><div class="dialog-heading"><h2 id="linkTitle">Your Tools &amp; Links</h2><button type="button" data-close aria-label="Close links">×</button></div><form id="linkForm" class="dialog-form"><input id="linkId" type="hidden" /><label>Name<input id="linkName" maxlength="60" required /></label><label>Website URL<input id="linkUrl" type="url" placeholder="https://example.com" required /></label><label>Section<select id="linkGroup"><option value="tools">Tools &amp; Systems</option><option value="ai">AI Tools</option><option value="quick">Quick Access</option></select></label><p id="linkError" class="form-error" role="status"></p><button class="primary-button" type="submit">Save Link</button></form><div id="manageLinks" class="manage-links"></div></dialog>
   <dialog id="searchDialog" aria-labelledby="searchTitle"><div class="dialog-heading"><h2 id="searchTitle">The Palantir Found</h2><button type="button" data-close aria-label="Close results">×</button></div><div id="searchResults"></div></dialog>
   <div id="toast" class="toast" role="status" hidden><span id="toastText"></span><button id="undoAction" type="button" hidden>Undo</button><button id="dismissToast" type="button" aria-label="Dismiss notification">×</button></div>
-  <script type="module" src="js/app.js?v=20261015-wow8"></script>
+  <script type="module" src="js/app.js?v=20261015-remember1"></script>
   <script type="module" src="js/wow.js?v=20261015-wow8"></script>
 </body>
 </html>

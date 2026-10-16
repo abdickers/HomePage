@@ -1,6 +1,6 @@
 # Sage's Middle-earth Command
 
-A buildless personal dashboard for [InkedSage/Homepage](https://github.com/InkedSage/Homepage), hosted on [GitHub Pages](https://inkedsage.github.io/Homepage/). The existing Middle-earth artwork and gold/green styling are preserved.
+A buildless personal dashboard for [abdickers/HomePage](https://github.com/abdickers/HomePage), hosted on [GitHub Pages](https://abdickers.github.io/HomePage/). The existing Middle-earth artwork and gold/green styling are preserved.
 
 ## Use the dashboard
 
@@ -14,16 +14,16 @@ A buildless personal dashboard for [InkedSage/Homepage](https://github.com/Inked
 
 ## Google Calendar
 
-The existing public Web OAuth client ID is retained in `js/core.js` and can be replaced in Settings. No secret or access token is stored in the repository or localStorage. Calendar tokens remain in memory until disconnect, expiry, or page reload.
+Gmail and Calendar now share a remembered personal Google connection through `nest-service`. Google access and refresh tokens stay AES-GCM encrypted in the existing private KV namespace. This browser stores only a random, revocable dashboard session bound to the configured gateway. Sessions survive page reloads and renew while active, lasting up to 30 days between renewals. They are not included in dashboard backups. Sign out Google clears the browser credential, revokes that app session, and clears both private views.
 
-Use **Connect Calendar** in a normal Chrome or Edge tab. This requests `calendar.events.readonly` plus OpenID email identity, verifies the grant and account, and shows events for the selected day. Navigate days with the arrows or return to Today. The Open Google Calendar link works even while disconnected.
+Use **Connect personal Google** or **Connect Gmail & Calendar** in a normal Chrome or Edge tab. Consent requests only OpenID email identity, `gmail.readonly`, and `calendar.events.readonly`; the backend verifies the personal owner and mailbox before saving a connection. It automatically refreshes expired Google access tokens. Calendar uses the selected Calendar ID in Settings. Google sign-in uses the client configured on the private gateway, rather than the legacy browser OAuth client setting. Nest has a separate remembered device connection.
 
 In the Google Cloud project that owns the client ID:
 
-1. Enable the Google Calendar API and configure the OAuth consent screen.
+1. Enable Gmail and Google Calendar APIs and configure the OAuth consent screen.
 2. Use a **Web application** OAuth client.
-3. Add `https://inkedsage.github.io` as an authorized JavaScript origin. Add `http://127.0.0.1:4173` and/or `http://localhost:4173` for local preview. Origins do not include `/HomePage/`.
-4. Add your account as a test user if the app is in Testing mode.
+3. Authorize `https://sage-cabin-nest.nest-service.workers.dev/auth/callback` as a redirect URI. This existing callback handles both Nest and Gmail/Calendar using cookie-bound, purpose-specific OAuth state. Frontend origin must be exactly `https://abdickers.github.io`; the dashboard return path is `/HomePage/`.
+4. Keep the personal Google app in Production for long-lived refresh tokens. Testing mode can expire refresh tokens after seven days. Google may still require reauthorization if access is revoked or its authorization policy expires a grant.
 
 An OAuth client ID is public configuration; never add a client secret. Google sign-in can be blocked inside embedded previews. Use the exact page URL in Chrome or Edge. Existing authorizations for broader scopes are managed in your Google account's third-party connections; the dashboard no longer requests Drive or calendar write access.
 
@@ -57,7 +57,7 @@ Legacy root SVG files and images are retained for compatibility. The active entr
 
 ## Twin command centers (October 15, 2026)
 
-Personal is canonically https://inkedsage.github.io/Homepage/ and uses `abdickers@gmail.com`.
+Personal is canonically https://abdickers.github.io/HomePage/ and uses `abdickers@gmail.com`.
 Work remains owner-private at https://adams-middle-earth-command.spirit-of-76-1921.chatgpt.site/ and uses `dickersona@76fireworks.com`.
 The sidebar switches between the two. The artwork, font pair, dark forest surfaces, gold palette, and ornamental borders match Work. `css/realm-theme.css` and `js/account-links.mjs` are copied unchanged to WorkHomepage's `public/realm-theme.css` and `lib/account-links.mjs`.
 
@@ -67,7 +67,7 @@ The Quartermaster opens Walmart+ membership and orders and Amazon account/orders
 
 Frear's companion uses Blizzard's actual public Armory render for Frear, US Grizzly Hills, dwarf paladin. The snapshot shown by Blizzard was updated September 15, 2026. The companion collapses and remembers the preference. This is a rendered image, not an interactive 3D model; the separate Wowhead Dressing Room can load characters. A true animated 3D companion still needs a verified model/appearance export. No Battle.net password is needed. Image source: https://render.worldofwarcraft.com/us/character/grizzly-hills/238/217923310-main-raw.png .
 
-The high-resolution Middle-earth header is reused from WorkHomepage. It is the saved 3840-pixel display derivative of the existing 1672×941 generated artwork, not a newly generated native 4K image. See WorkHomepage's ASSET-NOTES.md. The live personal dashboard remains on the InkedSage origin. Browser-local tasks, settings and notes from the temporary abdickers deployment can be moved with Export backup and Import backup.
+The high-resolution Middle-earth header is reused from WorkHomepage. It is the saved 3840-pixel display derivative of the existing 1672×941 generated artwork, not a newly generated native 4K image. See WorkHomepage's ASSET-NOTES.md. The live personal dashboard remains on the abdickers origin. Browser-local tasks, settings and notes from the temporary abdickers deployment can be moved with Export backup and Import backup.
 
 Legacy default work-service tiles on Personal now lead through a single Work Command Center tile. Custom URLs are retained, and tasks/notes are preserved. Personal tools include Battle.net and Frear’s Armory.
 
@@ -78,11 +78,11 @@ Personal has only Gemini and ChatGPT in its AI section. Removed AI services, Can
 
 The Ravens mirrors Work's message cards with Primary and Updates tabs. Each reads the matching unread inbox category from **abdickers@gmail.com**, 20 messages at a time, deduplicated into conversations. More conversations loads the next page. Refresh is on demand; reading does not mark mail read. Every card opens the original Gmail conversation with the personal account selector.
 
-Use **Connect personal Gmail** or **Connect shopping receipts**. Both use one in-memory read-only Gmail session, separate from the Calendar token. The Google OpenID identity and Gmail mailbox profile must both match the personal email before message reads begin. Tokens, mail, and receipt records are never written to localStorage, the repository, the Work backend, or AI services. Disconnect and reload clear the private view. Google grants mailbox-wide `gmail.readonly` permission; category/sender queries limit what this page actually reads, not the scope of Google's grant.
+Use **Connect Gmail & Calendar** or **Connect shopping receipts**. Gmail and Calendar share the remembered personal Google connection described above. The Google OpenID identity and Gmail mailbox profile must both match the personal email before message reads begin. Raw Google tokens remain encrypted on the private gateway. Mail and receipt content is never written to localStorage, the repository, the Work backend, or AI services. Reload clears the in-memory content and restores the inbox from Google using the saved app session. Receipts are read when requested. Google grants mailbox-wide `gmail.readonly` permission; category/sender queries limit what this page actually reads, not the scope of Google's grant.
 
 Shopping scans the last 180 days for Amazon/Walmart order, receipt, shipping, delivery, pickup and refund emails, 30 messages per page. Sender domains are checked against amazon.com/walmart.com and their subdomains; sender names alone are not trusted. Cards show message date, subject, an order ID if found, and an explicitly labelled unambiguous order total from the plain-text body when available. They are email events, **not current retailer status**. Multiple messages may refer to one order. No spending total is inferred, HTML emails are not executed or displayed, and attachments are not downloaded. Open the source email or retailer Orders link for full details and items.
 
-The Google Cloud owner must enable **Gmail API** for the public OAuth client configured in Settings and allow the `https://inkedsage.github.io` JavaScript origin. The consent screen must permit the personal account and read-only Gmail scope. Google may require app verification or a configured test user; the UI reports denied or unavailable access instead of showing fake empty results. This feature requires user sign-in/consent and cannot be confirmed live without that step.
+The Google Cloud owner must enable **Gmail API** and **Google Calendar API** for the OAuth client configured on the private gateway and authorize its exact `/auth/callback` redirect. The consent screen must permit the personal account and both read-only scopes. The UI reports denied or unavailable access instead of showing fake empty results. Live private content still requires the owner's initial Google consent.
 
 Official references: https://developers.google.com/workspace/gmail/api/reference/rest/v1/users.messages/list and https://developers.google.com/workspace/gmail/api/auth/scopes . The discovered Amazon/Walmart order APIs are seller-oriented, not a consumer-account integration. No suitable consumer-order plugin was found in the current plugin discovery results.
 
@@ -96,4 +96,4 @@ Retail shows published event windows, repeating timers, daily reset, weekly bonu
 
 ## Combined repository
 
-This repository includes both Bag End / Nest controls (from InkedSage) and Frear’s Retail / Forever War Room. The checked-in Nest gateway configuration targets `https://abdickers.github.io` and returns to `/HomePage/` after consent. Deploy the gateway to apply this migration: the live gateway still trusts InkedSage because Cloudflare denied the deployment and settings writes. The server-side Google OAuth callback remains on the existing Nest service origin.
+This repository includes both Bag End / Nest controls (from InkedSage) and Frear’s Retail / Forever War Room. The gateway configuration targets exactly `https://abdickers.github.io` and returns to `/HomePage/` after consent. Deploy `nest-service/wrangler.jsonc` with `--keep-vars`, preserving the existing secrets and KV namespace. The server-side Google OAuth callback remains on the existing Nest service origin. Partner Connections Manager supplies the Nest login hint; the app must not add a duplicate hint.
