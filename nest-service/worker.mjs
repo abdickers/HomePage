@@ -67,7 +67,8 @@ export default {async fetch(request,env){
   if(!ready(env))fail(503,'Nest service setup is incomplete. Server credentials are still needed.');
   if(url.pathname==='/auth/start'&&request.method==='GET'){
    const state=random();const auth=new URL(`https://nestservices.google.com/partnerconnections/${env.NEST_PROJECT_ID}/auth`);
-   for(const [k,v]of Object.entries({client_id:env.GOOGLE_CLIENT_ID,redirect_uri:url.origin+'/auth/callback',response_type:'code',scope:'openid email https://www.googleapis.com/auth/sdm.service',access_type:'offline',prompt:'consent',state,login_hint:env.OWNER_EMAIL}))auth.searchParams.set(k,v);
+   // PCM supplies its own login_hint after account selection; forwarding one duplicates it.
+   for(const [k,v]of Object.entries({client_id:env.GOOGLE_CLIENT_ID,redirect_uri:url.origin+'/auth/callback',response_type:'code',scope:'openid email https://www.googleapis.com/auth/sdm.service',access_type:'offline',prompt:'consent',state}))auth.searchParams.set(k,v);
    await putRecord(env,'state:'+await hash(state),{expires:Date.now()+600000},600);
    return new Response(null,{status:302,headers:{Location:auth.href,'Set-Cookie':`__Host-nest-state=${state}; Path=/; Secure; HttpOnly; SameSite=Lax; Max-Age=600`,'Cache-Control':'no-store','Referrer-Policy':'no-referrer'}});
   }

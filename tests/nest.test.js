@@ -10,9 +10,15 @@ test('valid ranges convert into a specific SDM command with no arbitrary params'
 test('public device projection omits unrelated traits and identifiers',()=>{const d=presentDevice({...thermostat,secret:'hidden',traits:{...thermostat.traits,'sdm.devices.traits.Info':{customName:'Hearth'},private:'hidden'}});assert.equal(d.name,'Hearth');assert.equal(d.id,'test');assert.equal(d.secret,undefined);assert.equal(d.traits,undefined);});
 test('oversized provider payloads fail without parsing unbounded bodies',async()=>{await assert.rejects(boundedJson(new Response('x'.repeat(100)),50),/size limit/);});
 test('health reveals only readiness, and setup never returns secrets',async()=>{const r=await worker.fetch(new Request('https://nest.test/health'),env);assert.deepEqual(await r.json(),{service:'sage-cabin',configured:true});const missing=await worker.fetch(new Request('https://nest.test/devices'),{...env,GOOGLE_CLIENT_SECRET:''});assert.equal(missing.status,503);assert.doesNotMatch(await missing.text(),/test-secret/);});
+test('Nest leaves login_hint to Partner Connections Manager and sends single-valued OAuth parameters',async()=>{
+ const start=await worker.fetch(new Request('https://nest.test/auth/start'),env),target=new URL(start.headers.get('Location'));
+ assert.equal(start.status,302);assert.equal(target.searchParams.has('login_hint'),false);
+ for(const name of target.searchParams.keys())assert.equal(target.searchParams.getAll(name).length,1);
+ assert.equal(target.searchParams.get('redirect_uri'),'https://nest.test/auth/callback');
+});
 test('OAuth rejects a work-account token and never stores it as the home owner',async t=>{
  const records=new Map(),calls=[];const local={...env,NEST_KV:{get:async k=>records.get(k)||null,put:async(k,v)=>{records.set(k,v);},delete:async k=>{records.delete(k);}}};
- const start=await worker.fetch(new Request('https://nest.test/auth/start'),local);const target=new URL(start.headers.get('Location'));const state=target.searchParams.get('state');assert.equal(target.hostname,'nestservices.google.com');assert.equal(target.searchParams.get('login_hint'),'abdickers@gmail.com');
+ const start=await worker.fetch(new Request('https://nest.test/auth/start'),local);const target=new URL(start.headers.get('Location'));const state=target.searchParams.get('state');assert.equal(target.hostname,'nestservices.google.com');
  t.mock.method(globalThis,'fetch',async(url)=>{calls.push(url);return Response.json(url.includes('/token')?{access_token:'mock-only',refresh_token:'mock-refresh',expires_in:3600}:{email:'dickersona@76fireworks.com',email_verified:true});});
  const callback=await worker.fetch(new Request('https://nest.test/auth/callback?code=mock&state='+state,{headers:{Cookie:'__Host-nest-state='+state}}),local);
  assert.equal(callback.status,403);assert.equal(records.has('owner'),false);assert.equal(calls.length,2);assert.doesNotMatch(await callback.text(),/mock-refresh|mock-only/);
