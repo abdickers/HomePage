@@ -11,18 +11,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css?v=20261015-wow8" />
   <link rel="stylesheet" href="css/realm-theme.css?v=20261015-wow8" />
-  <link rel="stylesheet" href="css/personal-realm.css?v=20261015-homewide1" />
-  <link rel="stylesheet" href="css/budget.css?v=20261016-budget4" />
-  <link rel="stylesheet" href="css/epic-realm.css?v=20261016-art1" />
+  <link rel="stylesheet" href="css/personal-realm.css?v=20261016-layout1" />
+  <link rel="stylesheet" href="css/budget.css?v=20261016-layout1" />
+  <link rel="stylesheet" href="css/epic-realm.css?v=20261016-layout1" />
   <link rel="stylesheet" href="css/realm-expansion.css?v=20261016-expansion2" />
   <link rel="stylesheet" href="css/command-controls.css?v=20261016-controls1" />
+  <link rel="stylesheet" href="css/dashboard-layout.css?v=20261016-layout1" />
 </head>
 <body data-command-realm="personal">
   <aside class="realm-sidebar" aria-label="Personal command center">
     <a class="realm-brand" href="#dashboard"><span class="realm-ring">A</span><span>THE COMMAND<br><strong>CENTER</strong></span></a>
     <nav class="realm-switch" aria-label="Command center"><a href="https://abdickers.github.io/HomePage/" aria-current="page">The Shire</a><a href="https://adams-middle-earth-command.spirit-of-76-1921.chatgpt.site/">Work</a></nav>
     <p class="realm-account">PERSONAL<br>abdickers@gmail.com</p>
-    <nav class="realm-nav" aria-label="Dashboard sections"><a href="#dashboard">◇ Overview</a><a href="#homePanel"><img class="nav-art" src="assets/redesign/icon-bag-end.webp" width="28" height="28" alt="" aria-hidden="true" loading="lazy" decoding="async" /><span>Bag End</span></a><a href="#budgetPanel">◇ The Treasury · Budget</a><a href="#wowPanel">⚔ WoW war room</a><a href="#dailyProvisioning">✦ Daily provisions</a></nav>
+    <nav class="realm-nav" aria-label="Dashboard sections"><a href="#dashboard">◇ Overview</a><a href="#homePanel"><img class="nav-art" src="assets/redesign/icon-bag-end.webp" width="28" height="28" alt="" aria-hidden="true" loading="lazy" decoding="async" /><span>Bag End</span></a><a href="#dailyProvisioning">✦ Daily provisions</a><a href="#wowPanel">⚔ WoW war room</a><a href="#budgetPanel">◇ The Treasury · Budget</a></nav>
     <p class="realm-account">One realm. One account.<br>A little less chaos.</p>
   </aside>
   <a class="skip-link" href="#dashboard">Skip to dashboard</a>
@@ -66,7 +67,7 @@
 
     <form class="command-bar" id="searchForm">
       <div class="palantir">
-        <img src="assets/palantir.svg" alt="" />
+        <img src="assets/redesign/icon-ai-orb.webp" width="58" height="64" alt="" aria-hidden="true" />
         <span>Palantir</span>
       </div>
       <label class="sr-only" for="searchInput">Search the web or your dashboard</label>
@@ -78,6 +79,7 @@
   </header>
 
   <main class="dashboard realm-dashboard" id="dashboard">
+    <div class="dashboard-stack realm-dashboard">
     <section class="panel calendar-panel art-frame elven-frame">
       <div class="panel-title">
         <div class="section-identity"><img class="section-icon" src="assets/redesign/icon-calendar.webp" width="64" height="64" alt="" aria-hidden="true" loading="lazy" decoding="async" /><div><span class="section-kicker">The days ahead</span><h2>The Calendar</h2></div></div>
@@ -100,6 +102,15 @@
       </div>
       <a class="wide-link" href="https://calendar.google.com/calendar/u/0/r" target="_blank" rel="noopener">Open Google Calendar</a>
     </section>
+
+    <section class="panel ai-panel art-frame elven-frame">
+      <div class="panel-title">
+        <div class="section-identity"><img class="section-icon" src="assets/redesign/icon-ai-orb.webp" width="64" height="64" alt="" aria-hidden="true" loading="lazy" decoding="async" /><div><span class="section-kicker">The seeing stones</span><h2>AI Tools</h2></div></div>
+      </div>
+      <div class="app-grid ai-grid" id="aiGrid"></div><p class="realm-account">ChatGPT: choose abdickers@gmail.com in its account switcher. ChatGPT shares the browser’s current login.</p>
+    </section>
+
+    </div>
 
     <section class="panel ravens-panel parchment-scroll" id="personalRavens">
       <div class="scroll-cap scroll-cap-top" aria-hidden="true"><img src="assets/redesign/ravens-roller-left.webp" width="180" height="176" alt="" decoding="async" /><span></span><img src="assets/redesign/ravens-roller-right.webp" width="180" height="176" alt="" decoding="async" /></div>
@@ -138,22 +149,6 @@
 
 </section>
 
-    <section class="panel budget-panel art-frame vault-frame treasury-panel" id="budgetPanel" aria-labelledby="budgetTitle">
-      <button id="treasuryEntrance" class="treasury-entrance" type="button" aria-label="Open the Treasury" aria-expanded="false" aria-controls="treasuryContent"><picture><source media="(max-width: 760px)" srcset="assets/expansion/treasury-hidden-mine-door-small.webp 480w, assets/expansion/treasury-hidden-mine-door.webp 960w" sizes="calc(100vw - 32px)" /><img src="assets/expansion/treasury-hidden-mine-door.webp" width="960" height="640" alt="" loading="lazy" decoding="async" /></picture><span class="treasury-door-caption"><span class="section-kicker">Beneath the Lonely Mountain</span><strong>Open the Treasury</strong><small>Budget &amp; bills</small></span></button>
-      <div id="treasuryTransition" class="treasury-transition" aria-hidden="true" hidden></div>
-      <div id="treasuryContent" class="treasury-content" hidden inert>
-      <span class="frame-medallion" aria-hidden="true"></span>
-      <div class="budget-heading"><div class="section-identity"><img class="section-icon" src="assets/redesign/icon-treasury.webp" width="64" height="64" alt="" aria-hidden="true" loading="lazy" decoding="async" /><div><span class="budget-eyebrow">YOUR PRIVATE FINANCIAL LEDGER</span><h2 id="budgetTitle">The Treasury</h2><p>Budget &amp; bills</p></div></div><div class="budget-actions"><button id="treasuryClose" type="button">Close Treasury</button><button id="budgetPrivacy" type="button" aria-pressed="true">Show amounts</button><button id="budgetRefresh" type="button" disabled>Refresh budget</button></div></div>
-      <p id="budgetState" role="status">Manage your personal Google connection in Settings to load the private budget.</p>
-
-      <div id="budgetPrivate" hidden>
-        <p id="budgetSandbox" class="budget-notice" hidden>Bank sandbox · test bank data only. Sandbox balances are excluded from real spending and balance estimates.</p>
-        <nav class="budget-tabs" aria-label="Budget views"><button type="button" data-budget-tab="overview" aria-pressed="true">At a glance</button><button type="button" data-budget-tab="bills" aria-pressed="false">Bills &amp; renewals</button><button type="button" data-budget-tab="spending" aria-pressed="false">Spending</button><button type="button" data-budget-tab="review" aria-pressed="false">Review</button><button type="button" data-budget-tab="connections" aria-pressed="false">Plans</button></nav>
-        <div id="budgetView"></div>
-      </div>
-      </div>
-    </section>
-
     <section class="panel provisions-panel oak-framed" id="dailyProvisioning">
       <div class="oak-frame" aria-hidden="true"><span class="oak-top-left"></span><span class="oak-top-right"></span><span class="oak-bottom-left"></span><span class="oak-bottom-right"></span><span class="oak-top"></span><span class="oak-bottom"></span><span class="oak-left"></span><span class="oak-right"></span></div>
       <div class="panel-title"><div class="section-identity"><img class="section-icon" src="assets/redesign/icon-provisions.webp" width="64" height="64" alt="" aria-hidden="true" loading="lazy" decoding="async" /><div><span class="section-kicker">Well stocked for the journey</span><h2>The Quartermaster</h2></div></div><span class="realm-account">DAILY PROVISIONS</span></div>
@@ -167,36 +162,9 @@
       <div class="receipt-columns"><section aria-label="Walmart receipt history"><h3>Walmart · the supply wagon</h3><div id="walmartReceipts"></div></section><section aria-label="Amazon receipt history"><h3>Amazon · the arriving caravans</h3><div id="amazonReceipts"></div></section></div>
     </section>
 
-    <section class="panel ai-panel art-frame elven-frame">
+    <section class="panel quick-panel art-frame vault-frame"><span class="frame-medallion" aria-hidden="true"></span>
       <div class="panel-title">
-        <div class="section-identity"><img class="section-icon" src="assets/redesign/icon-ai-orb.webp" width="64" height="64" alt="" aria-hidden="true" loading="lazy" decoding="async" /><div><span class="section-kicker">The seeing stones</span><h2>AI Tools</h2></div></div>
-      </div>
-      <div class="app-grid ai-grid" id="aiGrid"></div><p class="realm-account">ChatGPT: choose abdickers@gmail.com in its account switcher. ChatGPT shares the browser’s current login.</p>
-    </section>
-
-    <section class="panel wow-panel" id="wowPanel" aria-labelledby="wowTitle">
-      <div class="wow-heading"><div class="section-identity"><img class="section-icon" src="assets/redesign/icon-war-room.webp" width="64" height="64" alt="" aria-hidden="true" loading="lazy" decoding="async" /><div><span class="wow-eyebrow">YOUR ADVENTURES IN AZEROTH</span><h2 id="wowTitle">Frear’s War Room</h2><p>Your character. Your world. What’s happening next.</p></div></div><div class="wow-switch" role="group" aria-label="World of Warcraft edition"><button type="button" data-wow-edition="retail" aria-pressed="true">Retail</button><button type="button" data-wow-edition="forever" aria-pressed="false">WoW Forever</button></div></div>
-      <div class="wow-layout">
-        <article class="wow-character" aria-label="Frear character display">
-          <span class="wow-character-badge">CHAMPION OF THE ALLIANCE</span>
-          <a class="wow-portrait-link" href="https://worldofwarcraft.blizzard.com/en-us/character/us/grizzly-hills/frear/" target="_blank" rel="noopener noreferrer" aria-label="Open Frear’s Armory"><img id="frearPortrait" src="assets/redesign/frear-armory-trimmed.webp" width="547" height="611" alt="Full character Armory render of Frear, dwarf paladin" loading="lazy" /><img class="alliance-portrait-frame" src="assets/redesign/wow-alliance-portrait-frame.webp" width="1024" height="1536" alt="" aria-hidden="true" loading="lazy" decoding="async" /><span id="wowPortraitFallback" hidden>Frear’s portrait is unavailable. Open the Armory to view your character.</span></a>
-          <div class="wow-character-caption"><h3>Frear</h3><p id="wowCharacterContext">US Grizzly Hills · Dwarf Paladin</p><div class="wow-character-actions"><a href="https://worldofwarcraft.blizzard.com/en-us/character/us/grizzly-hills/frear/" target="_blank" rel="noopener noreferrer">Character &amp; gear ↗</a><a href="https://www.wowhead.com/dressing-room" target="_blank" rel="noopener noreferrer">3D dressing room ↗</a></div><small>Blizzard Armory portrait · saved appearance, Sep 15, 2026</small></div>
-        </article>
-        <div class="wow-briefing"><div class="wow-briefing-heading"><h3 id="wowEditionTitle">Today in Retail</h3><button id="wowRefresh" type="button">Refresh</button></div><p id="wowFeedState" role="status">Loading event schedules…</p><div id="wowEvents" class="wow-events"></div><p id="wowEventNote" class="wow-note"></p><a id="wowSource" class="wide-link" href="https://www.wowhead.com/today-in-wow" target="_blank" rel="noopener noreferrer">Full Today in WoW ↗</a></div>
-      </div>
-    </section>
-
-    <section class="panel tools-panel gondor-panel">
-      <div class="panel-title">
-        <div class="section-identity"><img class="gondor-crest" src="assets/redesign/gondor-white-tree-crest.webp" width="80" height="120" alt="" aria-hidden="true" loading="lazy" decoding="async" /><div><span class="section-kicker">The White City</span><h2>Tools &amp; Systems</h2></div></div>
-        <button id="addLink" type="button">Add Link</button>
-      </div>
-      <div class="app-grid tool-grid" id="toolGrid"></div>
-    </section>
-
-    <section class="panel quick-panel gondor-panel">
-      <div class="panel-title">
-        <div class="section-identity"><img class="section-icon" src="assets/redesign/icon-key.webp" width="64" height="64" alt="" aria-hidden="true" loading="lazy" decoding="async" /><div><span class="section-kicker">The keys to your realm</span><h2>Quick Access</h2></div></div>
+        <div class="section-identity"><img class="section-icon" src="assets/redesign/icon-key.webp" width="64" height="64" alt="" aria-hidden="true" loading="lazy" decoding="async" /><div><span class="section-kicker">The keys of Erebor</span><h2>Quick Access</h2></div></div>
       </div>
       <div class="quick-list" id="quickList"></div>
     </section>
@@ -241,6 +209,42 @@
       </div>
       <small id="weatherSource" role="status"></small>
       <button class="text-button" id="weatherLocation" type="button">Change location</button>
+    </section>
+
+    <section class="panel tools-panel art-frame elven-frame">
+      <div class="panel-title">
+        <div class="section-identity"><img class="section-icon" src="assets/redesign/icon-wisdom.webp" width="64" height="64" alt="" aria-hidden="true" loading="lazy" decoding="async" /><div><span class="section-kicker">The archives of Rivendell</span><h2>Tools &amp; Systems</h2></div></div>
+        <button id="addLink" type="button">Add Link</button>
+      </div>
+      <div class="app-grid tool-grid" id="toolGrid"></div>
+    </section>
+
+    <section class="panel wow-panel" id="wowPanel" aria-labelledby="wowTitle">
+      <div class="wow-heading"><div class="section-identity"><img class="section-icon" src="assets/redesign/icon-war-room.webp" width="64" height="64" alt="" aria-hidden="true" loading="lazy" decoding="async" /><div><span class="wow-eyebrow">YOUR ADVENTURES IN AZEROTH</span><h2 id="wowTitle">Frear’s War Room</h2><p>Your character. Your world. What’s happening next.</p></div></div><div class="wow-switch" role="group" aria-label="World of Warcraft edition"><button type="button" data-wow-edition="retail" aria-pressed="true">Retail</button><button type="button" data-wow-edition="forever" aria-pressed="false">WoW Forever</button></div></div>
+      <div class="wow-layout">
+        <article class="wow-character" aria-label="Frear character display">
+          <span class="wow-character-badge">CHAMPION OF THE ALLIANCE</span>
+          <a class="wow-portrait-link" href="https://worldofwarcraft.blizzard.com/en-us/character/us/grizzly-hills/frear/" target="_blank" rel="noopener noreferrer" aria-label="Open Frear’s Armory"><img id="frearPortrait" src="assets/redesign/frear-armory-trimmed.webp" width="547" height="611" alt="Full character Armory render of Frear, dwarf paladin" loading="lazy" /><img class="alliance-portrait-frame" src="assets/redesign/wow-alliance-portrait-frame.webp" width="1024" height="1536" alt="" aria-hidden="true" loading="lazy" decoding="async" /><span id="wowPortraitFallback" hidden>Frear’s portrait is unavailable. Open the Armory to view your character.</span></a>
+          <div class="wow-character-caption"><h3>Frear</h3><p id="wowCharacterContext">US Grizzly Hills · Dwarf Paladin</p><div class="wow-character-actions"><a href="https://worldofwarcraft.blizzard.com/en-us/character/us/grizzly-hills/frear/" target="_blank" rel="noopener noreferrer">Character &amp; gear ↗</a><a href="https://www.wowhead.com/dressing-room" target="_blank" rel="noopener noreferrer">3D dressing room ↗</a></div><small>Blizzard Armory portrait · saved appearance, Sep 15, 2026</small></div>
+        </article>
+        <div class="wow-briefing"><div class="wow-briefing-heading"><h3 id="wowEditionTitle">Today in Retail</h3><button id="wowRefresh" type="button">Refresh</button></div><p id="wowFeedState" role="status">Loading event schedules…</p><div id="wowEvents" class="wow-events"></div><p id="wowEventNote" class="wow-note"></p><a id="wowSource" class="wide-link" href="https://www.wowhead.com/today-in-wow" target="_blank" rel="noopener noreferrer">Full Today in WoW ↗</a></div>
+      </div>
+    </section>
+
+    <section class="panel budget-panel art-frame vault-frame treasury-panel" id="budgetPanel" aria-labelledby="budgetTitle">
+      <button id="treasuryEntrance" class="treasury-entrance" type="button" aria-label="Open the Treasury" aria-expanded="false" aria-controls="treasuryContent"><picture><source media="(max-width: 760px)" srcset="assets/expansion/treasury-hidden-mine-door-small.webp 480w, assets/expansion/treasury-hidden-mine-door.webp 960w" sizes="calc(100vw - 32px)" /><img src="assets/expansion/treasury-hidden-mine-door.webp" width="960" height="640" alt="" loading="lazy" decoding="async" /></picture><span class="treasury-door-caption"><span class="section-kicker">Beneath the Lonely Mountain</span><strong>Open the Treasury</strong><small>Budget &amp; bills</small></span></button>
+      <div id="treasuryTransition" class="treasury-transition" aria-hidden="true" hidden></div>
+      <div id="treasuryContent" class="treasury-content" hidden inert>
+      <span class="frame-medallion" aria-hidden="true"></span>
+      <div class="budget-heading"><div class="section-identity"><img class="section-icon" src="assets/redesign/icon-treasury.webp" width="64" height="64" alt="" aria-hidden="true" loading="lazy" decoding="async" /><div><span class="budget-eyebrow">YOUR PRIVATE FINANCIAL LEDGER</span><h2 id="budgetTitle">The Treasury</h2><p>Budget &amp; bills</p></div></div><div class="budget-actions"><button id="treasuryClose" type="button">Close Treasury</button><button id="budgetPrivacy" type="button" aria-pressed="true">Show amounts</button><button id="budgetRefresh" type="button" disabled>Refresh budget</button></div></div>
+      <p id="budgetState" role="status">Manage your personal Google connection in Settings to load the private budget.</p>
+
+      <div id="budgetPrivate" hidden>
+        <p id="budgetSandbox" class="budget-notice" hidden>Bank sandbox · test bank data only. Sandbox balances are excluded from real spending and balance estimates.</p>
+        <nav class="budget-tabs" aria-label="Budget views"><button type="button" data-budget-tab="overview" aria-pressed="true">At a glance</button><button type="button" data-budget-tab="bills" aria-pressed="false">Bills &amp; renewals</button><button type="button" data-budget-tab="spending" aria-pressed="false">Spending</button><button type="button" data-budget-tab="review" aria-pressed="false">Review</button><button type="button" data-budget-tab="connections" aria-pressed="false">Plans</button></nav>
+        <div id="budgetView"></div>
+      </div>
+      </div>
     </section>
 
     <section class="panel wisdom-panel art-frame elven-frame">

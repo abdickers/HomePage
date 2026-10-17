@@ -12,7 +12,6 @@
 .realm-dashboard > .panel { align-self: start; padding: 30px; }
 .realm-dashboard > .panel::before,
 .realm-dashboard > .panel::after { display: none; }
-.realm-dashboard > .panel { grid-row: auto !important; }
 .realm-dashboard .panel-title { gap: 16px; margin-bottom: 22px; padding-bottom: 18px; }
 .realm-dashboard .panel h2 { font-size: clamp(27px, 2.1vw, 36px); line-height: 1.08; }
 .realm-dashboard .panel p { line-height: 1.65; }
