@@ -1,0 +1,64 @@
+/* Bag End: home + weather, then an independent, uncropped camera viewport. */
+#homePanel .home-devices {
+  grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+  gap: 26px; align-items: start;
+}
+#homePanel .nest-hearth { padding: 30px; }
+#homePanel .weather-panel {
+  position: relative; isolation: isolate; min-width: 0; margin: 0;
+  grid-column: auto; grid-row: auto;
+  padding: 36px 32px; border: 0; border-radius: 4px;
+  background: radial-gradient(ellipse at 50% 0,#29433465,transparent 65%),#101e17;
+}
+#homePanel .weather-panel::before {
+  content: ''; display: block; position: absolute; inset: 0; z-index: -1;
+  width: auto; height: auto; border-radius: 0; opacity: 1; background: none;
+  border: 48px solid transparent; border-image: var(--art-border) var(--art-slice) / 48px / 0 round;
+  pointer-events: none;
+}
+#homePanel .weather-panel::after { display: none; }
+#homePanel .weather-panel .panel-title { min-height: 0; padding: 0 0 18px; margin: 0 0 18px; flex-wrap: wrap; }
+#homePanel .weather-panel h3 { margin: 0; font-size: clamp(26px,2.1vw,34px); line-height: 1.1; }
+#homePanel .weather-panel .section-icon { width: 48px; height: 54px; flex-basis: 48px; }
+#homePanel .weather-panel .section-kicker { font-size: 9px; }
+#homePanel .weather-main { margin-bottom: 18px; }
+#homePanel .weather-grid { margin-bottom: 16px; }
+#homePanel #weatherSource { display: block; overflow-wrap: anywhere; margin-bottom: 12px; }
+#homePanel .nest-watch { grid-column: 1/-1; min-width: 0; border-top: 1px solid #a28b5855; padding-top: 22px; }
+#homePanel .gate-label { margin: 0 0 16px; font: 600 28px/1.2 'Cormorant Garamond',Georgia,serif; color: #f2dfb2; }
+#homePanel .camera-preview {
+  display: block; position: relative; width: 100%; height: auto;
+  aspect-ratio: 16/9; min-height: 0; padding: 0; overflow: hidden;
+  border: 1px solid #b6995980; border-radius: 5px; background: #080e0b;
+}
+#homePanel #nestCameraArt { position: absolute; inset: 0; pointer-events: none; }
+#homePanel #nestCameraArt img { display: block; width: 100%; height: 100%; object-fit: contain; }
+#homePanel #nestVideo {
+  position: absolute; inset: 0; display: block; width: 100%; height: 100%;
+  min-height: 0; max-height: none; object-fit: contain; object-position: center; background: #050a08;
+}
+#homePanel .camera-toolbar { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 16px 24px; margin-top: 18px; }
+#homePanel .camera-selection { display: grid; gap: 7px; min-width: 0; flex: 1 1 240px; max-width: 440px; }
+#homePanel .camera-selection label { font-size: 12px; color: #d9c69d; }
+#homePanel .camera-selection select { width: 100%; }
+#homePanel #nestCameraInfo { color: #bdc7b6; line-height: 1.5; overflow-wrap: anywhere; }
+#homePanel .camera-toolbar .media-actions { margin: 0; gap: 10px; }
+#homePanel .nest-footer { margin: 12px 0 0; }
+#homePanel #nestStatus { margin: 0; }
+@media(max-width:1199px) {
+  #homePanel .home-devices { grid-template-columns: minmax(0,1fr); }
+}
+@media(max-width:760px) {
+  #homePanel .home-devices { gap: 22px; }
+  #homePanel .nest-hearth { padding: 20px 14px; }
+  #homePanel .weather-panel { padding: 32px 22px; }
+  #homePanel .weather-panel::before { border-width: 40px; border-image-width: 40px; }
+  #homePanel .weather-panel .section-identity { gap: 10px; }
+  #homePanel .weather-panel .section-icon { width: 38px; height: 44px; flex-basis: 38px; }
+  #homePanel .weather-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  #homePanel .weather-grid span { overflow-wrap: anywhere; }
+  #homePanel .camera-selection { flex-basis: 100%; max-width: none; }
+  #homePanel .camera-toolbar .media-actions { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); width: 100%; }
+  #homePanel .camera-toolbar .media-actions > * { min-width: 0; }
+  #homePanel .camera-toolbar .media-actions a { grid-column: 1/-1; }
+}
