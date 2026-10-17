@@ -1,0 +1,20 @@
+[
+  {
+    "file": "assets/wow-section-border.png",
+    "size": [
+      1536,
+      1024
+    ],
+    "mode": "RGBA",
+    "center_alpha": 0
+  },
+  {
+    "file": "assets/wow-news-card-border.png",
+    "size": [
+      1536,
+      1024
+    ],
+    "mode": "RGBA",
+    "center_alpha": 0
+  }
+]

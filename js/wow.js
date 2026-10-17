@@ -15,7 +15,7 @@ function render(){
  const stamp=Date.parse(snapshot.updated),stale=!Number.isFinite(stamp)||Date.now()-stamp>3*3600000;
  $('wowFeedState').textContent=`${stale?'Schedule may be out of date · ':''}Wowhead snapshot · ${Number.isFinite(stamp)?new Date(stamp).toLocaleString([],{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}):'unknown update time'}${error?' · Refresh failed; showing saved schedule':''}`;
  const rows=eventRows(snapshot,edition);
- $('wowEvents').innerHTML=rows.length?rows.map(row=>`<a class="wow-event ${row.active?'is-active':''}" href="${escape(safeWowURL(row.url,$('wowSource').href))}" target="_blank" rel="noopener noreferrer"><span class="wow-event-label">${escape(row.label)}</span><h4>${escape(row.name)}</h4><p>${escape(row.detail)}</p><span class="wow-event-link">Details ↗</span></a>`).join(''):'<p class="wow-empty">No current schedule is available in this snapshot. Open the full calendar for the latest events.</p>';
+ $('wowEvents').innerHTML=rows.length?rows.map(row=>`<a class="wow-event warcraft-story-frame ${row.active?'is-active':''}" href="${escape(safeWowURL(row.url,$('wowSource').href))}" target="_blank" rel="noopener noreferrer"><span class="warcraft-story-border" aria-hidden="true"></span><span class="wow-event-label">${escape(row.label)}</span><h4>${escape(row.name)}</h4><p>${escape(row.detail)}</p><span class="wow-event-link">Details ↗</span></a>`).join(''):'<p class="wow-empty">No current schedule is available in this snapshot. Open the full calendar for the latest events.</p>';
 }
 async function load(){
  $('wowRefresh').disabled=true;error='';

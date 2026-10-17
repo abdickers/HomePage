@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="css/realm-expansion.css?v=20261016-expansion2" />
   <link rel="stylesheet" href="css/command-controls.css?v=20261016-controls1" />
   <link rel="stylesheet" href="css/dashboard-layout.css?v=20261016-layout1" />
+  <link rel="stylesheet" href="css/warcraft-frames.css?v=20261016-warcraft1" />
 </head>
 <body data-command-realm="personal">
   <aside class="realm-sidebar" aria-label="Personal command center">
@@ -219,7 +220,8 @@
       <div class="app-grid tool-grid" id="toolGrid"></div>
     </section>
 
-    <section class="panel wow-panel" id="wowPanel" aria-labelledby="wowTitle">
+    <section class="panel wow-panel warcraft-section-frame" id="wowPanel" aria-labelledby="wowTitle">
+      <div class="warcraft-section-border" aria-hidden="true"></div><img class="warcraft-section-lion" src="assets/warcraft/wow-section-lion.webp" width="312" height="180" alt="" aria-hidden="true" loading="lazy" decoding="async" /><img class="warcraft-section-seal" src="assets/warcraft/wow-section-seal.webp" width="144" height="112" alt="" aria-hidden="true" loading="lazy" decoding="async" />
       <div class="wow-heading"><div class="section-identity"><img class="section-icon" src="assets/redesign/icon-war-room.webp" width="64" height="64" alt="" aria-hidden="true" loading="lazy" decoding="async" /><div><span class="wow-eyebrow">YOUR ADVENTURES IN AZEROTH</span><h2 id="wowTitle">Frear’s War Room</h2><p>Your character. Your world. What’s happening next.</p></div></div><div class="wow-switch" role="group" aria-label="World of Warcraft edition"><button type="button" data-wow-edition="retail" aria-pressed="true">Retail</button><button type="button" data-wow-edition="forever" aria-pressed="false">WoW Forever</button></div></div>
       <div class="wow-layout">
         <article class="wow-character" aria-label="Frear character display">
@@ -307,6 +309,6 @@
   <dialog id="budgetDialog" aria-label="Budget editor"><div id="budgetDialogBody"></div></dialog>
   <script type="module" src="js/realm-expansion.js?v=20261016-expansion1"></script>
   <script type="module" src="js/app.js?v=20261016-controls1"></script>
-  <script type="module" src="js/wow.js?v=20261015-wow8"></script>
+  <script type="module" src="js/wow.js?v=20261016-warcraft1"></script>
 </body>
 </html>

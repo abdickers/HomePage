@@ -1,0 +1,77 @@
+/* WarcraftSectionFrame and WarcraftStoryFrame: artwork is decoration only.
+   Quiet iron rails repeat; the original lion, seal and corner gems stay fixed. */
+#dashboard > #wowPanel.warcraft-section-frame {
+  position: relative; isolation: isolate; overflow: visible;
+  padding: 96px 48px 52px; border: 0; border-radius: 0;
+  box-shadow: 0 20px 40px #0005;
+}
+#wowPanel .warcraft-section-border,
+#wowPanel .warcraft-story-border {
+  position: absolute; pointer-events: none; z-index: 1;
+  border-style: solid; border-color: transparent;
+}
+#wowPanel .warcraft-section-border {
+  inset: 18px 0 0; border-width: 72px;
+  border-image: url('../assets/warcraft/wow-section-border-nine-slice.webp') 336 / 72px / 0 round;
+}
+#wowPanel .warcraft-section-lion,
+#wowPanel .warcraft-section-seal {
+  position: absolute; left: 50%; transform: translateX(-50%);
+  object-fit: contain; height: auto; pointer-events: none; z-index: 2;
+}
+#wowPanel .warcraft-section-lion { top: -2px; width: 144px; }
+#wowPanel .warcraft-section-seal { bottom: 4px; width: 48px; }
+#wowPanel .wow-heading { position: relative; margin-bottom: 24px; }
+#wowPanel .wow-layout { position: relative; }
+#wowPanel .wow-briefing { min-width: 0; container-type: inline-size; }
+#wowPanel .wow-events {
+  align-content: start; align-items: start; grid-auto-rows: max-content;
+  gap: 16px; padding: 8px; max-height: 760px;
+  scroll-padding-block: 8px; scrollbar-gutter: stable;
+}
+#wowPanel .wow-event.warcraft-story-frame {
+  position: relative; isolation: isolate; overflow: visible;
+  padding: 32px; border: 0; border-radius: 0;
+  background: none; box-shadow: none;
+}
+#wowPanel .wow-event.warcraft-story-frame::before {
+  content: ''; position: absolute; inset: 16px 12px; z-index: -1;
+  background: linear-gradient(135deg,#f0e2bf,#d5bd8f);
+  box-shadow: 0 4px 8px #0003; pointer-events: none;
+}
+#wowPanel .warcraft-story-border {
+  inset: 0; border-width: 36px;
+  border-image: url('../assets/warcraft/wow-news-card-border-nine-slice.webp') 216 / 36px / 0 round;
+}
+#wowPanel .wow-event.warcraft-story-frame:hover::before { background: linear-gradient(135deg,#fff0ce,#e3cda2); }
+#wowPanel .wow-event.warcraft-story-frame:focus-visible {
+  outline: 3px solid #ffe3a0; outline-offset: 3px; z-index: 3;
+}
+#wowPanel .wow-event-label { display: block; line-height: 1.5; }
+#wowPanel .wow-event.is-active .wow-event-label { color: #234a30; }
+#wowPanel .wow-event h4 { overflow-wrap: anywhere; }
+body[data-command-realm] #wowPanel .wow-switch button {
+  border-color: #627e9c; background: #172c45; color: #edf3fb;
+}
+body[data-command-realm] #wowPanel .wow-switch button[aria-pressed=true] {
+  border-color: #dfbb6c; background: linear-gradient(#315b85,#173b65);
+  color: #ffdfa0; box-shadow: inset 0 -3px #c6a257;
+}
+body[data-command-realm] #wowPanel .wow-switch button:hover:not(:disabled) {
+  border-color: #dfbb6c; background: linear-gradient(#345b7f,#1a3553);
+}
+@container(max-width:650px) {
+  #wowPanel .wow-events { grid-template-columns: minmax(0,1fr); }
+}
+@media(max-width:1000px) {
+  #wowPanel .wow-events { max-height: none; }
+}
+@media(max-width:760px) {
+  #dashboard > #wowPanel.warcraft-section-frame { padding: 84px 24px 40px; }
+  #wowPanel .warcraft-section-border { border-width: 48px; border-image-width: 48px; }
+  #wowPanel .warcraft-section-lion { top: 1px; width: 108px; }
+  #wowPanel .warcraft-section-seal { bottom: 1px; width: 36px; }
+  #wowPanel .wow-event.warcraft-story-frame { padding: 28px 26px; }
+  #wowPanel .wow-event.warcraft-story-frame::before { inset: 14px 10px; }
+  #wowPanel .warcraft-story-border { border-width: 30px; border-image-width: 30px; }
+}
