@@ -28,6 +28,7 @@ test('Google restores an existing browser session without OAuth and reads only t
  await connection.connect();await connection.read('https://www.googleapis.com/calendar/v3/calendars/primary/events');
  assert.ok(calls.every(call=>call.url.startsWith(origin+'/google/')));assert.ok(calls.every(call=>call.options.headers.Authorization==='Bearer '+credential));
  assert.equal(calls.length,2);connection.disconnect();assert.equal(connection.connected(),false);assert.equal(readSession(win.localStorage,'google',origin),null);
+ assert.ok(calls.every(call=>call.options.credentials==='same-origin'));
  assert.equal(calls.at(-1).url,origin+'/google/disconnect');
 });
 test('revoked Google sessions are forgotten, while temporary gateway errors preserve them for retry',async()=>{

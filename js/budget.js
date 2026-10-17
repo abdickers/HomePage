@@ -16,7 +16,7 @@ export function initBudget({connection,serviceUrl,fetcher=globalThis.fetch.bind(
   const sourceLink=url=>{try{const u=new URL(url);return u.protocol==='https:'&&u.hostname==='mail.google.com'?`<a href="${esc(u.href)}" target="_blank" rel="noopener noreferrer">Source email ↗</a>`:'';}catch{return '';}};
   async function request(path,input) {
     const credential=connection.sessionId(),generation=epoch;if(!credential||!connection.connected())throw Error('Sign in with your primary personal Google account first.');
-    const response=await fetcher(base+'/budget'+path,{method:input===undefined?'GET':'POST',headers:{Authorization:'Bearer '+credential,...(input===undefined?{}:{'Content-Type':'application/json'})},...(input===undefined?{}:{body:JSON.stringify(input)}),credentials:'omit',cache:'no-store',signal:AbortSignal.timeout(path==='/sync'?90000:30000)});
+    const response=await fetcher(base+'/budget'+path,{method:input===undefined?'GET':'POST',headers:{Authorization:'Bearer '+credential,Accept:'application/json',...(input===undefined?{}:{'Content-Type':'application/json'})},...(input===undefined?{}:{body:JSON.stringify(input)}),credentials:'same-origin',cache:'no-store',signal:AbortSignal.timeout(path==='/sync'?90000:30000)});
     const body=await response.json();if(generation!==epoch||credential!==connection.sessionId())throw Error('The budget connection changed; reload this view.');
     if(!response.ok){if(response.status===401){clear();connection.disconnect();}throw Error((body.error||'The private budget service could not complete the request.')+(body.code&&body.code!=='BUDGET_ERROR'?' ['+body.code+']':''));}
     return body;
@@ -92,7 +92,7 @@ export function initBudget({connection,serviceUrl,fetcher=globalThis.fetch.bind(
     openLink(stored,false);
   }
   let plaidScript;
-  function loadPlaid(){if(window.Plaid)return Promise.resolve();if(plaidScript)return plaidScript;plaidScript=new Promise((resolve,reject)=>{const script=document.createElement('script');script.src='https://cdn.plaid.com/link/v2/stable/link-initialize.js';script.referrerPolicy='no-referrer';script.onload=()=>window.Plaid?resolve():reject(Error('Plaid Link did not load.'));script.onerror=()=>{plaidScript=null;reject(Error('Plaid Link could not load.'));};document.head.append(script);});return plaidScript;}
+  function loadPlaid(){if(window.Plaid)return Promise.resolve();if(plaidScript)return plaidScript;plaidScript=new Promise((resolve,reject)=>{const script=document.createElement('script');script.src='https://cdn.plaid.com/link/v2/stable/link-initialize.js';script.nonce=document.querySelector('meta[name=csp-nonce]')?.content||'';script.referrerPolicy='no-referrer';script.onload=()=>window.Plaid?resolve():reject(Error('Plaid Link did not load.'));script.onerror=()=>{plaidScript=null;reject(Error('Plaid Link could not load.'));};document.head.append(script);});return plaidScript;}
   function clearLink(){try{sessionStorage.removeItem('sage_budget_link');}catch{}const url=new URL(location.href);if(url.searchParams.has('oauth_state_id')){url.searchParams.delete('oauth_state_id');history.replaceState(null,'',url.pathname+url.search+'#budgetPanel');}}
   function openLink(stored,resume){
     // Plaid's iframe is outside the native Settings dialog. Release the modal

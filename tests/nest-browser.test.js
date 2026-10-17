@@ -15,6 +15,7 @@ function fixture(t){
 test('Nest restores its remembered credential on page startup and signing out removes it',async t=>{
  const f=fixture(t);rememberSession(f.storage,'nest',origin,credential,Date.now()+10000);initNest(origin);await tick();await tick();
  const read=f.calls.find(call=>call.url.endsWith('/devices'));assert.equal(read.options.headers.Authorization,'Bearer '+credential);assert.match(f.element('nestStatus').textContent,/sign-in remembered/);
+ assert.equal(read.options.credentials,'same-origin');
  assert.ok(readSession(f.storage,'nest',origin).expiresAt>Date.now()+29*86400000);
  await f.element('nestDisconnect').listeners.click();assert.equal(readSession(f.storage,'nest',origin),null);assert.equal(f.element('nestDisconnect').hidden,true);assert.ok(f.calls.some(call=>call.url.endsWith('/disconnect')));
 });

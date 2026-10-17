@@ -24,7 +24,7 @@
 <body data-command-realm="personal">
   <aside class="realm-sidebar" aria-label="Personal command center">
     <a class="realm-brand" href="#dashboard"><span class="realm-ring">A</span><span>THE COMMAND<br><strong>CENTER</strong></span></a>
-    <nav class="realm-switch" aria-label="Command center"><a href="https://abdickers.github.io/HomePage/" aria-current="page">The Shire</a><a href="https://adams-middle-earth-command.spirit-of-76-1921.chatgpt.site/">Work</a></nav>
+    <nav class="realm-switch" aria-label="Command center"><a href="./" aria-current="page">The Shire</a><a href="https://adams-middle-earth-command.spirit-of-76-1921.chatgpt.site/">Work</a></nav>
     <p class="realm-account">PERSONAL<br>abdickers@gmail.com</p>
     <nav class="realm-nav" aria-label="Dashboard sections"><a href="#dashboard">◇ Overview</a><a href="#homePanel"><img class="nav-art" src="assets/redesign/icon-bag-end.webp" width="28" height="28" alt="" aria-hidden="true" loading="lazy" decoding="async" /><span>Bag End</span></a><a href="#dailyProvisioning">✦ Daily provisions</a><a href="#wowPanel">⚔ WoW war room</a><a href="#budgetPanel">◇ The Treasury · Budget</a></nav>
     <p class="realm-account">One realm. One account.<br>A little less chaos.</p>
@@ -296,6 +296,7 @@
             <div class="settings-actions"><button id="nestConnect" type="button">Connect personal Nest</button><button id="nestDisconnect" type="button" hidden>Sign out</button></div><p class="help">abdickers@gmail.com · Nest remembers this browser for up to 30 days, renewed while active. Sign out to forget it. Video stops when you leave this tab.</p>
           </section>
         </div>
+        <section id="privateSiteAccess" class="settings-card" hidden><h3>Private site access</h3><p>Cloudflare Zero Trust protects this site. Only your two approved email addresses can sign in.</p><button id="privateSiteLogout" type="button">Sign out of private site</button></section>
         <section class="settings-card settings-budget"><div class="settings-card-heading"><img src="assets/redesign/icon-treasury.webp" width="48" height="48" alt="" /><div><h3>Treasury sources</h3><p>Bank, email discovery &amp; synchronization</p></div></div>
           <p id="budgetSettingsState" class="connection-status" role="status">Connect personal Google to manage private budget sources.</p>
           <button id="budgetUnlock" type="button">Load private budget</button><div id="budgetConnections" tabindex="-1"></div>
@@ -325,7 +326,8 @@
   </dialog>
   <dialog id="budgetDialog" aria-label="Budget editor"><div id="budgetDialogBody"></div></dialog>
   <script type="module" src="js/realm-expansion.js?v=20261016-expansion1"></script>
-  <script type="module" src="js/app.js?v=20261017-treasury1"></script>
+  <script type="module" src="js/private-site.js?v=20261017-private1"></script>
+  <script type="module" src="js/app.js?v=20261017-private1"></script>
   <script type="module" src="js/wow.js?v=20261016-warcraft1"></script>
 </body>
 </html>
