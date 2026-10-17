@@ -53,6 +53,11 @@ body[data-command-realm] .wide-link { display: flex; width: 100%; }
 body[data-command-realm] .realm-dashboard .provision-card>a { padding: 8px 13px; }
 body[data-command-realm] :is(#settingsDialog,#linkDialog,#searchDialog) .dialog-heading>button { width: 42px; height: 42px; padding: 0; flex: 0 0 auto; font-size: 24px; }
 body[data-command-realm] .button-label:focus-within { outline: 3px solid #e5c985; outline-offset: 3px; }
+.realm-nav a { display: flex; align-items: center; gap: 10px; min-height: 48px; padding: 10px 6px; }
+.realm-nav .nav-art { flex: 0 0 28px; }
+.realm-nav a>span { min-width: 0; line-height: 1.35; }
+.realm-nav a small { display: block; margin-top: 3px; font-size: 10px; color: #bfc6b4; }
+.realm-nav a:focus-visible { outline: 3px solid #e5c985; outline-offset: 2px; }
 .media-actions label { display: grid; gap: 6px; font-size: 12px; color: #c8ceb9; }
 .media-actions { align-items: end; }
 .nest-controls>.media-actions+.media-actions { margin-top: 14px; }
@@ -60,14 +65,24 @@ body[data-command-realm] .button-label:focus-within { outline: 3px solid #e5c985
 .nest-footer>p { margin: 0; }
 
 /* The paper has room to breathe without a row of account administration. */
-.scroll-content { padding: 18px 14px 16px; }
+.scroll-content { padding: 20px 14px 18px; }
 .realm-dashboard .scroll-paper .panel-title { margin-bottom: 14px; padding-bottom: 14px; }
-.scroll-paper #ravensCaption { margin: 12px 0 8px; font-size: 12px; }
-.scroll-paper #ravensState { margin: 0 0 8px; font-size: 12px; line-height: 1.5; }
-.scroll-paper .daily-list { max-height: 460px; }
-.scroll-paper .daily-entry { padding-block: 13px; }
+.scroll-paper #ravensCaption { margin: 10px 0 6px; font-size: 12px; line-height: 1.6; overflow-wrap: anywhere; }
+.scroll-paper #ravensState { margin: 0 0 14px; font-size: 12px; line-height: 1.5; }
+.scroll-paper .daily-list {
+  max-height: 460px; align-content: start; grid-auto-rows: max-content;
+  padding: 6px 12px 6px 6px; scrollbar-gutter: stable;
+  scroll-padding-block: 8px; overflow-anchor: none;
+  border-block: 1px solid #98744955; background: #fff4d524;
+}
+.scroll-paper .daily-list:empty { display: none; }
+.scroll-paper .daily-entry { padding-block: 16px; align-items: start; }
+.scroll-paper .daily-entry:last-child { border-bottom: 0; }
+.scroll-paper .daily-entry>span:nth-child(2) { min-width: 0; display: grid; gap: 4px; }
+.scroll-paper .daily-entry>span[aria-hidden=true]:last-child { line-height: 28px; }
+.scroll-paper .daily-entry time { margin-top: 2px; line-height: 1.5; }
 .scroll-paper .daily-entry>span>span:last-of-type { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
-.scroll-paper .daily-feed-footer { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin-top: 16px; padding-top: 14px; border-top: 1px solid #98744955; }
+.scroll-paper .daily-feed-footer { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin-top: 14px; padding-top: 0; border: 0; }
 .scroll-paper #mailReadAt { margin-left: auto; }
 .calendar-actions:empty { display: none; }
 .realm-dashboard .home-panel .home-privacy { display: none; }
@@ -140,7 +155,10 @@ body[data-command-realm] .button-label:focus-within { outline: 3px solid #e5c985
   .realm-dashboard>.bree-news.oak-framed { padding: 62px 30px 44px; }
   .realm-dashboard .bree-news .news-item { padding: 24px 12px 16px; }
   .realm-dashboard .bree-news .news-item>a { font-size: 19px; }
-  .scroll-content { padding: 16px 6px 14px; }
+  .scroll-content { padding: 16px 6px; }
+  .scroll-paper .daily-list { padding-inline: 5px 8px; }
+  .scroll-paper .daily-entry { grid-template-columns: 24px minmax(0,1fr) 12px; gap: 8px; padding-block: 14px; }
+  .scroll-paper .raven-seal { width: 24px; height: 24px; }
   .scroll-paper #mailReadAt { width: 100%; margin-left: 0; font-size: 11px; }
   #settingsDialog { width: calc(100vw - 24px); max-height: calc(100dvh - 24px); }
   #settingsDialog>.dialog-heading { padding: 19px 17px 16px; }
@@ -154,4 +172,14 @@ body[data-command-realm] .button-label:focus-within { outline: 3px solid #e5c985
   .settings-actions>button { flex: 1 1 auto; }
   .settings-card :is(button,p,a) { overflow-wrap: anywhere; }
   .nest-footer>.media-actions { justify-content: start; }
+}
+
+/* On a phone, the seal belongs beside the sender; the letter uses the full width. */
+@media(max-width:480px) {
+  .scroll-paper .daily-entry { row-gap: 7px; }
+  .scroll-paper .daily-entry>span:nth-child(2) { display: contents; }
+  .scroll-paper .raven-seal { grid-column: 1; grid-row: 1; }
+  .scroll-paper .daily-entry>span:nth-child(2)>small { grid-column: 2; grid-row: 1; align-self: center; }
+  .scroll-paper .daily-entry>span:nth-child(2)>:is(strong,span,time) { grid-column: 1/-1; }
+  .scroll-paper .daily-entry>span[aria-hidden=true]:last-child { grid-column: 3; grid-row: 1; }
 }

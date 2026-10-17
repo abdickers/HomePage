@@ -128,9 +128,10 @@ export function initPersonalMail(getClientId,connection=null){
   if(activeEpoch!==epoch||activeToken!==token||clientId!==getClientId())throw Error('Connection changed. Refresh the feed.');
   return {messages:results,cursor:page.nextPageToken||''};
  }
- function renderMail(){
+ function renderMail(resetScroll=false){
   const rows=uniqueConversations(mailItems);
   $('ravensList').innerHTML=rows.map(row=>`<a class="daily-entry" href="${esc(row.href)}" target="_blank" rel="noopener noreferrer"><span class="raven-seal" aria-hidden="true">✉</span><span><small>${esc(row.sender)}</small><strong>${esc(row.subject)}</strong><span>${esc(row.snippet)}</span><time>${esc(stamp(row.timestamp))}</time></span><span aria-hidden="true">↗</span></a>`).join('');
+  if(resetScroll)$('ravensList').scrollTop=0;
   $('ravensState').textContent=rows.length?`${rows.length} unread conversations shown${mailCursor?' · more available':''}.`:'No unread conversations in this inbox.';
  }
  async function loadMail(more=false){
@@ -139,7 +140,7 @@ export function initPersonalMail(getClientId,connection=null){
   try{
    await authorize();const result=await list(INBOX_QUERIES[category],more?mailCursor:'','metadata');
    if(request!==mailRequest||category!==active)return;
-   mailItems=more?[...mailItems,...result.messages]:result.messages;mailCursor=result.cursor;renderMail();$('mailReadAt').textContent='Read '+new Date().toLocaleTimeString([],{hour:'numeric',minute:'2-digit'});
+   mailItems=more?[...mailItems,...result.messages]:result.messages;mailCursor=result.cursor;renderMail(!more);$('mailReadAt').textContent='Read '+new Date().toLocaleTimeString([],{hour:'numeric',minute:'2-digit'});
   }catch(error){if(request!==mailRequest)return;$('ravensState').textContent=error.name==='AbortError'?'Read cancelled.':error.message;}
   finally{if(request===mailRequest)mailBusy=false;setControls();}
  }
