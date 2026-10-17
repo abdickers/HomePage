@@ -1,0 +1,68 @@
+/* One layout map, in the same order as the HTML and keyboard reading order.
+   Ravens sits beside Calendar + AI; wide sections keep their natural height. */
+#dashboard.realm-dashboard {
+  grid-template-columns: repeat(12,minmax(0,1fr));
+  grid-template-areas:
+    'prelude prelude prelude prelude prelude ravens ravens ravens ravens ravens ravens ravens'
+    'home home home home home home home home home home home home'
+    'provisions provisions provisions provisions provisions provisions quick quick quick quick quick quick'
+    'news news news news news news news news weather weather weather weather'
+    'tools tools tools tools tools tools tools tools tools tools tools tools'
+    'warcraft warcraft warcraft warcraft warcraft warcraft warcraft warcraft warcraft warcraft warcraft warcraft'
+    'treasury treasury treasury treasury treasury treasury treasury treasury treasury treasury treasury treasury'
+    'wisdom wisdom wisdom wisdom wisdom wisdom wisdom wisdom wisdom wisdom wisdom wisdom';
+  grid-auto-flow: row; align-items: start;
+}
+#dashboard > .dashboard-stack { grid-area: prelude; display: flex; flex-direction: column; gap: 26px; min-width: 0; margin: 0; }
+#dashboard > .dashboard-stack > .panel { width: 100%; flex: 0 0 auto; }
+#dashboard > .panel { grid-column: auto; grid-row: auto; }
+#dashboard > .ravens-panel { grid-area: ravens; }
+#dashboard > .home-panel { grid-area: home; }
+#dashboard > .provisions-panel { grid-area: provisions; }
+#dashboard > .quick-panel { grid-area: quick; }
+#dashboard > .news-panel { grid-area: news; }
+#dashboard > .weather-panel { grid-area: weather; }
+#dashboard > .tools-panel { grid-area: tools; }
+#dashboard > .wow-panel { grid-area: warcraft; }
+#dashboard > .budget-panel { grid-area: treasury; }
+#dashboard > .wisdom-panel { grid-area: wisdom; }
+
+/* Same supplied seeing-stone artwork as the AI Tools heading, with its stand. */
+.hero .palantir img { width: 58px; height: 64px; object-fit: contain; border-radius: 0; box-shadow: none; filter: drop-shadow(0 0 10px #7bbff025); }
+#dashboard .ai-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 14px; }
+#dashboard .ai-panel .app-card { min-height: 100px; }
+#dashboard .ai-panel .panel-title { margin-bottom: 18px; }
+@media(min-width:761px) {
+  #dashboard .calendar-body { grid-template-columns: 108px minmax(0,1fr); }
+}
+
+/* Erebor's stone, bronze rails, and the existing fixed-proportion gem. */
+#dashboard > .quick-panel { padding: 56px 48px 52px; }
+#dashboard .quick-panel .quick-list { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; }
+#dashboard .quick-panel .quick-item { grid-template-columns: 24px minmax(0,1fr); gap: 10px; min-height: 58px; padding: 12px; border: 1px solid #9b865749; border-radius: 3px; background: linear-gradient(145deg,#26302b,#151e1a); color: #efe5cf; }
+#dashboard .quick-panel .quick-item:hover { border-color: #c1a568; background: #2c382e; }
+#dashboard .quick-panel .quick-item .chevron { display: none; }
+#dashboard .quick-panel .panel-title { border-color: #9b865749; }
+#dashboard .quick-panel .section-kicker { color: #d2b97f; }
+
+/* Rivendell's Elven border surrounds quiet, readable HTML tool tiles. */
+#dashboard .tools-panel .tool-grid { grid-template-columns: repeat(auto-fit,minmax(156px,1fr)); gap: 16px; }
+#dashboard .tools-panel .app-card { min-height: 122px; background: linear-gradient(145deg,#1c3025,#0c1c14); border-color: #a28b584a; }
+#dashboard .tools-panel .app-card:hover { border-color: #c2ac77; background: #243c2c; }
+#dashboard .tools-panel .app-icon:has(img[src*='github.svg']) { background: #e5e3dc; }
+#dashboard .tools-panel .panel-title { flex-wrap: wrap; }
+#dashboard #addLink { flex-shrink: 0; white-space: nowrap; }
+
+@media(max-width:1199px) {
+  #dashboard.realm-dashboard {
+    grid-template-columns: minmax(0,1fr);
+    grid-template-areas: 'prelude' 'ravens' 'home' 'provisions' 'quick' 'news' 'weather' 'tools' 'warcraft' 'treasury' 'wisdom';
+  }
+}
+@media(max-width:760px) {
+  #dashboard > .quick-panel { padding: 48px 28px 44px; }
+  #dashboard .tools-panel .tool-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; }
+}
+@media(max-width:480px) {
+  #dashboard .quick-panel .quick-list { grid-template-columns: minmax(0,1fr); }
+}

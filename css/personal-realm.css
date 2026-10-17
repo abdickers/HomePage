@@ -59,20 +59,6 @@ body.ember-mode[data-command-realm]{--panel:#28291c;--panel-alt:#151d13;--gold:#
 .tools-panel,.news-panel{grid-column:span 8}
 .quick-panel,.weather-panel{grid-column:span 4}
 .wisdom-panel{grid-column:1/-1}
-@media(min-width:1281px){
- .calendar-panel{grid-column:1/span 4;grid-row:1!important}
- .ravens-panel{grid-column:5/-1;grid-row:1!important}
- .home-panel{grid-row:2!important}
- .provisions-panel{grid-column:1/span 8;grid-row:3!important}
- .ai-panel{grid-column:9/-1;grid-row:3!important;align-self:start}
- .ai-panel .ai-grid{grid-template-columns:1fr 1fr}
-}
-@media(min-width:761px) and (max-width:1280px){
- .calendar-panel{grid-column:1/span 4}
- .ravens-panel{grid-column:5/-1}
- .provisions-panel{grid-column:1/span 8}
- .ai-panel{grid-column:9/-1}
-}
 @media(max-width:1000px){
  .home-devices{grid-template-columns:1fr}
  .camera-preview{aspect-ratio:16/7;min-height:170px}

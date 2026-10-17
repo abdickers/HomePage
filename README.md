@@ -11,6 +11,10 @@ A buildless personal dashboard for [abdickers/HomePage](https://github.com/abdic
 - **Settings → Connections** holds Google, Nest, and Treasury source sign-in, sign-out, linking, and sync controls. **Preferences** configures your display name, weather location and units, and calendar. **Backup** holds export and import. **Export Backup** downloads a JSON file; **Import Backup** merges tasks/notes by ID and restores links/settings, with an undo option.
 - Tasks, notes, links, settings, and theme are browser-local. They sync between open tabs on the same origin. They do **not** sync across devices or different origins. Older `sage_tasks_v2`, `sage_tasks_v8`, and `sage_notes_v2` data is migrated when available. Export data before changing browsers or clearing site data.
 
+## Dashboard layout
+
+On desktop, Calendar and AI Tools stack on the left beside the Ravens. Bag End follows across the page, then Quartermaster / Quick Access and News from Bree / Weather. Tools & Systems, Warcraft, Treasury, and Words of Wisdom each have a full-width row. Smaller screens follow that same reading order in one column. Quick Access uses the Dwarven frame; Tools & Systems uses the Elven frame. The header Palantir uses the same supplied seeing-stone artwork as AI Tools.
+
 ## Google Calendar
 
 Gmail and Calendar now share a remembered personal Google connection through `nest-service`. Google access and refresh tokens stay AES-GCM encrypted in the existing private KV namespace. This browser stores only a random, revocable dashboard session bound to the configured gateway. Sessions survive page reloads and renew while active, lasting up to 30 days between renewals. They are not included in dashboard backups. Sign out Google clears the browser credential, revokes that app session, and clears both private views.
