@@ -79,11 +79,6 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1792249208,
-              "name": "Eversong Woods",
-              "startingUt": 1792220400
-            },
-            {
               "endingUt": 1792278008,
               "name": "Zul'Aman",
               "startingUt": 1792249200
@@ -127,6 +122,11 @@
               "endingUt": 1792508408,
               "name": "Harandar",
               "startingUt": 1792479600
+            },
+            {
+              "endingUt": 1792537208,
+              "name": "Zul'Aman",
+              "startingUt": 1792508400
             }
           ],
           "icons": ""
@@ -173,29 +173,29 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1792247400,
-              "name": "Mlurkkr Massacre",
-              "startingUt": 1792245600
-            },
-            {
-              "endingUt": 1792249200,
+              "endingUt": 1792258200,
               "name": "Siege at the Whispering Marsh",
-              "startingUt": 1792247400
+              "startingUt": 1792256400
             },
             {
-              "endingUt": 1792251000,
+              "endingUt": 1792260000,
               "name": "The Malformed Leviathan",
-              "startingUt": 1792249200
+              "startingUt": 1792258200
             },
             {
-              "endingUt": 1792252800,
+              "endingUt": 1792261800,
               "name": "The Broodmother's Nest",
-              "startingUt": 1792251000
+              "startingUt": 1792260000
             },
             {
-              "endingUt": 1792254600,
+              "endingUt": 1792263600,
               "name": "The Looming Mutagenitor",
-              "startingUt": 1792252800
+              "startingUt": 1792261800
+            },
+            {
+              "endingUt": 1792265400,
+              "name": "Mlurkkr Massacre",
+              "startingUt": 1792263600
             }
           ],
           "icons": ""
@@ -236,34 +236,20 @@
         "content": {
           "lines": [
             {
-              "ending": "42 min 53 sec",
-              "endingShort": "42m",
-              "endingUt": 1792249200,
-              "icon": "inv_zone_voidstorm",
-              "iconLabel": "Voidstorm",
-              "iconUrl": "/zone=15458/voidstorm",
-              "name": "Voidstorm: Shadowguard Point",
-              "url": "/zone=16549/shadowguard-point"
+              "ending": "21 hr 39 min",
+              "endingShort": "21h",
+              "endingUt": 1792335600,
+              "icon": "inv_achievement_sanktumoflight",
+              "iconLabel": "Silvermoon City",
+              "iconUrl": "/zone=15969/silvermoon-city",
+              "name": "Silvermoon City: Collegiate Calamity",
+              "url": "/zone=16545/collegiate-calamity"
             },
             {
-              "ending": "42 min 53 sec",
-              "endingShort": "42m",
-              "endingUt": 1792249200,
-              "icon": "inv_achievement_zone_harandar",
-              "iconLabel": "Harandar",
-              "iconUrl": "/zone=15355/harandar",
-              "name": "Harandar: The Grudge Pit",
-              "url": "/zone=16548/the-grudge-pit"
-            },
-            {
-              "ending": "42 min 53 sec",
-              "endingShort": "42m",
-              "endingUt": 1792249200,
-              "icon": "inv_achievement_zone_zulaman1",
-              "iconLabel": "Zul'Aman",
-              "iconUrl": "/zone=15947/zulaman",
-              "name": "Zul'Aman: Atal'Aman",
-              "url": "/zone=16556/atalaman"
+              "ending": "21 hr 39 min",
+              "endingShort": "21h",
+              "endingUt": 1792335600,
+              "name": "Active"
             }
           ],
           "icons": ""
@@ -340,7 +326,7 @@
       }
     ],
     "source": "https://www.wowhead.com/today-in-wow",
-    "updated": "2026-10-17T14:17:09.225552+00:00"
+    "updated": "2026-10-17T17:20:28.117863+00:00"
   },
   "forever": {
     "events": [
