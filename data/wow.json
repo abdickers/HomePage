@@ -173,29 +173,29 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1792258200,
+              "endingUt": 1792267200,
               "name": "Siege at the Whispering Marsh",
-              "startingUt": 1792256400
+              "startingUt": 1792265400
             },
             {
-              "endingUt": 1792260000,
+              "endingUt": 1792269000,
               "name": "The Malformed Leviathan",
-              "startingUt": 1792258200
+              "startingUt": 1792267200
             },
             {
-              "endingUt": 1792261800,
+              "endingUt": 1792270800,
               "name": "The Broodmother's Nest",
-              "startingUt": 1792260000
+              "startingUt": 1792269000
             },
             {
-              "endingUt": 1792263600,
+              "endingUt": 1792272600,
               "name": "The Looming Mutagenitor",
-              "startingUt": 1792261800
+              "startingUt": 1792270800
             },
             {
-              "endingUt": 1792265400,
+              "endingUt": 1792274400,
               "name": "Mlurkkr Massacre",
-              "startingUt": 1792263600
+              "startingUt": 1792272600
             }
           ],
           "icons": ""
@@ -236,8 +236,8 @@
         "content": {
           "lines": [
             {
-              "ending": "21 hr 39 min",
-              "endingShort": "21h",
+              "ending": "19 hr 26 min",
+              "endingShort": "19h",
               "endingUt": 1792335600,
               "icon": "inv_achievement_sanktumoflight",
               "iconLabel": "Silvermoon City",
@@ -246,10 +246,14 @@
               "url": "/zone=16545/collegiate-calamity"
             },
             {
-              "ending": "21 hr 39 min",
-              "endingShort": "21h",
+              "ending": "19 hr 26 min",
+              "endingShort": "19h",
               "endingUt": 1792335600,
-              "name": "Active"
+              "icon": "inv_achievement_sanktumoflight",
+              "iconLabel": "Eversong Woods",
+              "iconUrl": "/zone=15968/eversong-woods",
+              "name": "Eversong Woods: The Shadow Enclave",
+              "url": "/zone=16594/the-shadow-enclave"
             }
           ],
           "icons": ""
@@ -326,7 +330,7 @@
       }
     ],
     "source": "https://www.wowhead.com/today-in-wow",
-    "updated": "2026-10-17T17:20:28.117863+00:00"
+    "updated": "2026-10-17T19:33:40.541569+00:00"
   },
   "forever": {
     "events": [
