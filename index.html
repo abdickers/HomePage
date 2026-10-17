@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="css/dashboard-layout.css?v=20261017-home1" />
   <link rel="stylesheet" href="css/warcraft-frames.css?v=20261016-warcraft1" />
   <link rel="stylesheet" href="css/bag-end.css?v=20261017-home1" />
+  <link rel="stylesheet" href="css/treasury-summary.css?v=20261017-treasury1" />
 </head>
 <body data-command-realm="personal">
   <aside class="realm-sidebar" aria-label="Personal command center">
@@ -250,7 +251,10 @@
 
       <div id="budgetPrivate" hidden>
         <p id="budgetSandbox" class="budget-notice" hidden>Bank sandbox · test bank data only. Sandbox balances are excluded from real spending and balance estimates.</p>
-        <nav class="budget-tabs" aria-label="Budget views"><button type="button" data-budget-tab="overview" aria-pressed="true">At a glance</button><button type="button" data-budget-tab="bills" aria-pressed="false">Bills &amp; renewals</button><button type="button" data-budget-tab="spending" aria-pressed="false">Spending</button><button type="button" data-budget-tab="review" aria-pressed="false">Review</button><button type="button" data-budget-tab="connections" aria-pressed="false">Plans</button></nav>
+        <div class="treasury-summary-toolbar">
+          <form id="budgetRangeForm" class="budget-range-form"><label for="budgetPeriod">Activity period</label><select id="budgetPeriod"><option value="7">Past 7 days</option><option value="30">Past 30 days</option><option value="month">This month</option><option value="custom">Custom dates</option></select><span id="budgetPeriodLabel"></span><div id="budgetCustomRange" class="budget-custom-range" hidden><label>From<input id="budgetRangeStart" type="date" required /></label><label>Through<input id="budgetRangeEnd" type="date" required /></label><button type="submit">Apply dates</button></div><p id="budgetRangeError" role="status" hidden></p></form>
+          <button id="budgetManage" type="button" disabled>Manage Treasury</button>
+        </div>
         <div id="budgetView"></div>
       </div>
       </div>
@@ -313,9 +317,15 @@
   <dialog id="linkDialog" aria-labelledby="linkTitle"><div class="dialog-heading"><h2 id="linkTitle">Your Tools &amp; Links</h2><button type="button" data-close aria-label="Close links">×</button></div><form id="linkForm" class="dialog-form"><input id="linkId" type="hidden" /><label>Name<input id="linkName" maxlength="60" required /></label><label>Website URL<input id="linkUrl" type="url" placeholder="https://example.com" required /></label><label>Section<select id="linkGroup"><option value="tools">Tools &amp; Systems</option><option value="ai">AI Tools</option><option value="quick">Quick Access</option></select></label><p id="linkError" class="form-error" role="status"></p><button class="primary-button" type="submit">Save Link</button></form><div id="manageLinks" class="manage-links"></div></dialog>
   <dialog id="searchDialog" aria-labelledby="searchTitle"><div class="dialog-heading"><h2 id="searchTitle">The Palantir Found</h2><button type="button" data-close aria-label="Close results">×</button></div><div id="searchResults"></div></dialog>
   <div id="toast" class="toast" role="status" hidden><span id="toastText"></span><button id="undoAction" type="button" hidden>Undo</button><button id="dismissToast" type="button" aria-label="Dismiss notification">×</button></div>
+  <dialog id="budgetWorkspace" class="realm-dashboard treasury-workspace vault-frame" aria-labelledby="budgetWorkspaceTitle" aria-describedby="budgetWorkspaceMode">
+    <div class="treasury-workspace-heading"><div><span class="section-kicker">The steward’s ledger</span><h2 id="budgetWorkspaceTitle">Treasury details</h2><p id="budgetWorkspaceMode">Read-only details</p></div><button type="button" id="budgetWorkspaceClose" aria-label="Close Treasury workspace">×</button></div>
+    <div class="treasury-workspace-toolbar"><nav class="budget-tabs" aria-label="Treasury detail views"><button type="button" data-budget-tab="overview" aria-pressed="true">Overview</button><button type="button" data-budget-tab="bills" aria-pressed="false">Bills &amp; renewals</button><button type="button" data-budget-tab="spending" aria-pressed="false">Spending</button><button type="button" data-budget-tab="review" aria-pressed="false">Review</button><button type="button" data-budget-tab="connections" aria-pressed="false">Plans</button></nav><div class="budget-actions"><button type="button" id="budgetWorkspacePrivacy" aria-pressed="true">Show amounts</button><button type="button" id="budgetWorkspaceManage">Manage Treasury</button></div></div>
+    <div id="budgetWorkspaceView" class="treasury-workspace-body"></div>
+    <p id="budgetWorkspaceStatus" class="treasury-workspace-status" role="status"></p>
+  </dialog>
   <dialog id="budgetDialog" aria-label="Budget editor"><div id="budgetDialogBody"></div></dialog>
   <script type="module" src="js/realm-expansion.js?v=20261016-expansion1"></script>
-  <script type="module" src="js/app.js?v=20261017-home1"></script>
+  <script type="module" src="js/app.js?v=20261017-treasury1"></script>
   <script type="module" src="js/wow.js?v=20261016-warcraft1"></script>
 </body>
 </html>

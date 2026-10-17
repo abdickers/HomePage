@@ -104,3 +104,5 @@ This repository includes both Bag End / Nest controls (from InkedSage) and Frear
 ## Private budget
 
 The Steward adds an authenticated budget ledger backed by the existing Cloudflare Worker, private D1 storage, Plaid Link, and read-only Gmail discovery. See [BUDGET-SETUP.md](BUDGET-SETUP.md) for credential entry, production eligibility and costs, deployment order, privacy controls, and connection verification. Real data is available only after authorized connections; Sandbox data is explicitly labeled.
+
+The Treasury summary/workspace redesign is staged on `codex/treasury-summary-workspace`, with rollback tag `treasury-before-summary-20261017`. Its summary defaults to the past seven Chicago calendar dates; current cash, upcoming bills and monthly limits retain their own periods. View details opens read-only information, while Manage Treasury enables the existing editors in a separate workspace. See [review and rollback notes](design/TREASURY-SUMMARY-REVIEW.md) for validation and the additive snapshot support required before a future release. This branch has not been deployed.
