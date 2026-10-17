@@ -1,0 +1,174 @@
+{
+  "originals": [
+    {
+      "file": "assets/warcraft/originals/wow-section-border.png",
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGBA",
+      "center_alpha": 0,
+      "sha256": "a7e6ce7a8e272c071f8daf77584e65361e95fdb5d8599d7100528d2fab28ff4e"
+    },
+    {
+      "file": "assets/warcraft/originals/wow-news-card-border.png",
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGBA",
+      "center_alpha": 0,
+      "sha256": "68cd4c3a5ea62d9e0ef632d978d6c68d007d3a1f2b98b528264c9797b04cba6b"
+    }
+  ],
+  "derivatives": [
+    {
+      "file": "assets/warcraft/wow-section-border-nine-slice.webp",
+      "width": 1008,
+      "height": 1008,
+      "source": "wow-section-border.png",
+      "bytes": 138360,
+      "alpha_roundtrip_exact": true,
+      "slice": 336,
+      "corner_crops": [
+        [
+          0,
+          0,
+          336,
+          336
+        ],
+        [
+          1200,
+          0,
+          1536,
+          336
+        ],
+        [
+          0,
+          688,
+          336,
+          1024
+        ],
+        [
+          1200,
+          688,
+          1536,
+          1024
+        ]
+      ],
+      "quiet_rail_crops": {
+        "top": [
+          410,
+          0,
+          510,
+          336
+        ],
+        "bottom": [
+          410,
+          688,
+          510,
+          1024
+        ],
+        "left": [
+          0,
+          368,
+          336,
+          432
+        ],
+        "right": [
+          1200,
+          368,
+          1536,
+          432
+        ]
+      },
+      "construction": "unchanged square corner crops; mirrored quiet rails; empty center"
+    },
+    {
+      "file": "assets/warcraft/wow-section-lion.webp",
+      "width": 312,
+      "height": 180,
+      "source": "wow-section-border.png",
+      "bytes": 20854,
+      "alpha_roundtrip_exact": true,
+      "crop": [
+        612,
+        16,
+        924,
+        196
+      ]
+    },
+    {
+      "file": "assets/warcraft/wow-section-seal.webp",
+      "width": 144,
+      "height": 112,
+      "source": "wow-section-border.png",
+      "bytes": 6834,
+      "alpha_roundtrip_exact": true,
+      "crop": [
+        696,
+        864,
+        840,
+        976
+      ]
+    },
+    {
+      "file": "assets/warcraft/wow-news-card-border-nine-slice.webp",
+      "width": 648,
+      "height": 648,
+      "source": "wow-news-card-border.png",
+      "bytes": 66102,
+      "alpha_roundtrip_exact": true,
+      "slice": 216,
+      "corner_crops": [
+        [
+          0,
+          0,
+          216,
+          216
+        ],
+        [
+          1320,
+          0,
+          1536,
+          216
+        ],
+        [
+          0,
+          808,
+          216,
+          1024
+        ],
+        [
+          1320,
+          808,
+          1536,
+          1024
+        ]
+      ],
+      "quiet_rail_crops": {
+        "top": [
+          410,
+          0,
+          510,
+          216
+        ],
+        "bottom": [
+          410,
+          808,
+          510,
+          1024
+        ],
+        "left": [
+          0,
+          360,
+          216,
+          424
+        ],
+        "right": [
+          1320,
+          360,
+          1536,
+          424
+        ]
+      },
+      "construction": "unchanged square corner crops; mirrored quiet rails; empty center"
+    }
+  ]
+}
