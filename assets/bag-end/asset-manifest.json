@@ -1,0 +1,25 @@
+{
+  "source": "User-supplied Hobbit interior artwork, October 17, 2026",
+  "original": "assets/bag-end/originals/hobbit-hearth-garden-window.png",
+  "width": 1672,
+  "height": 941,
+  "sha256": "8d4da8c1743d2126d3cfc4af38ea5ad984e457780401771184406169d8052acc",
+  "derivatives": [
+    {
+      "file": "hobbit-hearth-garden-window-small.webp",
+      "bytes": 144064,
+      "size": [
+        900,
+        507
+      ]
+    },
+    {
+      "file": "hobbit-hearth-garden-window.webp",
+      "bytes": 429660,
+      "size": [
+        1672,
+        941
+      ]
+    }
+  ]
+}

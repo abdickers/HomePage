@@ -5,7 +5,7 @@ A buildless personal dashboard for [abdickers/HomePage](https://github.com/abdic
 ## Use the dashboard
 
 - **Links** open in a separate tab and keep the dashboard available. Use **Add Link** to add, edit, or remove shortcuts in AI Tools, Tools & Systems, and Quick Access. Use your organization's specific NetSuite, Jira, Confluence, and Slack URLs if you want to skip their workspace chooser.
-- **Bag End** spans the dashboard with thermostat controls beside the private Nest camera. The layout stacks on smaller screens. Connect Nest once to restore devices automatically on later visits.
+- **Bag End** spans the dashboard with the hearth and Weather in Rohan side by side, then a full-width private Nest camera beneath them. The layout stacks on smaller screens. The camera selector, Watch/Stop, Refresh, and Google Home actions sit below the video. Watch starts an idle camera; switching a playing camera automatically opens the newly selected feed. Playback contains the full landscape or portrait image without cropping. Leaving the tab, stopping, sign-out and the existing five-minute session limit still end video. Connect Nest once to restore devices automatically on later visits.
 - The music, video, System Status, Scribe’s Notes, and Fellowship sections have been removed. Fellowship artwork remains in `assets/avatars/` for future use. Existing tasks and notes remain in browser backups.
 - **Search** supports web search, Ask AI, and a Dashboard scope that finds saved links. Press `/` to focus it.
 - **Settings → Connections** holds Google, Nest, and Treasury source sign-in, sign-out, linking, and sync controls. **Preferences** configures your display name, weather location and units, and calendar. **Backup** holds export and import. **Export Backup** downloads a JSON file; **Import Backup** merges tasks/notes by ID and restores links/settings, with an undo option.
@@ -13,7 +13,7 @@ A buildless personal dashboard for [abdickers/HomePage](https://github.com/abdic
 
 ## Dashboard layout
 
-On desktop, Calendar and AI Tools stack on the left beside the Ravens. Bag End follows across the page, then Quartermaster / Quick Access and News from Bree / Weather. Tools & Systems, Warcraft, Treasury, and Words of Wisdom each have a full-width row. Smaller screens follow that same reading order in one column. Quick Access uses the Dwarven frame; Tools & Systems uses the Elven frame. The header Palantir uses the same supplied seeing-stone artwork as AI Tools.
+On desktop, Calendar and AI Tools stack on the left beside the Ravens. Bag End follows across the page with home and weather panels above the camera, then Quartermaster / Quick Access and a full-width News from Bree. Tools & Systems, Warcraft, Treasury, and Words of Wisdom each have a full-width row. Smaller screens follow that same reading order in one column. Quick Access uses the Dwarven frame; Tools & Systems uses the Elven frame. The header Palantir uses the same supplied seeing-stone artwork as AI Tools.
 
 ## Google Calendar
 

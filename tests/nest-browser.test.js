@@ -6,7 +6,7 @@ const origin='https://nest.test',credential='c'.repeat(64),tick=()=>new Promise(
 function fixture(t){
  const data=new Map(),elements=new Map(),calls=[];
  const storage={getItem:key=>data.get(key)||null,setItem:(key,value)=>data.set(key,value),removeItem:key=>data.delete(key)};
- const element=id=>{if(!elements.has(id))elements.set(id,{textContent:'',value:'',hidden:false,disabled:false,listeners:{},addEventListener(name,fn){this.listeners[name]=fn;},replaceChildren(){}});return elements.get(id);};
+ const element=id=>{if(!elements.has(id))elements.set(id,{textContent:'',value:'',hidden:false,disabled:false,listeners:{},addEventListener(name,fn){this.listeners[name]=fn;},replaceChildren(){},pause(){}});return elements.get(id);};
  global.document={getElementById:element,addEventListener(){},hidden:false};global.window={localStorage:storage,addEventListener(){},open(){throw Error('Remembered Nest must not open sign-in.');}};global.location={hash:'',pathname:'/HomePage/',search:''};global.history={replaceState(){}};
  t.mock.method(globalThis,'setInterval',()=>0);
  t.mock.method(globalThis,'fetch',async(url,options)=>{calls.push({url,options});return Response.json(url.endsWith('/health')?{configured:true}:url.endsWith('/devices')?{devices:[],updatedAt:new Date().toISOString(),sessionExpiresAt:Date.now()+30*86400000}:{});});

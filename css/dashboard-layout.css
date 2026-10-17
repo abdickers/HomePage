@@ -6,7 +6,7 @@
     'prelude prelude prelude prelude prelude ravens ravens ravens ravens ravens ravens ravens'
     'home home home home home home home home home home home home'
     'provisions provisions provisions provisions provisions provisions quick quick quick quick quick quick'
-    'news news news news news news news news weather weather weather weather'
+    'news news news news news news news news news news news news'
     'tools tools tools tools tools tools tools tools tools tools tools tools'
     'warcraft warcraft warcraft warcraft warcraft warcraft warcraft warcraft warcraft warcraft warcraft warcraft'
     'treasury treasury treasury treasury treasury treasury treasury treasury treasury treasury treasury treasury'
@@ -21,7 +21,6 @@
 #dashboard > .provisions-panel { grid-area: provisions; }
 #dashboard > .quick-panel { grid-area: quick; }
 #dashboard > .news-panel { grid-area: news; }
-#dashboard > .weather-panel { grid-area: weather; }
 #dashboard > .tools-panel { grid-area: tools; }
 #dashboard > .wow-panel { grid-area: warcraft; }
 #dashboard > .budget-panel { grid-area: treasury; }
@@ -56,7 +55,7 @@
 @media(max-width:1199px) {
   #dashboard.realm-dashboard {
     grid-template-columns: minmax(0,1fr);
-    grid-template-areas: 'prelude' 'ravens' 'home' 'provisions' 'quick' 'news' 'weather' 'tools' 'warcraft' 'treasury' 'wisdom';
+    grid-template-areas: 'prelude' 'ravens' 'home' 'provisions' 'quick' 'news' 'tools' 'warcraft' 'treasury' 'wisdom';
   }
 }
 @media(max-width:760px) {
