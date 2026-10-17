@@ -1,12 +1,14 @@
-import {initNest} from './nest.js?v=20261016-expansion1';
+import {initSettingsPresentation} from './settings-presentation.js?v=20261016-controls1';
+import {initNest} from './nest.js?v=20261016-controls1';
 import {NEST_SERVICE_URL} from './nest-config.js?v=20261015-personal7';
 import {createGoogleConnection} from './google-connection.js?v=20261015-remember1';
-import {initBudget} from './budget.js?v=20261016-budget4';
-import { initPersonalMail } from './personal-mail.js?v=20261015-remember1';
+import {initBudget} from './budget.js?v=20261016-controls1';
+import { initPersonalMail } from './personal-mail.js?v=20261016-controls1';
 import { accountLink, PERSONAL_EMAIL } from './account-links.mjs?v=20261015-personal7';
 import {DATA_KEY, escapeHtml as esc, safeUrl, localDate, normalizeData, readData, mergeBackup, normalizeObservation} from './core.js?v=20261015-personal7';
 const $ = id => document.getElementById(id);
 const uid = () => crypto.randomUUID();
+const settingsUI=initSettingsPresentation();
 let storage;
 try { storage = window.localStorage; } catch { storage = {getItem:()=>null,setItem:()=>{throw new Error('Storage blocked');}}; }
 let data = readData(storage);
@@ -82,10 +84,10 @@ async function readRss(url,signal){
   return [...doc.querySelectorAll('item')].slice(0,4).map(item=>({title:item.querySelector('title')?.textContent||'',link:safeUrl(item.querySelector('link')?.textContent),pubDate:item.querySelector('pubDate')?.textContent||''}));
 }
 function calendarState(message,tone='neutral'){$('calendarState').textContent=message;$('calendarState').dataset.tone=tone;$('calendarState').hidden=!message;}
-function disconnectCalendar(endConnection=true){token='';calendarRequest++;$('calendarConnect').textContent='Connect personal Google';$('calendarConnect').disabled=false;$('calendarDisconnect').hidden=true;$('eventList').replaceChildren();calendarState('Connect personal Google once for Gmail and Calendar. This browser will remember your sign-in.');if(endConnection!==false)googleConnection.disconnect();}
+function disconnectCalendar(endConnection=true){token='';calendarRequest++;$('calendarConnect').textContent='Refresh';$('calendarConnect').disabled=true;$('eventList').replaceChildren();calendarState('Connect personal Google in Settings for Gmail and Calendar.');if(endConnection!==false)googleConnection.disconnect();}
 function restoreCalendar(){
  if(!googleConnection.connected())return;
- const changed=token!==googleConnection.sessionId();token=googleConnection.sessionId();$('calendarConnect').textContent='Refresh';$('calendarConnect').disabled=false;$('calendarDisconnect').hidden=false;if(changed)void loadCalendar();
+ const changed=token!==googleConnection.sessionId();token=googleConnection.sessionId();$('calendarConnect').textContent='Refresh';$('calendarConnect').disabled=false;if(changed)void loadCalendar();
 }
 async function prepareCalendar() {
   $('calendarConnect').disabled=true;
@@ -155,15 +157,14 @@ async function loadWeather(){
   }catch{if(request!==weatherRequest)return;displayWeather({description:'Weather unavailable'},'Weather services unavailable');$('weatherSource').textContent='Could not load weather for '+l.name+'. Try Refresh.';}
   finally{if(request===weatherRequest)$('refreshWeather').disabled=false;}
 }
-function openSettings(){const s=data.settings;draftLocation={...s.location};$('settingName').value=s.name;$('settingUnit').value=s.unit;$('settingClientId').value=s.clientId;$('settingCalendarId').value=s.calendarId;$('oauthOrigin').textContent=location.origin;$('selectedLocation').textContent='Selected: '+s.location.name;$('locationQuery').value='';$('locationResults').replaceChildren();$('settingsDialog').showModal();}
+function openSettings(section='connections'){const s=data.settings;draftLocation={...s.location};$('settingName').value=s.name;$('settingUnit').value=s.unit;$('settingClientId').value=s.clientId;$('settingCalendarId').value=s.calendarId;$('oauthOrigin').textContent=location.origin;$('selectedLocation').textContent='Selected: '+s.location.name;$('locationQuery').value='';$('locationResults').replaceChildren();settingsUI.select(section);$('settingsDialog').showModal();settingsUI.select(section,{focus:true});}
 function openLinks(){$('linkForm').reset();$('linkId').value='';$('linkError').textContent='';renderLinkManager();$('linkDialog').showModal();}
 function renderLinkManager(){$('manageLinks').innerHTML=data.links.map(l=>`<div><span>${esc(l.name)} <small>${esc(l.group)}</small></span><button type="button" data-edit-link="${esc(l.id)}" aria-label="Edit ${esc(l.name)}">Edit</button><button type="button" data-delete-link="${esc(l.id)}" aria-label="Delete link ${esc(l.name)}">×</button></div>`).join('');}
 $('searchForm').addEventListener('submit',e=>{e.preventDefault();const q=$('searchInput').value.trim();if(q)$('searchScope').value==='dashboard'?searchDashboard(q):external('https://www.google.com/search?q='+encodeURIComponent(q));});
 $('askAi').addEventListener('click',()=>{const q=$('searchInput').value.trim();external(q?'https://chatgpt.com/?q='+encodeURIComponent(q):'https://chatgpt.com/');});
 $('themeToggle').addEventListener('click',()=>{const ember=document.body.classList.toggle('ember-mode');$('themeToggle').setAttribute('aria-pressed',ember);try{storage.setItem('sage_theme',ember?'ember':'night');}catch{toast('Theme changed for this session.');}});
-for(const id of ['settingsOpen','footerSettings','weatherLocation'])$(id).addEventListener('click',openSettings);
-$('calendarConnect').addEventListener('click',()=>{if(googleConnection.connected())return token?loadCalendar():restoreCalendar();calendarState('Choose '+PERSONAL_EMAIL+' and grant read-only Gmail and Calendar access.');void googleConnection.connect().catch(error=>calendarState(error.message,'warn'));});
-$('calendarDisconnect').addEventListener('click',()=>disconnectCalendar());
+for(const id of ['settingsOpen','footerSettings','weatherLocation'])$(id).addEventListener('click',()=>openSettings(id==='weatherLocation'?'preferences':'connections'));
+$('calendarConnect').addEventListener('click',()=>{if(googleConnection.connected())return token?loadCalendar():restoreCalendar();});
 for(const [id,offset] of [['calendarPrev',-1],['calendarNext',1],['calendarToday',0]])$(id).addEventListener('click',()=>{if(offset)calendarDay.setDate(calendarDay.getDate()+offset);else calendarDay=new Date();updateTime();loadCalendar();});
 $('newsTabs').addEventListener('click',e=>{const b=e.target.closest('[data-feed]');if(!b)return;activeFeed=b.dataset.feed;document.querySelectorAll('[data-feed]').forEach(t=>{t.classList.toggle('active',t===b);t.setAttribute('aria-pressed',t===b);});loadNews();});
 $('refreshNews').addEventListener('click',loadNews);$('refreshWeather').addEventListener('click',loadWeather);

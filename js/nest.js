@@ -51,5 +51,5 @@ export function initNest(serviceUrl='') {
  document.addEventListener('visibilitychange',()=>{paintClimate();if(document.hidden)void stop();});
  window.addEventListener('pagehide',()=>{peer?.close();peer=null;});
  setInterval(()=>{paintClimate();if(session&&!document.hidden&&!busy)void load();},60000);
- fetch(base+'/health',{cache:'no-store'}).then(r=>r.json()).then(r=>{connect.disabled=!r.configured;if(r.configured&&session)void load();else message(r.configured?'Connect Sage Cabin once; this browser will remember your sign-in.':'Private service is online. Google credentials still need to be installed.');}).catch(()=>message('Private Nest service is unavailable. Open Google Home below.'));
+ fetch(base+'/health',{cache:'no-store'}).then(r=>r.json()).then(r=>{connect.disabled=!r.configured;if(r.configured&&session)void load();else message(r.configured?'Connect Nest in Settings; this browser will remember your sign-in.':'Private service is online. Google credentials still need to be installed.');}).catch(()=>message('Private Nest service is unavailable. Open Google Home below.'));
 }

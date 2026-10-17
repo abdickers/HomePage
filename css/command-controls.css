@@ -1,0 +1,157 @@
+/* Shared controls, quieter widget spacing, and a single home for connections. */
+body[data-command-realm] {
+  --control-bg: linear-gradient(180deg,#26362b,#14231b);
+  --control-hover: linear-gradient(180deg,#344a37,#203326);
+  --control-ink: #f3e5c5;
+  --control-line: #a28b58;
+  --control-active: linear-gradient(180deg,#806738,#5b4827);
+  --field-bg: #0b1913;
+  --field-ink: #f3ebd9;
+}
+.scroll-paper {
+  --control-bg: linear-gradient(180deg,#f0dfbb,#e4cfa6);
+  --control-hover: linear-gradient(180deg,#faeac8,#edd9b1);
+  --control-ink: #3d2b18;
+  --control-line: #8e6e40;
+  --control-active: linear-gradient(180deg,#70512f,#4c351e);
+}
+body[data-command-realm] :is(.realm-dashboard,#settingsDialog,#linkDialog,#searchDialog,#budgetDialog,.top-actions,.command-bar,.footer-caption) button:not(.treasury-entrance),
+body[data-command-realm] :is(.wide-link,.command-button,.provision-card>a,.media-actions>a,.panel-actions>a,.wow-character-actions>a,.button-label) {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 42px; padding: 10px 15px; border: 1px solid var(--control-line);
+  border-radius: 5px; background: var(--control-bg); color: var(--control-ink);
+  box-shadow: inset 0 1px #fff1,inset 0 -2px #0003,0 2px 5px #0002;
+  font: 600 12px/1.35 'DM Sans',sans-serif; letter-spacing: .1px;
+  text-decoration: none; text-align: center; cursor: pointer;
+}
+body[data-command-realm] :is(.realm-dashboard,#settingsDialog,#linkDialog,#searchDialog,#budgetDialog,.top-actions,.command-bar,.footer-caption) button:not(.treasury-entrance):hover:not(:disabled),
+body[data-command-realm] :is(.wide-link,.command-button,.provision-card>a,.media-actions>a,.panel-actions>a,.wow-character-actions>a,.button-label):hover {
+  background: var(--control-hover); border-color: #c3aa6f;
+}
+body[data-command-realm] :is(.realm-dashboard,#settingsDialog,#linkDialog,#searchDialog,#budgetDialog,.top-actions,.command-bar,.footer-caption) button:is([aria-pressed=true],[aria-selected=true],.primary-button) {
+  background: var(--control-active); color: #fff3d6; border-color: #c3a15d;
+}
+body[data-command-realm] :is(.realm-dashboard,#settingsDialog,#linkDialog,#searchDialog,#budgetDialog,.top-actions,.command-bar,.footer-caption) button:disabled {
+  opacity: .48; cursor: not-allowed; box-shadow: inset 0 1px #ffffff08;
+}
+body[data-command-realm] :is(.realm-dashboard,dialog,.command-bar) :is(input:not([type=checkbox]):not([type=file]):not([type=hidden]),select,textarea) {
+  min-width: 0; min-height: 44px; padding: 11px 13px; border: 1px solid #8b7956;
+  border-radius: 5px; background: var(--field-bg); color: var(--field-ink);
+  box-shadow: inset 0 2px 5px #0004,inset 0 0 0 2px #d4bc7810;
+  font: 400 14px/1.45 'DM Sans',sans-serif; color-scheme: dark;
+}
+body[data-command-realm] :is(.realm-dashboard,dialog,.command-bar) input::placeholder,
+body[data-command-realm] :is(.realm-dashboard,dialog) textarea::placeholder { color: #a6af9e; opacity: 1; }
+body[data-command-realm] :is(.realm-dashboard,dialog,.command-bar,.top-actions) :is(button,a,input,select,textarea,summary):focus-visible {
+  outline: 3px solid #e5c985; outline-offset: 3px;
+}
+body[data-command-realm] .scroll-paper :is(button,a,summary):focus-visible { outline-color: #754725; }
+body[data-command-realm] input[type=checkbox] { accent-color: #b49a5c; width: 17px; height: 17px; flex: 0 0 auto; }
+body[data-command-realm] .realm-dashboard button:is(#calendarPrev,#calendarToday,#calendarNext) { min-height: 32px; padding: 3px; font-size: 11px; }
+body[data-command-realm] .realm-dashboard button:is(#calendarPrev,#calendarNext) { font-size: 18px; }
+body[data-command-realm] .wide-link { display: flex; width: 100%; }
+body[data-command-realm] .realm-dashboard .provision-card>a { padding: 8px 13px; }
+body[data-command-realm] :is(#settingsDialog,#linkDialog,#searchDialog) .dialog-heading>button { width: 42px; height: 42px; padding: 0; flex: 0 0 auto; font-size: 24px; }
+body[data-command-realm] .button-label:focus-within { outline: 3px solid #e5c985; outline-offset: 3px; }
+.media-actions label { display: grid; gap: 6px; font-size: 12px; color: #c8ceb9; }
+.media-actions { align-items: end; }
+.nest-controls>.media-actions+.media-actions { margin-top: 14px; }
+.nest-footer { margin-top: 20px; gap: 12px; align-items: center; }
+.nest-footer>p { margin: 0; }
+
+/* The paper has room to breathe without a row of account administration. */
+.scroll-content { padding: 18px 14px 16px; }
+.realm-dashboard .scroll-paper .panel-title { margin-bottom: 14px; padding-bottom: 14px; }
+.scroll-paper #ravensCaption { margin: 12px 0 8px; font-size: 12px; }
+.scroll-paper #ravensState { margin: 0 0 8px; font-size: 12px; line-height: 1.5; }
+.scroll-paper .daily-list { max-height: 460px; }
+.scroll-paper .daily-entry { padding-block: 13px; }
+.scroll-paper .daily-entry>span>span:last-of-type { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
+.scroll-paper .daily-feed-footer { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin-top: 16px; padding-top: 14px; border-top: 1px solid #98744955; }
+.scroll-paper #mailReadAt { margin-left: auto; }
+.calendar-actions:empty { display: none; }
+.realm-dashboard .home-panel .home-privacy { display: none; }
+
+/* Keep the notices between the photographed posts, including long headlines. */
+.realm-dashboard>.bree-news.oak-framed { padding: 62px 66px 52px; background: linear-gradient(145deg,#242a1c,#122017); border: 0; }
+.bree-board { container-type: inline-size; }
+.realm-dashboard .bree-board .news-list { padding: 14% 16% 12% 24%; gap: 14px; align-content: start; }
+.realm-dashboard .bree-news .news-item { display: grid; grid-template-columns: 22px minmax(0,1fr); align-content: start; gap: 12px 8px; padding: 25px 16px 18px; }
+.realm-dashboard .bree-news .news-icon { grid-column: 1; grid-row: 1; display: block; width: 22px; height: 22px; }
+.bree-news .news-icon img { display: block; width: 22px; height: 22px; object-fit: contain; }
+.bree-news .news-icon .icon-fallback { font-size: 10px; }
+.realm-dashboard .bree-news .news-item>small { grid-column: 2; grid-row: 1; align-self: center; margin: 0; font-size: 10px; line-height: 1.45; }
+.realm-dashboard .bree-news .news-item>a { grid-column: 1/-1; font-size: 20px; line-height: 1.4; }
+@container(max-width:760px) {
+  .realm-dashboard .bree-board .news-list { grid-template-columns: 1fr; }
+}
+/* Crop the outer tavern scene on phones; keep the board and live text roomy. */
+@container(max-width:420px) {
+  .bree-art { width: 140%; margin-left: -25%; }
+  .bree-board::before { background-position: 3% top,97% top; background-size: 7.14% auto,5.46% auto; }
+  .bree-board::after { left: -25%; right: -15%; }
+  .realm-dashboard .bree-board .news-list { padding: 20% 7% 15%; }
+}
+
+/* Native dialog keeps keyboard focus inside Settings. Only its body scrolls. */
+#settingsDialog { width: min(920px,calc(100vw - 32px)); padding: 0; max-height: calc(100dvh - 32px); border-radius: 7px; border: 1px solid #ab915b; background: linear-gradient(145deg,#1b2b21,#101c16); }
+#settingsDialog[open] { display: grid; grid-template-rows: auto auto minmax(0,1fr); }
+#settingsDialog>.dialog-heading { padding: 23px 25px 18px; margin: 0; border-color: #a18b5555; }
+#settingsDialog .dialog-heading h2 { font: 600 34px/1.1 'Cormorant Garamond',Georgia,serif; color: #f2e4c6; }
+.settings-tabs { display: flex; gap: 8px; padding: 14px 25px; border-bottom: 1px solid #a18b5544; }
+.settings-tabs>button { flex: 1; min-width: 0; }
+.settings-body { min-height: 0; overflow: auto; padding: 0 25px 25px; overscroll-behavior: contain; scrollbar-color: #8e794c #132319; }
+.settings-intro { color: #c5cdbd; font-size: 13px; line-height: 1.65; margin: 18px 0; }
+.settings-connection-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px; align-items: start; }
+.settings-card { min-width: 0; padding: 20px; border: 1px solid #a38c5559; border-radius: 5px; background: #0b181291; box-shadow: inset 0 0 0 3px #ceb16b06; }
+.settings-card-heading { display: flex; gap: 12px; align-items: center; margin-bottom: 14px; }
+.settings-card-heading>img { display: block; object-fit: contain; flex: 0 0 44px; width: 44px; height: 48px; }
+.settings-card h3 { font: 600 27px/1.15 'Cormorant Garamond',Georgia,serif; color: #f2e4c6; margin: 0; }
+.settings-card-heading p { color: #bbc5b3; font-size: 11px; line-height: 1.5; margin: 5px 0 0; }
+.connection-status { padding: 10px 12px; border-left: 2px solid #a68c55; background: #e3c98908; color: #e6ddc7; font-size: 12px; line-height: 1.65; overflow-wrap: anywhere; }
+.settings-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.settings-budget { margin-top: 16px; }
+#settingsDialog .mail-privacy { margin-top: 18px; color: #bfc8b7; font-size: 12px; line-height: 1.7; }
+#settingsDialog .mail-privacy summary { min-height: 36px; color: #dec58a; cursor: pointer; }
+#settingsDialog .help { font-size: 12px; color: #bec8b5; }
+#settingsPreferences { padding-top: 22px; }
+#settingsBackup { padding-top: 22px; }
+#settingsDialog .dialog-form>label, .budget-form label { font-size: 12px; letter-spacing: .2px; color: #d8d4bf; }
+#settingsDialog .budget-columns { gap: 20px; }
+#settingsDialog .budget-block { margin: 18px 0 0; }
+#settingsDialog .budget-block h3 { font-size: 25px; margin-bottom: 12px; }
+#settingsDialog .budget-block h4 { font-size: 21px; }
+#settingsDialog .budget-account { padding: 14px; background: #0c1812; }
+#settingsDialog .budget-account h4 { font-size: 18px; }
+#settingsDialog .budget-list { font-size: 12px; }
+#settingsDialog .budget-notice { font-size: 12px; }
+#settingsDialog .budget-notice ol { padding-left: 18px; line-height: 1.75; }
+#settingsDialog .budget-notice a { color: #e2c78b; }
+#budgetConnections:empty { display: none; }
+.budget-form :is(input,select,textarea) { width: 100%; }
+.budget-form label.budget-checkbox { display: flex; align-items: start; line-height: 1.6; }
+
+@media(max-width:1100px) {
+  .realm-dashboard>.bree-news.oak-framed { padding: 62px 56px 48px; }
+}
+@media(max-width:760px) {
+  .realm-dashboard .date-box { grid-template-columns: minmax(0,1fr) 48px 104px; }
+  .realm-dashboard .date-box .day-nav { grid-template-columns: 24px minmax(0,1fr) 24px; gap: 3px; }
+  .realm-dashboard>.bree-news.oak-framed { padding: 62px 30px 44px; }
+  .realm-dashboard .bree-news .news-item { padding: 24px 12px 16px; }
+  .realm-dashboard .bree-news .news-item>a { font-size: 19px; }
+  .scroll-content { padding: 16px 6px 14px; }
+  .scroll-paper #mailReadAt { width: 100%; margin-left: 0; font-size: 11px; }
+  #settingsDialog { width: calc(100vw - 24px); max-height: calc(100dvh - 24px); }
+  #settingsDialog>.dialog-heading { padding: 19px 17px 16px; }
+  #settingsDialog .dialog-heading h2 { font-size: 29px; }
+  .settings-tabs { padding: 12px 17px; gap: 6px; }
+  body[data-command-realm] #settingsDialog .settings-tabs>button { padding-inline: 8px; font-size: 11px; }
+  .settings-body { padding: 0 17px 20px; }
+  .settings-card { padding: 17px; }
+  .settings-connection-grid,#settingsDialog .budget-columns { grid-template-columns: 1fr; }
+  .settings-card-heading>img { flex-basis: 38px; width: 38px; height: 44px; }
+  .settings-actions>button { flex: 1 1 auto; }
+  .settings-card :is(button,p,a) { overflow-wrap: anywhere; }
+  .nest-footer>.media-actions { justify-content: start; }
+}

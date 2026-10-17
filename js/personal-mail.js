@@ -46,8 +46,8 @@ export function initPersonalMail(getClientId,connection=null){
   $('mailRefresh').disabled=!connected()||mailBusy;
   $('mailDisconnect').hidden=!token&&!pending;
   $('mailMore').hidden=!mailCursor||!connected();$('mailMore').disabled=mailBusy;
-  $('receiptsConnect').textContent=connected()?'Refresh shopping receipts':'Connect shopping receipts';
-  $('receiptsConnect').disabled=!!pending||receiptBusy||preparing;
+  $('receiptsConnect').textContent='Refresh receipts';
+  $('receiptsConnect').disabled=!connected()||!!pending||receiptBusy||preparing;
   $('receiptsMore').hidden=!receiptCursor||!connected();$('receiptsMore').disabled=receiptBusy;
   $('receiptsClear').hidden=!receipts.length;
  }
@@ -69,7 +69,7 @@ export function initPersonalMail(getClientId,connection=null){
   epoch++;mailRequest++;receiptRequest++;controller.abort();controller=new AbortController();
   pending?.reject(Error('Gmail connection closed.'));pending=null;token='';expiry=0;clientId='';mailItems=[];receipts=[];mailCursor='';receiptCursor='';mailBusy=false;receiptBusy=false;
   $('ravensList').replaceChildren();$('walmartReceipts').replaceChildren();$('amazonReceipts').replaceChildren();
-  $('ravensState').textContent='Connect your personal Gmail to bring the ravens home.';
+  $('ravensState').textContent='Connect personal Google in Settings to bring the ravens home.';
   $('receiptsState').textContent='Connect personal Gmail to show real Amazon and Walmart receipts here.';$('mailReadAt').textContent='';
   if(connection&&endConnection!==false)connection.disconnect();
   oauthClient=null;loadedClient='';setControls();prepare();
@@ -163,13 +163,13 @@ export function initPersonalMail(getClientId,connection=null){
  }
  $('mailConnect').addEventListener('click',()=>{if(!oauthClient||loadedClient!==getClientId()){prepare();return;}if(connected())disconnect();else loadMail();});
  $('mailRefresh').addEventListener('click',()=>loadMail());$('mailMore').addEventListener('click',()=>loadMail(true));$('mailDisconnect').addEventListener('click',disconnect);
- $('receiptsConnect').addEventListener('click',()=>{if(!oauthClient||loadedClient!==getClientId()){prepare();return;}loadReceipts();});$('receiptsMore').addEventListener('click',()=>loadReceipts(true));
+ $('receiptsConnect').addEventListener('click',()=>{if(connected())loadReceipts();});$('receiptsMore').addEventListener('click',()=>loadReceipts(true));
  $('receiptsClear').addEventListener('click',()=>{receiptRequest++;receiptBusy=false;receipts=[];receiptCursor='';$('walmartReceipts').replaceChildren();$('amazonReceipts').replaceChildren();$('receiptsState').textContent='Receipt view cleared. Your source emails are unchanged.';setControls();});
  for(const button of document.querySelectorAll('[data-inbox]'))button.addEventListener('click',()=>{
   const category=button.dataset.inbox;if(category===active)return;active=category;mailRequest++;mailBusy=false;mailItems=[];mailCursor='';$('ravensList').replaceChildren();
   for(const tab of document.querySelectorAll('[data-inbox]'))tab.setAttribute('aria-pressed',String(tab===button));
   $('ravensCaption').textContent=`Latest unread ${category==='primary'?'Primary':'Updates'} conversations · ${PERSONAL_EMAIL}`;
-  $('ravensState').textContent='Connect your personal Gmail to load this inbox.';setControls();if(connected())loadMail();
+  $('ravensState').textContent='Connect personal Google in Settings to load this inbox.';setControls();if(connected())loadMail();
  });
  if(connection)connection.subscribe(isConnected=>{if(isConnected){if(!mailBusy)void loadMail();}else disconnect(false);});
  setControls();prepare();return {disconnect};

@@ -25,6 +25,9 @@ function fixture({email='abdickers@gmail.com',closed=false}={}){
 test('personal controller verifies the account before reading category messages, and disconnect clears them',async()=>{
  const f=fixture();const session=initPersonalMail(()=> 'public-client-id');await tick();
  assert.equal(f.element('mailConnect').disabled,false);
+ assert.equal(f.element('receiptsConnect').disabled,true);
+ f.element('receiptsConnect').listeners.click();await tick();
+ assert.equal(f.calls.length,0);assert.equal(f.grants.length,1);
  f.element('mailConnect').listeners.click();await tick();
  assert.match(f.element('ravensList').innerHTML,/&lt;script&gt;never execute&lt;\/script&gt;/);
  assert.match(f.element('ravensList').innerHTML,/authuser=abdickers%40gmail.com/);
@@ -39,8 +42,8 @@ test('wrong Google account cannot trigger any inbox or receipt read',async()=>{
 });
 test('closing the Google popup clears the pending grant and permits retry',async()=>{
  const f=fixture({closed:true});initPersonalMail(()=> 'public-client-id');await tick();
- f.element('receiptsConnect').listeners.click();await tick();
- assert.match(f.element('receiptsState').textContent,/Sign-in closed/);assert.equal(f.element('receiptsConnect').disabled,false);assert.equal(f.element('mailConnect').disabled,false);assert.equal(f.calls.length,0);
+ f.element('mailConnect').listeners.click();await tick();
+ assert.match(f.element('ravensState').textContent,/Sign-in closed/);assert.equal(f.element('receiptsConnect').disabled,true);assert.equal(f.element('mailConnect').disabled,false);assert.equal(f.calls.length,0);
 });
 test('a remembered private Google connection restores the inbox without requesting a browser OAuth token',async()=>{
  const f=fixture();let connected=true,changed;
