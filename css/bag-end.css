@@ -1,12 +1,12 @@
 /* One Bag End frame: hearth + weather beside a compact, uncropped watch. */
 #dashboard > #homePanel {
   --oak-unit: .24px;
-  padding: 52px 40px 40px;
+  padding: 52px 56px 40px 40px;
 }
 #homePanel>.panel-title {
   min-height: 80px; padding: 0 104px 16px 0; margin-bottom: 20px;
 }
-#homePanel .bag-end-emblem { width: 92px; height: 92px; top: 42px; right: 38px; }
+#homePanel .bag-end-emblem { width: 92px; height: 92px; top: 42px; right: 56px; }
 #homePanel h2 { font-size: 36px; margin: 3px 0 5px; }
 #homePanel>.panel-title .realm-account { display: block; font-size: 10px; }
 #homePanel .bag-end-layout { display: grid; grid-template-columns: minmax(0,2fr) minmax(0,1fr); gap: 24px; align-items: start; }
@@ -31,7 +31,7 @@
 #homePanel .weather-panel {
   position: relative; isolation: isolate; min-width: 0; margin: 0;
   grid-column: auto; grid-row: auto;
-  padding: 24px 22px; border: 0; border-radius: 4px;
+  padding: 36px 26px 26px; border: 0; border-radius: 4px;
   background: radial-gradient(ellipse at 50% 0,#29433465,transparent 65%),#101e17;
 }
 #homePanel .weather-panel::before {
@@ -88,12 +88,12 @@
   #gatePanel { padding: 20px 0 0; border-left: 0; border-top: 1px solid #a28b5844; }
 }
 @media(max-width:760px) {
-  #dashboard > #homePanel { --oak-unit: .2px; padding: 44px 26px 34px; }
+  #dashboard > #homePanel { --oak-unit: .2px; padding: 44px 36px 34px; }
   #homePanel>.panel-title { min-height: 76px; padding-right: 76px; }
-  #homePanel .bag-end-emblem { width: 70px; height: 70px; top: 42px; right: 24px; }
+  #homePanel .bag-end-emblem { width: 70px; height: 70px; top: 42px; right: 36px; }
   #homePanel h2 { font-size: 32px; }
   #homePanel .home-devices { gap: 16px; }
   #homePanel .nest-hearth { padding: 20px 14px; }
-  #homePanel .weather-panel { padding: 26px 20px; }
+  #homePanel .weather-panel { padding: 36px 24px 26px; }
   #gatePanel .gate-label { font-size: 26px; }
 }
