@@ -1,6 +1,19 @@
 # Private Cloudflare hosting
 
-This migration is prepared on `codex/cloudflare-private-hosting`. It is not active until Cloudflare Zero Trust onboarding, Access application configuration, deployment, and retirement of GitHub Pages have been verified.
+The private dashboard is live at **https://sage-cabin-nest.nest-service.workers.dev/HomePage/**. Cloudflare Zero Trust Free is active. GitHub Pages was disabled with the owner's explicit approval on October 17, 2026; the repository and its history are retained. This migration is tracked on `codex/cloudflare-private-hosting` and merged through the normal PR/check workflow.
+
+## Verified release
+
+- First verified protected release: Worker version `a8a358ac-d1a6-4127-a196-d903b5db5121`, source commit `0e2eb61f7915a592885412ef08d599a20b185fbd`. Later releases identify their exact source in the protected `/HomePage/release.json`.
+- Access team: `https://noisy-moon-7c51.cloudflareaccess.com`.
+- Whole-host application: `69f1d05d-3d30-473e-a49b-fcb90b525a63`, **Sage Command Center — Private**. Policy `8121eb77-b655-4dc0-8ef7-cecc88b4225d` allows only the two exact addresses below. OTP is its only enabled identity provider. Its session lasts 168 hours, with HttpOnly, binding and SameSite=Lax cookies; preflight bypass is off.
+- Signed-webhook application: `4b9ba4b9-a19d-4fd9-a972-e990d673ef12`, scoped to `/budget/plaid/webhook`. The owner explicitly approved this machine-only Access exception; the Worker independently restricts it to exact-path POST and validates the existing Plaid signature.
+- All 128 tests passed, including real RSA-signed Access assertions and original budget/session behavior. Wrangler dry-run, generated binding types and local workerd rejection checks passed.
+- Sixteen live anonymous checks passed: page, script, image, feed and API requests redirect to the expected Access team; unsigned webhook POST is rejected with 401, and webhook GET/nested POST with 403.
+- The owner completed live Access login and reconnected personal Google and Nest. A reload retained both connections; Gmail rows and Nest status loaded, the Treasury was available and amounts stayed hidden. No device command or financial edit was performed for this verification. Browser console checks found no errors.
+- GitHub's Pages API returned 204 for retirement and subsequently 404 for its configuration. The repository remains public source code; website access and financial data are separate from repository visibility.
+
+Existing Google/Plaid secrets, the token encryption key, KV namespace, D1 database and ten-minute scheduled sync were preserved. Plaid remains **Sandbox**. Before a future OAuth bank Link, add the new private dashboard URL to Plaid's allowed redirect URIs; that console change and production eligibility are not implied by this release. A pre-existing budget Gmail discovery warning was not treated as proof of a successful backfill or changed during this security migration. Work-email login is covered by the exact policy and signed-token tests; the live login verified here used the personal email.
 
 ## Architecture
 
