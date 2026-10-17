@@ -1,0 +1,92 @@
+/* A quiet Treasury summary; all ledger work lives in its native modal. */
+#budgetPanel .treasury-summary-toolbar { display: flex; align-items: start; justify-content: space-between; flex-wrap: wrap; gap: 16px; margin: 22px 0; }
+.budget-range-form { display: flex; align-items: center; flex-wrap: wrap; gap: 10px 14px; min-width: 0; }
+.budget-range-form>label { color: #d8c7a5; font-size: 12px; }
+.budget-range-form>span { font-size: 12px; color: #c4c6b5; }
+.budget-custom-range { display: flex; flex-wrap: wrap; align-items: end; gap: 12px; flex-basis: 100%; }
+.budget-custom-range label { display: grid; gap: 6px; color: #ded1b5; font-size: 12px; min-width: 0; }
+#budgetRangeError { flex-basis: 100%; color: #efb5a1; font-size: 12px; margin: 0; }
+#budgetPanel .treasury-metrics { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 14px; margin: 18px 0 24px; }
+body[data-command-realm] #budgetPanel button.treasury-metric {
+  display: block; position: relative; min-width: 0; width: 100%; padding: 22px 18px; text-align: left;
+  color: #eee2c8; background: linear-gradient(145deg,#26302e,#111d1c); border: 1px solid #a18a5866;
+  font-weight: 400; box-shadow: inset 0 1px #ead1a311,0 4px 10px #0002;
+}
+body[data-command-realm] #budgetPanel button.treasury-metric:hover { background: linear-gradient(145deg,#303c37,#1c2a26); border-color: #c2a366; }
+.treasury-metric>span:first-child { display: block; font-size: 11px; line-height: 1.5; letter-spacing: .4px; color: #d3c7aa; }
+.treasury-metric>strong { display: block; margin: 10px 0; font: 600 clamp(26px,2.3vw,36px)/1.15 'Cormorant Garamond',Georgia,serif; color: #f2dab0; overflow-wrap: anywhere; }
+.treasury-metric>small { display: block; font-size: 11px; line-height: 1.6; color: #bfc5b5; }
+.treasury-metric-link { display: block; margin-top: 16px; font-size: 10px; color: #e5c88c; }
+.treasury-summary-lists { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
+.treasury-summary-lists>section { min-width: 0; padding: 22px; background: #101b1ae8; border: 1px solid #9b85534d; border-radius: 4px; }
+#budgetPanel .treasury-summary-lists h3 { margin: 0; font-size: 26px; }
+.treasury-compact-list { list-style: none; margin: 0; padding: 0; }
+.treasury-compact-list>li { display: flex; justify-content: space-between; align-items: start; gap: 16px; padding: 13px 0; border-top: 1px solid #a18b5533; font-size: 13px; }
+.treasury-compact-list>li>div { min-width: 0; }
+.treasury-compact-list strong { display: block; font-weight: 500; line-height: 1.5; overflow-wrap: anywhere; }
+.treasury-compact-list small { display: block; margin-top: 5px; font-size: 11px; color: #bcc4b4; line-height: 1.6; }
+.treasury-compact-list>li>span { flex: 0 0 auto; color: #f0d69b; line-height: 1.5; }
+.treasury-summary-footnote { color: #c3c4b5; font-size: 11px; margin: 18px 0 0; }
+.treasury-summary-notice { margin: 12px 0 20px; }
+
+#budgetWorkspace {
+  --ink: #f1e9d8; --text: #f1e9d8; --muted: #bfc4b6; --line: #9b85534d; --line-soft: #9b855333;
+  width: min(1180px,calc(100% - 40px)); max-width: none; margin: auto; height: min(860px,calc(100dvh - 40px)); max-height: calc(100dvh - 40px);
+  padding: 12px; border: 1px solid #b69a64; border-radius: 5px; overflow: visible; color: #eee4d0;
+  background: linear-gradient(150deg,#26312e,#101b1c 70%); box-shadow: 0 30px 100px #000b,inset 0 0 0 5px #a9893f22;
+}
+#budgetWorkspace[open] { display: grid; grid-template-rows: auto auto minmax(0,1fr) auto; align-items: stretch; gap: 0; }
+#budgetWorkspace::backdrop { background: #030909c9; }
+.treasury-workspace-heading { display: flex; align-items: start; justify-content: space-between; gap: 20px; padding: 24px 26px 18px; }
+.treasury-workspace-heading h2 { margin: 0 0 8px; color: #f0d69b; font: 600 38px/1.1 'Cormorant Garamond',Georgia,serif; }
+.treasury-workspace-heading p { margin: 0; color: #c2c9b9; font-size: 12px; line-height: 1.6; }
+body[data-command-realm] #budgetWorkspaceClose { width: 44px; height: 44px; flex: 0 0 auto; padding: 0; font-size: 25px; }
+.treasury-workspace-toolbar { display: flex; justify-content: space-between; flex-wrap: wrap; align-items: center; gap: 12px; margin: 0 26px; padding: 0 0 18px; border-bottom: 1px solid #a18b5555; }
+#budgetWorkspace .budget-tabs { margin: 0; gap: 6px; }
+#budgetWorkspace .budget-tabs button[aria-pressed=true] { background: linear-gradient(#795f32,#524122); border-color: #c8aa65; color: #fff0c8; }
+.treasury-workspace-body { min-width: 0; min-height: 0; overflow: auto; padding: 0 26px 20px; scrollbar-color: #8b784c #14221d; overscroll-behavior: contain; scroll-padding: 12px; }
+#budgetWorkspace :is(h3,h4) { color: #f0d69b; font-family: 'Cormorant Garamond',Georgia,serif; }
+#budgetWorkspace .budget-block { margin: 24px 0; }
+#budgetWorkspace .budget-columns { gap: 24px; }
+#budgetWorkspace .budget-card { background: #12201cf0; }
+#budgetWorkspace .budget-table a { color: #e7c782; }
+#budgetWorkspace .budget-table-wrap { padding: 5px; margin-inline: -5px; }
+#budgetWorkspace .budget-list>li { padding-inline: 5px; }
+#budgetWorkspace :is(tr,li)[tabindex="-1"]:focus { outline: 2px solid #e5c985; outline-offset: 3px; }
+.treasury-cell-label { display: none; }
+.treasury-workspace-status { margin: 0; border-top: 1px solid #a18b5533; padding: 12px 26px; font-size: 11px; line-height: 1.5; color: #c2c9b9; }
+.treasury-workspace-status.budget-error { color: #efb5a1; }
+@media(max-width:1100px) {
+  #budgetPanel .treasury-metrics { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .treasury-summary-lists { grid-template-columns: minmax(0,1fr); gap: 18px; }
+}
+@media(max-width:760px) {
+  #budgetPanel .treasury-summary-toolbar { display: grid; }
+  .budget-range-form { gap: 10px; }
+  .budget-range-form>span { flex-basis: 100%; }
+  .budget-custom-range { display: grid; grid-template-columns: minmax(0,1fr); width: 100%; }
+  .budget-custom-range input { width: 100%; }
+  body[data-command-realm] #budgetPanel button.treasury-metric { padding: 16px 12px; }
+  #budgetPanel .treasury-metrics { gap: 10px; }
+  .treasury-metric>strong { font-size: 29px; }
+  .treasury-summary-lists>section { padding: 17px 14px; }
+  .treasury-compact-list>li { gap: 10px; font-size: 12px; }
+  #budgetWorkspace { width: calc(100% - 16px); height: calc(100dvh - 16px); max-height: calc(100dvh - 16px); padding: 4px; }
+  .treasury-workspace-heading { padding: 18px 16px 14px; gap: 12px; }
+  .treasury-workspace-heading h2 { font-size: 32px; }
+  .treasury-workspace-toolbar { margin-inline: 16px; padding-bottom: 14px; }
+  #budgetWorkspace .budget-tabs { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); width: 100%; }
+  #budgetWorkspace .budget-tabs button { padding: 9px 7px; }
+  .treasury-workspace-body { padding-inline: 16px; }
+  #budgetWorkspace .budget-columns { grid-template-columns: minmax(0,1fr); gap: 0; }
+  #budgetWorkspace .budget-table-wrap { overflow: visible; }
+  #budgetWorkspace .budget-table, #budgetWorkspace .budget-table tbody { display: block; width: 100%; }
+  #budgetWorkspace .budget-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  #budgetWorkspace .budget-table tr { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; margin: 12px 0; padding: 14px; border: 1px solid #9b85534d; border-radius: 4px; background: #101d19; }
+  #budgetWorkspace .budget-table td { display: block; min-width: 0; padding: 0; border: 0; text-align: left; overflow-wrap: anywhere; }
+  #budgetWorkspace .budget-table td:first-child { grid-column: 1/-1; font-size: 14px; line-height: 1.5; }
+  #budgetWorkspace .budget-table td:empty { display: none; }
+  #budgetWorkspace .budget-table td:last-child { align-self: end; text-align: right; }
+  #budgetWorkspace .treasury-cell-label { display: block; margin-bottom: 5px; color: #bfc5b5; font-size: 10px; }
+  .treasury-workspace-status { padding: 10px 16px; }
+}

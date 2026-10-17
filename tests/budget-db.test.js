@@ -16,6 +16,21 @@ function fixture(t){const db=database();t.after(()=>db.close());const records=ne
 const post=(path,body)=>new Request('https://gateway.test/budget'+path,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
 const tx=(id,extra={})=>({transaction_id:id,account_id:'account',name:'Socket Internet',amount:25,date:'2026-10-15',iso_currency_code:'USD',...extra});
 const page=(added,next_cursor,has_more=false,extra={})=>({added,modified:[],removed:[],next_cursor,has_more,transactions_update_status:'HISTORICAL_UPDATE_COMPLETE',...extra});
+
+test('date-filtered snapshots aggregate before pagination and leave planning and stored records unchanged',async t=>{
+ const f=fixture(t);await f.store.initialize();
+ for(let i=0;i<80;i++)await f.store.put('transaction','prod-'+i,{id:'prod-'+i,date:i<60?'2000-01-05':'1999-12-28',environment:'production',currency:'USD',classification:'purchase',amountCents:100,merchant:'Test merchant',category:'Food'});
+ const row=(id,extra)=>f.store.put('transaction',id,{id,date:'2000-01-05',environment:'production',currency:'USD',classification:'purchase',amountCents:100,...extra});
+ await row('sandbox',{environment:'sandbox',amountCents:999999});await row('pending',{pending:true,amountCents:700});await row('posted',{pendingId:'pending',amountCents:700});await row('refund',{amountCents:-200});await row('transfer',{classification:'transfer',amountCents:50000});await row('foreign',{currency:'EUR'});await row('older-review',{date:'1999-12-01',classification:'review'});
+ const count=async()=>f.db.prepare('SELECT count(*) AS count FROM budget_records').first('count'),before=await count();
+ const original=await snapshot(f.store,f.env,new URL('https://gateway.test/budget/snapshot'));
+ const query='https://gateway.test/budget/snapshot?activityStart=2000-01-01&activityEnd=2000-01-07';
+ const first=await snapshot(f.store,f.env,new URL(query)),second=await snapshot(f.store,f.env,new URL(query+'&transactionPage=1'));
+ assert.equal(first.activity.amountCents,6500);assert.equal(first.activity.refundsCents,200);assert.equal(first.transactionCount,65);
+ assert.equal(first.transactions.length,50);assert.equal(second.transactions.length,15);assert.deepEqual(first.activity,second.activity);
+ assert.deepEqual(first.summary,original.summary);assert.equal(await count(),before);assert.ok(first.reviewTransactions.some(t=>t.id==='older-review'));
+ await assert.rejects(snapshot(f.store,f.env,new URL(query+'&activityStart=2000-01-02')),/valid historical date range/);
+});
 async function bank(f){const item={id:'bank',tokenKey:'bank-token',environment:'sandbox',cursor:'saved',status:'connected'};await f.store.put('item',item.id,item);f.records.set(item.tokenKey,{access:'private-bank-token'});await f.store.queue('bank',item.id);return item;}
 
 test('D1 owner predicates isolate records, leases, jobs and deletion',async t=>{

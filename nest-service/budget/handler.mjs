@@ -1,6 +1,7 @@
 import {BudgetStore} from './store.mjs';
 import {BudgetError,plaidConfigured,plaidEnvironment,plaidCall,createBankLink,bankCandidates,institutionSupported,verifyWebhook} from './plaid.mjs';
 import {buildSummary,money,validDate,merchantFor} from './domain.mjs';
+import {activityRange,periodActivity} from './activity.mjs';
 import {runBudgetJob,storeAccounts} from './sync.mjs';
 
 const json=(env,data,status=200)=>new Response(JSON.stringify(data),{status,headers:{'Content-Type':'application/json','Cache-Control':'no-store, private','Pragma':'no-cache','Access-Control-Allow-Origin':env.FRONTEND_ORIGIN,'Vary':'Origin','Referrer-Policy':'no-referrer','X-Content-Type-Options':'nosniff'}});
@@ -19,6 +20,7 @@ function budgetBill(input,previous={}) {
 function publicItem(item){return {id:item.id,name:item.name,institutionId:item.institutionId,institutionUrl:item.institutionUrl,environment:item.environment,status:item.status,lastSync:item.lastSync||null,error:item.error||null,historyStatus:item.historyStatus||'Not yet verified'};}
 function publicSource(source){return {id:source.id,email:source.email,primary:source.primary,enabled:source.enabled,lastSync:source.lastSync||null,lastBatchAt:source.lastBatchAt||null,backfillComplete:!!source.backfillComplete,processedCount:source.processedCount||0,error:source.error||null};}
 export async function snapshot(store,env,url) {
+  let range;try{range=activityRange(url.searchParams);}catch(error){throw new BudgetError(400,error.message);}
   const names=['account','transaction','bill','event','observation','annotation','income','settings','item','mail-source','proposal','observation-override','event-override','match-override','review-resolution'];
   const lists=await Promise.all(names.map(name=>store.list(name))),rows=Object.fromEntries(names.map((name,i)=>[name,lists[i]]));
   const overrides=new Map(rows['observation-override'].map(o=>[o.id,o])),eventOverrides=new Map(rows['event-override'].map(o=>[o.id,o]));
@@ -30,11 +32,12 @@ export async function snapshot(store,env,url) {
   const transactionIdsPresent=new Set(rows.transaction.map(t=>t.id)),manualMatches=rows['match-override'].filter(m=>m.transactionIds?.every(id=>transactionIdsPresent.has(id)));
   summary.matches.push(...manualMatches);const resolved=new Set(manualMatches.map(m=>m.observationId)),reviewResolved=new Set(rows['review-resolution'].map(r=>r.id));summary.review=summary.review.filter(r=>(!r.observationId||!resolved.has(r.observationId))&&!reviewResolved.has(r.id));
   const transactionPage=Math.max(0,Math.min(1000,Number(url.searchParams.get('transactionPage'))||0)),reviewPage=Math.max(0,Math.min(1000,Number(url.searchParams.get('reviewPage'))||0));
-  const transactions=rows.transaction.sort((a,b)=>(b.date||'').localeCompare(a.date||'')),reviewCount=summary.review.length;
+  const period=range?periodActivity(rows.transaction,range,incomplete):null;
+  const transactions=period?period.entries:rows.transaction.sort((a,b)=>(b.date||'').localeCompare(a.date||'')),reviewCount=summary.review.length;
   summary.review=summary.review.slice(reviewPage*50,reviewPage*50+50);
   const evidenceIds=new Set(summary.review.map(r=>r.observationId).filter(Boolean)),evidence=rows.observation.filter(o=>evidenceIds.has(o.id));
   const transactionIds=new Set(summary.review.map(r=>r.transactionId).filter(Boolean));
-  return {configured:true,environment:plaidEnvironment(env),bankConfigured:plaidConfigured(env),timeZone:'America/Chicago',settings:rows.settings[0]||{},accounts:rows.account,bills:rows.bill,incomes:rows.income,items:rows.item.map(publicItem),mailSources:rows['mail-source'].map(publicSource),observations:[...evidence,...rows.observation.filter(o=>!evidenceIds.has(o.id)).slice(0,300)],reviewTransactions:transactions.filter(t=>transactionIds.has(t.id)),transactions:transactions.slice(transactionPage*50,transactionPage*50+50),transactionCount:transactions.length,reviewCount,summary,jobs:await store.jobs(),retrievedAt:new Date().toISOString()};
+  return {configured:true,environment:plaidEnvironment(env),bankConfigured:plaidConfigured(env),timeZone:'America/Chicago',settings:rows.settings[0]||{},accounts:rows.account,bills:rows.bill,incomes:rows.income,items:rows.item.map(publicItem),mailSources:rows['mail-source'].map(publicSource),observations:[...evidence,...rows.observation.filter(o=>!evidenceIds.has(o.id)).slice(0,300)],reviewTransactions:rows.transaction.filter(t=>transactionIds.has(t.id)),transactions:transactions.slice(transactionPage*50,transactionPage*50+50),transactionCount:transactions.length,reviewCount,summary,...(period?{activity:period.summary}:{}),jobs:await store.jobs(),retrievedAt:new Date().toISOString()};
 }
 async function readInput(request,deps){if(!request.headers.get('Content-Type')?.startsWith('application/json'))throw new BudgetError(415,'Use JSON.');return deps.boundedJson(request,65536);}
 export async function handleBudget(request,env,owner,sessionId,deps) {
