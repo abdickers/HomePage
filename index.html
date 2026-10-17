@@ -18,7 +18,7 @@
   <link rel="stylesheet" href="css/command-controls.css?v=20261017-polish1" />
   <link rel="stylesheet" href="css/dashboard-layout.css?v=20261017-home1" />
   <link rel="stylesheet" href="css/warcraft-frames.css?v=20261017-polish1" />
-  <link rel="stylesheet" href="css/bag-end.css?v=20261017-home1" />
+  <link rel="stylesheet" href="css/bag-end.css?v=20261017-home2" />
   <link rel="stylesheet" href="css/treasury-summary.css?v=20261017-treasury1" />
 </head>
 <body data-command-realm="personal">
@@ -133,11 +133,11 @@
       </div><span class="scroll-paper-edge scroll-paper-right" aria-hidden="true"></span></div>
       <div class="scroll-cap scroll-cap-bottom" aria-hidden="true"><img src="assets/redesign/ravens-roller-left.webp" width="180" height="176" alt="" loading="lazy" decoding="async" /><span></span><img src="assets/redesign/ravens-roller-right.webp" width="180" height="176" alt="" loading="lazy" decoding="async" /></div>
     </section>
-    <section class="panel home-panel oak-framed" id="homePanel">
+    <section class="panel home-panel oak-framed" id="homePanel" aria-labelledby="bagEndTitle">
  <div class="oak-frame" aria-hidden="true"><span class="oak-top-left"></span><span class="oak-top-right"></span><span class="oak-bottom-left"></span><span class="oak-bottom-right"></span><span class="oak-top"></span><span class="oak-bottom"></span><span class="oak-left"></span><span class="oak-right"></span></div>
  <img class="bag-end-emblem" src="assets/redesign/hobbit-bag-end-door.webp" width="180" height="180" alt="" aria-hidden="true" loading="lazy" decoding="async" />
- <div class="panel-title"><div><span class="section-kicker">There is no place like home</span><h2>Bag End</h2></div><span class="realm-account">SAGE CABIN · GOOGLE NEST</span></div>
- <div class="home-devices">
+ <div class="panel-title"><div><span class="section-kicker">There is no place like home</span><h2 id="bagEndTitle">Bag End</h2><span class="realm-account">SAGE CABIN · GOOGLE NEST</span></div></div>
+ <div class="bag-end-layout"><div class="home-devices">
   <div class="nest-hearth"><article class="home-device">
    <div class="climate-art" aria-hidden="true"><img id="nestModeArt" width="144" height="144" sizes="(max-width: 760px) 88px, 128px" alt="" decoding="async" hidden /><span id="nestNeutralGlyph" class="climate-neutral">°</span></div>
    <div class="climate-reading"><h3 class="hearth-heading"><img class="home-small-icon" src="assets/expansion/hobbit-icon-window-64.webp" srcset="assets/expansion/hobbit-icon-window-64.webp 64w, assets/expansion/hobbit-icon-window-128.webp 128w" sizes="28px" width="28" height="28" alt="" aria-hidden="true" loading="lazy" decoding="async" />The hearth</h3>
@@ -172,7 +172,9 @@
       <small id="weatherSource" role="status"></small>
       <button class="text-button" id="weatherLocation" type="button">Change location</button>
     </section>
- <div class="nest-watch" aria-labelledby="nestWatchTitle">
+ </div>
+
+ <div class="nest-watch" id="gatePanel" role="group" aria-labelledby="nestWatchTitle">
   <h3 class="gate-label" id="nestWatchTitle"><img class="home-small-icon" src="assets/expansion/hobbit-icon-gate-64.webp" srcset="assets/expansion/hobbit-icon-gate-64.webp 64w, assets/expansion/hobbit-icon-gate-128.webp 128w" sizes="32px" width="32" height="32" alt="" aria-hidden="true" loading="lazy" decoding="async" />The watch at the gate</h3>
   <div class="camera-preview"><picture id="nestCameraArt" aria-hidden="true"><source media="(max-width: 1000px)" srcset="assets/bag-end/hobbit-hearth-garden-window-small.webp" /><img src="assets/bag-end/hobbit-hearth-garden-window.webp" width="1672" height="941" alt="" loading="lazy" decoding="async" /></picture><video id="nestVideo" controls autoplay muted playsinline hidden aria-label="Live Nest camera"></video></div>
   <div class="camera-toolbar"><div class="camera-selection"><label for="nestCamera" id="nestCameraLabel" hidden>Camera</label><select id="nestCamera" aria-describedby="nestCameraInfo" hidden></select><small id="nestCameraInfo">Private Nest camera</small></div>
@@ -181,7 +183,6 @@
   <div class="nest-footer"><p id="nestStatus" role="status" aria-live="polite">Preparing your private Nest connection…</p></div>
  </div>
  </div>
-
 </section>
 
     <section class="panel provisions-panel oak-framed" id="dailyProvisioning">

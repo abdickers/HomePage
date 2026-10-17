@@ -7,7 +7,7 @@ Cloudflare Zero Trust protects the entire site and gateway. Only `abdickers@gmai
 ## Use the dashboard
 
 - **Links** open in a separate tab and keep the dashboard available. Use **Add Link** to add, edit, or remove shortcuts in AI Tools, Tools & Systems, and Quick Access. Use your organization's specific NetSuite, Jira, Confluence, and Slack URLs if you want to skip their workspace chooser.
-- **Bag End** spans the dashboard with the hearth and Weather in Rohan side by side, then a full-width private Nest camera beneath them. The layout stacks on smaller screens. The camera selector, Watch/Stop, Refresh, and Google Home actions sit below the video. Watch starts an idle camera; switching a playing camera automatically opens the newly selected feed. Playback contains the full landscape or portrait image without cropping. Leaving the tab, stopping, sign-out and the existing five-minute session limit still end video. Connect Nest once to restore devices automatically on later visits.
+- **Bag End** uses one shared oak frame, with the hearth and Weather in Rohan grouped on the left and a smaller camera on the right. The camera is bounded to 640px and keeps its 16:9 viewport; these groups stack on smaller screens. The camera selector, Watch/Stop, Refresh, and Google Home actions sit below the video. Watch starts an idle camera; switching a playing camera automatically opens the newly selected feed. Playback contains the full landscape or portrait image without cropping. Leaving the tab, stopping, sign-out and the existing five-minute session limit still end video. Connect Nest once to restore devices automatically on later visits.
 - The music, video, System Status, Scribe’s Notes, and Fellowship sections have been removed. Fellowship artwork remains in `assets/avatars/` for future use. Existing tasks and notes remain in browser backups.
 - **Search** supports web search, Ask AI, and a Dashboard scope that finds saved links. Press `/` to focus it.
 - **Settings → Connections** holds Google, Nest, and Treasury source sign-in, sign-out, linking, and sync controls. **Preferences** configures your display name, weather location and units, and calendar. **Backup** holds export and import. **Export Backup** downloads a JSON file; **Import Backup** merges tasks/notes by ID and restores links/settings, with an undo option.
@@ -15,7 +15,7 @@ Cloudflare Zero Trust protects the entire site and gateway. Only `abdickers@gmai
 
 ## Dashboard layout
 
-On desktop, Calendar and AI Tools stack on the left beside the Ravens. Bag End follows across the page with home and weather panels above the camera, then Quartermaster / Quick Access and a full-width News from Bree. Tools & Systems, Warcraft, Treasury, and Words of Wisdom each have a full-width row. Smaller screens follow that same reading order in one column. Quick Access uses the Dwarven frame; Tools & Systems uses the Elven frame. The header Palantir uses the same supplied seeing-stone artwork as AI Tools.
+On desktop, Calendar and AI Tools stack on the left beside the Ravens. Bag End follows with hearth / weather beside the smaller Watch at the Gate camera, all inside one frame, then Quartermaster / Quick Access and a full-width News from Bree. Tools & Systems, Warcraft, Treasury, and Words of Wisdom each have a full-width row. Smaller screens follow that same reading order in one column. Quick Access uses the Dwarven frame; Tools & Systems uses the Elven frame. The header Palantir uses the same supplied seeing-stone artwork as AI Tools.
 
 ## Google Calendar
 
