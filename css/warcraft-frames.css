@@ -50,6 +50,13 @@
 #wowPanel .wow-event-label { display: block; line-height: 1.5; }
 #wowPanel .wow-event.is-active .wow-event-label { color: #234a30; }
 #wowPanel .wow-event h4 { overflow-wrap: anywhere; }
+#wowPanel .wow-character-actions {
+  --control-bg: linear-gradient(180deg,#234b70,#142f4c);
+  --control-hover: linear-gradient(180deg,#32618b,#1b4165);
+  --control-line: #ae945a;
+  --control-ink: #f4e8cc;
+}
+body[data-command-realm] #wowPanel .wow-character-actions>a:hover { border-color: #dfbb6c; }
 body[data-command-realm] #wowPanel .wow-switch button {
   border-color: #627e9c; background: #172c45; color: #edf3fb;
 }

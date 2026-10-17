@@ -9,15 +9,15 @@
   <link rel="icon" href="assets/sigil.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=20261015-wow8" />
+  <link rel="stylesheet" href="css/styles.css?v=20261017-polish1" />
   <link rel="stylesheet" href="css/realm-theme.css?v=20261015-wow8" />
   <link rel="stylesheet" href="css/personal-realm.css?v=20261016-layout1" />
   <link rel="stylesheet" href="css/budget.css?v=20261016-layout1" />
   <link rel="stylesheet" href="css/epic-realm.css?v=20261016-layout1" />
   <link rel="stylesheet" href="css/realm-expansion.css?v=20261016-expansion2" />
-  <link rel="stylesheet" href="css/command-controls.css?v=20261016-controls1" />
+  <link rel="stylesheet" href="css/command-controls.css?v=20261017-polish1" />
   <link rel="stylesheet" href="css/dashboard-layout.css?v=20261017-home1" />
-  <link rel="stylesheet" href="css/warcraft-frames.css?v=20261016-warcraft1" />
+  <link rel="stylesheet" href="css/warcraft-frames.css?v=20261017-polish1" />
   <link rel="stylesheet" href="css/bag-end.css?v=20261017-home1" />
   <link rel="stylesheet" href="css/treasury-summary.css?v=20261017-treasury1" />
 </head>
@@ -26,7 +26,13 @@
     <a class="realm-brand" href="#dashboard"><span class="realm-ring">A</span><span>THE COMMAND<br><strong>CENTER</strong></span></a>
     <nav class="realm-switch" aria-label="Command center"><a href="./" aria-current="page">The Shire</a><a href="https://adams-middle-earth-command.spirit-of-76-1921.chatgpt.site/">Work</a></nav>
     <p class="realm-account">PERSONAL<br>abdickers@gmail.com</p>
-    <nav class="realm-nav" aria-label="Dashboard sections"><a href="#dashboard">◇ Overview</a><a href="#homePanel"><img class="nav-art" src="assets/redesign/icon-bag-end.webp" width="28" height="28" alt="" aria-hidden="true" loading="lazy" decoding="async" /><span>Bag End</span></a><a href="#dailyProvisioning">✦ Daily provisions</a><a href="#wowPanel">⚔ WoW war room</a><a href="#budgetPanel">◇ The Treasury · Budget</a></nav>
+    <nav class="realm-nav" aria-label="Dashboard sections">
+      <a href="#dashboard"><img class="nav-art" src="assets/redesign/icon-calendar.webp" width="28" height="28" alt="" aria-hidden="true" decoding="async" /><span>Overview</span></a>
+      <a href="#homePanel"><img class="nav-art" src="assets/redesign/icon-bag-end.webp" width="28" height="28" alt="" aria-hidden="true" decoding="async" /><span>Bag End</span></a>
+      <a href="#dailyProvisioning"><img class="nav-art" src="assets/redesign/icon-provisions.webp" width="28" height="28" alt="" aria-hidden="true" decoding="async" /><span>Daily provisions</span></a>
+      <a href="#wowPanel"><img class="nav-art" src="assets/redesign/icon-war-room.webp" width="28" height="28" alt="" aria-hidden="true" decoding="async" /><span>WoW war room</span></a>
+      <a href="#budgetPanel"><img class="nav-art" src="assets/redesign/icon-treasury.webp" width="28" height="28" alt="" aria-hidden="true" decoding="async" /><span>The Treasury <small>Budget &amp; bills</small></span></a>
+    </nav>
     <p class="realm-account">One realm. One account.<br>A little less chaos.</p>
   </aside>
   <a class="skip-link" href="#dashboard">Skip to dashboard</a>
@@ -75,7 +81,7 @@
       </div>
       <label class="sr-only" for="searchInput">Search the web or your dashboard</label>
       <div class="search-field"><input id="searchInput" type="search" placeholder="Search the web, or find a tool..." autocomplete="off" /><select id="searchScope" aria-label="Search in"><option value="web">Web</option><option value="dashboard">Dashboard</option></select></div>
-      <button class="icon-button search-submit" type="submit" aria-label="Search">Search</button>
+      <button class="icon-button search-submit" type="submit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6.5" /><path d="m16 16 4.5 4.5" /></svg><span>Search</span></button>
       <button class="command-button" id="askAi" type="button">Ask AI</button>
       <a class="command-button filled" href="#homePanel">Bag End</a>
     </form>
@@ -327,7 +333,7 @@
   <dialog id="budgetDialog" aria-label="Budget editor"><div id="budgetDialogBody"></div></dialog>
   <script type="module" src="js/realm-expansion.js?v=20261016-expansion1"></script>
   <script type="module" src="js/private-site.js?v=20261017-private1"></script>
-  <script type="module" src="js/app.js?v=20261017-private1"></script>
+  <script type="module" src="js/app.js?v=20261017-polish1"></script>
   <script type="module" src="js/wow.js?v=20261016-warcraft1"></script>
 </body>
 </html>
