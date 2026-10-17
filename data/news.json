@@ -3,30 +3,40 @@
     "fox": {
       "items": [
         {
-          "title": "Hackers hide dangerous fake AI downloads behind Google ads",
-          "link": "https://www.foxnews.com/tech/hackers-hide-dangerous-fake-ai-downloads-behind-google-ads",
-          "pubDate": "2026-10-17T09:20:23-04:00"
+          "title": "5 reasons Americans are no longer inviting guests into their homes",
+          "link": "https://www.foxnews.com/health/5-reasons-americans-no-longer-inviting-guests-homes",
+          "pubDate": "2026-10-17T12:31:55-04:00"
         },
         {
-          "title": "Notre Dame faces first real test as unbeaten BYU hosts the Fighting Irish in top-10 clash",
-          "link": "https://www.foxnews.com/outkick-betting/notre-dame-faces-first-real-test-unbeaten-byu-hosts-fighting-irish-top-10-clash",
-          "pubDate": "2026-10-17T09:17:42-04:00"
+          "title": "Trump spills details of dinner with Bill Maher, Stephen A. Smith and Kid Rock at the White House",
+          "link": "https://www.foxnews.com/media/trump-spills-details-dinner-bill-maher-stephen-a-smith-kid-rock-white-house",
+          "pubDate": "2026-10-17T12:18:12-04:00"
         },
         {
-          "title": "Our kids aren’t broken. We need to stop treating every struggle like a disorder",
-          "link": "https://www.foxnews.com/opinion/kids-arent-broken-stop-treating-every-struggle-like-disorder",
-          "pubDate": "2026-10-17T09:00:17-04:00"
+          "title": "Violence erupts at France protests as Macron warns unrest is being exploited",
+          "link": "https://www.foxnews.com/world/violence-erupts-france-protests-macron-warns-unrest-being-exploited",
+          "pubDate": "2026-10-17T12:03:16-04:00"
         },
         {
-          "title": "Ilhan Omar should be jailed, deported if citizenship fraud proven, Top House Republican says",
-          "link": "https://www.foxnews.com/politics/ilhan-omar-should-jailed-deported-citizenship-fraud-proven-top-house-republican-says",
-          "pubDate": "2026-10-17T09:00:13-04:00"
+          "title": "Michigan teen volleyball player files lawsuit after she unknowingly shared locker room with trans athlete",
+          "link": "https://www.foxnews.com/media/michigan-teen-volleyball-player-files-lawsuit-unknowingly-shared-locker-room-trans-athlete",
+          "pubDate": "2026-10-17T12:00:26-04:00"
         }
       ],
-      "updated": "2026-10-17T13:42:41.214804+00:00"
+      "updated": "2026-10-17T17:09:21.387729+00:00"
     },
     "wowhead": {
       "items": [
+        {
+          "title": "Labyrinth of Kindo'jan Has No Save Points Mid Run",
+          "link": "https://www.wowhead.com/news=383469/labyrinth-of-kindojan-has-no-save-points-mid-run",
+          "pubDate": "2026-10-17T11:00:00-05:00"
+        },
+        {
+          "title": "What's Going on With Layering in WoW: Forever?",
+          "link": "https://www.wowhead.com/news=383412/whats-going-on-with-layering-in-wow-forever",
+          "pubDate": "2026-10-17T09:00:00-05:00"
+        },
         {
           "title": "Many More Labyrinth Fixes - Patch 12.1.5 Hotfixes",
           "link": "https://www.wowhead.com/news=383478/many-more-labyrinth-fixes-patch-12-1-5-hotfixes",
@@ -36,19 +46,9 @@
           "title": "Hallow's End Tricky Treat Decor Costs Nerfed by 90%",
           "link": "https://www.wowhead.com/news=383476/hallows-end-tricky-treat-decor-costs-nerfed-by-90",
           "pubDate": "2026-10-16T20:06:28-05:00"
-        },
-        {
-          "title": "Wowhead's Talebound Talent Calculator Now Live",
-          "link": "https://www.wowhead.com/news=383475/wowheads-talebound-talent-calculator-now-live",
-          "pubDate": "2026-10-16T19:25:20-05:00"
-        },
-        {
-          "title": "Blizzard Moves WoW: Forever Stress Test to October 21",
-          "link": "https://www.wowhead.com/news=383474/blizzard-moves-wow-forever-stress-test-to-october-21",
-          "pubDate": "2026-10-16T17:46:56-05:00"
         }
       ],
-      "updated": "2026-10-17T13:42:41.325340+00:00"
+      "updated": "2026-10-17T17:09:22.126738+00:00"
     }
   }
 }
