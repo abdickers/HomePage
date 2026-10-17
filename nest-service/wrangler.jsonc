@@ -1,14 +1,21 @@
 {
-  "$schema": "../../../work/nest-tooling/node_modules/wrangler/config-schema.json",
+  "$schema": "../node_modules/wrangler/config-schema.json",
   "name": "sage-cabin-nest",
   "account_id": "5e6a580fb3f9a04573693f7c6c123fbd",
-  "main": "worker.mjs",
+  "main": "private-worker.mjs",
   "compatibility_date": "2026-10-15",
   "compatibility_flags": [
     "nodejs_compat"
   ],
   "workers_dev": true,
   "preview_urls": false,
+  "assets": {
+    "directory": "../dist-private",
+    "binding": "ASSETS",
+    "run_worker_first": true,
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "none"
+  },
   "observability": {
     "enabled": true,
     "logs": {
@@ -19,7 +26,9 @@
     "redact_query_string": true
   },
   "vars": {
-    "FRONTEND_ORIGIN": "https://abdickers.github.io",
+    "FRONTEND_ORIGIN": "https://sage-cabin-nest.nest-service.workers.dev",
+    "ACCESS_TEAM_DOMAIN": "https://noisy-moon-7c51.cloudflareaccess.com",
+    "ACCESS_AUD": "921a367be80c010fe17577143be67669a88544f8f141a28de5268f8b134c5dbb",
     "OWNER_EMAIL": "abdickers@gmail.com",
     "NEST_PROJECT_ID": "36aad5a3-335e-4665-a687-9783ae584571",
     "GOOGLE_CLIENT_ID": "644801431816-9f7u70h62fipmebva3llupi2o17b1g80.apps.googleusercontent.com",

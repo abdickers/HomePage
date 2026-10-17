@@ -9,3 +9,4 @@ node_modules/
 *credentials*.json
 *client_secret*.json
 worker-configuration.d.ts
+dist-private/

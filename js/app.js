@@ -1,8 +1,8 @@
 import {initSettingsPresentation} from './settings-presentation.js?v=20261016-controls1';
-import {initNest} from './nest.js?v=20261017-home1';
-import {NEST_SERVICE_URL} from './nest-config.js?v=20261015-personal7';
-import {createGoogleConnection} from './google-connection.js?v=20261015-remember1';
-import {initBudget} from './budget.js?v=20261017-treasury1';
+import {initNest} from './nest.js?v=20261017-private1';
+import {NEST_SERVICE_URL} from './nest-config.js?v=20261017-private1';
+import {createGoogleConnection} from './google-connection.js?v=20261017-private1';
+import {initBudget} from './budget.js?v=20261017-private1';
 import { initPersonalMail } from './personal-mail.js?v=20261016-controls1';
 import { accountLink, PERSONAL_EMAIL } from './account-links.mjs?v=20261015-personal7';
 import {DATA_KEY, escapeHtml as esc, safeUrl, localDate, normalizeData, readData, mergeBackup, normalizeObservation} from './core.js?v=20261015-personal7';

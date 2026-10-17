@@ -12,7 +12,7 @@ export function initNest(serviceUrl='') {
  let session=saved?.session||'',popup=null,devices=[],busy=false;
  let checkedAt=null,readFailed=false,commandPending=false,awaitingConfirmation=false,commandFailed=false;
  const message=text=>{status.textContent=text;};
- async function api(path,body){const r=await fetch(base+path,{method:body?'POST':'GET',headers:{Authorization:'Bearer '+session,...(body?{'Content-Type':'application/json'}:{})},...(body?{body:JSON.stringify(body)}:{}),cache:'no-store',credentials:'omit',signal:AbortSignal.timeout(20000)});const data=await r.json();if(!r.ok){if(r.status===401){session='';forgetSession(storage,'nest');refresh.disabled=true;disconnect.hidden=true;devices=[];void stop();renderThermostat();renderCamera();}throw Error(data.error||'Nest request failed.');}return data;}
+ async function api(path,body){const r=await fetch(base+path,{method:body?'POST':'GET',headers:{Authorization:'Bearer '+session,...(body?{'Content-Type':'application/json'}:{})},...(body?{body:JSON.stringify(body)}:{}),cache:'no-store',credentials:'same-origin',signal:AbortSignal.timeout(20000)});const data=await r.json();if(!r.ok){if(r.status===401){session='';forgetSession(storage,'nest');refresh.disabled=true;disconnect.hidden=true;devices=[];void stop();renderThermostat();renderCamera();}throw Error(data.error||'Nest request failed.');}return data;}
  const fragment=new URLSearchParams(location.hash.slice(1));
  if(/^[a-f0-9]{64}$/.test(fragment.get('nest-session')||'')){session=fragment.get('nest-session');history.replaceState(null,'',location.pathname+location.search+'#homePanel');}
  const cToDisplay=(c,d)=>typeof c==='number'?Math.round(d.scale==='CELSIUS'?c:c*9/5+32):'—';

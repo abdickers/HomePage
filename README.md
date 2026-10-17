@@ -1,6 +1,8 @@
 # Sage's Middle-earth Command
 
-A buildless personal dashboard for [abdickers/HomePage](https://github.com/abdickers/HomePage), hosted on [GitHub Pages](https://abdickers.github.io/HomePage/). The existing Middle-earth artwork and gold/green styling are preserved.
+A personal dashboard for [abdickers/HomePage](https://github.com/abdickers/HomePage), privately hosted on [Cloudflare](https://sage-cabin-nest.nest-service.workers.dev/HomePage/). The existing Middle-earth artwork and gold/green styling are preserved.
+
+Cloudflare Zero Trust protects the entire site and gateway. Only `abdickers@gmail.com` and `dickersona@76fireworks.com` can sign in using an emailed one-time PIN; site sessions last seven days. Settings → Connections includes site sign-out. Google/Nest provider consent remains separate. The former GitHub Pages publication is disabled. See [private hosting and verified release](design/PRIVATE-HOSTING.md) for Access configuration, deployment and recovery.
 
 ## Use the dashboard
 
@@ -25,7 +27,7 @@ In the Google Cloud project that owns the client ID:
 
 1. Enable Gmail and Google Calendar APIs and configure the OAuth consent screen.
 2. Use a **Web application** OAuth client.
-3. Authorize `https://sage-cabin-nest.nest-service.workers.dev/auth/callback` as a redirect URI. This existing callback handles both Nest and Gmail/Calendar using cookie-bound, purpose-specific OAuth state. Frontend origin must be exactly `https://abdickers.github.io`; the dashboard return path is `/HomePage/`.
+3. Authorize `https://sage-cabin-nest.nest-service.workers.dev/auth/callback` as a redirect URI. This existing callback handles both Nest and Gmail/Calendar using cookie-bound, purpose-specific OAuth state. Frontend origin must be exactly `https://sage-cabin-nest.nest-service.workers.dev`; the dashboard return path is `/HomePage/`.
 4. Keep the personal Google app in Production for long-lived refresh tokens. Testing mode can expire refresh tokens after seven days. Google may still require reauthorization if access is revoked or its authorization policy expires a grant.
 
 An OAuth client ID is public configuration; never add a client secret. Google sign-in can be blocked inside embedded previews. Use the exact page URL in Chrome or Edge. Existing authorizations for broader scopes are managed in your Google account's third-party connections; the dashboard no longer requests Drive or calendar write access.
@@ -35,42 +37,51 @@ Google setup: https://developers.google.com/calendar/api/quickstart/js
 ## Live widgets
 
 - **Weather:** National Weather Service observations, with Open-Meteo forecast fallback. The configured default is Columbia, MO; change the city and °F/°C in Settings. Units are converted according to the NWS unit codes. Rain means the last hour, and missing measurements stay blank rather than becoming zero. Forecast fallback does not pretend to be a personal weather station. No API key is required.
-- **News:** Fox News RSS is read directly; Tech uses the Hacker News Algolia API. Wowhead blocks browser RSS requests, so it uses a timestamped public snapshot in `data/news.json`. The hourly `Refresh public news feeds` GitHub Action refreshes real Fox/Wowhead headlines and commits only this public file. The live page reads the snapshot from the repository so bot commits do not need to rebuild Pages. The action also supports a manual run. Scheduled runs can be delayed or disabled by GitHub after repository inactivity; the displayed timestamp identifies stale snapshots. If feeds fail, their last good snapshot is preserved. No sample headlines are fabricated.
+- **News:** Fox News RSS is read directly; Tech uses the Hacker News API. Wowhead blocks browser RSS requests, so it uses a timestamped public snapshot in `data/news.json`. The hourly `Refresh public news feeds` GitHub Action refreshes real Fox/Wowhead headlines and commits only this public file. The protected Worker supplies that fixed public snapshot without forwarding identity headers or cookies; bot commits do not require redeployment. The action also supports a manual run. Scheduled runs can be delayed or disabled by GitHub after repository inactivity; the displayed timestamp identifies stale snapshots. If feeds fail, their last good snapshot is preserved. No sample headlines are fabricated.
 - **Status:** BigCommerce, Vercel, Slack, OpenAI, and Cloudflare are queried using their public status APIs. Incidents link to the provider. NetSuite links to its official status page; blocked/unavailable APIs display **View status**, not an invented operational state. Checks repeat every five minutes.
 
 External APIs can be blocked by browser extensions or provider outages. Refresh controls and source/status links remain available.
 
 ## Preview and verify
 
-No install or build step is required. From the repository root:
+A static visual preview does not require a build. From the repository root:
 
 ```sh
 python -m http.server 4173 --bind 127.0.0.1
-node --test tests/core.test.js
-node --check js/app.js
-python scripts/refresh-feeds.py
 ```
 
 Open `http://127.0.0.1:4173/`. Use an HTTP server rather than opening `index.html` as a file, because the application uses ES modules.
 
-GitHub Pages should publish the `main` branch, repository root. Merge the change to publish the repaired HTML and assets. The news workflow needs Actions enabled and repository `contents: write` permission. It uses the built-in `GITHUB_TOKEN`; no custom secret is needed. Branch rules that prohibit bot commits may require allowing this workflow or running the feed refresher manually and committing its output.
+For the full suite and protected deployment, use Node 24 and pinned pnpm 11.25.0:
+
+```sh
+pnpm install --frozen-lockfile --ignore-scripts
+pnpm test
+pnpm check
+pnpm build:private
+pnpm exec wrangler deploy --config nest-service/wrangler.jsonc --keep-vars --dry-run
+# After checks and the repository PR workflow:
+pnpm deploy:private
+```
+
+Inspect deployed settings first and preserve secrets, KV/D1 bindings and Access protection. The static preview is not an authenticated production environment. Never re-enable GitHub Pages as a deployment step. The news workflow needs Actions enabled and repository `contents: write` permission. It uses the built-in `GITHUB_TOKEN`; no custom secret is needed. Branch rules that prohibit bot commits may require allowing this workflow or running the feed refresher manually and committing its output.
 
 Legacy root SVG files and images are retained for compatibility. The active entry point loads only `css/styles.css` and `js/app.js`.
 
 
 ## Twin command centers (October 15, 2026)
 
-Personal is canonically https://abdickers.github.io/HomePage/ and uses `abdickers@gmail.com`.
+Personal is now https://sage-cabin-nest.nest-service.workers.dev/HomePage/ and uses `abdickers@gmail.com` for its Google integrations. The additional approved work email grants site access, not a different personal Google mailbox.
 Work remains owner-private at https://adams-middle-earth-command.spirit-of-76-1921.chatgpt.site/ and uses `dickersona@76fireworks.com`.
 The sidebar switches between the two. The artwork, font pair, dark forest surfaces, gold palette, and ornamental borders match Work. `css/realm-theme.css` and `js/account-links.mjs` are copied unchanged to WorkHomepage's `public/realm-theme.css` and `lib/account-links.mjs`.
 
-Google shortcuts carry the realm's email selector, including saved/custom links and individual events. Calendar requests read-only events plus email identity and rejects a different or unverified account before reading any events. Public OAuth client configuration still requires the Google Cloud owner to authorize the GitHub Pages origin. Other providers keep their own login sessions; the page cannot read or force those identities. ChatGPT account switching is explicit in the UI, not an invented account-selection URL.
+Google shortcuts carry the realm's email selector, including saved/custom links and individual events. Calendar requests read-only events plus email identity and rejects a different or unverified account before reading any events. The private gateway uses the existing server-side Google callback registered above. Other providers keep their own login sessions; the page cannot read or force those identities. ChatGPT account switching is explicit in the UI, not an invented account-selection URL.
 
 The Quartermaster opens Walmart+ membership and orders and Amazon account/orders/Prime. Spark was removed at the owner’s request. The optional Gmail receipt reader shows actual source emails after personal Google consent; it does not query retailer accounts, balances or live delivery status. No retail credentials are requested or stored.
 
 Frear's companion uses Blizzard's actual public Armory render for Frear, US Grizzly Hills, dwarf paladin. The snapshot shown by Blizzard was updated September 15, 2026. The companion collapses and remembers the preference. This is a rendered image, not an interactive 3D model; the separate Wowhead Dressing Room can load characters. A true animated 3D companion still needs a verified model/appearance export. No Battle.net password is needed. Image source: https://render.worldofwarcraft.com/us/character/grizzly-hills/238/217923310-main-raw.png .
 
-The high-resolution Middle-earth header is reused from WorkHomepage. It is the saved 3840-pixel display derivative of the existing 1672×941 generated artwork, not a newly generated native 4K image. See WorkHomepage's ASSET-NOTES.md. The live personal dashboard remains on the abdickers origin. Browser-local tasks, settings and notes from the temporary abdickers deployment can be moved with Export backup and Import backup.
+The high-resolution Middle-earth header is reused from WorkHomepage. It is the saved 3840-pixel display derivative of the existing 1672×941 generated artwork, not a newly generated native 4K image. See WorkHomepage's ASSET-NOTES.md. Browser-local tasks, settings and notes from the former GitHub Pages origin can be moved with Export backup and Import backup. Provider tokens and application sessions are not included in backups.
 
 Legacy default work-service tiles on Personal now lead through a single Work Command Center tile. Custom URLs are retained, and tasks/notes are preserved. Personal tools include Battle.net and Frear’s Armory.
 
@@ -99,10 +110,10 @@ Retail shows published event windows, repeating timers, daily reset, weekly bonu
 
 ## Combined repository
 
-This repository includes both Bag End / Nest controls (from InkedSage) and Frear’s Retail / Forever War Room. The gateway configuration targets exactly `https://abdickers.github.io` and returns to `/HomePage/` after consent. Deploy `nest-service/wrangler.jsonc` with `--keep-vars`, preserving the existing secrets and KV namespace. The server-side Google OAuth callback remains on the existing Nest service origin. Partner Connections Manager supplies the Nest login hint; the app must not add a duplicate hint.
+This repository includes both Bag End / Nest controls (from InkedSage) and Frear’s Retail / Forever War Room. The gateway configuration targets exactly `https://sage-cabin-nest.nest-service.workers.dev` and returns to `/HomePage/` after consent. Build the private asset bundle and deploy `nest-service/wrangler.jsonc` with `--keep-vars`, preserving the existing secrets, KV and D1 bindings. The server-side Google OAuth callback remains on the same Nest service origin. Partner Connections Manager supplies the Nest login hint; the app must not add a duplicate hint.
 
 ## Private budget
 
 The Steward adds an authenticated budget ledger backed by the existing Cloudflare Worker, private D1 storage, Plaid Link, and read-only Gmail discovery. See [BUDGET-SETUP.md](BUDGET-SETUP.md) for credential entry, production eligibility and costs, deployment order, privacy controls, and connection verification. Real data is available only after authorized connections; Sandbox data is explicitly labeled.
 
-The Treasury summary/workspace redesign is staged on `codex/treasury-summary-workspace`, with rollback tag `treasury-before-summary-20261017`. Its summary defaults to the past seven Chicago calendar dates; current cash, upcoming bills and monthly limits retain their own periods. View details opens read-only information, while Manage Treasury enables the existing editors in a separate workspace. See [review and rollback notes](design/TREASURY-SUMMARY-REVIEW.md) for validation and the additive snapshot support required before a future release. This branch has not been deployed.
+The Treasury summary/workspace redesign was merged in PR #17. Its summary defaults to the past seven Chicago calendar dates; current cash, upcoming bills and monthly limits retain their own periods. View details opens read-only information, while Manage Treasury enables the existing editors in a separate workspace. See [review notes](design/TREASURY-SUMMARY-REVIEW.md) for its original validation. The historical tag `treasury-before-summary-20261017` predates private hosting; recovery must preserve the current Access guard as described in [private hosting](design/PRIVATE-HOSTING.md).

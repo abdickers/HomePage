@@ -12,7 +12,7 @@ export function createGoogleConnection(serviceUrl,options={}){
  function clear(){session='';expiresAt=0;verified=false;epoch++;forgetSession(storage,'google');emit();}
  async function request(path,signal){
   const credential=session,attempt=epoch;
-  const response=await fetcher(base+path,{headers:{Authorization:'Bearer '+credential},credentials:'omit',cache:'no-store',signal:signal||AbortSignal.timeout(20000)});
+  const response=await fetcher(base+path,{headers:{Authorization:'Bearer '+credential,Accept:'application/json'},credentials:'same-origin',cache:'no-store',signal:signal||AbortSignal.timeout(20000)});
   const body=await response.json();
   if(!response.ok){if(response.status===401&&session===credential)clear();const error=Error(typeof body.error==='string'?body.error:'Google could not complete this read.');error.status=response.status;throw error;}
   if(attempt!==epoch||credential!==session)throw Error('Google connection changed. Try again.');
@@ -56,7 +56,7 @@ export function createGoogleConnection(serviceUrl,options={}){
   const credential=session;
   if(pending){clearInterval(pending.timer);pending.popup.close();pending.reject(Error('Google sign-in cancelled.'));pending=null;}
   clear();
-  if(credential)void fetcher(base+'/google/disconnect',{method:'POST',headers:{Authorization:'Bearer '+credential,'Content-Type':'application/json'},body:'{}',credentials:'omit',cache:'no-store',keepalive:true}).catch(()=>{});
+  if(credential)void fetcher(base+'/google/disconnect',{method:'POST',headers:{Authorization:'Bearer '+credential,'Content-Type':'application/json',Accept:'application/json'},body:'{}',credentials:'same-origin',cache:'no-store',keepalive:true}).catch(()=>{});
  }
  return {ready:()=>ready,connect,disconnect,connected,sessionId:()=>session,expiresAt:()=>expiresAt,error:()=>lastError,
   subscribe(listener){listeners.add(listener);return()=>listeners.delete(listener);},

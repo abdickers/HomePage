@@ -1,15 +1,15 @@
 # Sage Cabin private Nest service
 
-Designed for Adam's personal Cloudflare account, on Workers Free + KV Free. The public dashboard stays at https://abdickers.github.io/HomePage/. No paid plan, stream relay, database, or domain is required for WebRTC cameras. An RTSP-only camera requires a separate gateway and remains an explicit Google Home link here.
+The dashboard and gateway now share https://sage-cabin-nest.nest-service.workers.dev, with the page at `/HomePage/`. Cloudflare Access and an independent signed-assertion Worker guard protect the entire hostname for the two approved owner emails. GitHub Pages is disabled. See [private hosting](../design/PRIVATE-HOSTING.md) for the actual Access IDs, verification and recovery rules. No paid stream relay or domain is required for WebRTC cameras. An RTSP-only camera requires a separate gateway and remains an explicit Google Home link here.
 
 ## Deployment
 
-1. Sign into the personal account with Wrangler, restricting scopes to account/user reads and Workers/scripts/KV writes.
-2. Create a KV namespace and bind it as `NEST_KV`. Set the personal `account_id` and namespace ID in `wrangler.jsonc`.
-3. Deploy the Worker; store `GOOGLE_CLIENT_SECRET` and a cryptographically random 32-byte base64 `TOKEN_ENCRYPTION_KEY` as Worker secrets. Never commit either value.
-4. Add `https://<worker-host>/auth/callback` as an authorized redirect on the existing Google web OAuth client. Enable Smart Device Management API in `homepage-497902`.
-5. Set `NEST_SERVICE_URL` in `js/nest-config.js` to the deployed HTTPS origin. Publish Pages.
-6. Connect personal Nest, using abdickers@gmail.com, and explicitly select the thermostat and outdoor camera in Google's Partner Connections Manager.
+1. Use the existing personal Wrangler sign-in with account/user reads, Worker-script writes and D1 writes. KV management permission is not needed to deploy the existing binding.
+2. Inspect deployed settings. Preserve `NEST_KV`, `BUDGET_DB`, all Google/Plaid secrets and the encryption key. Never replace the namespace or key during an ordinary release.
+3. Keep the whole-host Access application and exact signed-webhook exception configured as documented. Match `ACCESS_TEAM_DOMAIN`, `ACCESS_AUD` and `FRONTEND_ORIGIN` to the current protected host.
+4. Keep `https://sage-cabin-nest.nest-service.workers.dev/auth/callback` registered on the existing Google web OAuth client. Smart Device Management API is enabled in `homepage-497902`.
+5. From the repository root, install pinned dependencies, run `pnpm test`, build with `pnpm build:private`, and dry-run Wrangler using `nest-service/wrangler.jsonc`. After the PR/check workflow, use `pnpm deploy:private`; this preserves deployed variables with `--keep-vars` and deploys assets plus the guard. Do not publish Pages or deploy `worker.mjs` directly.
+6. Sign into the private site, then connect personal Nest using abdickers@gmail.com and explicitly select devices in Google's Partner Connections Manager. Verify reads and remembered sign-in without changing devices merely to test deployment.
 
 ## Security and limits
 
@@ -27,7 +27,7 @@ Designed for Adam's personal Cloudflare account, on Workers Free + KV Free. The 
 
 The callback requires the verified owner email, the same Gmail mailbox, and both read scopes before writing `google:owner`. It does not replace the Nest `owner` record. Google sessions cannot access Nest endpoints and Nest sessions cannot access Google endpoints. `/google/read` allows only this dashboard's userinfo, own-mailbox profile/messages, and calendar-event GET requests. It rejects arbitrary hosts, other mailbox users, attachments, writes, and unrecognized query parameters. Responses are bounded and never cached. A failed Google refresh revokes that app session.
 
-The browser revalidates its saved session on each page load. Gmail/Calendar use the gateway for every Google read; raw Google credentials never reach Pages. Signing out Google clears both views and revokes that browser's shared Google session. Nest sign-out remains separate. Existing secrets and the KV namespace must be preserved during deployment; do not rotate the encryption key as part of these changes.
+The browser revalidates its saved session on each page load. Gmail/Calendar use the gateway for every Google read; raw Google credentials never reach the browser. Same-origin API requests include the separate Cloudflare Access cookie. Signing out Google clears both views and revokes that browser's shared Google session. Nest sign-out remains separate. Site sign-out ends Cloudflare Access and forgets local Google/Nest app sessions without deleting encrypted provider grants. Existing secrets and the KV namespace must be preserved during deployment; do not rotate the encryption key as part of these changes.
 
 ## Validation
 

@@ -1,19 +1,22 @@
 # The Steward: private budget dashboard
 
-The existing buildless GitHub Pages app calls the existing `sage-cabin-nest` Worker. Financial records are in the private `sage-home-budget` D1 database, scoped to the SHA-256 identifier of the verified owner. Google and Plaid connection tokens use AES-GCM encryption in the existing KV namespace. Neither provider tokens nor mailbox bodies are sent to the public frontend or committed to Git.
+The private homepage and API share the existing `sage-cabin-nest` Worker, protected by Cloudflare Access and signed-assertion verification. The dashboard is https://sage-cabin-nest.nest-service.workers.dev/HomePage/; the former GitHub Pages publication is disabled. See [private hosting](design/PRIVATE-HOSTING.md). Financial records are in the private `sage-home-budget` D1 database, scoped to the SHA-256 identifier of the verified owner. Google and Plaid connection tokens use AES-GCM encryption in the existing KV namespace. Neither provider tokens nor mailbox bodies are committed to Git.
 
 ## Deployment
 
 Use Node 24 for tests (`node:sqlite` exercises the production SQL). Wrangler 4 is required for deployment. Keep its login in the OS keyring. The required scopes are `account:read`, `user:read`, `workers_scripts:write`, and `d1:write`; no KV management/write OAuth scope is needed to deploy the existing binding.
 
 ```sh
-npm test
+pnpm install --frozen-lockfile --ignore-scripts
+pnpm test
 node --check js/budget.js
-wrangler d1 migrations apply sage-home-budget --remote --config nest-service/wrangler.jsonc
-wrangler deploy --config nest-service/wrangler.jsonc --keep-vars
+pnpm build:private
+pnpm exec wrangler deploy --config nest-service/wrangler.jsonc --keep-vars --dry-run
+# After checks and the PR workflow:
+pnpm deploy:private
 ```
 
-Deploy the Worker before publishing the frontend through the existing GitHub Pages workflow. Inspect current Worker bindings first. Preserve `GOOGLE_CLIENT_SECRET`, `TOKEN_ENCRYPTION_KEY`, `GOOGLE_CLIENT_ID`, `OWNER_EMAIL`, the exact origin `https://abdickers.github.io`, and the existing `NEST_KV` namespace. Do not rotate the encryption key without migrating existing encrypted records. D1's binding is `BUDGET_DB`. Its migration adds only budget tables.
+Deploy the guarded Worker and allowlisted private asset bundle together. Never re-enable GitHub Pages or deploy the unguarded gateway entry point. Inspect current Worker bindings first. Preserve Google/Plaid secrets, `TOKEN_ENCRYPTION_KEY`, `GOOGLE_CLIENT_ID`, `OWNER_EMAIL`, the exact origin `https://sage-cabin-nest.nest-service.workers.dev`, Access team/AUD, and the existing `NEST_KV` and `BUDGET_DB` bindings. Do not rotate the encryption key without migrating existing encrypted records. Apply D1 migrations only when a reviewed schema change requires them (`pnpm exec wrangler d1 migrations apply sage-home-budget --remote --config nest-service/wrangler.jsonc`); the private hosting migration required none.
 
 Private initial bill values belong in D1, entered through the authenticated editor or a private administrative import. Public default records intentionally have unknown amounts and schedules. Deleting the entire budget resets those private values; a later new budget starts with unknown defaults.
 
@@ -21,7 +24,7 @@ Private initial bill values belong in D1, entered through the authenticated edit
 
 1. Open your Plaid dashboard, configure the app for **Transactions**, and obtain the client ID and **Sandbox** secret. The app verifies Balance and Transactions institution coverage; it does not request bank transfer or payment products.
 2. In Cloudflare → Workers & Pages → `sage-cabin-nest` → Settings → Variables and Secrets, add `PLAID_CLIENT_ID` and `PLAID_SECRET`, both as **Secret** values. Enter them directly there. Keep existing secrets. Leave the plain variable `PLAID_ENV` as `sandbox`.
-3. In Plaid's allowed redirect URIs, add exactly `https://abdickers.github.io/HomePage/` (including capital H/P and trailing slash). The Link token specifies the Worker webhook URL `https://sage-cabin-nest.nest-service.workers.dev/budget/plaid/webhook`.
+3. Before an OAuth bank Link, add exactly `https://sage-cabin-nest.nest-service.workers.dev/HomePage/` to Plaid's allowed redirect URIs (including capital H/P and trailing slash). Registration in Plaid must be completed separately; private hosting deployment does not register it. The Link token specifies `https://sage-cabin-nest.nest-service.workers.dev/budget/plaid/webhook`, the sole explicitly approved machine-only Access exception. Existing signature verification remains mandatory there.
 4. Open the homepage using the primary personal Google connection. Under The Steward → Connections & plans, check institution coverage, then connect the **sandbox test bank** through Plaid Link. Follow Plaid's [Sandbox testing instructions](https://plaid.com/docs/sandbox/). Test transactions remain visibly labeled and excluded from real balance and spending summaries.
 5. Complete an end-to-end Sandbox Link exchange, sync, live balance request, and reconnect/disconnect check before switching to real-bank credentials. Node tests simulate provider responses; they do not establish that your Plaid account has production access.
 
