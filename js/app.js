@@ -1,4 +1,5 @@
 import {initSettingsPresentation} from './settings-presentation.js?v=20261016-controls1';
+import {initWizardDisclosure} from './wizard-disclosure.js?v=20261017-gondor1';
 import {initNest} from './nest.js?v=20261017-private1';
 import {NEST_SERVICE_URL} from './nest-config.js?v=20261017-private1';
 import {createGoogleConnection} from './google-connection.js?v=20261017-private1';
@@ -9,6 +10,7 @@ import {DATA_KEY, escapeHtml as esc, safeUrl, localDate, normalizeData, readData
 const $ = id => document.getElementById(id);
 const uid = () => crypto.randomUUID();
 const settingsUI=initSettingsPresentation();
+initWizardDisclosure();
 let storage;
 try { storage = window.localStorage; } catch { storage = {getItem:()=>null,setItem:()=>{throw new Error('Storage blocked');}}; }
 let data = readData(storage);
@@ -162,7 +164,7 @@ function openLinks(){$('linkForm').reset();$('linkId').value='';$('linkError').t
 function renderLinkManager(){$('manageLinks').innerHTML=data.links.map(l=>`<div><span>${esc(l.name)} <small>${esc(l.group)}</small></span><button type="button" data-edit-link="${esc(l.id)}" aria-label="Edit ${esc(l.name)}">Edit</button><button type="button" data-delete-link="${esc(l.id)}" aria-label="Delete link ${esc(l.name)}">×</button></div>`).join('');}
 $('searchForm').addEventListener('submit',e=>{e.preventDefault();const q=$('searchInput').value.trim();if(q)$('searchScope').value==='dashboard'?searchDashboard(q):external('https://www.google.com/search?q='+encodeURIComponent(q));});
 $('askAi').addEventListener('click',()=>{const q=$('searchInput').value.trim();external(q?'https://chatgpt.com/?q='+encodeURIComponent(q):'https://chatgpt.com/');});
-$('themeToggle').addEventListener('click',()=>{const ember=document.body.classList.toggle('ember-mode');$('themeToggle').setAttribute('aria-pressed',ember);try{storage.setItem('sage_theme',ember?'ember':'night');}catch{toast('Theme changed for this session.');}});
+$('themeToggle')?.addEventListener('click',()=>{const ember=document.body.classList.toggle('ember-mode');$('themeToggle').setAttribute('aria-pressed',ember);try{storage.setItem('sage_theme',ember?'ember':'night');}catch{toast('Theme changed for this session.');}});
 for(const id of ['settingsOpen','footerSettings','weatherLocation'])$(id).addEventListener('click',()=>openSettings(id==='weatherLocation'?'preferences':'connections'));
 $('calendarConnect').addEventListener('click',()=>{if(googleConnection.connected())return token?loadCalendar():restoreCalendar();});
 for(const [id,offset] of [['calendarPrev',-1],['calendarNext',1],['calendarToday',0]])$(id).addEventListener('click',()=>{if(offset)calendarDay.setDate(calendarDay.getDate()+offset);else calendarDay=new Date();updateTime();loadCalendar();});
@@ -188,7 +190,7 @@ document.addEventListener('keydown',e=>{if(e.key==='/'&&!document.querySelector(
 window.addEventListener('storage',e=>{if(e.key===DATA_KEY){const old=data.settings;data=readData(storage);renderLinks();updateTime();if(JSON.stringify(old)!==JSON.stringify(data.settings)){if(old.clientId!==data.settings.clientId)personalMail.disconnect(false);disconnectCalendar(false);prepareCalendar();loadWeather();}}});
 window.addEventListener('online',()=>{loadWeather();loadNews();});
 try{if(storage.getItem('sage_theme')==='ember')document.body.classList.add('ember-mode');}catch{}
-$('themeToggle').setAttribute('aria-pressed',document.body.classList.contains('ember-mode'));
+$('themeToggle')?.setAttribute('aria-pressed',document.body.classList.contains('ember-mode'));
 document.querySelectorAll('a[target="_blank"]').forEach(a=>a.rel='noopener noreferrer');
 renderLinks();updateTime();persist();
 const quote=quotes[Math.floor(Date.now()/86400000)%quotes.length];$('quoteText').textContent='“'+quote[0]+'”';$('quoteBy').textContent=quote[1];

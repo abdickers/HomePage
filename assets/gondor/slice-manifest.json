@@ -1,0 +1,231 @@
+{
+  "coordinateConvention": "[left, top, right, bottom), native source pixels",
+  "delivery": "lossless WebP, exact alpha, no color removal or upscaling",
+  "sources": [
+    {
+      "path": "originals/gondor-header-frame.png",
+      "size": [
+        2172,
+        724
+      ],
+      "alphaBounds": [
+        9,
+        0,
+        2160,
+        698
+      ],
+      "sha256": "150bb620c76042dc9b64e4b528b11aded40ef9f16222d65b5f28d40cd00932fa"
+    },
+    {
+      "path": "originals/gondor-left-rail.png",
+      "size": [
+        724,
+        2172
+      ],
+      "alphaBounds": [
+        218,
+        0,
+        644,
+        2138
+      ],
+      "sha256": "e1fcccfdd2350086c2e8dbf73768a5df362b6884c6394fa73ee2ddd6603e1f38"
+    }
+  ],
+  "slices": [
+    {
+      "path": "header-top-left.webp",
+      "source": "gondor-header-frame.png",
+      "bounds": [
+        9,
+        90,
+        154,
+        235
+      ],
+      "size": [
+        145,
+        145
+      ],
+      "bytes": 20932
+    },
+    {
+      "path": "header-top-right.webp",
+      "source": "gondor-header-frame.png",
+      "bounds": [
+        2017,
+        90,
+        2162,
+        235
+      ],
+      "size": [
+        145,
+        145
+      ],
+      "bytes": 20832
+    },
+    {
+      "path": "header-bottom-left.webp",
+      "source": "gondor-header-frame.png",
+      "bounds": [
+        9,
+        530,
+        154,
+        675
+      ],
+      "size": [
+        145,
+        145
+      ],
+      "bytes": 20974
+    },
+    {
+      "path": "header-bottom-right.webp",
+      "source": "gondor-header-frame.png",
+      "bounds": [
+        2017,
+        530,
+        2162,
+        675
+      ],
+      "size": [
+        145,
+        145
+      ],
+      "bytes": 21312
+    },
+    {
+      "path": "header-top.webp",
+      "source": "gondor-header-frame.png",
+      "bounds": [
+        400,
+        90,
+        800,
+        140
+      ],
+      "size": [
+        400,
+        50
+      ],
+      "bytes": 22452
+    },
+    {
+      "path": "header-bottom.webp",
+      "source": "gondor-header-frame.png",
+      "bounds": [
+        400,
+        625,
+        800,
+        675
+      ],
+      "size": [
+        400,
+        50
+      ],
+      "bytes": 21642
+    },
+    {
+      "path": "header-left.webp",
+      "source": "gondor-header-frame.png",
+      "bounds": [
+        9,
+        400,
+        79,
+        500
+      ],
+      "size": [
+        70,
+        100
+      ],
+      "bytes": 6270
+    },
+    {
+      "path": "header-right.webp",
+      "source": "gondor-header-frame.png",
+      "bounds": [
+        2092,
+        400,
+        2162,
+        500
+      ],
+      "size": [
+        70,
+        100
+      ],
+      "bytes": 5948
+    },
+    {
+      "path": "header-tree.webp",
+      "source": "gondor-header-frame.png",
+      "bounds": [
+        970,
+        0,
+        1202,
+        160
+      ],
+      "size": [
+        232,
+        160
+      ],
+      "bytes": 40480
+    },
+    {
+      "path": "header-diamond.webp",
+      "source": "gondor-header-frame.png",
+      "bounds": [
+        1028,
+        610,
+        1144,
+        698
+      ],
+      "size": [
+        116,
+        88
+      ],
+      "bytes": 11144
+    },
+    {
+      "path": "page-rail-top.webp",
+      "source": "gondor-left-rail.png",
+      "bounds": [
+        256,
+        0,
+        466,
+        420
+      ],
+      "size": [
+        210,
+        420
+      ],
+      "bytes": 87572
+    },
+    {
+      "path": "page-rail-shaft.webp",
+      "source": "gondor-left-rail.png",
+      "bounds": [
+        310,
+        420,
+        414,
+        800
+      ],
+      "size": [
+        104,
+        380
+      ],
+      "bytes": 45810
+    },
+    {
+      "path": "page-rail-bottom.webp",
+      "source": "gondor-left-rail.png",
+      "bounds": [
+        295,
+        1880,
+        430,
+        2140
+      ],
+      "size": [
+        135,
+        260
+      ],
+      "bytes": 36628
+    }
+  ]
+}

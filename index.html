@@ -22,6 +22,7 @@
   <link rel="stylesheet" href="css/treasury-summary.css?v=20261017-treasury1" />
   <link rel="stylesheet" href="css/frame-backgrounds.css?v=20261017-inset1" />
   <link rel="stylesheet" href="css/ravens-scroll.css?v=20261017-scroll1" />
+  <link rel="stylesheet" href="css/gondor-header.css?v=20261017-gondor1" />
 </head>
 <body data-command-realm="personal">
   <aside class="realm-sidebar" aria-label="Personal command center">
@@ -37,8 +38,10 @@
     </nav>
     <p class="realm-account">One realm. One account.<br>A little less chaos.</p>
   </aside>
+  <div class="gondor-page-rail" aria-hidden="true"><span class="rail-top"></span><span class="rail-shaft"></span><span class="rail-bottom"></span></div>
   <a class="skip-link" href="#dashboard">Skip to dashboard</a>
-  <header class="hero">
+  <header class="hero" id="realmHeader">
+    <div class="gondor-header-frame" aria-hidden="true"><span class="frame-top"></span><span class="frame-bottom"></span><span class="frame-left"></span><span class="frame-right"></span><span class="frame-tl"></span><span class="frame-tr"></span><span class="frame-bl"></span><span class="frame-br"></span><span class="frame-tree"></span><span class="frame-diamond"></span></div>
     <div class="hero-top">
       <div class="identity">
         <img class="sigil" src="assets/sigil.svg" alt="Sage sigil" />
@@ -49,11 +52,12 @@
         </div>
       </div>
 
-      <nav class="top-actions" aria-label="Top links">
-        <button id="themeToggle" class="top-action" type="button">
-          <span class="top-dot"></span>
-          <span>Theme</span>
+      <nav class="top-actions" aria-label="Sage actions">
+        <button class="wizard-trigger" id="wizardTrigger" type="button" aria-label="Sage account and settings" aria-expanded="false" aria-controls="wizardActions">
+          <img src="assets/avatars/avatar-06-row2-col2.png" alt="" width="64" height="64" />
+          <span>Sage</span>
         </button>
+        <div class="wizard-menu" id="wizardActions" hidden>
         <button id="settingsOpen" class="top-action" type="button"><span class="settings-icon" aria-hidden="true">⚙</span><span>Settings</span></button>
         <a class="top-action" href="https://myaccount.google.com/" target="_blank" rel="noopener">
           <img src="https://www.google.com/s2/favicons?domain=myaccount.google.com&amp;sz=64" alt="" />
@@ -63,10 +67,11 @@
           <img src="https://www.google.com/s2/favicons?domain=gmail.com&amp;sz=64" alt="" />
           <span>Mail</span>
         </a>
-        <a class="profile-link" href="https://chatgpt.com/" target="_blank" rel="noopener">
-          <img src="assets/avatars/avatar-06-row2-col2.png" alt="Sage avatar" />
-          <span>Sage</span>
+        <a class="top-action wizard-chatgpt" href="https://chatgpt.com/" target="_blank" rel="noopener">
+          <img src="assets/sigil.svg" alt="" />
+          <span>ChatGPT</span>
         </a>
+        </div>
       </nav>
     </div>
 
@@ -346,7 +351,7 @@
   <dialog id="budgetDialog" aria-label="Budget editor"><div id="budgetDialogBody"></div></dialog>
   <script type="module" src="js/realm-expansion.js?v=20261016-expansion1"></script>
   <script type="module" src="js/private-site.js?v=20261017-private1"></script>
-  <script type="module" src="js/app.js?v=20261017-polish1"></script>
+  <script type="module" src="js/app.js?v=20261017-gondor1"></script>
   <script type="module" src="js/wow.js?v=20261016-warcraft1"></script>
 </body>
 </html>
