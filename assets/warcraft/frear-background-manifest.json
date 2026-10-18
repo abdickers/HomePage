@@ -1,0 +1,10 @@
+{
+  "source": "assets/warcraft/originals/frear-snowy-fortress.png",
+  "width": 1024,
+  "height": 1536,
+  "mode": "RGB",
+  "sha256": "3d466d11a9c8dd07f38013a538f41bc3fab7aa90332e70af39588e173fcff682",
+  "delivery": "assets/warcraft/frear-snowy-fortress.webp",
+  "deliveryBytes": 490818,
+  "treatment": "Original preserved; full-size WebP without source cropping. CSS confines the scene to the portrait frame opening."
+}
