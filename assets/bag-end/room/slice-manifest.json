@@ -1,0 +1,127 @@
+{
+  "coordinates": "[left, top, right, bottom), source pixels",
+  "sources": [
+    {
+      "path": "originals/hobbit-interior.png",
+      "size": [
+        1817,
+        866
+      ],
+      "sha256": "41604e22b740fe6a7a5ce3ebbcc1d2791193c9d4350072297248b18bcf4f91e3"
+    },
+    {
+      "path": "originals/hobbit-control-frame.png",
+      "size": [
+        1312,
+        1199
+      ],
+      "sha256": "711a76973ca875d99123522d466cd1ddeb44978e90c496c7b044464386b8fbc7"
+    }
+  ],
+  "slices": [
+    {
+      "path": "top-left.webp",
+      "bounds": [
+        17,
+        15,
+        290,
+        370
+      ],
+      "size": [
+        273,
+        355
+      ]
+    },
+    {
+      "path": "top-right.webp",
+      "bounds": [
+        1050,
+        15,
+        1294,
+        250
+      ],
+      "size": [
+        244,
+        235
+      ]
+    },
+    {
+      "path": "bottom-left.webp",
+      "bounds": [
+        17,
+        920,
+        290,
+        1155
+      ],
+      "size": [
+        273,
+        235
+      ]
+    },
+    {
+      "path": "bottom-right.webp",
+      "bounds": [
+        1050,
+        920,
+        1294,
+        1155
+      ],
+      "size": [
+        244,
+        235
+      ]
+    },
+    {
+      "path": "top.webp",
+      "bounds": [
+        400,
+        15,
+        600,
+        90
+      ],
+      "size": [
+        200,
+        75
+      ]
+    },
+    {
+      "path": "bottom.webp",
+      "bounds": [
+        400,
+        1080,
+        600,
+        1155
+      ],
+      "size": [
+        200,
+        75
+      ]
+    },
+    {
+      "path": "left.webp",
+      "bounds": [
+        17,
+        500,
+        90,
+        700
+      ],
+      "size": [
+        73,
+        200
+      ]
+    },
+    {
+      "path": "right.webp",
+      "bounds": [
+        1220,
+        500,
+        1294,
+        700
+      ],
+      "size": [
+        74,
+        200
+      ]
+    }
+  ]
+}

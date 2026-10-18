@@ -1,0 +1,80 @@
+/* Reuse the supplied Gondor slices; section surfaces end inside their rails. */
+#dashboard>.gondor-panel {
+  --gondor-corner: 40px; --gondor-rail: 13.793px; --gondor-side: 19.31px;
+  --surface-inset: 37px 9px 9px; --surface-radius: 22px;
+  --surface-paint: radial-gradient(ellipse at 60% 0,#64777b33,transparent 60%),#152020;
+  padding: 64px 36px 34px; border: 0; background: none; box-shadow: none; isolation: isolate;
+}
+#dashboard>.gondor-panel::before,#dashboard>.gondor-panel::after { display: none; }
+.gondor-panel .gondor-panel-border { inset: 28px 0 0; z-index: -1; }
+.gondor-panel .section-kicker { color: #c4cece; }
+#dashboard .gondor-panel h2 { color: #ecece3; }
+#toolsPanel .workshop-heading { margin: 6px 0 14px; font-size: 24px; color: #e8e8df; }
+#toolsPanel .workshop-grid { grid-template-columns: repeat(4,minmax(0,1fr)); gap: 12px; }
+#toolsPanel .workshop-grid .app-card { min-height: 122px; padding: 18px 12px; border-color: #96a7aa66; background: linear-gradient(145deg,#2b383a,#162226); }
+#toolsPanel .workshop-grid .app-card>span { min-width: 0; }
+#toolsPanel .workshop-grid small { display: block; margin-top: 5px; font-size: 11px; font-weight: 400; color: #c2cbca; }
+#toolsPanel .workshop-account { margin: 14px 0 26px; color: #bec9c5; font-size: 12px; line-height: 1.7; }
+/* Every workshop control uses the same steel palette, including custom links. */
+body[data-command-realm] #toolsPanel {
+  --control-bg: linear-gradient(180deg,#303d42,#18272c);
+  --control-hover: linear-gradient(180deg,#41545b,#253d46);
+  --control-line: #a6b7bd; --control-ink: #f0f1e8;
+}
+body[data-command-realm] #toolsPanel .app-card {
+  border-color: #a6b7bd70; background: linear-gradient(145deg,#2b383a,#162226); color: #f0f1e8;
+}
+body[data-command-realm] #toolsPanel .app-card:hover { border-color: #d1dbdc; background: var(--control-hover); }
+body[data-command-realm] #toolsPanel button#addLink { border-color: var(--control-line); background: var(--control-bg); color: var(--control-ink); }
+body[data-command-realm] #toolsPanel button#addLink:hover { border-color: #d1dbdc; background: var(--control-hover); }
+#toolsPanel :is(a,button):focus-visible { outline: 3px solid #eef4ef; outline-offset: 4px; }
+body[data-command-realm] #wowPanel button#wowRefresh {
+  --control-bg: linear-gradient(180deg,#234b70,#142f4c);
+  --control-hover: linear-gradient(180deg,#32618b,#1b4165);
+  --control-line: #ae945a; --control-ink: #f4e8cc;
+}
+.csv-importer>p,.csv-importer small { color: #c5cfbf; line-height: 1.6; }
+.csv-importer h2 { font-size: 30px; }
+body[data-command-realm] #budgetDialog.csv-dialog { width: min(1000px,calc(100vw - 32px)); max-width: none; max-height: calc(100dvh - 32px); padding: 24px; }
+.csv-importer .budget-form { gap: 12px; }
+.csv-importer>p { font-size: 13px; }
+.csv-preview-area>h3 { margin: 12px 0; }
+.csv-upload-fields { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px; }
+.csv-upload-fields>label { display: grid; gap: 6px; min-width: 0; }
+.csv-upload-fields input { width: 100%; min-width: 0; }
+.csv-upload-fields small { font-size: 11px; }
+.csv-explainer,.csv-status { font-size: 12px; line-height: 1.6; color: #cbd4c5; margin-block: 8px; }
+.csv-confirm details { margin-block: 12px; font-size: 12px; }
+.csv-confirm summary { cursor: pointer; padding-block: 6px; }
+.csv-importer .budget-form>label { display: grid; gap: 7px; }
+.csv-columns { padding: 12px; border: 1px solid #9b85534d; border-radius: 5px; }
+.csv-columns summary { cursor: pointer; padding-block: 4px; }
+.csv-mapping { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 12px; margin-top: 14px; }
+.csv-mapping label { min-width: 0; display: grid; gap: 6px; }
+.csv-preview { list-style: none; margin: 0; padding: 6px; max-height: min(32dvh,340px); overflow: auto; scrollbar-gutter: stable; scroll-padding: 6px; border-block: 1px solid #9b85534d; }
+.csv-preview>li { display: grid; grid-template-columns: minmax(0,1fr) 100px 180px; gap: 14px; align-items: center; padding: 16px 4px; border-bottom: 1px solid #9b85532b; }
+.csv-preview>li:last-child { border-bottom: 0; }
+.csv-preview>li>div { display: grid; gap: 5px; min-width: 0; overflow-wrap: anywhere; }
+.csv-preview time { font-size: 12px; color: #c2ccbd; }
+.csv-preview strong { font-size: 13px; line-height: 1.5; }
+.csv-preview label { display: grid; gap: 6px; font-size: 12px; min-width: 0; }
+.csv-preview select { width: 100%; }
+.csv-amount { display: grid; gap: 5px; font-size: 11px; color: #c2ccbd; }
+.csv-amount b { color: #f3e5c5; font-size: 14px; }
+.csv-confirm .budget-checkbox { display: flex; gap: 10px; align-items: start; line-height: 1.6; }
+@media(max-width:1000px) { #toolsPanel .workshop-grid { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+@media(max-width:760px) {
+  #dashboard>.gondor-panel {
+    --gondor-corner: 30px; --gondor-rail: 10.345px; --gondor-side: 14.483px;
+    --surface-inset: 29px 7px 7px; --surface-radius: 17px; padding: 52px 26px 30px;
+  }
+  .gondor-panel .gondor-panel-border { inset: 22px 0 0; }
+  .gondor-panel .frame-tree { width: 63.8px; height: 44px; top: -24.75px; left: calc(50% - 31.9px); }
+  .gondor-panel .frame-diamond { width: 24px; height: 18.207px; bottom: -4.759px; left: calc(50% - 12px); }
+  #toolsPanel .workshop-grid .app-card { padding-inline: 8px; font-size: 12px; }
+  .csv-mapping,.csv-upload-fields { grid-template-columns: 1fr; }
+  body[data-command-realm] #budgetDialog.csv-dialog { padding: 18px; }
+  .csv-preview { max-height: 40dvh; }
+  .csv-preview>li { grid-template-columns: minmax(0,1fr) 90px; gap: 12px; }
+  .csv-preview label { grid-column: 1/-1; }
+}

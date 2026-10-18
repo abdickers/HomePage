@@ -1,0 +1,88 @@
+/* Bag End only. Live controls sit above proportional room art and fixed ornaments. */
+#dashboard>#homePanel {
+  container-type: inline-size;
+  --surface-inset: 28px 34px 29px;
+  --surface-radius: 12px;
+  --surface-paint: url('../assets/bag-end/room/interior.webp') center top / 100% auto no-repeat,#302015;
+  padding: 50px 36px 48px;
+}
+#homePanel>.panel-surface::after {
+  content: ''; position: absolute; inset: auto 0 0; height: 45px;
+  background: url('../assets/bag-end/room/sill.webp') center bottom / 100% 100% no-repeat;
+}
+#homePanel>.panel-title {
+  margin: 0 0 24px 5%; padding: 10px 18px 12px; width: min(440px,calc(100% - 100px));
+  min-height: 98px; border: 0; border-radius: 24px 24px 8px 8px;
+  background: linear-gradient(100deg,#eac88be8,#edc581c9 80%,#e7bc7d00);
+}
+#homePanel>.panel-title :is(h2,.section-kicker,.realm-account) { color: #352014; text-shadow: none; }
+#homePanel>.panel-title h2 { font-size: 38px; }
+#homePanel .bag-end-emblem { width: 92px; height: 92px; right: 50px; top: 52px; }
+#homePanel .bag-end-layout { display: grid; grid-template-columns: minmax(0,1fr); gap: 24px; align-items: start; }
+#homePanel .home-devices { display: contents; }
+#homePanel .hobbit-control {
+  --hc: .24px; --control-line: #c5a267; --control-ink: #f5ead0;
+  --control-bg: linear-gradient(180deg,#513c25,#2b2118);
+  --control-hover: linear-gradient(180deg,#6b5131,#3e2e1d);
+  position: relative; isolation: isolate; min-width: 0; margin: 0; padding: 36px 30px 40px;
+  border: 0; border-radius: 0; background: none; box-shadow: none; color: #f5ead0;
+}
+#homePanel .hobbit-control::before,#homePanel .hobbit-control::after { display: none; }
+#homePanel .hobbit-surface { position: absolute; inset: calc(70 * var(--hc)) calc(65 * var(--hc)) calc(65 * var(--hc)); z-index: -2; border-radius: 22px; background: radial-gradient(ellipse at 40% 0,#4a583329,transparent 65%),#142218; pointer-events: none; }
+.hobbit-control-frame { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+.hobbit-control-frame>span { position: absolute; display: block; background-size: 100% 100%; background-repeat: no-repeat; }
+.hobbit-control-frame .hc-tl { left: 0; top: 0; width: calc(273 * var(--hc)); height: calc(355 * var(--hc)); background-image: url('../assets/bag-end/room/top-left.webp'); }
+.hobbit-control-frame .hc-tr { right: 0; top: 0; width: calc(244 * var(--hc)); height: calc(235 * var(--hc)); background-image: url('../assets/bag-end/room/top-right.webp'); }
+.hobbit-control-frame .hc-bl { left: 0; bottom: 0; width: calc(273 * var(--hc)); height: calc(235 * var(--hc)); background-image: url('../assets/bag-end/room/bottom-left.webp'); }
+.hobbit-control-frame .hc-br { right: 0; bottom: 0; width: calc(244 * var(--hc)); height: calc(235 * var(--hc)); background-image: url('../assets/bag-end/room/bottom-right.webp'); }
+.hobbit-control-frame .hc-top,.hobbit-control-frame .hc-bottom { left: calc(273 * var(--hc)); right: calc(244 * var(--hc)); height: calc(75 * var(--hc)); }
+.hobbit-control-frame .hc-top { top: 0; background-image: url('../assets/bag-end/room/top.webp'); }
+.hobbit-control-frame .hc-bottom { bottom: 0; background-image: url('../assets/bag-end/room/bottom.webp'); }
+.hobbit-control-frame .hc-left { left: 0; top: calc(355 * var(--hc)); bottom: calc(235 * var(--hc)); width: calc(73 * var(--hc)); background-image: url('../assets/bag-end/room/left.webp'); }
+.hobbit-control-frame .hc-right { right: 0; top: calc(235 * var(--hc)); bottom: calc(235 * var(--hc)); width: calc(74 * var(--hc)); background-image: url('../assets/bag-end/room/right.webp'); }
+#homePanel .home-device { grid-template-columns: 58px minmax(0,1fr); gap: 10px; border: 0; padding: 0; background: none; }
+#homePanel .climate-art,#homePanel .climate-art img { width: 58px; height: 92px; }
+#homePanel .climate-neutral { width: 54px; height: 54px; font-size: 36px; }
+#homePanel .hearth-heading { font-size: 27px; margin-top: 0; }
+#homePanel .ambient-reading { flex-wrap: wrap; }
+#homePanel .ambient-reading>small { font-size: 11px; }
+#homePanel .temperature-dial>span { font-size: 44px; }
+#homePanel .home-device p { font-size: 12px; line-height: 1.6; }
+#homePanel .nest-controls { margin-top: 18px; padding-top: 16px; }
+#homePanel .nest-controls .media-actions { gap: 10px; }
+#homePanel .nest-controls label { min-width: 0; }
+#homePanel .nest-controls select { min-width: 100px; }
+#homePanel .nest-controls .media-actions>button { flex: 1 1 auto; }
+body[data-command-realm] #homePanel :is(button,select,input,.media-actions>a) { min-height: 44px; }
+#homePanel :is(button,.media-actions>a) { white-space: normal; line-height: 1.4; }
+#homePanel :is(button,select,input,a):focus-visible { outline: 3px solid #f5ead0; outline-offset: 4px; }
+#homePanel .weather-panel .panel-title { margin-bottom: 16px; padding-bottom: 16px; }
+#homePanel .weather-panel h3 { font-size: 27px; }
+#homePanel .weather-panel .section-icon { width: 32px; height: 38px; flex-basis: 32px; }
+#homePanel .weather-panel .section-kicker { font-size: 8px; letter-spacing: .12em; }
+#homePanel .weather-main { margin-bottom: 18px; }
+#homePanel .weather-main b { color: #f0d291; }
+#homePanel .weather-grid { gap: 10px; }
+#homePanel .weather-grid span { background: #0e191580; border-color: #b59b5e55; }
+#homePanel #weatherLocation { width: 100%; }
+#homePanel #gatePanel .gate-label { font-size: 27px; line-height: 1.1; margin-bottom: 18px; }
+#homePanel #gatePanel .camera-preview,#homePanel #gatePanel .camera-toolbar,#homePanel #gatePanel .nest-footer { max-width: 640px; }
+#homePanel #gatePanel .camera-toolbar { gap: 12px; }
+#homePanel #gatePanel .camera-toolbar .media-actions { gap: 10px; }
+#homePanel #gatePanel .nest-footer { padding-top: 12px; margin-top: 14px; }
+@container (min-width:640px) {
+  #homePanel .bag-end-layout { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  #homePanel #gatePanel { grid-column: 1/-1; }
+}
+@container (min-width:1020px) {
+  #homePanel .bag-end-layout { grid-template-columns: repeat(3,minmax(0,1fr)); align-items: stretch; }
+  #homePanel #gatePanel { grid-column: auto; }
+}
+@media(max-width:760px) {
+  #dashboard>#homePanel { --oak-unit: .16px; --surface-inset: 19px 24px 20px; padding: 40px 22px 34px; --surface-paint: url('../assets/bag-end/room/interior-small.webp') center top / 760px auto no-repeat,#302015; }
+  #homePanel>.panel-title { margin: 0 0 24px; padding: 10px 12px; width: calc(100% - 52px); min-height: 98px; }
+  #homePanel>.panel-title h2 { font-size: 34px; }
+  #homePanel>.panel-title .section-kicker { font-size: 8px; letter-spacing: .12em; }
+  #homePanel .bag-end-emblem { width: 58px; height: 58px; right: 24px; top: 49px; }
+  #homePanel .hobbit-control { --hc: .22px; padding: 34px 28px 36px; }
+}

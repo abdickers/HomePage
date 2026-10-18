@@ -116,7 +116,7 @@ export function incomeOccurrences(plan,start,end) {
 export function buildSummary({accounts=[],transactions=[],bills=[],events=[],observations=[],annotations=[],incomes=[],settings={},incomplete=false},now=new Date()) {
   const date=today(now),end7=addDays(date,7),end30=addDays(date,30),month=date.slice(0,7),start=month+'-01';
   const annotationMap=new Map(annotations.map(a=>[a.id,a]));
-  const liveTransactions=transactions.filter(t=>!t.removed&&t.environment!=='sandbox').map(t=>({...t,...annotationMap.get(t.id)}));
+  const liveTransactions=transactions.filter(t=>!t.removed&&!t.excludedFromTotals&&t.environment!=='sandbox').map(t=>({...t,...annotationMap.get(t.id)}));
   const posted=new Map(liveTransactions.filter(t=>!t.pending&&t.pendingId).map(t=>[t.pendingId,t.id]));
   const deduped=liveTransactions.filter(t=>!posted.has(t.id));
   const recurrence=bills.flatMap(b=>occurrences(b,start,end30)),byEvent=new Map(recurrence.map(e=>[e.id,e]));

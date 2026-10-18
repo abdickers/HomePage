@@ -3,6 +3,7 @@ import {BudgetError,plaidConfigured,plaidEnvironment,plaidCall,createBankLink,ba
 import {buildSummary,money,validDate,merchantFor} from './domain.mjs';
 import {activityRange,periodActivity} from './activity.mjs';
 import {runBudgetJob,storeAccounts} from './sync.mjs';
+import {importCsv,undoCsv,csvLedgerView} from './csv.mjs';
 
 const json=(env,data,status=200)=>new Response(JSON.stringify(data),{status,headers:{'Content-Type':'application/json','Cache-Control':'no-store, private','Pragma':'no-cache','Access-Control-Allow-Origin':env.FRONTEND_ORIGIN,'Vary':'Origin','Referrer-Policy':'no-referrer','X-Content-Type-Options':'nosniff'}});
 const needDb=env=>{if(!env.BUDGET_DB)throw new BudgetError(503,'The private budget database is not yet deployed. Your other dashboard connections still work.','DATABASE_SETUP');};
@@ -25,7 +26,7 @@ export async function snapshot(store,env,url) {
   const lists=await Promise.all(names.map(name=>store.list(name))),rows=Object.fromEntries(names.map((name,i)=>[name,lists[i]]));
   const overrides=new Map(rows['observation-override'].map(o=>[o.id,o])),eventOverrides=new Map(rows['event-override'].map(o=>[o.id,o]));
   rows.observation=rows.observation.map(o=>({...o,...overrides.get(o.id)}));rows.event=rows.event.map(e=>({...e,...eventOverrides.get(e.id)}));
-  const annotations=new Map(rows.annotation.map(a=>[a.id,a]));rows.transaction=rows.transaction.map(t=>({...t,...annotations.get(t.id)}));
+  const annotations=new Map(rows.annotation.map(a=>[a.id,a]));rows.transaction=csvLedgerView(rows.transaction.map(t=>({...t,...annotations.get(t.id)})));
   const items=new Map(rows.item.map(i=>[i.id,i]));rows.account=rows.account.map(a=>({...a,disconnected:items.get(a.itemId)?.status==='disconnected'}));
   const incomplete=lists.some(list=>list.length>10000),summary=buildSummary({accounts:rows.account,transactions:rows.transaction,bills:rows.bill,events:rows.event,observations:rows.observation,annotations:rows.annotation,incomes:rows.income,settings:rows.settings[0]||{},incomplete});
   summary.review.push(...rows.proposal.map(p=>({id:'proposal:'+p.id,observationId:p.id,reason:p.reason})));
@@ -37,9 +38,9 @@ export async function snapshot(store,env,url) {
   summary.review=summary.review.slice(reviewPage*50,reviewPage*50+50);
   const evidenceIds=new Set(summary.review.map(r=>r.observationId).filter(Boolean)),evidence=rows.observation.filter(o=>evidenceIds.has(o.id));
   const transactionIds=new Set(summary.review.map(r=>r.transactionId).filter(Boolean));
-  return {configured:true,environment:plaidEnvironment(env),bankConfigured:plaidConfigured(env),timeZone:'America/Chicago',settings:rows.settings[0]||{},accounts:rows.account,bills:rows.bill,incomes:rows.income,items:rows.item.map(publicItem),mailSources:rows['mail-source'].map(publicSource),observations:[...evidence,...rows.observation.filter(o=>!evidenceIds.has(o.id)).slice(0,300)],reviewTransactions:rows.transaction.filter(t=>transactionIds.has(t.id)),transactions:transactions.slice(transactionPage*50,transactionPage*50+50),transactionCount:transactions.length,reviewCount,summary,...(period?{activity:period.summary}:{}),jobs:await store.jobs(),retrievedAt:new Date().toISOString()};
+  return {configured:true,environment:plaidEnvironment(env),bankConfigured:plaidConfigured(env),timeZone:'America/Chicago',settings:rows.settings[0]||{},accounts:rows.account,bills:rows.bill,incomes:rows.income,items:rows.item.map(publicItem),mailSources:rows['mail-source'].map(publicSource),observations:[...evidence,...rows.observation.filter(o=>!evidenceIds.has(o.id)).slice(0,300)],reviewTransactions:rows.transaction.filter(t=>transactionIds.has(t.id)),transactions:transactions.slice(transactionPage*50,transactionPage*50+50),transactionCount:transactions.length,reviewCount,summary,...(period?{activity:period.summary}:{}),jobs:await store.jobs(),csvPaused:rows.transaction.some(t=>t.source==='csv'&&t.excludedFromTotals),csvSources:await store.list('csv-source'),csvImports:(await store.list('csv-import',5)).map(({transactionIds,...batch})=>batch),retrievedAt:new Date().toISOString()};
 }
-async function readInput(request,deps){if(!request.headers.get('Content-Type')?.startsWith('application/json'))throw new BudgetError(415,'Use JSON.');return deps.boundedJson(request,65536);}
+async function readInput(request,deps,max=65536){if(!request.headers.get('Content-Type')?.startsWith('application/json'))throw new BudgetError(415,'Use JSON.');return deps.boundedJson(request,max);}
 export async function handleBudget(request,env,owner,sessionId,deps) {
   const url=new URL(request.url),path=url.pathname.slice('/budget'.length);
   needDb(env);const store=new BudgetStore(env.BUDGET_DB,owner);
@@ -51,9 +52,11 @@ export async function handleBudget(request,env,owner,sessionId,deps) {
     return json(env,{transactions});
   }
   if(request.method!=='POST')throw new BudgetError(405,'Use an authenticated POST for budget changes.');
-  const input=await readInput(request,deps);await store.initialize();
+  const input=await readInput(request,deps,path==='/csv/import'?524288:65536);await store.initialize();
   const lock=path==='/sync'?null:await store.lock();if(path!=='/sync'&&!lock)throw new BudgetError(409,'A budget sync is finishing. Try this change again in a moment.');
   try{
+  if(path==='/csv/import')return json(env,await importCsv(store,input));
+  if(path==='/csv/undo')return json(env,await undoCsv(store,input));
   if(path==='/settings'){
     const previous=await store.get('settings','main'),limits=Array.isArray(input.limits)?input.limits.slice(0,100).map(l=>({category:clean(l.category,60),amountCents:amount(l.amount,false)})):previous.limits;
     await store.put('settings','main',{...previous,cushionCents:amount(input.cushion),coverageComplete:input.coverageComplete===true,limits});return json(env,{saved:true});
@@ -75,7 +78,7 @@ export async function handleBudget(request,env,owner,sessionId,deps) {
   }
   if(path==='/transaction'){
     const transaction=await store.get('transaction',id(input.id));if(!transaction)throw new BudgetError(404,'Transaction not found.');
-    if(!['purchase','transfer','p2p'].includes(input.classification))throw new BudgetError(400,'Choose purchase, transfer, or person-to-person.');
+    if(!['purchase','transfer','p2p','income','review'].includes(input.classification))throw new BudgetError(400,'Choose a supported transaction type.');
     await store.put('annotation',transaction.id,{id:transaction.id,category:clean(input.category,60)||'Uncategorized',classification:input.classification,merchant:clean(input.merchant||transaction.merchant),merchantId:merchantFor(input.merchant)?.id||transaction.merchantId,correctedAt:new Date().toISOString()});return json(env,{saved:true});
   }
   if(path==='/observation'){

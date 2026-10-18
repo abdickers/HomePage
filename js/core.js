@@ -16,7 +16,7 @@ const LEGACY_LINKS = [
   ['BigCommerce','https://login.bigcommerce.com/','tools'], ['Vercel','https://vercel.com/dashboard','tools'],
   ['Jira','https://start.atlassian.com/','tools'], ['Confluence','https://start.atlassian.com/','tools'],
   ['Dotdigital','https://login.dotdigital.com/','tools'], ['Zoom','https://zoom.us/signin','tools'],
-  ['GitHub','https://github.com/InkedSage/Homepage','tools'], ['Google Admin','https://admin.google.com/','tools'],
+  ['GitHub','https://github.com/abdickers/HomePage','tools'], ['Google Admin','https://admin.google.com/','tools'],
   ['Cloudflare','https://dash.cloudflare.com/','tools'], ['Canva','https://www.canva.com/','tools'],
   ['Notion','https://www.notion.so/','tools'], ['Obsidian','https://obsidian.md/','tools'],
   ['My Drive','https://drive.google.com/drive/my-drive','quick'], ['Gmail','https://mail.google.com/','quick'],
@@ -43,6 +43,7 @@ export const DEFAULT_LINKS = [...LEGACY_LINKS.filter(l=>!WORK_NAMES.has(l.name)&
 function migrateLinks(links) {
  if(!Array.isArray(links))return DEFAULT_LINKS;
  const removedWork=links.some(l=>l&&WORK_DEFAULTS.get(l.name)===l.url);
+ links=links.map(l=>l?.url==='https://github.com/InkedSage/Homepage'?{...l,url:'https://github.com/abdickers/HomePage'}:l);
  const kept=links.filter(l=>(!l||WORK_DEFAULTS.get(l.name)!==l.url)&&wantedLink(l));
  return removedWork&&!kept.some(l=>l?.id===WORK_PORTAL.id)?[...kept,WORK_PORTAL]:kept;
 }

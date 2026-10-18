@@ -6,6 +6,8 @@ import {BudgetStore} from '../nest-service/budget/store.mjs';
 import {runBudgetJob} from '../nest-service/budget/sync.mjs';
 import {handleBudget,snapshot,completeBudgetMail,plaidWebhook} from '../nest-service/budget/handler.mjs';
 import gateway,{boundedJson} from '../nest-service/worker.mjs';
+import {importCsv} from '../nest-service/budget/csv.mjs';
+import {mapCsvRows,parseCsv} from '../js/bank-csv.mjs';
 
 // Exercise the actual parameterized SQL and atomic transactions against SQLite.
 function database(){
@@ -16,6 +18,14 @@ function fixture(t){const db=database();t.after(()=>db.close());const records=ne
 const post=(path,body)=>new Request('https://gateway.test/budget'+path,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
 const tx=(id,extra={})=>({transaction_id:id,account_id:'account',name:'Socket Internet',amount:25,date:'2026-10-15',iso_currency_code:'USD',...extra});
 const page=(added,next_cursor,has_more=false,extra={})=>({added,modified:[],removed:[],next_cursor,has_more,transactions_update_status:'HISTORICAL_UPDATE_COMPLETE',...extra});
+
+test('a maximum-size CSV import uses three atomic statements with bounded parameter counts',async t=>{
+ const f=fixture(t);await f.store.initialize();const batch=f.db.batch.bind(f.db);
+ t.mock.method(f.db,'batch',statements=>{assert.equal(statements.length,3);assert.ok(statements.every(s=>s.values.length<=5));return batch(statements);});
+ const rows=Array.from({length:500},(_,i)=>({date:'2000-01-01',description:'Synthetic store '+i,signedCents:-101,classification:'purchase'}));
+ const result=await importCsv(f.store,{accountLabel:'Synthetic maximum',confirmation:'IMPORT CSV',rows});
+ assert.equal(result.added,500);assert.equal((await f.store.list('transaction')).length,500);
+});
 
 test('date-filtered snapshots aggregate before pagination and leave planning and stored records unchanged',async t=>{
  const f=fixture(t);await f.store.initialize();
@@ -73,9 +83,11 @@ test('secondary Gmail rejects wrong identities and cannot resurrect a deleted bu
 });
 async function encryptedSession(env,token,value){const key=await crypto.subtle.importKey('raw',Buffer.from(env.TOKEN_ENCRYPTION_KEY,'base64'),{name:'AES-GCM'},false,['encrypt']),iv=crypto.getRandomValues(new Uint8Array(12)),cipher=await crypto.subtle.encrypt({name:'AES-GCM',iv},key,new TextEncoder().encode(JSON.stringify(value))),id=Buffer.from(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(token))).toString('hex');await env.NEST_KV.put('session:'+id,JSON.stringify({iv:Buffer.from(iv).toString('base64'),data:Buffer.from(cipher).toString('base64')}));}
 test('every financial operation rejects anonymous, foreign-origin, Nest-only and different-owner sessions',async t=>{
-  const f=fixture(t);Object.assign(f.env,{TOKEN_ENCRYPTION_KEY:Buffer.alloc(32,7).toString('base64'),GOOGLE_CLIENT_ID:'test',GOOGLE_CLIENT_SECRET:'test'});const token='a'.repeat(64),paths=['snapshot','institutions','transactions','bill','settings','income','account','transaction','observation','match','mail/enable','mail/connect','mail/disconnect','link-token','exchange','balances','bank/disconnect','sync','sync/queue','delete'];
+  const f=fixture(t);Object.assign(f.env,{TOKEN_ENCRYPTION_KEY:Buffer.alloc(32,7).toString('base64'),GOOGLE_CLIENT_ID:'test',GOOGLE_CLIENT_SECRET:'test'});const token='a'.repeat(64),paths=['snapshot','institutions','transactions','bill','settings','income','account','transaction','observation','match','mail/enable','mail/connect','mail/disconnect','link-token','exchange','balances','bank/disconnect','sync','sync/queue','csv/import','csv/undo','delete'];
   for(const path of paths){const response=await gateway.fetch(new Request('https://gateway.test/budget/'+path,{headers:{Origin:f.env.FRONTEND_ORIGIN}}),f.env);assert.equal(response.status,401,path);}
+  for(const path of ['csv/import','csv/undo'])assert.equal((await gateway.fetch(new Request(post('/'+path,{}),{headers:{Origin:f.env.FRONTEND_ORIGIN,'Content-Type':'application/json'}}),f.env)).status,401,path);
   await encryptedSession(f.env,token,{kind:'google',ownerEmail:f.env.OWNER_EMAIL,expires:Date.now()+30*86400000});const good={Origin:f.env.FRONTEND_ORIGIN,Authorization:'Bearer '+token};assert.equal((await gateway.fetch(new Request('https://gateway.test/budget/snapshot',{headers:{...good,Origin:'https://evil.test'}}),f.env)).status,403);const response=await gateway.fetch(new Request('https://gateway.test/budget/snapshot',{headers:good}),f.env);assert.equal(response.status,200);assert.match(response.headers.get('Cache-Control'),/no-store/);
+  for(const path of ['csv/import','csv/undo'])assert.equal((await gateway.fetch(new Request('https://gateway.test/budget/'+path,{method:'POST',headers:{...good,Origin:'https://evil.test','Content-Type':'application/json'},body:'{}'}),f.env)).status,403,path);
   await encryptedSession(f.env,token,{kind:'nest',expires:Date.now()+30*86400000});assert.equal((await gateway.fetch(new Request('https://gateway.test/budget/snapshot',{headers:good}),f.env)).status,401);await encryptedSession(f.env,token,{kind:'google',ownerEmail:'other@example.com',expires:Date.now()+30*86400000});assert.equal((await gateway.fetch(new Request('https://gateway.test/budget/snapshot',{headers:good}),f.env)).status,403);
 });
 test('financial writes require confirmation, enforce sync throttling and preserve existing Google/Nest grants',async t=>{
@@ -93,4 +105,39 @@ test('provider-verified webhooks deduplicate and retry safely when a budget job 
   const keys=await crypto.subtle.generateKey({name:'ECDSA',namedCurve:'P-256'},true,['sign','verify']),jwk={...await crypto.subtle.exportKey('jwk',keys.publicKey),kid:'key',alg:'ES256',created_at:0,expired_at:null},raw=JSON.stringify({item_id:'item',webhook_type:'TRANSACTIONS',webhook_code:'SYNC_UPDATES_AVAILABLE'}),hash=await f.deps.hash(raw),iat=Math.floor(Date.now()/1000),head=Buffer.from(JSON.stringify({alg:'ES256',kid:'key'})).toString('base64url'),payload=Buffer.from(JSON.stringify({iat,request_body_sha256:hash})).toString('base64url'),input=head+'.'+payload,signature=Buffer.from(await crypto.subtle.sign({name:'ECDSA',hash:'SHA-256'},keys.privateKey,new TextEncoder().encode(input))).toString('base64url');
   t.mock.method(globalThis,'fetch',async()=>Response.json({key:jwk}));const request=()=>new Request('https://gateway.test/budget/plaid/webhook',{method:'POST',headers:{'plaid-verification':input+'.'+signature},body:raw});
   const lock=await store.lock();await assert.rejects(plaidWebhook(request(),f.env,f.deps),/busy/);await store.unlock(lock);assert.equal((await plaidWebhook(request(),f.env,f.deps)).status,202);assert.equal((await plaidWebhook(request(),f.env,f.deps)).status,200);assert.equal((await store.jobs()).length,1);assert.equal((await f.db.prepare('SELECT count(*) AS count FROM budget_webhook_receipts').first()).count,1);
+});
+
+
+test('CSV imports are atomic, exact, owner-scoped, idempotent and visible in historical summaries without fake balances',async t=>{
+ const f=fixture(t),rows=mapCsvRows(parseCsv('Date,Description,Amount,Balance\n2000-01-05,Shop,-42.15,999999\n2000-01-05,Shop,-42.15,999999\n2000-01-05,ACH DEPOSIT PAYROLL,1000,999999'));
+ const input={accountLabel:'Central Bank checking',confirmation:'IMPORT CSV',rows};
+ const result=await (await handleBudget(post('/csv/import',input),f.env,'owner','session',f.deps)).json();assert.equal(result.added,3);
+ assert.equal((await f.store.list('account')).length,0);assert.equal((await f.store.list('item')).length,0);
+ const ids=(await f.store.list('transaction')).map(r=>r.id);await f.store.put('annotation',ids[0],{id:ids[0],category:'User corrected'});
+ const again=await (await handleBudget(post('/csv/import',{...input,rows:[...rows].reverse()}),f.env,'owner','session',f.deps)).json();assert.equal(again.added,0);assert.equal(again.duplicates,3);assert.equal((await f.store.get('annotation',ids[0])).category,'User corrected');
+ const snap=await snapshot(f.store,f.env,new URL('https://gateway.test/budget/snapshot?activityStart=2000-01-01&activityEnd=2000-01-07'));
+ assert.equal(snap.activity.amountCents,8430);assert.equal(snap.activity.purchaseCount,2);assert.equal(snap.summary.cashAccountCount,0);assert.equal(snap.csvSources[0].rowCount,3);assert.equal(snap.csvImports.length,1);assert.ok(!('transactionIds' in snap.csvImports[0]));assert.equal(snap.csvPaused,false);
+ assert.equal((await f.store.list('transaction')).some(r=>'balance' in r||'currentCents' in r),false);
+ const other=new BudgetStore(f.db,'other-owner');await importCsv(other,input);assert.equal((await other.list('transaction')).length,3);
+ await handleBudget(post('/csv/undo',{id:result.batchId,confirmation:'UNDO CSV'}),f.env,'owner','session',f.deps);assert.equal((await f.store.list('transaction')).length,0);assert.equal((await other.list('transaction')).length,3);assert.equal((await f.store.list('annotation')).length,0);
+});
+test('bad CSV rows, forged types and missing confirmation cannot partially import; D1 failure rolls back the batch',async t=>{
+ const f=fixture(t),good={date:'2000-01-05',description:'Shop',signedCents:-100,classification:'purchase'},base={accountLabel:'Checking',confirmation:'IMPORT CSV',rows:[good]};
+ for(const rows of [[good,{...good,date:null}],[{...good,date:'2000-02-30'}],[{...good,signedCents:1.1}],[{...good,classification:'fake'}],[{...good,description:''}],[{...good,date:'2999-01-01'}],Array(501).fill(good)]){
+  await assert.rejects(handleBudget(post('/csv/import',{...base,rows}),f.env,'owner','session',f.deps));assert.equal((await f.store.list('transaction')).length,0);
+ }
+ await assert.rejects(handleBudget(post('/csv/import',{...base,confirmation:''}),f.env,'owner','session',f.deps),/confirm/);
+ const real=f.store.putStatement.bind(f.store);t.mock.method(f.store,'putStatement',(kind,...args)=>kind==='csv-source'?f.store.statement('INSERT INTO nonexistent_csv_table VALUES(1)'):real(kind,...args));
+ await assert.rejects(importCsv(f.store,base));assert.equal((await f.store.list('transaction')).length,0);
+});
+test('real Plaid history pauses CSV totals while sandbox history does not; undo affects only its own batch',async t=>{
+ const f=fixture(t),base={accountLabel:'Checking',confirmation:'IMPORT CSV',rows:[{date:'2000-01-05',description:'CSV Shop',signedCents:-100,classification:'purchase'}]};
+ const first=await (await handleBudget(post('/csv/import',base),f.env,'owner','session',f.deps)).json();
+ const second=await (await handleBudget(post('/csv/import',{...base,rows:[...base.rows,{date:'2000-01-06',description:'Other Shop',signedCents:-200,classification:'purchase'}]}),f.env,'owner','session',f.deps)).json();assert.equal(second.added,1);
+ const url=new URL('https://gateway.test/budget/snapshot?activityStart=2000-01-01&activityEnd=2000-01-07');
+ await f.store.put('transaction','sandbox',{id:'sandbox',date:'2000-01-05',amountCents:100,currency:'USD',classification:'purchase',environment:'sandbox'});assert.equal((await snapshot(f.store,f.env,url)).activity.amountCents,300);
+ await f.store.put('transaction','plaid',{id:'plaid',date:'2000-01-05',amountCents:100,currency:'USD',classification:'purchase',environment:'production'});
+ const paused=await snapshot(f.store,f.env,url);assert.equal(paused.activity.amountCents,100);assert.equal(paused.csvPaused,true);assert.equal(paused.transactions.filter(r=>r.source==='csv'&&r.excludedFromTotals).length,2);
+ await assert.rejects(handleBudget(post('/csv/undo',{id:first.batchId}),f.env,'owner','session',f.deps),/Confirm/);
+ await handleBudget(post('/csv/undo',{id:second.batchId,confirmation:'UNDO CSV'}),f.env,'owner','session',f.deps);assert.equal((await f.store.list('transaction')).filter(r=>r.source==='csv').length,1);assert.ok(await f.store.get('transaction','plaid'));
 });
