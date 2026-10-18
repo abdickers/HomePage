@@ -16,7 +16,7 @@ CSV writes use the existing authenticated owner routes, origin checks and owner 
 
 ## Verification
 
-- 136 Node tests: parser bounds/quoted fields, exact cents, owner isolation, authentication/origin rejection, atomic rollback, 500-row import, duplicate handling, annotations, Undo and Plaid priority, plus existing integrations.
+- 137 Node tests: parser bounds/quoted fields, exact cents, owner isolation, authentication/origin rejection, atomic rollback, 500-row import, duplicate handling, annotations, Undo, Plaid priority and daily database allowance handling, plus existing integrations.
 - Local browser checks used the user's explicitly false CSV in an isolated in-memory SQLite database. First import added four; second added zero/skipped four; Undo removed the batch. Default past-seven-day spending was $42.15; transfers/payroll were excluded and cash stayed unavailable. Privacy masking remained active.
 - Bag End screenshots reviewed at 375, 768, 1100, 1440 and 1920 CSS pixels. Three frames measured equal heights on both three-column desktop widths; no horizontal page overflow. Mobile retained all three individual borders. Focus rings remained visible and interactive targets measured at least 44px.
 - Synthetic landscape → portrait camera switching continued playback without another Watch click, with 720×1280 video contained in the 16:9 viewport. No physical thermostat commands were sent.
@@ -24,3 +24,9 @@ CSV writes use the existing authenticated owner routes, origin checks and owner 
 - The in-app browser does not provide native page zoom. Narrow-width reflow was checked; an exact 200% browser-zoom check remains a manual follow-up.
 
 Worker best-practices review used current Workers types 5.20261016.1 and [D1 limits](https://developers.cloudflare.com/d1/platform/limits/). Source artwork, QA fixtures, screenshots and private backend sources remain excluded from the static delivery bundle.
+
+## Live release verification
+
+PR #26 was merged and deployed. The authenticated live Bag End view showed three equal 539.98px frames at 1440px, working remembered Nest status and camera choices. Anonymous checks passed for the private page, assets and API routes, including both CSV endpoints; the signed-webhook exception retained its rejection checks. KV, D1, Access and secret bindings were preserved.
+
+The final live Treasury check exposed an exhausted Cloudflare D1 daily free allowance, confirmed by sanitized runtime diagnostics. Table names and schema were checked without reading ledger contents. No schema or financial-data changes were made. A follow-up returns an explicit 503/Retry-After until 00:00 UTC and pauses the browser's automatic Treasury polling until then, preserving manual Refresh for recovery after a plan change. Temporary diagnostics were removed. Live CSV import could not be exercised while this provider allowance was exhausted; its import/reimport/Undo flow was verified only against the isolated local database. [Cloudflare documents the daily reset and upgrade options](https://developers.cloudflare.com/d1/platform/pricing/). Native 200% zoom and live CSV verification after quota recovery remain follow-ups.

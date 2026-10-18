@@ -27,6 +27,16 @@ test('a maximum-size CSV import uses three atomic statements with bounded parame
  assert.equal(result.added,500);assert.equal((await f.store.list('transaction')).length,500);
 });
 
+test('an exhausted D1 daily allowance returns a safe retryable status without losing the Google session',async t=>{
+ const f=fixture(t);Object.assign(f.env,{TOKEN_ENCRYPTION_KEY:Buffer.alloc(32,7).toString('base64'),GOOGLE_CLIENT_ID:'test',GOOGLE_CLIENT_SECRET:'test'});const token='a'.repeat(64);
+ await encryptedSession(f.env,token,{kind:'google',ownerEmail:f.env.OWNER_EMAIL,expires:Date.now()+86400000});
+ t.mock.method(f.db,'prepare',()=>{throw Error('D1_ERROR: D1 DB exceeded its daily free operations limit.');});
+ const r=await gateway.fetch(new Request('https://gateway.test/budget/snapshot',{headers:{Origin:f.env.FRONTEND_ORIGIN,Authorization:'Bearer '+token}}),f.env);
+ assert.equal(r.status,503);assert.ok(Number(r.headers.get('Retry-After'))>0&&Number(r.headers.get('Retry-After'))<=86400);
+ const body=await r.json();assert.equal(body.code,'DATABASE_DAILY_LIMIT');assert.match(body.error,/Saved records are unchanged/);assert.match(body.error,/00:00 UTC/);
+ assert.equal(f.records.size,1);
+});
+
 test('date-filtered snapshots aggregate before pagination and leave planning and stored records unchanged',async t=>{
  const f=fixture(t);await f.store.initialize();
  for(let i=0;i<80;i++)await f.store.put('transaction','prod-'+i,{id:'prod-'+i,date:i<60?'2000-01-05':'1999-12-28',environment:'production',currency:'USD',classification:'purchase',amountCents:100,merchant:'Test merchant',category:'Food'});
