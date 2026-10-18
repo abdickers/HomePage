@@ -158,5 +158,13 @@ export default {async fetch(request,env){
   }
   if(url.pathname==='/camera/stop')await env.NEST_KV.delete('stream:'+session);
   return new Response('{}',{headers:headers(env)});
- }catch(error){const known=error instanceof Failure||error instanceof BudgetError;if(known&&error.status===401&&authorizedSession){try{await env.NEST_KV.delete('session:'+authorizedSession);}catch{}}return new Response(JSON.stringify({error:known?error.message:'The private service encountered an error. Please retry.',...(error instanceof BudgetError?{code:error.code}:{})}),{status:known?error.status:500,headers:headers(env)});}
+ }catch(error){
+  const databaseMessage=String(error?.message||'')+' '+String(error?.cause?.message||'');
+  const dailyLimit=/D1_ERROR/.test(databaseMessage)&&/exceeded.*daily.*limit/i.test(databaseMessage);
+  if(dailyLimit)error=new BudgetError(503,'The Treasury has reached its daily database allowance. Saved records are unchanged. Access resumes after the daily reset at 00:00 UTC.','DATABASE_DAILY_LIMIT');
+  const known=error instanceof Failure||error instanceof BudgetError;
+  if(known&&error.status===401&&authorizedSession){try{await env.NEST_KV.delete('session:'+authorizedSession);}catch{}}
+  const responseHeaders=headers(env);
+  if(dailyLimit){const now=new Date();responseHeaders['Retry-After']=String(Math.max(1,Math.ceil((Date.UTC(now.getUTCFullYear(),now.getUTCMonth(),now.getUTCDate()+1)-now.getTime())/1000)));}
+  return new Response(JSON.stringify({error:known?error.message:'The private service encountered an error. Please retry.',...(error instanceof BudgetError?{code:error.code}:{})}),{status:known?error.status:500,headers:responseHeaders});}
 },async scheduled(event,env,ctx){ctx.waitUntil(scheduledBudget(env,budgetDependencies()).catch(()=>{console.error(JSON.stringify({event:'budget_scheduled_sync_failed',message:'Sync did not finish; saved data was retained.'}));}));}};

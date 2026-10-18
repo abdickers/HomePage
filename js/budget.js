@@ -6,7 +6,7 @@ import {budgetPreset} from './budget-period.js?v=20261017-treasury1';
 export function initBudget({connection,serviceUrl,fetcher=globalThis.fetch.bind(globalThis)}) {
   const $=id=>document.getElementById(id),panel=$('budgetPanel');if(!panel)return;
   const base=new URL(serviceUrl).origin,view=$('budgetWorkspaceView'),dialog=$('budgetDialog'),sources=$('budgetConnections'),workspace=$('budgetWorkspace');
-  let data=null,tab='overview',hidden=true,busy=false,epoch=0,popup=null,popupTimer=null,deleted=false,reviewPage=0,transactionPage=0,detailReadOnly=false,presentation,refreshSerial=0,loading=false,desiredRange=budgetPreset();
+  let data=null,tab='overview',hidden=true,busy=false,epoch=0,popup=null,popupTimer=null,deleted=false,reviewPage=0,transactionPage=0,detailReadOnly=false,presentation,refreshSerial=0,loading=false,desiredRange=budgetPreset(),automaticRetryAt=0;
   const format=new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'});
   const cash=(value,currency='USD')=>hidden?'••••':!Number.isInteger(value)?'Not available':/^[A-Z]{3}$/.test(currency||'')?new Intl.NumberFormat('en-US',{style:'currency',currency}).format(value/100):'Currency unavailable';
   const entryCash=t=>Number.isInteger(t.amountCents)?(t.amountCents<0?'In · ':'Out · ')+cash(Math.abs(t.amountCents),t.currency):cash(null,t.currency);
@@ -20,7 +20,8 @@ export function initBudget({connection,serviceUrl,fetcher=globalThis.fetch.bind(
     const credential=connection.sessionId(),generation=epoch;if(!credential||!connection.connected())throw Error('Sign in with your primary personal Google account first.');
     const response=await fetcher(base+'/budget'+path,{method:input===undefined?'GET':'POST',headers:{Authorization:'Bearer '+credential,Accept:'application/json',...(input===undefined?{}:{'Content-Type':'application/json'})},...(input===undefined?{}:{body:JSON.stringify(input)}),credentials:'same-origin',cache:'no-store',signal:AbortSignal.timeout(path==='/sync'?90000:30000)});
     const body=await response.json();if(generation!==epoch||credential!==connection.sessionId())throw Error('The budget connection changed; reload this view.');
-    if(!response.ok){if(response.status===401){clear();connection.disconnect();}throw Error((body.error||'The private budget service could not complete the request.')+(body.code&&body.code!=='BUDGET_ERROR'?' ['+body.code+']':''));}
+    if(!response.ok){if(body.code==='DATABASE_DAILY_LIMIT')automaticRetryAt=Date.now()+Math.max(60,Math.min(86400,Number(response.headers.get('Retry-After'))||3600))*1000;if(response.status===401){clear();connection.disconnect();}throw Error((body.error||'The private budget service could not complete the request.')+(body.code&&body.code!=='BUDGET_ERROR'&&body.code!=='DATABASE_DAILY_LIMIT'?' ['+body.code+']':''));}
+    automaticRetryAt=0;
     return body;
   }
   function clear(){epoch++;refreshSerial++;loading=false;desiredRange=budgetPreset();if(dialog.open)dialog.close();$('budgetDialogBody')?.replaceChildren();presentation?.clear();data=null;busy=false;hidden=true;view.replaceChildren();sources?.replaceChildren();$('budgetPrivate').hidden=true;$('budgetUnlock').hidden=false;$('budgetRefresh').disabled=true;$('budgetPrivacy').textContent='Show amounts';$('budgetPrivacy').setAttribute('aria-pressed','true');state('Sign in with your personal Google account to open your private budget.');}
@@ -144,7 +145,7 @@ export function initBudget({connection,serviceUrl,fetcher=globalThis.fetch.bind(
   $('budgetUnlock').addEventListener('click',async()=>{try{deleted=false;if(!connection.connected())await connection.connect();await refresh();}catch(error){state(error.message,true);}});
   window.addEventListener('message',event=>{if(event.origin!==base||event.source!==popup||event.data?.type!=='sage-budget-mail-connected')return;popup=null;clearInterval(popupTimer);void refresh().then(syncLoop);});
   const unsubscribe=connection.subscribe(connected=>{if(connected)void refresh();else clear();});
-  const timer=setInterval(()=>{if(connection.connected()&&!document.hidden&&!busy&&!deleted&&!dialog.open)void refresh();},60000);
+  const timer=setInterval(()=>{if(connection.connected()&&!document.hidden&&!busy&&!deleted&&!dialog.open&&Date.now()>=automaticRetryAt)void refresh();},60000);
   void connection.ready().then(async()=>{if(connection.connected())await refresh();if(location.search.includes('oauth_state_id')){let saved;try{saved=JSON.parse(sessionStorage.getItem('sage_budget_link'));}catch{}if(saved?.token&&saved.expires>Date.now()){await loadPlaid();openLink(saved,true);}else state('This bank return has no matching Link session. Start the bank connection again.',true);}}).catch(error=>state(error.message,true));
   return {refresh,clear,destroy(){clearInterval(timer);clearInterval(popupTimer);unsubscribe?.();}};
 }
