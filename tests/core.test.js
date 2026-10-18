@@ -69,6 +69,13 @@ test('legacy work shortcuts move to Work without losing custom links or empty pr
  assert.equal(normalizeData({links:[]}).links.length,0);
 });
 
+test('legacy repository shortcut migrates without changing custom repositories or empty preferences',()=>{
+ const links=normalizeData({links:[{id:'old',name:'GitHub',url:'https://github.com/InkedSage/Homepage',group:'tools'},{id:'custom',name:'My repo',url:'https://github.com/abdickers/WorkHomepage',group:'tools'}]}).links;
+ assert.equal(links.find(l=>l.id==='old').url,'https://github.com/abdickers/HomePage');
+ assert.equal(links.find(l=>l.id==='custom').url,'https://github.com/abdickers/WorkHomepage');
+ assert.deepEqual(normalizeData({links:[]}).links,[]);
+});
+
 test('requested removals apply to saved links and backups while preserving personal data',()=>{
  const saved=normalizeData({tasks:[{id:'t',text:'Keep this quest'}],notes:[{id:'n',title:'Keep',text:'Keep this note'}],settings:{spark:'reviewer'},links:[{id:'a',name:'Claude',url:'https://claude.ai/',group:'ai'},{id:'b',name:'Canva',url:'https://www.canva.com/',group:'tools'},{id:'c',name:'My writing app',url:'https://www.notion.so/private',group:'tools'},{id:'d',name:'Gemini',url:'https://gemini.google.com/app',group:'ai'},{id:'e',name:'ChatGPT',url:'https://chatgpt.com/',group:'ai'}]});
  assert.deepEqual(saved.links.map(l=>l.name),['Gemini','ChatGPT']);assert.equal(saved.tasks[0].text,'Keep this quest');assert.equal(saved.notes[0].text,'Keep this note');assert.equal('spark' in saved.settings,false);

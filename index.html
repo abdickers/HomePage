@@ -23,6 +23,8 @@
   <link rel="stylesheet" href="css/frame-backgrounds.css?v=20261017-inset1" />
   <link rel="stylesheet" href="css/ravens-scroll.css?v=20261017-scroll1" />
   <link rel="stylesheet" href="css/gondor-header.css?v=20261017-gondor1" />
+  <link rel="stylesheet" href="css/dashboard-review.css?v=20261018-review1" />
+  <link rel="stylesheet" href="css/bag-end-room.css?v=20261018-room1" />
 </head>
 <body data-command-realm="personal">
   <aside class="realm-sidebar" aria-label="Personal command center">
@@ -147,7 +149,7 @@
  <img class="bag-end-emblem" src="assets/redesign/hobbit-bag-end-door.webp" width="180" height="180" alt="" aria-hidden="true" loading="lazy" decoding="async" />
  <div class="panel-title"><div><span class="section-kicker">There is no place like home</span><h2 id="bagEndTitle">Bag End</h2><span class="realm-account">SAGE CABIN · GOOGLE NEST</span></div></div>
  <div class="bag-end-layout"><div class="home-devices">
-  <div class="nest-hearth"><article class="home-device">
+  <div class="nest-hearth hobbit-control"><span class="hobbit-surface" aria-hidden="true"></span><div class="hobbit-control-frame" aria-hidden="true"><span class="hc-top"></span><span class="hc-bottom"></span><span class="hc-left"></span><span class="hc-right"></span><span class="hc-tl"></span><span class="hc-tr"></span><span class="hc-bl"></span><span class="hc-br"></span></div><article class="home-device">
    <div class="climate-art" aria-hidden="true"><img id="nestModeArt" width="144" height="144" sizes="(max-width: 760px) 88px, 128px" alt="" decoding="async" hidden /><span id="nestNeutralGlyph" class="climate-neutral">°</span></div>
    <div class="climate-reading"><h3 class="hearth-heading"><img class="home-small-icon" src="assets/expansion/hobbit-icon-window-64.webp" srcset="assets/expansion/hobbit-icon-window-64.webp 64w, assets/expansion/hobbit-icon-window-128.webp 128w" sizes="28px" width="28" height="28" alt="" aria-hidden="true" loading="lazy" decoding="async" />The hearth</h3>
    <div class="ambient-reading"><div class="temperature-dial"><span id="nestTemperature">—</span><small id="nestTemperatureUnit">°F</small></div><small id="nestTemperatureLabel">Ambient temperature</small></div>
@@ -160,8 +162,8 @@
   </div>
  </div>
 
-    <section class="panel weather-panel art-frame elven-frame" aria-labelledby="homeWeatherTitle">
-      <span class="panel-surface" aria-hidden="true"></span>
+    <section class="panel weather-panel hobbit-control" aria-labelledby="homeWeatherTitle">
+      <span class="hobbit-surface" aria-hidden="true"></span><div class="hobbit-control-frame" aria-hidden="true"><span class="hc-top"></span><span class="hc-bottom"></span><span class="hc-left"></span><span class="hc-right"></span><span class="hc-tl"></span><span class="hc-tr"></span><span class="hc-bl"></span><span class="hc-br"></span></div>
       <div class="panel-title">
         <div class="section-identity"><img class="section-icon" src="assets/redesign/icon-weather.webp" width="64" height="64" alt="" aria-hidden="true" loading="lazy" decoding="async" /><div><span class="section-kicker">Under an open sky</span><h3 id="homeWeatherTitle">Weather in Rohan</h3></div></div>
         <button id="refreshWeather" type="button" aria-label="Refresh weather">↻</button>
@@ -184,7 +186,8 @@
     </section>
  </div>
 
- <div class="nest-watch" id="gatePanel" role="group" aria-labelledby="nestWatchTitle">
+ <div class="nest-watch hobbit-control" id="gatePanel" role="group" aria-labelledby="nestWatchTitle">
+  <span class="hobbit-surface" aria-hidden="true"></span><div class="hobbit-control-frame" aria-hidden="true"><span class="hc-top"></span><span class="hc-bottom"></span><span class="hc-left"></span><span class="hc-right"></span><span class="hc-tl"></span><span class="hc-tr"></span><span class="hc-bl"></span><span class="hc-br"></span></div>
   <h3 class="gate-label" id="nestWatchTitle"><img class="home-small-icon" src="assets/expansion/hobbit-icon-gate-64.webp" srcset="assets/expansion/hobbit-icon-gate-64.webp 64w, assets/expansion/hobbit-icon-gate-128.webp 128w" sizes="32px" width="32" height="32" alt="" aria-hidden="true" loading="lazy" decoding="async" />The watch at the gate</h3>
   <div class="camera-preview"><picture id="nestCameraArt" aria-hidden="true"><source media="(max-width: 1000px)" srcset="assets/bag-end/hobbit-hearth-garden-window-small.webp" /><img src="assets/bag-end/hobbit-hearth-garden-window.webp" width="1672" height="941" alt="" loading="lazy" decoding="async" /></picture><video id="nestVideo" controls autoplay muted playsinline hidden aria-label="Live Nest camera"></video></div>
   <div class="camera-toolbar"><div class="camera-selection"><label for="nestCamera" id="nestCameraLabel" hidden>Camera</label><select id="nestCamera" aria-describedby="nestCameraInfo" hidden></select><small id="nestCameraInfo">Private Nest camera</small></div>
@@ -209,10 +212,10 @@
       <div class="receipt-columns"><section aria-label="Walmart receipt history"><h3>Walmart · the supply wagon</h3><div id="walmartReceipts"></div></section><section aria-label="Amazon receipt history"><h3>Amazon · the arriving caravans</h3><div id="amazonReceipts"></div></section></div>
     </section>
 
-    <section class="panel quick-panel art-frame vault-frame">
-      <span class="panel-surface" aria-hidden="true"></span><span class="frame-medallion" aria-hidden="true"></span>
+    <section class="panel quick-panel art-frame gondor-panel">
+      <span class="panel-surface" aria-hidden="true"></span><div class="gondor-header-frame gondor-panel-border" aria-hidden="true"><span class="frame-top"></span><span class="frame-bottom"></span><span class="frame-left"></span><span class="frame-right"></span><span class="frame-tl"></span><span class="frame-tr"></span><span class="frame-bl"></span><span class="frame-br"></span><span class="frame-tree"></span><span class="frame-diamond"></span></div>
       <div class="panel-title">
-        <div class="section-identity"><img class="section-icon" src="assets/redesign/icon-key.webp" width="64" height="64" alt="" aria-hidden="true" loading="lazy" decoding="async" /><div><span class="section-kicker">The keys of Erebor</span><h2>Quick Access</h2></div></div>
+        <div class="section-identity"><img class="section-icon" src="assets/redesign/icon-key.webp" width="64" height="64" alt="" aria-hidden="true" loading="lazy" decoding="async" /><div><span class="section-kicker">The roads to the White City</span><h2>Quick Access</h2></div></div>
       </div>
       <div class="quick-list" id="quickList"></div>
     </section>
@@ -240,12 +243,13 @@
 
 
 
-    <section class="panel tools-panel art-frame elven-frame">
-      <span class="panel-surface" aria-hidden="true"></span>
+    <section class="panel tools-panel art-frame gondor-panel" id="toolsPanel">
+      <span class="panel-surface" aria-hidden="true"></span><div class="gondor-header-frame gondor-panel-border" aria-hidden="true"><span class="frame-top"></span><span class="frame-bottom"></span><span class="frame-left"></span><span class="frame-right"></span><span class="frame-tl"></span><span class="frame-tr"></span><span class="frame-bl"></span><span class="frame-br"></span><span class="frame-tree"></span><span class="frame-diamond"></span></div>
       <div class="panel-title">
-        <div class="section-identity"><img class="section-icon" src="assets/redesign/icon-wisdom.webp" width="64" height="64" alt="" aria-hidden="true" loading="lazy" decoding="async" /><div><span class="section-kicker">The archives of Rivendell</span><h2>Tools &amp; Systems</h2></div></div>
+        <div class="section-identity"><img class="section-icon" src="assets/redesign/icon-wisdom.webp" width="64" height="64" alt="" aria-hidden="true" loading="lazy" decoding="async" /><div><span class="section-kicker">The workshops of Gondor</span><h2>Tools &amp; Systems</h2></div></div>
         <button id="addLink" type="button">Add Link</button>
       </div>
+      <h3 class="workshop-heading">Manage this page</h3><div class="app-grid workshop-grid" id="siteTools"><a class="app-card" href="https://dash.cloudflare.com/5e6a580fb3f9a04573693f7c6c123fbd" target="_blank" rel="noopener noreferrer"><img class="app-icon" src="https://www.google.com/s2/favicons?domain=dash.cloudflare.com&amp;sz=64" width="40" height="40" alt="" /><span>Cloudflare<small>Private hosting</small></span></a><a class="app-card" href="https://github.com/abdickers/HomePage" target="_blank" rel="noopener noreferrer"><img class="app-icon" src="https://www.google.com/s2/favicons?domain=github.com&amp;sz=64" width="40" height="40" alt="" /><span>GitHub<small>Source & releases</small></span></a><a class="app-card" href="https://dashboard.plaid.com/" target="_blank" rel="noopener noreferrer"><img class="app-icon" src="https://www.google.com/s2/favicons?domain=plaid.com&amp;sz=64" width="40" height="40" alt="" /><span>Plaid<small>Bank integration</small></span></a><a class="app-card" href="https://console.cloud.google.com/?authuser=abdickers%40gmail.com" target="_blank" rel="noopener noreferrer"><img class="app-icon" src="https://www.google.com/s2/favicons?domain=cloud.google.com&amp;sz=64" width="40" height="40" alt="" /><span>Google Cloud Console<small>Google APIs & OAuth</small></span></a></div><p class="workshop-account">Personal workshop · abdickers. Google Cloud selects abdickers@gmail.com; Cloudflare opens your existing account. GitHub and Plaid use their current browser sign-in.</p><h3 class="workshop-heading">Your other tools</h3>
       <div class="app-grid tool-grid" id="toolGrid"></div>
     </section>
 
@@ -273,7 +277,7 @@
       <p id="budgetState" role="status">Manage your personal Google connection in Settings to load the private budget.</p>
 
       <div id="budgetPrivate" hidden>
-        <p id="budgetSandbox" class="budget-notice" hidden>Bank sandbox · test bank data only. Sandbox balances are excluded from real spending and balance estimates.</p>
+        <p id="budgetSandbox" class="budget-notice" hidden>Plaid Sandbox · simulated bank entries stay out of real totals. CSV imports are separately labeled.</p>
         <div class="treasury-summary-toolbar">
           <form id="budgetRangeForm" class="budget-range-form"><label for="budgetPeriod">Activity period</label><select id="budgetPeriod"><option value="7">Past 7 days</option><option value="30">Past 30 days</option><option value="month">This month</option><option value="custom">Custom dates</option></select><span id="budgetPeriodLabel"></span><div id="budgetCustomRange" class="budget-custom-range" hidden><label>From<input id="budgetRangeStart" type="date" required /></label><label>Through<input id="budgetRangeEnd" type="date" required /></label><button type="submit">Apply dates</button></div><p id="budgetRangeError" role="status" hidden></p></form>
           <button id="budgetManage" type="button" disabled>Manage Treasury</button>
@@ -351,7 +355,7 @@
   <dialog id="budgetDialog" aria-label="Budget editor"><div id="budgetDialogBody"></div></dialog>
   <script type="module" src="js/realm-expansion.js?v=20261016-expansion1"></script>
   <script type="module" src="js/private-site.js?v=20261017-private1"></script>
-  <script type="module" src="js/app.js?v=20261017-gondor1"></script>
+  <script type="module" src="js/app.js?v=20261018-review1"></script>
   <script type="module" src="js/wow.js?v=20261016-warcraft1"></script>
 </body>
 </html>

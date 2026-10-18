@@ -3,10 +3,10 @@ import {initWizardDisclosure} from './wizard-disclosure.js?v=20261017-gondor1';
 import {initNest} from './nest.js?v=20261017-private1';
 import {NEST_SERVICE_URL} from './nest-config.js?v=20261017-private1';
 import {createGoogleConnection} from './google-connection.js?v=20261017-private1';
-import {initBudget} from './budget.js?v=20261017-private1';
+import {initBudget} from './budget.js?v=20261018-csv1';
 import { initPersonalMail } from './personal-mail.js?v=20261017-polish1';
 import { accountLink, PERSONAL_EMAIL } from './account-links.mjs?v=20261015-personal7';
-import {DATA_KEY, escapeHtml as esc, safeUrl, localDate, normalizeData, readData, mergeBackup, normalizeObservation} from './core.js?v=20261015-personal7';
+import {DATA_KEY, escapeHtml as esc, safeUrl, localDate, normalizeData, readData, mergeBackup, normalizeObservation} from './core.js?v=20261018-workshop1';
 const $ = id => document.getElementById(id);
 const uid = () => crypto.randomUUID();
 const settingsUI=initSettingsPresentation();
@@ -55,7 +55,7 @@ function icon(link, kind) {
 }
 function renderLinks() {
   for (const [group,id] of [['ai','aiGrid'],['tools','toolGrid'],['quick','quickList']]) {
-    const links = data.links.filter(l=>l.group===group);
+    const links = data.links.filter(l=>l.group===group&&!(group==='tools'&&l.url==='https://github.com/abdickers/HomePage'));
     $(id).innerHTML = links.length ? links.map(l=>group==='quick'
       ? `<a class="quick-item" href="${esc(accountLink(l.url, PERSONAL_EMAIL, l.name))}" target="_blank" rel="noopener noreferrer">${icon(l,'quick-icon')}<b>${esc(l.name)}</b><span class="chevron" aria-hidden="true">›</span></a>`
       : `<a class="app-card" href="${esc(accountLink(l.url, PERSONAL_EMAIL, l.name))}" target="_blank" rel="noopener noreferrer">${icon(l,'app-icon')}<span>${esc(l.name)}</span></a>`).join('') : '<p class="empty-state">Add your own links with Add Link.</p>';
@@ -71,7 +71,7 @@ function updateTime() {
 }
 function searchDashboard(query) {
   const q=query.toLowerCase(),matches=[];
-  data.links.filter(l=>`${l.name} ${l.url}`.toLowerCase().includes(q)).forEach(l=>matches.push(`<a class="search-result" href="${esc(accountLink(l.url, PERSONAL_EMAIL, l.name))}" target="_blank" rel="noopener noreferrer"><small>Tool · ${esc(l.group)}</small>${esc(l.name)} <span>↗</span></a>`));
+  [...data.links,...[...document.querySelectorAll('#siteTools a')].map(a=>({name:a.querySelector('span').firstChild.textContent.trim(),url:a.href,group:'tools'}))].filter((l,i,all)=>all.findIndex(other=>other.url===l.url)===i&&`${l.name} ${l.url}`.toLowerCase().includes(q)).forEach(l=>matches.push(`<a class="search-result" href="${esc(accountLink(l.url, PERSONAL_EMAIL, l.name))}" target="_blank" rel="noopener noreferrer"><small>Tool · ${esc(l.group)}</small>${esc(l.name)} <span>↗</span></a>`));
   $('searchResults').innerHTML=matches.join('')||'<p class="empty-state">No matching links found.</p>';$('searchDialog').showModal();
 }
 async function json(url,options={}) {

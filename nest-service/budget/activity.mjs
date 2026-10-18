@@ -13,7 +13,7 @@ export function periodActivity(transactions,{start,end},incomplete=false) {
   const all=transactions.filter(t=>!t.removed),posted=new Set(all.filter(t=>!t.pending&&t.pendingId).map(t=>key(t,t.pendingId)));
   const entries=all.filter(t=>!posted.has(key(t))&&validDate(t.date)&&t.date>=start&&t.date<=end)
     .sort((a,b)=>b.date.localeCompare(a.date)||String(a.id).localeCompare(String(b.id)));
-  const real=entries.filter(t=>t.environment!=='sandbox');
+  const real=entries.filter(t=>!t.excludedFromTotals&&t.environment!=='sandbox');
   const purchases=real.filter(t=>!t.pending&&t.currency==='USD'&&t.classification==='purchase');
   const group=field=>Object.entries(purchases.reduce((out,t)=>{const name=t[field]||'Uncategorized';out[name]=(out[name]||0)+t.amountCents;return out;},Object.create(null)))
     .map(([name,amountCents])=>({name,amountCents})).sort((a,b)=>b.amountCents-a.amountCents||a.name.localeCompare(b.name));
