@@ -8,7 +8,7 @@ const output=resolve(root,'dist-private');
 if(relative(root,output)!=='dist-private')throw Error('Invalid private build output');
 try{if((await lstat(output)).isSymbolicLink())throw Error('Build output must not be a symbolic link');}catch(error){if(error.code!=='ENOENT')throw error;}
 const git=process.env.SAGE_GIT_BIN||'git';
-const tracked=execFileSync(git,['ls-files','-z'],{cwd:root,encoding:'utf8'}).split('\0').filter(Boolean);
+const tracked=execFileSync(git,['ls-files','--cached','--others','--exclude-standard','-z'],{cwd:root,encoding:'utf8'}).split('\0').filter(Boolean);
 const allowed=name=>name==='index.html'||name==='Revindale.jpg'||
   /^(css\/.*\.css|js\/.*\.(js|mjs)|data\/(news|wow)\.json)$/.test(name)||
   (name.startsWith('assets/')&&!name.includes('/originals/')&&/\.(png|jpe?g|webp|svg|gif|avif|woff2?)$/i.test(name));

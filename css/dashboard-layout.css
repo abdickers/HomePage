@@ -5,7 +5,7 @@
   grid-template-areas:
     'prelude prelude prelude prelude prelude ravens ravens ravens ravens ravens ravens ravens'
     'home home home home home home home home home home home home'
-    'provisions provisions provisions provisions provisions provisions quick quick quick quick quick quick'
+    'provisions provisions provisions provisions provisions provisions keep keep keep keep keep keep'
     'news news news news news news news news news news news news'
     'tools tools tools tools tools tools tools tools tools tools tools tools'
     'warcraft warcraft warcraft warcraft warcraft warcraft warcraft warcraft warcraft warcraft warcraft warcraft'
@@ -19,7 +19,7 @@
 #dashboard > .ravens-panel { grid-area: ravens; }
 #dashboard > .home-panel { grid-area: home; }
 #dashboard > .provisions-panel { grid-area: provisions; }
-#dashboard > .quick-panel { grid-area: quick; }
+#dashboard > .keep-panel { grid-area: keep; }
 #dashboard > .news-panel { grid-area: news; }
 #dashboard > .tools-panel { grid-area: tools; }
 #dashboard > .wow-panel { grid-area: warcraft; }
@@ -55,7 +55,7 @@
 @media(max-width:1199px) {
   #dashboard.realm-dashboard {
     grid-template-columns: minmax(0,1fr);
-    grid-template-areas: 'prelude' 'ravens' 'home' 'provisions' 'quick' 'news' 'tools' 'warcraft' 'treasury' 'wisdom';
+    grid-template-areas: 'prelude' 'ravens' 'home' 'provisions' 'keep' 'news' 'tools' 'warcraft' 'treasury' 'wisdom';
   }
 }
 @media(max-width:760px) {

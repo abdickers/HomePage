@@ -1,4 +1,6 @@
 import { accountLink, PERSONAL_EMAIL, WORK_URL } from './account-links.mjs?v=20261015-personal6';
+import {normalizeQuickLinks, internalLink, LINK_ICONS} from './quick-links.js?v=20261018-bagend4';
+import {normalizeKeepLinks} from './keep-notes-data.js?v=20261018-bagend4';
 export const DATA_KEY = 'sage_command_v9';
 export const DEFAULT_SETTINGS = {
   name: 'Sage', unit: 'fahrenheit',
@@ -58,6 +60,8 @@ export function safeUrl(value) {
   catch { return null; }
 }
 
+export const safeLinkUrl = value => internalLink(value) || safeUrl(value);
+
 export function localDate(date = new Date()) {
   return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
 }
@@ -66,7 +70,7 @@ export function validDate(value) {
   return typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value) && localDate(new Date(value + 'T12:00:00')) === value;
 }
 
-export function normalizeSettings(value = {}) {
+export function normalizeSettings(value = {}, links = DEFAULT_LINKS) {
   if (!value || typeof value !== 'object') value = {};
   const s = {...DEFAULT_SETTINGS};
   if (typeof value.name === 'string' && value.name.trim()) s.name = value.name.trim().slice(0,40);
@@ -77,6 +81,7 @@ export function normalizeSettings(value = {}) {
   if (l && typeof l.name === 'string' && l.name.trim() && Number.isFinite(l.lat) && Math.abs(l.lat)<=90 && Number.isFinite(l.lon) && Math.abs(l.lon)<=180) {
     s.location = {name:l.name.slice(0,100),lat:l.lat,lon:l.lon};
   }
+  s.quickLinks = normalizeQuickLinks(value.quickLinks, links);
   return s;
 }
 
@@ -92,10 +97,10 @@ export function normalizeData(raw = {}) {
     title:String(Array.isArray(n) ? n[0] || 'Note' : n.title || 'Note').slice(0,100),
     text:String(Array.isArray(n) ? n[1] || '' : n.text ?? (Array.isArray(n.lines) ? n.lines.join('\n') : '')).slice(0,10000)
   })).slice(0,1000);
-  const links = migrateLinks(raw.links).filter(l => l && typeof l.name === 'string' && l.name.trim() && safeUrl(l.url)).slice(0,500).map((l,i) => ({
-    id:String(l.id || 'import-link-'+i).slice(0,100),name:l.name.trim().slice(0,60),url:accountLink(l.url,PERSONAL_EMAIL,l.name),group:['ai','tools','quick'].includes(l.group) ? l.group : 'tools'
+  const links = migrateLinks(raw.links).filter(l => l && typeof l.name === 'string' && l.name.trim() && safeLinkUrl(l.url)).slice(0,500).map((l,i) => ({
+    id:String(l.id || 'import-link-'+i).slice(0,100),name:l.name.trim().slice(0,60),url:internalLink(l.url)||accountLink(l.url,PERSONAL_EMAIL,l.name),group:['ai','tools','quick'].includes(l.group) ? l.group : 'tools',icon:Object.hasOwn(LINK_ICONS,l.icon) ? l.icon : 'auto'
   }));
-  return {version:9,tasks:unique(tasks),notes:unique(notes),links:unique(links),settings:normalizeSettings(raw.settings)};
+  return {version:9,tasks:unique(tasks),notes:unique(notes),links:unique(links),keepLinks:normalizeKeepLinks(raw.keepLinks),settings:normalizeSettings(raw.settings,unique(links))};
 }
 
 export function readData(storage) {
@@ -108,7 +113,7 @@ export function readData(storage) {
 export function mergeBackup(current, incoming) {
   if (!incoming || typeof incoming !== 'object' || incoming.version !== 9 || !['tasks','notes','links'].every(k=>Array.isArray(incoming[k]))) throw new Error('Choose a Sage Command backup exported by this dashboard.');
   const clean = normalizeData(incoming);
-  return normalizeData({...clean,tasks:[...current.tasks,...clean.tasks],notes:[...current.notes,...clean.notes]});
+  return normalizeData({...clean,tasks:[...current.tasks,...clean.tasks],notes:[...current.notes,...clean.notes],keepLinks:[...(current.keepLinks||[]),...clean.keepLinks]});
 }
 
 export function taskGroup(task, today = localDate()) { return task.due && task.due > today ? 'upcoming' : 'today'; }
