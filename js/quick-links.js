@@ -8,7 +8,8 @@ export const LINK_ICONS = {
   slides: ['Slides', 'assets/service-icons/slides.svg'], keep: ['Keep', 'assets/service-icons/keep.svg'],
   photos: ['Photos', 'assets/service-icons/photos.svg'], meet: ['Meet', 'assets/service-icons/meet.svg'],
   home: ['Bag End', 'assets/redesign/icon-bag-end.webp'], treasury: ['Treasury', 'assets/personal-theme/dwarven-vault.webp'],
-  work: ['Work', 'assets/redesign/icon-wisdom.webp']
+  work: ['Work', 'assets/redesign/icon-wisdom.webp'],
+  battlenet: ['Battle.net', 'assets/logos/battlenet.png'], warcraft: ['World of Warcraft', 'assets/logos/warcraft.png']
 };
 for (const [name,file] of Object.entries({NetSuite:'netsuite.svg',Slack:'slack.svg',BigCommerce:'bigcommerce.svg',Vercel:'vercel.svg',Jira:'jira.svg',Confluence:'confluence.svg',Dotdigital:'dotdigital.png',Zoom:'zoom.svg',Cloudflare:'cloudflare.svg'})) LINK_ICONS[name]=[name,'assets/logos/'+file];
 export function linkIcon(link) {
@@ -16,8 +17,16 @@ export function linkIcon(link) {
   const known = {'ChatGPT':'chatgpt','Gemini':'gemini','GitHub':'github','Gmail':'gmail',
     'Google Calendar':'calendar','My Drive':'drive','Recent Files':'drive','Google Docs':'docs',
     'Google Sheets':'sheets','Google Slides':'slides','Google Keep':'keep','Google Photos':'photos',
-    'Google Meet':'meet','Work Command Center':'work'};
-  return LINK_ICONS[known[link.name] || (Object.hasOwn(LINK_ICONS,link.name)?link.name:'neutral')][1];
+    'Google Meet':'meet','Work Command Center':'work','Battle.net':'battlenet','Frear · Armory':'warcraft'};
+  // Existing saved links need no migration; recognize their official hosts even
+  // when the user has renamed the link. An explicit icon choice still wins.
+  let destinationIcon;
+  try {
+    const url=new URL(link.url);
+    if(['battle.net','www.battle.net','account.battle.net'].includes(url.hostname))destinationIcon='battlenet';
+    if(url.hostname==='worldofwarcraft.blizzard.com')destinationIcon='warcraft';
+  } catch { /* Internal routes and unknown destinations retain their fallback. */ }
+  return LINK_ICONS[destinationIcon || known[link.name] || (Object.hasOwn(LINK_ICONS,link.name)?link.name:'neutral')][1];
 }
 export function normalizeQuickLinks(value, links) {
   const known = new Map(links.map(link => [link.id, link]));

@@ -24,5 +24,7 @@ These are software brand assets, not generated approximations. Copies are served
 | OpenAI / ChatGPT | https://raw.githubusercontent.com/homarr-labs/dashboard-icons/main/svg/openai.svg |
 | Claude | https://raw.githubusercontent.com/homarr-labs/dashboard-icons/main/svg/claude-ai.svg |
 | Gemini | https://raw.githubusercontent.com/homarr-labs/dashboard-icons/main/svg/google-gemini.svg |
+| Battle.net | https://bnetaccount.akamaized.net/static/images/favicon-96x96.png (advertised by https://account.battle.net/) |
+| World of Warcraft / Armory | https://assets-bwa.worldofwarcraft.blizzard.com/static/wow-icon-32x32.1a38d7c1c3d8df560d53f5c2ad5442c0401edf83.png (advertised by https://worldofwarcraft.blizzard.com/en-us/) |
 
 Monochrome marks use theme-aware inversion on dark backgrounds. Colored assets keep their original colors.

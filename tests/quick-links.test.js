@@ -42,3 +42,16 @@ test('known icons, chosen icons and unknown-icon fallback use existing bundled f
   assert.equal(linkIcon({...custom,icon:'gmail'}),'assets/logos/gmail.png');
   assert.equal(normalizeData({links:[{id:'custom',...custom,group:'quick'}]}).links[0].icon,'auto');
 });
+
+test('existing and renamed game links resolve to official local icons without changing saved preferences',()=>{
+  const games=normalizeData().links.filter(link=>['battle-net','wow-armory'].includes(link.id));
+  assert.equal(games.length,2);
+  for(const link of games){
+    const expected=link.id==='battle-net'?'assets/logos/battlenet.png':'assets/logos/warcraft.png';
+    assert.equal(link.icon,'auto');
+    assert.equal(linkIcon(link),expected);
+    assert.equal(linkIcon({...link,name:'My game account'}),expected);
+    assert.equal(linkIcon({...link,icon:'gmail'}),'assets/logos/gmail.png');
+  }
+  assert.equal(linkIcon({name:'Game',url:'https://account.battle.net.evil.example/'}),'assets/service-icons/link.svg');
+});

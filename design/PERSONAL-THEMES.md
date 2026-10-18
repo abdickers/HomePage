@@ -163,3 +163,26 @@ their own sections. All 145 tests and the strict Wrangler dry-run passed.
 Computed-style and layout checks covered 375, 768, 1440, and 1920px widths with
 no page or button-content overflow. Local proof is in `qa/green-theme-*.png`
 and `qa/green-theme-layout.json`.
+
+## Game icons, header spacing, and name correction
+
+Battle.net and Frear's Armory use locally bundled official Battle.net and
+Warcraft marks; sources are recorded in `assets/logos/SOURCES.md`. Existing
+saved links resolve automatically, including renamed links to the official
+hosts. Explicit icon choices continue taking precedence. Both marks are also
+available in the link editor and header registry.
+
+The header uses a column layout with its search bar at the bottom of available
+space, retaining 36px clearance on desktop and 30px on phones. The title has
+more space below it. Compared with the previous release, the search bar moved
+down 106px at 1920px width, 42px at 1440px, 32px at 768px, and 28px at 375px;
+no horizontal page overflow was observed. The heading now reads
+“Sage’s Middle-earth COMMAND CENTER,” with a matching S sidebar monogram and
+updated browser title.
+
+The divider now shares its horizontal measurement with the sidebar background
+edge and content inset. Its center lies exactly on that seam (210px on desktop,
+184px on tablet), and its top aligns with the header frame. Extra sidebar
+padding preserves the navigation's previous content width. The rail paints
+above both backgrounds and remains hidden on phones. Layout measurements are
+in `qa/header-icons-rail-layout.json`.
