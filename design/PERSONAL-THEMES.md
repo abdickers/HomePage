@@ -130,7 +130,7 @@ over the header, Calendar/AI stack, Ravens, home controls, provisions/Keep,
 News, Tools, Warcraft, Treasury entrance and footer. Refinements included:
 
 - Removed the old silver-gray search field/button borders. The bar now uses
-  warm oak/brass styling with moss fields; every search control measures 48px.
+  forest-green controls with brass trim; every search control measures 48px.
 - Standardized ordinary section heading icon sizes and spacing, and kept the
   Calendar refresh action aligned beside its title on larger screens.
 - Grouped retailer actions into aligned rows. Walmart and Amazon cards have
@@ -147,3 +147,19 @@ News, Tools, Warcraft, Treasury entrance and footer. Refinements included:
 
 Final screenshots and layout measurements are local QA outputs under
 `qa/polish-final-*.png` and `qa/polish-final-layout.json`.
+
+## Green-control consistency follow-up
+
+Ordinary personal controls share one forest-green palette for resting, hover,
+and selected states. This includes search, Calendar, the Ravens, nested Nest
+and weather controls, shopping links, Keep, news, and Tools. Retailer links and
+Open Keep now use the same button treatment. Tool tiles share green fills,
+green hover states, and uniform 8px corners. The search bar and wizard menu
+also use green instead of brown.
+
+Gondor dialogs retain their silver/slate palette, including primary Save
+buttons. Treasury's iron/gold and Warcraft's blue controls remain scoped to
+their own sections. All 145 tests and the strict Wrangler dry-run passed.
+Computed-style and layout checks covered 375, 768, 1440, and 1920px widths with
+no page or button-content overflow. Local proof is in `qa/green-theme-*.png`
+and `qa/green-theme-layout.json`.
