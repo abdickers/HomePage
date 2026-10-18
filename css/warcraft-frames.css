@@ -3,6 +3,10 @@
 #dashboard > #wowPanel.warcraft-section-frame {
   position: relative; isolation: isolate; overflow: visible;
   padding: 96px 48px 52px; border: 0; border-radius: 0;
+  /* Supplied cathedral artwork; a neutral scrim keeps live HTML readable. */
+  background: linear-gradient(180deg,#1817139c,#161713b8),
+    url('../assets/warcraft/alliance-cathedral-war-room.webp') center top / cover no-repeat,
+    #29251f;
   box-shadow: 0 20px 40px #0005;
 }
 #wowPanel .warcraft-section-border,
@@ -22,6 +26,7 @@
 #wowPanel .warcraft-section-lion { top: -2px; width: 144px; }
 #wowPanel .warcraft-section-seal { bottom: 4px; width: 48px; }
 #wowPanel .wow-heading { position: relative; margin-bottom: 24px; }
+#wowPanel .wow-character-caption small { color: #e2ded3; }
 #wowPanel .wow-layout { position: relative; }
 #wowPanel .wow-briefing { min-width: 0; container-type: inline-size; }
 #wowPanel .wow-events {
