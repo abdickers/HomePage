@@ -64,6 +64,13 @@
               "icon": "inv_misc_treasurechest05b",
               "iconLabel": "Reward: Fabled Adventurer's Cache",
               "iconUrl": "/item=264274/fabled-adventurers-cache",
+              "name": "Special Assignment: Push Back the Light",
+              "url": "/quest=93013/special-assignment-push-back-the-light"
+            },
+            {
+              "icon": "inv_misc_treasurechest05b",
+              "iconLabel": "Reward: Fabled Adventurer's Cache",
+              "iconUrl": "/item=264274/fabled-adventurers-cache",
               "name": "Special Assignment: Demand and Supply",
               "url": "/quest=95921/special-assignment-demand-and-supply"
             }
@@ -173,29 +180,29 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1792339200,
-              "name": "Siege at the Whispering Marsh",
-              "startingUt": 1792337400
-            },
-            {
-              "endingUt": 1792341000,
+              "endingUt": 1792350000,
               "name": "The Malformed Leviathan",
-              "startingUt": 1792339200
+              "startingUt": 1792348200
             },
             {
-              "endingUt": 1792342800,
+              "endingUt": 1792351800,
               "name": "The Broodmother's Nest",
-              "startingUt": 1792341000
+              "startingUt": 1792350000
             },
             {
-              "endingUt": 1792344600,
+              "endingUt": 1792353600,
               "name": "The Looming Mutagenitor",
-              "startingUt": 1792342800
+              "startingUt": 1792351800
             },
             {
-              "endingUt": 1792346400,
+              "endingUt": 1792355400,
               "name": "Mlurkkr Massacre",
-              "startingUt": 1792344600
+              "startingUt": 1792353600
+            },
+            {
+              "endingUt": 1792357200,
+              "name": "Siege at the Whispering Marsh",
+              "startingUt": 1792355400
             }
           ],
           "icons": ""
@@ -236,14 +243,18 @@
         "content": {
           "lines": [
             {
-              "ending": "23 hr 48 sec",
-              "endingShort": "23h",
+              "ending": "20 hr 17 min",
+              "endingShort": "20h",
               "endingUt": 1792422000,
-              "name": "Active"
+              "icon": "inv_achievement_zone_zulaman1",
+              "iconLabel": "Zul'Aman",
+              "iconUrl": "/zone=15947/zulaman",
+              "name": "Zul'Aman: Atal'Aman",
+              "url": "/zone=16556/atalaman"
             },
             {
-              "ending": "23 hr 48 sec",
-              "endingShort": "23h",
+              "ending": "20 hr 17 min",
+              "endingShort": "20h",
               "endingUt": 1792422000,
               "name": "Active"
             }
@@ -322,7 +333,7 @@
       }
     ],
     "source": "https://www.wowhead.com/today-in-wow",
-    "updated": "2026-10-18T15:59:36.628082+00:00"
+    "updated": "2026-10-18T18:43:03.253100+00:00"
   },
   "forever": {
     "events": [
