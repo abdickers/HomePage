@@ -1,4 +1,4 @@
-import {initSettingsPresentation} from './settings-presentation.js?v=20261016-controls1';
+import {initSettingsPresentation} from './settings-presentation.js?v=20261018-bagend4';
 import {initWizardDisclosure} from './wizard-disclosure.js?v=20261017-gondor1';
 import {initNest} from './nest.js?v=20261017-private1';
 import {NEST_SERVICE_URL} from './nest-config.js?v=20261017-private1';
@@ -6,7 +6,10 @@ import {createGoogleConnection} from './google-connection.js?v=20261017-private1
 import {initBudget} from './budget.js?v=20261018-csv2';
 import { initPersonalMail } from './personal-mail.js?v=20261017-polish1';
 import { accountLink, PERSONAL_EMAIL } from './account-links.mjs?v=20261015-personal7';
-import {DATA_KEY, escapeHtml as esc, safeUrl, localDate, normalizeData, readData, mergeBackup, normalizeObservation} from './core.js?v=20261018-workshop1';
+import {DATA_KEY, escapeHtml as esc, safeUrl, safeLinkUrl, localDate, normalizeData, readData, mergeBackup, normalizeObservation} from './core.js?v=20261018-bagend4';
+import {initQuickLinks, linkArtwork, linkDestination} from './quick-links-ui.js?v=20261018-bagend4';
+import {internalLink} from './quick-links.js?v=20261018-bagend4';
+import {initKeepNotes} from './keep-notes.js?v=20261018-bagend4';
 const $ = id => document.getElementById(id);
 const uid = () => crypto.randomUUID();
 const settingsUI=initSettingsPresentation();
@@ -14,6 +17,8 @@ initWizardDisclosure();
 let storage;
 try { storage = window.localStorage; } catch { storage = {getItem:()=>null,setItem:()=>{throw new Error('Storage blocked');}}; }
 let data = readData(storage);
+const quickLinks=initQuickLinks({getData:()=>data,openEditor:openLinks});
+const keepNotes=initKeepNotes({getData:()=>data,persist,toast});
 const googleConnection=createGoogleConnection(NEST_SERVICE_URL,{storage});
 const personalMail = initPersonalMail(()=>data.settings.clientId,googleConnection);
 for (const a of document.querySelectorAll('a[href]')) {
@@ -47,19 +52,14 @@ function persist() {
   catch { $('storageState').textContent='Session only — browser storage is unavailable. Export a backup before closing.'; toast('Could not save in this browser. Use Settings → Export Backup.'); return false; }
 }
 function external(url) { const href = accountLink(url, PERSONAL_EMAIL); if (href) window.open(href,'_blank','noopener,noreferrer'); }
-function icon(link, kind) {
-  const host = new URL(link.url).hostname;
-  const known={'ChatGPT':'chatgpt.svg','Claude':'claude.svg','Gemini':'gemini.svg','NetSuite':'netsuite.svg','Slack':'slack.svg','BigCommerce':'bigcommerce.svg','Vercel':'vercel.svg','Jira':'jira.svg','Confluence':'confluence.svg','Dotdigital':'dotdigital.png','Zoom':'zoom.svg','GitHub':'github.svg','Cloudflare':'cloudflare.svg','Gmail':'gmail.png','Google Calendar':'calendar.png','My Drive':'drive.png'};
-  const source=known[link.name]?'assets/logos/'+known[link.name]:'https://www.google.com/s2/favicons?domain='+encodeURIComponent(host)+'&sz=64';
-  return `<span class="${kind}"><img src="${esc(source)}" alt="" loading="lazy" /><span class="icon-fallback" hidden>${esc(link.name.slice(0,2).toUpperCase())}</span></span>`;
-}
+const icon=linkArtwork;
 function renderLinks() {
-  for (const [group,id] of [['ai','aiGrid'],['tools','toolGrid'],['quick','quickList']]) {
+  for (const [group,id] of [['ai','aiGrid'],['tools','toolGrid']]) {
     const links = data.links.filter(l=>l.group===group&&!(group==='tools'&&l.url==='https://github.com/abdickers/HomePage'));
-    $(id).innerHTML = links.length ? links.map(l=>group==='quick'
-      ? `<a class="quick-item" href="${esc(accountLink(l.url, PERSONAL_EMAIL, l.name))}" target="_blank" rel="noopener noreferrer">${icon(l,'quick-icon')}<b>${esc(l.name)}</b><span class="chevron" aria-hidden="true">›</span></a>`
-      : `<a class="app-card" href="${esc(accountLink(l.url, PERSONAL_EMAIL, l.name))}" target="_blank" rel="noopener noreferrer">${icon(l,'app-icon')}<span>${esc(l.name)}</span></a>`).join('') : '<p class="empty-state">Add your own links with Add Link.</p>';
+    $(id).innerHTML = links.length ? links.map(l=>`<a class="app-card" href="${esc(linkDestination(l))}" ${internalLink(l.url)?'':'target="_blank" rel="noopener noreferrer"'}>${icon(l,'app-icon')}<span>${esc(l.name)}</span></a>`).join('') : '<p class="empty-state">Add your own links with Add Link.</p>';
   }
+  quickLinks.refresh();
+  keepNotes.render();
 }
 function updateTime() {
   const now=new Date(),today=localDate(now);
@@ -71,7 +71,7 @@ function updateTime() {
 }
 function searchDashboard(query) {
   const q=query.toLowerCase(),matches=[];
-  [...data.links,...[...document.querySelectorAll('#siteTools a')].map(a=>({name:a.querySelector('span').firstChild.textContent.trim(),url:a.href,group:'tools'}))].filter((l,i,all)=>all.findIndex(other=>other.url===l.url)===i&&`${l.name} ${l.url}`.toLowerCase().includes(q)).forEach(l=>matches.push(`<a class="search-result" href="${esc(accountLink(l.url, PERSONAL_EMAIL, l.name))}" target="_blank" rel="noopener noreferrer"><small>Tool · ${esc(l.group)}</small>${esc(l.name)} <span>↗</span></a>`));
+  [...data.links,...[...document.querySelectorAll('#siteTools a')].map(a=>({name:a.querySelector('span').firstChild.textContent.trim(),url:a.href,group:'tools'}))].filter((l,i,all)=>all.findIndex(other=>other.url===l.url)===i&&`${l.name} ${l.url}`.toLowerCase().includes(q)).forEach(l=>matches.push(`<a class="search-result" href="${esc(linkDestination(l))}" ${internalLink(l.url)?'':'target="_blank" rel="noopener noreferrer"'}><small>Tool · ${esc(l.group)}</small>${esc(l.name)} <span>↗</span></a>`));
   $('searchResults').innerHTML=matches.join('')||'<p class="empty-state">No matching links found.</p>';$('searchDialog').showModal();
 }
 async function json(url,options={}) {
@@ -159,7 +159,7 @@ async function loadWeather(){
   }catch{if(request!==weatherRequest)return;displayWeather({description:'Weather unavailable'},'Weather services unavailable');$('weatherSource').textContent='Could not load weather for '+l.name+'. Try Refresh.';}
   finally{if(request===weatherRequest)$('refreshWeather').disabled=false;}
 }
-function openSettings(section='connections'){const s=data.settings;draftLocation={...s.location};$('settingName').value=s.name;$('settingUnit').value=s.unit;$('settingClientId').value=s.clientId;$('settingCalendarId').value=s.calendarId;$('oauthOrigin').textContent=location.origin;$('selectedLocation').textContent='Selected: '+s.location.name;$('locationQuery').value='';$('locationResults').replaceChildren();settingsUI.select(section);$('settingsDialog').showModal();settingsUI.select(section,{focus:true});}
+function openSettings(section='connections'){const s=data.settings;draftLocation={...s.location};quickLinks.begin();$('settingName').value=s.name;$('settingUnit').value=s.unit;$('settingClientId').value=s.clientId;$('settingCalendarId').value=s.calendarId;$('oauthOrigin').textContent=location.origin;$('selectedLocation').textContent='Selected: '+s.location.name;$('locationQuery').value='';$('locationResults').replaceChildren();settingsUI.select(section);$('settingsDialog').showModal();settingsUI.select(section,{focus:true});}
 function openLinks(){$('linkForm').reset();$('linkId').value='';$('linkError').textContent='';renderLinkManager();$('linkDialog').showModal();}
 function renderLinkManager(){$('manageLinks').innerHTML=data.links.map(l=>`<div><span>${esc(l.name)} <small>${esc(l.group)}</small></span><button type="button" data-edit-link="${esc(l.id)}" aria-label="Edit ${esc(l.name)}">Edit</button><button type="button" data-delete-link="${esc(l.id)}" aria-label="Delete link ${esc(l.name)}">×</button></div>`).join('');}
 $('searchForm').addEventListener('submit',e=>{e.preventDefault();const q=$('searchInput').value.trim();if(q)$('searchScope').value==='dashboard'?searchDashboard(q):external('https://www.google.com/search?q='+encodeURIComponent(q));});
@@ -170,7 +170,7 @@ $('calendarConnect').addEventListener('click',()=>{if(googleConnection.connected
 for(const [id,offset] of [['calendarPrev',-1],['calendarNext',1],['calendarToday',0]])$(id).addEventListener('click',()=>{if(offset)calendarDay.setDate(calendarDay.getDate()+offset);else calendarDay=new Date();updateTime();loadCalendar();});
 $('newsTabs').addEventListener('click',e=>{const b=e.target.closest('[data-feed]');if(!b)return;activeFeed=b.dataset.feed;document.querySelectorAll('[data-feed]').forEach(t=>{t.classList.toggle('active',t===b);t.setAttribute('aria-pressed',t===b);});loadNews();});
 $('refreshNews').addEventListener('click',loadNews);$('refreshWeather').addEventListener('click',loadWeather);
-$('settingsForm').addEventListener('submit',e=>{e.preventDefault();const old=data.settings;data.settings=normalizeData({settings:{name:$('settingName').value,unit:$('settingUnit').value,clientId:$('settingClientId').value,calendarId:$('settingCalendarId').value,location:draftLocation}}).settings;const saved=persist();$('settingsDialog').close();updateTime();loadWeather();if(old.clientId!==data.settings.clientId||old.calendarId!==data.settings.calendarId){personalMail.disconnect(false);disconnectCalendar(false);prepareCalendar();}if(saved)toast('Settings saved.');});
+$('settingsForm').addEventListener('submit',e=>{e.preventDefault();const old=data.settings;data.settings=normalizeData({links:data.links,settings:{...old,name:$('settingName').value,unit:$('settingUnit').value,clientId:$('settingClientId').value,calendarId:$('settingCalendarId').value,location:draftLocation,quickLinks:quickLinks.value()}}).settings;const saved=persist();quickLinks.renderHeader();$('settingsDialog').close();updateTime();loadWeather();if(old.clientId!==data.settings.clientId||old.calendarId!==data.settings.calendarId){personalMail.disconnect(false);disconnectCalendar(false);prepareCalendar();}if(saved)toast('Settings saved.');});
 $('findLocation').addEventListener('click',async()=>{
   const q=$('locationQuery').value.trim();if(!q)return;const request=++locationRequest;$('locationResults').textContent='Finding your city...';
   try{const result=await json('https://geocoding-api.open-meteo.com/v1/search?count=5&language=en&format=json&name='+encodeURIComponent(q));if(request!==locationRequest)return;const locations=(result.results||[]).map(l=>({name:[l.name,l.admin1,l.country_code].filter(Boolean).join(', '),lat:l.latitude,lon:l.longitude}));$('locationResults').replaceChildren();if(!locations.length)$('locationResults').textContent='No cities found. Try a nearby city name.';for(const l of locations){const button=document.createElement('button');button.type='button';button.textContent=l.name;button.addEventListener('click',()=>{draftLocation=l;$('selectedLocation').textContent='Selected: '+l.name;$('locationResults').replaceChildren();});$('locationResults').append(button);}}
@@ -178,8 +178,8 @@ $('findLocation').addEventListener('click',async()=>{
 });
 $('locationQuery').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();$('findLocation').click();}});
 $('addLink').addEventListener('click',openLinks);
-$('linkForm').addEventListener('submit',e=>{e.preventDefault();const url=safeUrl($('linkUrl').value),name=$('linkName').value.trim();if(!url||!name){$('linkError').textContent='Use a name and a full http:// or https:// address.';return;}const link={id:$('linkId').value||uid(),name,url,group:$('linkGroup').value},i=data.links.findIndex(l=>l.id===link.id);if(i<0)data.links.push(link);else data.links[i]=link;persist();renderLinks();renderLinkManager();$('linkForm').reset();$('linkId').value='';$('linkError').textContent='';toast('Link saved.');});
-$('manageLinks').addEventListener('click',e=>{const edit=e.target.closest('[data-edit-link]'),del=e.target.closest('[data-delete-link]');const l=data.links.find(l=>l.id===(edit?.dataset.editLink||del?.dataset.deleteLink));if(!l)return;if(edit){$('linkId').value=l.id;$('linkName').value=l.name;$('linkUrl').value=l.url;$('linkGroup').value=l.group;$('linkName').focus();}else{data.links=data.links.filter(v=>v!==l);persist();renderLinks();renderLinkManager();toast('Link removed.',()=>{data.links.push(l);persist();renderLinks();renderLinkManager();});}});
+$('linkForm').addEventListener('submit',e=>{e.preventDefault();const url=safeLinkUrl($('linkUrl').value),name=$('linkName').value.trim();if(!url||!name){$('linkError').textContent='Use a name and a valid http:// or https:// address, or a dashboard section such as #homePanel.';$('linkUrl').setAttribute('aria-invalid','true');return;}const link={id:$('linkId').value||uid(),name,url,group:$('linkGroup').value,icon:$('linkIcon').value},i=data.links.findIndex(l=>l.id===link.id);if(i<0)data.links.push(link);else data.links[i]=link;data=normalizeData(data);persist();renderLinks();renderLinkManager();$('linkForm').reset();$('linkId').value='';$('linkError').textContent='';$('linkUrl').removeAttribute('aria-invalid');toast('Link saved.');});
+$('manageLinks').addEventListener('click',e=>{const edit=e.target.closest('[data-edit-link]'),del=e.target.closest('[data-delete-link]');const l=data.links.find(l=>l.id===(edit?.dataset.editLink||del?.dataset.deleteLink));if(!l)return;if(edit){$('linkId').value=l.id;$('linkName').value=l.name;$('linkUrl').value=l.url;$('linkGroup').value=l.group;$('linkIcon').value=l.icon||'auto';$('linkName').focus();}else{const previous=data.settings.quickLinks;data.links=data.links.filter(v=>v!==l);data=normalizeData(data);persist();renderLinks();renderLinkManager();toast('Link removed.',()=>{data.links.push(l);data.settings.quickLinks=previous;data=normalizeData(data);persist();renderLinks();renderLinkManager();});}});
 $('exportData').addEventListener('click',()=>{const url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='sage-command-'+localDate()+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),10000);});
 $('importData').addEventListener('change',async e=>{const file=e.target.files[0];if(!file)return;try{if(file.size>5*1024*1024)throw new Error('Backup is too large (maximum 5 MB).');const before=structuredClone(data),incoming=JSON.parse(await file.text());data=mergeBackup(data,incoming);persist();renderLinks();personalMail.disconnect(false);disconnectCalendar(false);prepareCalendar();updateTime();loadWeather();$('settingsDialog').close();toast('Backup restored.',()=>{data=before;persist();renderLinks();personalMail.disconnect(false);disconnectCalendar(false);prepareCalendar();updateTime();loadWeather();});}catch(error){toast(error instanceof SyntaxError?'This file is not valid JSON.':error.message);}e.target.value='';});
 $('undoAction').addEventListener('click',()=>{const action=undo;undo=null;$('toast').hidden=true;action?.();});$('dismissToast').addEventListener('click',()=>{$('toast').hidden=true;undo=null;});
