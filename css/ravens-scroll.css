@@ -1,0 +1,76 @@
+/* The supplied square scroll is the sole paper boundary. The image keeps its
+   native proportions and alpha; only live HTML inside the safe inset scrolls. */
+#dashboard > #personalRavens {
+  position: relative; isolation: isolate; container-type: inline-size;
+  width: 100%; max-width: 100%; min-width: 0; aspect-ratio: 1;
+  padding: 0; background: none; border: 0; border-radius: 0; box-shadow: none;
+  color: #2b1b10; overflow: visible;
+}
+#personalRavens > .ravens-scroll-art {
+  position: absolute; inset: 0; width: 100%; height: 100%; max-width: 100%;
+  display: block; object-fit: contain; pointer-events: none;
+}
+#personalRavens .ravens-reading {
+  --ink: #2b1b10; --text: #2b1b10; --muted: #573e28;
+  --line: #77573866; --line-soft: #77573844;
+  --control-bg: #7d593b18; --control-hover: #7d593b30;
+  --control-ink: #2b1b10; --control-line: #876541;
+  --control-active: #765532;
+  position: absolute; top: 16%; bottom: 16%; left: 13%; right: 13%;
+  display: flex; flex-direction: column; min-width: 0; min-height: 0;
+  background: none; font-size: 14px; line-height: 1.5;
+}
+#personalRavens .ravens-reading > :not(.daily-list) { flex: 0 0 auto; }
+#personalRavens .panel-title {
+  gap: 8px; flex-wrap: wrap; margin: 0 0 12px; padding: 0 0 12px;
+  border-color: #77573866; background: none;
+}
+#personalRavens .section-identity { gap: 8px; }
+#personalRavens .section-icon { flex-basis: 38px; width: 38px; height: 42px; }
+#personalRavens h2 { color: #2b1b10; font-size: 32px; text-transform: none; font-variant: normal; letter-spacing: 0; }
+#personalRavens :is(.section-kicker,.realm-account) { color: #573e28; white-space: normal; }
+#personalRavens .section-kicker { font-size: 9px; }
+#personalRavens .panel-title > .realm-account { font-size: 10px; }
+#personalRavens .daily-tabs { margin: 0 0 10px; flex-wrap: wrap; gap: 8px; }
+#personalRavens :is(#ravensCaption,#ravensState) {
+  margin: 0 0 10px; color: #2b1b10; font-size: 14px; line-height: 1.5;
+  min-width: 0; overflow-wrap: anywhere;
+}
+#personalRavens .daily-list {
+  flex: 1 1 0; display: block; min-width: 0; min-height: 0; max-height: none;
+  overflow-y: auto; overflow-x: hidden; scrollbar-gutter: stable;
+  scrollbar-color: #775738 transparent; scroll-padding: 8px;
+  padding: 4px 6px; margin: 0; background: none; border: 0;
+  overflow-anchor: none;
+}
+#personalRavens .daily-list:empty { display: none; }
+#personalRavens .daily-entry {
+  grid-template-columns: 18px minmax(0,1fr) 14px; gap: 8px;
+  padding: 14px 0; align-items: start; min-width: 0;
+  border-color: #77573855; color: #2b1b10; background: none; box-shadow: none;
+}
+#personalRavens .daily-entry:last-child { border-bottom: 0; }
+#personalRavens .daily-entry > span:nth-child(2) { min-width: 0; display: grid; gap: 4px; }
+#personalRavens .daily-entry :is(small,strong,time,span) { min-width: 0; overflow-wrap: anywhere; color: #2b1b10; }
+#personalRavens .daily-entry strong { font-size: 15px; line-height: 1.5; }
+#personalRavens .daily-entry small, #personalRavens .daily-entry time { font-size: 12px; line-height: 1.5; }
+#personalRavens .daily-entry span span { font-size: 14px; line-height: 1.5; }
+#personalRavens .raven-seal { height: auto; border: 0; border-radius: 0; background: none; box-shadow: none; font-size: 15px; }
+#personalRavens .daily-feed-footer { display: flex; flex-wrap: wrap; gap: 8px 10px; align-items: center; margin: 12px 0 0; padding: 0; }
+#personalRavens #mailReadAt { margin: 0; color: #573e28; font-size: 12px; }
+body[data-command-realm] #personalRavens :is(.daily-tabs,.daily-feed-footer) button {
+  min-height: 44px; padding: 9px 12px; font-size: 14px; line-height: 1.4;
+  color: #2b1b10; background: #7d593b18; border-color: #876541; box-shadow: none;
+}
+body[data-command-realm] #personalRavens .daily-tabs button[aria-pressed=true] { color: #fff3d8; background: #765532; }
+body[data-command-realm] #personalRavens button:hover:not(:disabled) { background: #7d593b30; color: #2b1b10; }
+#personalRavens :is(a,button):focus-visible { outline: 2px solid #4c2d17; outline-offset: 2px; }
+@container(max-width:720px) {
+  #personalRavens .ravens-reading {
+    overflow-y: auto; overflow-x: hidden; scrollbar-gutter: stable;
+    scrollbar-color: #775738 transparent; scroll-padding: 8px;
+    padding: 4px;
+  }
+  #personalRavens .daily-list { flex: 0 0 auto; overflow: visible; scrollbar-gutter: auto; padding: 4px; }
+  #personalRavens h2 { font-size: 28px; }
+}

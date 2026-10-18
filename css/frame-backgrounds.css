@@ -1,0 +1,66 @@
+/* Paint only the interior of each supplied frame. Decorations and focus rings
+   remain outside this layer; neither the panel nor its live content is clipped. */
+#dashboard :is(.art-frame,.oak-framed),
+#dashboard > #wowPanel.warcraft-section-frame {
+  background: none;
+  box-shadow: none;
+  border-radius: 0;
+}
+#dashboard .panel-surface {
+  display: block; position: absolute; pointer-events: none; z-index: -2;
+  inset: var(--surface-inset); border-radius: var(--surface-radius,12px);
+  background: var(--surface-paint); box-shadow: 0 12px 28px #0003;
+}
+#dashboard .elven-frame {
+  --frame-size: 64px;
+  /* Source quiet rails: x43–72 / y53–82 in each 360px slice. */
+  --surface-inset: calc(var(--frame-size) * .22) calc(var(--frame-size) * .19) calc(var(--frame-size) * .23) calc(var(--frame-size) * .19);
+  --surface-paint: radial-gradient(ellipse at 50% 0,#29433465,transparent 65%),#101e17;
+}
+#dashboard .vault-frame {
+  --frame-size: 68px;
+  /* The thicker Dwarven rails sit farther inside their 320px corner slices. */
+  --surface-inset: calc(var(--frame-size) * .39) calc(var(--frame-size) * .35) calc(var(--frame-size) * .49) calc(var(--frame-size) * .35);
+  --surface-paint: radial-gradient(ellipse at 50% 0,#70512524,transparent 70%),#171b1a;
+}
+#dashboard .oak-framed {
+  /* Measured inner oak rails, scaled with the existing fixed corner artwork. */
+  --surface-inset: calc(116 * var(--oak-unit)) calc(157 * var(--oak-unit)) calc(120 * var(--oak-unit)) calc(140 * var(--oak-unit));
+  --surface-radius: calc(50 * var(--oak-unit));
+  --surface-paint: radial-gradient(ellipse at 80% 0,#b78b3024,transparent 55%),#122017;
+}
+#dashboard .bree-news { --surface-paint: linear-gradient(145deg,#242a1c,#122017); }
+#homePanel .weather-panel { --frame-size: 36px; }
+#dashboard > #wowPanel {
+  --frame-size: 72px;
+  --surface-inset: calc(18px + var(--frame-size) * .41) calc(var(--frame-size) * .31) calc(var(--frame-size) * .39);
+  --surface-radius: 12px;
+  --surface-paint: linear-gradient(180deg,#1817139c,#161713b8),url('../assets/warcraft/alliance-cathedral-war-room.webp') center top / cover no-repeat,#29251f;
+}
+#dashboard > .treasury-panel.is-open {
+  --surface-paint: linear-gradient(180deg,#0c151955,#11191bef 600px),url('../assets/expansion/lonely-mountain-treasury.webp') center top / 100% auto no-repeat,#11191b;
+}
+#dashboard > .treasury-panel:not(.is-open) > .panel-surface { display: none; }
+
+/* The door image and its caption obey the Dwarven frame's inner boundary too. */
+body[data-command-realm] #budgetPanel .treasury-entrance {
+  --door-side: 16px; --door-top: 18px; --door-bottom: 22px;
+  background: none; border: 0; border-radius: 0; box-shadow: none; overflow: visible;
+}
+#budgetPanel .treasury-entrance picture {
+  clip-path: inset(var(--door-top) var(--door-side) var(--door-bottom) round 9px);
+}
+#budgetPanel .treasury-door-caption {
+  clip-path: inset(0 var(--door-side) var(--door-bottom) round 9px);
+}
+#wowPanel .wow-event.warcraft-story-frame::before {
+  inset: 18px 15px 20px; border-radius: 5px;
+}
+@media(max-width:760px) {
+  #dashboard .elven-frame { --frame-size: 48px; }
+  #homePanel .weather-panel { --frame-size: 36px; }
+  #dashboard > #wowPanel { --frame-size: 48px; }
+  body[data-command-realm] #budgetPanel .treasury-entrance { --door-side: 12px; --door-top: 13px; --door-bottom: 16px; }
+  #dashboard > .oak-framed:not(#homePanel) { padding-inline: 40px; }
+  #wowPanel .wow-event.warcraft-story-frame::before { inset: 15px 12px 17px; }
+}
