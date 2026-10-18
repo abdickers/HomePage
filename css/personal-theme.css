@@ -2,6 +2,7 @@
    Every selector is anchored to the personal profile or a dedicated theme. */
 body[data-command-realm="personal"] {
   position:relative; display:flow-root; background:radial-gradient(ellipse at 70% 0,#68502c35,transparent 850px),#111a12;
+  --personal-sidebar-width:210px; --personal-content-inset:calc(var(--personal-sidebar-width) + 32px);
   --bagend-control-bg:linear-gradient(180deg,#26362b,#14231b);
   --bagend-control-hover:linear-gradient(180deg,#344a37,#203326);
   --bagend-control-active:linear-gradient(180deg,#3e593f,#29422e);
@@ -24,15 +25,16 @@ body[data-command-realm="personal"] #personalRavens :is(.daily-tabs,.daily-feed-
 }
 body[data-command-realm="personal"] #personalRavens .daily-tabs button[aria-pressed=true] { color:#fff3d6; background:var(--control-active); border-color:#c3a15d; }
 body[data-command-realm="personal"] #personalRavens button:hover:not(:disabled) { background:var(--control-hover); color:var(--control-ink); }
-body[data-command-realm="personal"] .realm-sidebar { border:0; background:linear-gradient(100deg,#2a211bf7,#172117fa); padding-right:18px; }
+body[data-command-realm="personal"] .realm-sidebar { width:var(--personal-sidebar-width); border:0; background:linear-gradient(100deg,#2a211bf7,#172117fa); padding-right:38px; }
 body[data-command-realm="personal"] .realm-nav a { border-radius:12px 4px 12px 4px; }
 body[data-command-realm="personal"] .realm-nav a:hover { background:#c4a26719; color:#f5e6c5; }
-body[data-command-realm="personal"] .bagend-page-rail { position:absolute; top:16px; bottom:20px; left:196px; width:28px; display:grid; grid-template-rows:41.55px minmax(0,1fr) 34.49px; justify-items:center; pointer-events:none; z-index:7; }
+/* Center the rail on the background seam and paint it above both sides. */
+body[data-command-realm="personal"] .bagend-page-rail { position:absolute; top:24px; bottom:20px; left:calc(var(--personal-sidebar-width) - 14px); width:28px; display:grid; grid-template-rows:41.55px minmax(0,1fr) 34.49px; justify-items:center; pointer-events:none; z-index:10; }
 .bagend-page-rail .rail-top { width:28px; background:url('../assets/personal-theme/rail-top.webp') center / 100% 100% no-repeat; }
 .bagend-page-rail .rail-shaft { width:12.75px; background:url('../assets/personal-theme/rail-shaft.webp') center / 100% 45.53px repeat-y; }
 .bagend-page-rail .rail-bottom { width:28px; background:url('../assets/personal-theme/rail-bottom.webp') center / 100% 100% no-repeat; }
-body[data-command-realm="personal"] :is(#realmHeader,#dashboard) { margin-left:242px; }
-body[data-command-realm="personal"] :is(.footer,.footer-caption) { margin-left:242px; }
+body[data-command-realm="personal"] :is(#realmHeader,#dashboard) { margin-left:var(--personal-content-inset); }
+body[data-command-realm="personal"] :is(.footer,.footer-caption) { margin-left:var(--personal-content-inset); }
 body[data-command-realm="personal"] .footer { width:auto; max-width:none; margin-right:28px; }
 
 /* Each corner has one uniform scale. Only quiet edges repeat. */
@@ -53,13 +55,14 @@ body[data-command-realm="personal"] .bagend-frame { position:absolute; inset:0; 
 .bagend-frame .oak-right { right:0; width:calc(250 * var(--oak-scale)); background-image:url('../assets/personal-theme/oak-right.webp'); }
 
 body[data-command-realm="personal"] #realmHeader.hero {
+  display:flex; flex-direction:column; align-items:stretch;
   margin-top:24px; padding:36px 38px; min-height:clamp(420px,30vw,650px); border:0; box-shadow:none;
 }
 body[data-command-realm="personal"] #realmHeader.hero::before {
   inset:12px; border-radius:24px; background:linear-gradient(90deg,#0b180fc4,transparent 76%),linear-gradient(0deg,#0d1b1399,transparent 45%),var(--realm-art) center 46% / cover;
 }
-body[data-command-realm="personal"] #realmHeader .title-wrap { max-width:72%; margin-block:34px 28px; }
-body[data-command-realm="personal"] #realmHeader .hero-top { gap:20px; }
+body[data-command-realm="personal"] #realmHeader .title-wrap { flex:0 0 auto; max-width:72%; margin-block:34px clamp(48px,4vw,72px); }
+body[data-command-realm="personal"] #realmHeader .hero-top { flex:0 0 auto; gap:20px; }
 body[data-command-realm="personal"] #realmHeader .hero-actions { display:flex; gap:18px; align-items:flex-start; justify-content:flex-end; margin-left:auto; min-width:0; }
 body[data-command-realm="personal"] #realmHeader .header-quick-links { display:flex; flex-wrap:wrap; justify-content:flex-end; gap:8px; max-width:304px; padding-top:6px; }
 body[data-command-realm="personal"] #realmHeader .header-quick-links[hidden] { display:none; }
@@ -72,7 +75,7 @@ body[data-command-realm="personal"] .header-shortcut:is(:hover,:focus-visible) .
 body[data-command-realm="personal"] #realmHeader .wizard-trigger img { border-color:#c7ac74; }
 body[data-command-realm="personal"] #realmHeader .wizard-menu { border-color:var(--control-line); background:linear-gradient(145deg,#253b2b,#142219); }
 body[data-command-realm="personal"] #realmHeader .wizard-trigger:is(:hover,[aria-expanded=true]) { background:#35492de0; border-color:#a68e5f; }
-body[data-command-realm="personal"] #realmHeader .command-bar { background:#182217cf; border-color:#b69c5b77; position:relative; z-index:2; }
+body[data-command-realm="personal"] #realmHeader .command-bar { flex:0 0 auto; align-self:flex-start; margin-top:auto; background:#182217cf; border-color:#b69c5b77; position:relative; z-index:2; }
 body[data-command-realm="personal"] #realmHeader .command-bar :is(button,a,input,select) { border-color:#b69c5b99; }
 body[data-command-realm="personal"] #realmHeader :is(button,a,input,select):focus-visible { outline:3px solid #f7e5b8; outline-offset:3px; }
 
@@ -87,6 +90,8 @@ body[data-command-realm="personal"] #dashboard .bagend-panel :is(.app-card,.quic
 body[data-command-realm="personal"] #dashboard .bagend-panel :is(a,button):focus-visible { outline:3px solid #f7e5b8; outline-offset:3px; }
 body[data-command-realm="personal"] #toolsPanel :is(.workshop-account,.app-card small) { color:#d2d6bf; }
 body[data-command-realm="personal"] #toolsPanel .workshop-heading { color:#e9ddb9; }
+/* Keep the vendor's small Warcraft mark sharp inside the existing icon tile. */
+body[data-command-realm="personal"] #toolsPanel .app-icon img[src$="/warcraft.png"] { width:32px; height:32px; }
 body[data-command-realm="personal"] #toolsPanel button#addLink:hover:not(:disabled) { border-color:#c3aa6f; background:var(--control-hover); }
 body[data-command-realm="personal"] #dashboard>#homePanel { --surface-paint:url('../assets/personal-theme/bagend-interior.webp') center top / 100% auto no-repeat,#302015; }
 /* One oak-and-ivy design for every personal panel and each home-control group. */
@@ -198,15 +203,14 @@ body[data-command-realm="personal"] #budgetPanel :is(#treasuryClose,#budgetPriva
 body[data-command-realm="personal"] :is(#budgetPanel,#budgetWorkspace) .budget-actions { gap:10px; flex-wrap:wrap; }
 
 @media(max-width:1100px) {
-  body[data-command-realm="personal"] .bagend-page-rail { left:170px; }
-  body[data-command-realm="personal"] :is(#realmHeader,#dashboard) { margin-left:218px; }
-  body[data-command-realm="personal"] :is(.footer,.footer-caption) { margin-left:218px; }
+  body[data-command-realm="personal"] { --personal-sidebar-width:184px; }
   body[data-command-realm="personal"] #realmHeader .hero-top { flex-wrap:wrap; }
   body[data-command-realm="personal"] #realmHeader .hero-actions { flex:1 1 100%; }
   body[data-command-realm="personal"] #realmHeader .header-quick-links { max-width:100%; justify-content:flex-start; }
   body[data-command-realm="personal"] #realmHeader .title-wrap { max-width:100%; }
 }
 @media(max-width:760px) {
+  body[data-command-realm="personal"] .realm-sidebar { width:auto; padding:16px; }
   body[data-command-realm="personal"] .bagend-page-rail { display:none; }
   body[data-command-realm="personal"] :is(#realmHeader,#dashboard) { margin-left:14px; margin-right:14px; }
   body[data-command-realm="personal"] :is(.footer,.footer-caption) { margin-left:0; }
@@ -217,7 +221,7 @@ body[data-command-realm="personal"] :is(#budgetPanel,#budgetWorkspace) .budget-a
   body[data-command-realm="personal"] #realmHeader .hero-actions { display:contents; }
   body[data-command-realm="personal"] #realmHeader .top-actions { grid-row:1; grid-column:2; }
   body[data-command-realm="personal"] #realmHeader .header-quick-links { grid-row:2; grid-column:1/-1; justify-content:flex-start; padding:0; gap:8px; position:relative; }
-  body[data-command-realm="personal"] #realmHeader .title-wrap { margin-block:26px; }
+  body[data-command-realm="personal"] #realmHeader .title-wrap { margin-block:26px 42px; }
   body[data-command-realm="personal"] #realmHeader .header-shortcut { position:static; }
   body[data-command-realm="personal"] #realmHeader .header-shortcut .shortcut-tooltip { right:auto; left:0; max-width:100%; }
   body[data-command-realm="personal"] #dashboard .bagend-panel { padding:36px 26px 30px; }

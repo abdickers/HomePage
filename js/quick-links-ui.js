@@ -1,5 +1,5 @@
 import {escapeHtml as esc} from './core.js?v=20261018-bagend4';
-import {LINK_ICONS, headerLinks, normalizeQuickLinks, linkIcon, internalLink} from './quick-links.js?v=20261018-bagend4';
+import {LINK_ICONS, headerLinks, normalizeQuickLinks, linkIcon, internalLink} from './quick-links.js?v=20261018-header-icons3';
 import {accountLink, PERSONAL_EMAIL} from './account-links.mjs?v=20261015-personal7';
 
 export const linkDestination = link => internalLink(link.url) || accountLink(link.url,PERSONAL_EMAIL,link.name);
