@@ -186,3 +186,16 @@ edge and content inset. Its center lies exactly on that seam (210px on desktop,
 padding preserves the navigation's previous content width. The rail paints
 above both backgrounds and remains hidden on phones. Layout measurements are
 in `qa/header-icons-rail-layout.json`.
+
+## Gondor Settings palette refinement
+
+Settings and its link editor now use the film reference's black, stone-gray,
+and ivory palette. Charcoal controls and dark fields sit against neutral stone
+cards; selected tabs and primary Save actions use ivory with dark text.
+Switches use white/black states, and decorative connection icons are rendered
+in grayscale. Keyboard focus is ivory. The existing silver-frame and White Tree
+rules were compared with the previous release and are unchanged.
+
+Connections, Preferences, and Backup were checked at 375, 768, and 1440px
+widths with no dialog, body, or button-text overflow. The link editor also fits
+the phone width. Proof is in `qa/gondor-*.png` and `qa/gondor-layout.json`.

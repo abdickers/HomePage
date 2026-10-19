@@ -130,28 +130,37 @@ body[data-command-realm="personal"] #keepPanel .keep-form-actions { display:flex
 body[data-command-realm="personal"] #keepPanel .keep-form-actions>button { min-height:44px; }
 body[data-command-realm="personal"] #keepPanel :is(summary,a,button,input):focus-visible { outline:3px solid #f7e5b8; outline-offset:3px; }
 
-/* Settings uses its own palette, fixed silver corners and a proportional tree. */
+/* Gondor's black columns, gray stone and ivory light sit inside the existing
+   silver artwork. Frame geometry and the White Tree remain unchanged. */
 body[data-command-realm="personal"] :is(#settingsDialog,#linkDialog)[data-theme="gondor"] {
-  --ink:#eceee8; --muted:#c3cbcd; --gold:#d9e1df; --gold-light:#f1f3ed; --line:#9caaaf66;
-  --control-bg:linear-gradient(#394348,#202a2f); --control-hover:linear-gradient(#4c5a60,#303f46); --control-active:linear-gradient(#53656d,#35464e); --control-line:#a7b5b9; --control-ink:#f1f3ed; --field-bg:#172127; --field-ink:#f1f3ed;
-  padding:16px; border:0; border-radius:16px; background:#1c252b; color:#eceee8; isolation:isolate;
+  --ink:#f1f0ea; --text:#f1f0ea; --muted:#bcbdb9; --gold:#dadad4; --gold-light:#f5f4ed; --gold-strong:#f5f4ed; --line:#a6a7a166; --line-soft:#a6a7a144;
+  --control-bg:linear-gradient(#363739,#191a1b); --control-hover:linear-gradient(#505153,#2c2d2f); --control-active:linear-gradient(#e6e5de,#bdbeb8); --control-line:#a6a7a1; --control-ink:#f1f0ea; --field-bg:#0b0c0d; --field-ink:#f1f0ea;
+  padding:16px; border:0; border-radius:16px; background:linear-gradient(125deg,#303132,#111213 58%,#090a0b); color:var(--ink); isolation:isolate;
 }
+body[data-command-realm="personal"] :is(#settingsDialog,#linkDialog)[data-theme="gondor"] :is(button,.button-label):hover:not(:disabled) { border-color:#e4e4de; }
+body[data-command-realm="personal"] :is(#settingsDialog,#linkDialog)[data-theme="gondor"] button:is(.primary-button,[aria-selected="true"],[aria-pressed="true"]) {
+  color:#151617; background:var(--control-active); border-color:#e4e4de; box-shadow:inset 0 1px #fff9,inset 0 -2px #0003,0 2px 5px #0004;
+}
+body[data-command-realm="personal"] :is(#settingsDialog,#linkDialog)[data-theme="gondor"] button:is(.primary-button,[aria-selected="true"],[aria-pressed="true"]):hover:not(:disabled) { background:linear-gradient(#f6f5ee,#d5d6cf); }
+body[data-command-realm="personal"] :is(#settingsDialog,#linkDialog)[data-theme="gondor"] :is(input,textarea)::placeholder { color:#a7a8a4; }
+body[data-command-realm="personal"] #settingsDialog input[type="checkbox"] { accent-color:#d7d7d0; }
 body[data-command-realm="personal"] #settingsDialog[open] { grid-template-rows:auto auto minmax(0,1fr); }
-body[data-command-realm="personal"] #settingsDialog>.dialog-heading { padding:22px 20px 20px 72px; min-height:90px; position:relative; border-color:#9eafb44d; }
+body[data-command-realm="personal"] #settingsDialog>.dialog-heading { padding:22px 20px 20px 72px; min-height:90px; position:relative; border-color:#a6a7a14d; }
 body[data-command-realm="personal"] #settingsDialog>.dialog-heading::before { content:''; position:absolute; left:10px; top:12px; width:50px; height:43px; background:url('../assets/personal-theme/white-tree.webp') center / contain no-repeat; pointer-events:none; }
-body[data-command-realm="personal"] #settingsDialog :is(h2,h3,h4,legend,.section-kicker,.help,.settings-intro,.connection-status,.mail-privacy,.mail-privacy summary,.dialog-form>label) { color:#e2e7e3; }
-body[data-command-realm="personal"] #settingsDialog .settings-body { padding-inline:18px; scrollbar-color:#8f9da3 #202a2f; }
-body[data-command-realm="personal"] #settingsDialog .settings-tabs { border-color:#94a6ad55; padding-inline:18px; }
-body[data-command-realm="personal"] #settingsDialog :is(.settings-card,.budget-account) { border-color:#91a4ac66; background:#141e24; }
-body[data-command-realm="personal"] #settingsDialog fieldset { border-color:#91a4ac66; }
-body[data-command-realm="personal"] #settingsDialog :is(input,select,textarea) { border-color:#91a4ac88; }
-body[data-command-realm="personal"] #settingsDialog .settings-tabs>button[aria-selected="true"] { border-color:#d9e1df; background:#46555b; }
+body[data-command-realm="personal"] #settingsDialog :is(h2,h3,h4,legend,.section-kicker,.dialog-form>label) { color:#f1f0ea; }
+body[data-command-realm="personal"] #settingsDialog :is(.help,.settings-intro,.connection-status,.mail-privacy,.mail-privacy summary,.settings-card-heading p) { color:#c6c7c1; }
+body[data-command-realm="personal"] #settingsDialog .settings-card-heading>img { filter:grayscale(1) brightness(1.2); }
+body[data-command-realm="personal"] #settingsDialog .settings-body { padding-inline:18px; scrollbar-color:#9a9b96 #171819; }
+body[data-command-realm="personal"] #settingsDialog .settings-tabs { border-color:#a6a7a155; padding-inline:18px; }
+body[data-command-realm="personal"] #settingsDialog :is(.settings-card,.budget-account,.budget-block,.budget-limits) { border-color:#9c9d9766; background:linear-gradient(145deg,#272829,#131415); }
+body[data-command-realm="personal"] #settingsDialog fieldset { border-color:#9c9d9766; background:#0b0c0d55; }
+body[data-command-realm="personal"] #settingsDialog :is(input,select,textarea) { border-color:#9c9d9788; }
 body[data-command-realm="personal"] #linkDialog[data-theme="gondor"] { padding:26px; border:1px solid #9caeb5; border-radius:8px; width:min(760px,calc(100vw - 32px)); }
-body[data-command-realm="personal"] #linkDialog :is(h2,label,.manage-links small) { color:#e2e7e3; }
-body[data-command-realm="personal"] #linkDialog :is(input,select) { border-color:#91a4ac88; }
+body[data-command-realm="personal"] #linkDialog :is(h2,label,.manage-links small) { color:#e2e2dc; }
+body[data-command-realm="personal"] #linkDialog :is(input,select) { border-color:#9c9d9788; }
 body[data-command-realm="personal"] #linkDialog .manage-links { max-height:30dvh; overflow:auto; padding:4px; }
-body[data-command-realm="personal"] #linkDialog :is(button,a,input,select):focus-visible { outline:3px solid #edf4f4; outline-offset:3px; }
-body[data-command-realm="personal"] #settingsDialog .connection-status { background:#a9bdc114; border-color:#bbc8cc; }
+body[data-command-realm="personal"] #linkDialog :is(button,a,input,select):focus-visible { outline:3px solid #f4f3ec; outline-offset:3px; }
+body[data-command-realm="personal"] #settingsDialog .connection-status { background:#e1e0d812; border-color:#c8c9c2; }
 body[data-command-realm="personal"] .silver-frame { position:absolute; inset:0; pointer-events:none; z-index:3; }
 .silver-frame>span { position:absolute; background-size:100% 100%; background-repeat:no-repeat; }
 .silver-frame :is(.silver-tl,.silver-tr,.silver-bl,.silver-br) { width:32px; height:32px; }
@@ -166,20 +175,20 @@ body[data-command-realm="personal"] .silver-frame { position:absolute; inset:0; 
 .silver-frame .silver-left { left:0; background-image:url('../assets/personal-theme/silver-left.webp'); }
 .silver-frame .silver-right { right:0; background-image:url('../assets/personal-theme/silver-right.webp'); }
 body[data-command-realm="personal"] #settingsDialog .quick-link-settings { list-style:none; padding:0; margin:16px 0; display:grid; gap:12px; }
-body[data-command-realm="personal"] .quick-link-settings>li { display:grid; grid-template-columns:26px minmax(0,1fr) 48px; gap:10px; align-items:center; border-bottom:1px solid #91a4ac44; padding-bottom:14px; min-width:0; }
+body[data-command-realm="personal"] .quick-link-settings>li { display:grid; grid-template-columns:26px minmax(0,1fr) 48px; gap:10px; align-items:center; border-bottom:1px solid #a6a7a144; padding-bottom:14px; min-width:0; }
 body[data-command-realm="personal"] .settings-link-name { min-width:0; display:grid; gap:4px; }
 body[data-command-realm="personal"] .settings-link-name strong { font-size:13px; }
-body[data-command-realm="personal"] .settings-link-name>span { font-size:11px; overflow-wrap:anywhere; color:#c5d0d3; }
+body[data-command-realm="personal"] .settings-link-name>span { font-size:11px; overflow-wrap:anywhere; color:#bcbdb9; }
 body[data-command-realm="personal"] .quick-link-switch { position:relative; width:48px; height:44px; display:grid; place-items:center; cursor:pointer; }
 body[data-command-realm="personal"] #settingsDialog .quick-link-switch input { position:absolute; inset:0; width:100%; height:100%; opacity:0; margin:0; cursor:pointer; }
-body[data-command-realm="personal"] .quick-link-switch>span { width:40px; height:24px; background:#4b5960; border:1px solid #b0bec3; border-radius:15px; pointer-events:none; }
-body[data-command-realm="personal"] .quick-link-switch>span::after { content:''; display:block; height:16px; width:16px; margin:3px; border-radius:50%; background:#e1e7e5; transition:transform .12s; }
-body[data-command-realm="personal"] .quick-link-switch input:checked+span { background:#577b72; }
-body[data-command-realm="personal"] .quick-link-switch input:checked+span::after { transform:translateX(15px); }
-body[data-command-realm="personal"] .quick-link-switch input:focus-visible+span { outline:3px solid #edf4f4; outline-offset:4px; }
+body[data-command-realm="personal"] .quick-link-switch>span { width:40px; height:24px; background:#27282a; border:1px solid #afb0aa; border-radius:15px; pointer-events:none; }
+body[data-command-realm="personal"] .quick-link-switch>span::after { content:''; display:block; height:16px; width:16px; margin:3px; border-radius:50%; background:#e1e2db; transition:transform .12s; }
+body[data-command-realm="personal"] .quick-link-switch input:checked+span { background:#d4d5ce; }
+body[data-command-realm="personal"] .quick-link-switch input:checked+span::after { transform:translateX(15px); background:#202122; }
+body[data-command-realm="personal"] .quick-link-switch input:focus-visible+span { outline:3px solid #f4f3ec; outline-offset:4px; }
 body[data-command-realm="personal"] .quick-link-order { display:flex; flex-wrap:wrap; gap:10px; grid-column:2/-1; }
 body[data-command-realm="personal"] #settingsDialog .quick-link-order button { display:flex; gap:6px; align-items:center; min-height:44px; font-size:12px; }
-body[data-command-realm="personal"] #settingsDialog :is(button,a,input,select):focus-visible { outline:3px solid #edf4f4; outline-offset:3px; }
+body[data-command-realm="personal"] #settingsDialog :is(button,a,input,select):focus-visible { outline:3px solid #f4f3ec; outline-offset:3px; }
 
 /* The ledger's existing controls keep their handlers, text and masking. */
 body[data-command-realm="personal"] :is(#budgetPanel,#budgetWorkspace,#budgetDialog) { --control-line:#bc9857; --control-ink:#f5e5b9; --field-bg:#1b2226; --field-ink:#f2e6ca; }
