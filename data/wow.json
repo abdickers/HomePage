@@ -180,29 +180,29 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1792369800,
-              "name": "The Broodmother's Nest",
-              "startingUt": 1792368000
-            },
-            {
-              "endingUt": 1792371600,
-              "name": "The Looming Mutagenitor",
-              "startingUt": 1792369800
-            },
-            {
-              "endingUt": 1792373400,
-              "name": "Mlurkkr Massacre",
-              "startingUt": 1792371600
-            },
-            {
-              "endingUt": 1792375200,
-              "name": "Siege at the Whispering Marsh",
-              "startingUt": 1792373400
-            },
-            {
-              "endingUt": 1792377000,
+              "endingUt": 1792386000,
               "name": "The Malformed Leviathan",
-              "startingUt": 1792375200
+              "startingUt": 1792384200
+            },
+            {
+              "endingUt": 1792387800,
+              "name": "The Broodmother's Nest",
+              "startingUt": 1792386000
+            },
+            {
+              "endingUt": 1792389600,
+              "name": "The Looming Mutagenitor",
+              "startingUt": 1792387800
+            },
+            {
+              "endingUt": 1792391400,
+              "name": "Mlurkkr Massacre",
+              "startingUt": 1792389600
+            },
+            {
+              "endingUt": 1792393200,
+              "name": "Siege at the Whispering Marsh",
+              "startingUt": 1792391400
             }
           ],
           "icons": ""
@@ -243,8 +243,8 @@
         "content": {
           "lines": [
             {
-              "ending": "14 hr 44 min",
-              "endingShort": "14h",
+              "ending": "10 hr 4 min",
+              "endingShort": "10h",
               "endingUt": 1792422000,
               "icon": "inv_achievement_zone_harandar",
               "iconLabel": "Harandar",
@@ -253,8 +253,8 @@
               "url": "/zone=16548/the-grudge-pit"
             },
             {
-              "ending": "14 hr 44 min",
-              "endingShort": "14h",
+              "ending": "10 hr 4 min",
+              "endingShort": "10h",
               "endingUt": 1792422000,
               "icon": "inv_achievement_zone_zulaman1",
               "iconLabel": "Zul'Aman",
@@ -263,8 +263,8 @@
               "url": "/zone=16557/twilight-crypts"
             },
             {
-              "ending": "14 hr 44 min",
-              "endingShort": "14h",
+              "ending": "10 hr 4 min",
+              "endingShort": "10h",
               "endingUt": 1792422000,
               "icon": "inv_achievement_zone_zulaman1",
               "iconLabel": "Zul'Aman",
@@ -347,7 +347,7 @@
       }
     ],
     "source": "https://www.wowhead.com/today-in-wow",
-    "updated": "2026-10-19T00:15:43.853333+00:00"
+    "updated": "2026-10-19T04:55:42.744265+00:00"
   },
   "forever": {
     "events": [
