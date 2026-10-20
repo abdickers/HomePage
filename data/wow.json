@@ -180,29 +180,29 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1792483200,
-              "name": "Siege at the Whispering Marsh",
-              "startingUt": 1792481400
-            },
-            {
-              "endingUt": 1792485000,
-              "name": "The Malformed Leviathan",
-              "startingUt": 1792483200
-            },
-            {
-              "endingUt": 1792486800,
+              "endingUt": 1792504800,
               "name": "The Broodmother's Nest",
-              "startingUt": 1792485000
+              "startingUt": 1792503000
             },
             {
-              "endingUt": 1792488600,
+              "endingUt": 1792506600,
               "name": "The Looming Mutagenitor",
-              "startingUt": 1792486800
+              "startingUt": 1792504800
             },
             {
-              "endingUt": 1792490400,
+              "endingUt": 1792508400,
               "name": "Mlurkkr Massacre",
-              "startingUt": 1792488600
+              "startingUt": 1792506600
+            },
+            {
+              "endingUt": 1792510200,
+              "name": "Siege at the Whispering Marsh",
+              "startingUt": 1792508400
+            },
+            {
+              "endingUt": 1792512000,
+              "name": "The Malformed Leviathan",
+              "startingUt": 1792510200
             }
           ],
           "icons": ""
@@ -243,8 +243,8 @@
         "content": {
           "lines": [
             {
-              "ending": "7 hr 14 min",
-              "endingShort": "7h",
+              "ending": "1 hr 19 min",
+              "endingShort": "1h",
               "endingUt": 1792508400,
               "icon": "inv_zone_voidstorm",
               "iconLabel": "Voidstorm",
@@ -253,8 +253,8 @@
               "url": "/zone=16549/shadowguard-point"
             },
             {
-              "ending": "7 hr 14 min",
-              "endingShort": "7h",
+              "ending": "1 hr 19 min",
+              "endingShort": "1h",
               "endingUt": 1792508400,
               "icon": "inv_achievement_zone_harandar",
               "iconLabel": "Harandar",
@@ -263,8 +263,8 @@
               "url": "/zone=16595/the-gulf-of-memory"
             },
             {
-              "ending": "7 hr 14 min",
-              "endingShort": "7h",
+              "ending": "1 hr 19 min",
+              "endingShort": "1h",
               "endingUt": 1792508400,
               "icon": "inv_achievement_sanktumoflight",
               "iconLabel": "Silvermoon City",
@@ -293,22 +293,10 @@
               "url": "/guide/world-events/holidays/hallows-end"
             },
             {
-              "icon": "calendar_weekendbattlegroundsstart",
-              "name": "Battleground Bonus Event",
+              "icon": "calendar_delvesstart",
+              "name": "Delves Bonus Event",
               "side": "both",
-              "url": "/event=563/battleground-bonus-event"
-            },
-            {
-              "icon": "calendar_weekendpetbattlesstart",
-              "name": "Pet Battle Bonus Event",
-              "side": "both",
-              "url": "/event=565/pet-battle-bonus-event"
-            },
-            {
-              "icon": "calendar_brawl",
-              "name": "PvP Brawl: Gravity Lapse",
-              "side": "both",
-              "url": "/event=663/pvp-brawl-gravity-lapse"
+              "url": "/event=1559/delves-bonus-event"
             }
           ],
           "icons": ""
@@ -353,7 +341,7 @@
       }
     ],
     "source": "https://www.wowhead.com/today-in-wow",
-    "updated": "2026-10-20T07:45:16.496510+00:00"
+    "updated": "2026-10-20T13:40:57.259633+00:00"
   },
   "forever": {
     "events": [
