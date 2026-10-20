@@ -1,5 +1,5 @@
 import {escapeHtml as esc} from './core.js?v=20261015-personal7';
-import {budgetPreset,budgetToday,validateBudgetRange} from './budget-period.js?v=20261017-treasury1';
+import {budgetPreset,budgetToday,validateBudgetRange} from './budget-period.js?v=20261020-demand1';
 
 export const periodIsReady=(data,range)=>data?.activity?.start===range.start&&data?.activity?.end===range.end;
 const detail=(name,label)=>`<button type="button" id="treasuryDetail-${name}" data-treasury-detail="${name}">${esc(label)}</button>`;

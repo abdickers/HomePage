@@ -3,7 +3,8 @@ import assert from 'node:assert/strict';
 import {DatabaseSync} from 'node:sqlite';
 import {readFileSync} from 'node:fs';
 import {BudgetStore} from '../nest-service/budget/store.mjs';
-import {runBudgetJob} from '../nest-service/budget/sync.mjs';
+import {runBudgetJob,scheduledBudget} from '../nest-service/budget/sync.mjs';
+import {ensureBudgetReadIndexes,READ_INDEXES} from '../nest-service/budget/read-indexes.mjs';
 import {handleBudget,snapshot,completeBudgetMail,plaidWebhook} from '../nest-service/budget/handler.mjs';
 import gateway,{boundedJson} from '../nest-service/worker.mjs';
 import {importCsv} from '../nest-service/budget/csv.mjs';
@@ -11,13 +12,74 @@ import {mapCsvRows,parseCsv} from '../js/bank-csv.mjs';
 
 // Exercise the actual parameterized SQL and atomic transactions against SQLite.
 function database(){
-  const sql=new DatabaseSync(':memory:');sql.exec(readFileSync(new URL('../nest-service/migrations/0001_budget.sql',import.meta.url),'utf8'));
+  const sql=new DatabaseSync(':memory:');sql.exec(readFileSync(new URL('../nest-service/migrations/0001_budget.sql',import.meta.url),'utf8'));sql.exec(readFileSync(new URL('../nest-service/migrations/0002_budget_demand_reads.sql',import.meta.url),'utf8'));
   const db={prepare(query){return {values:[],bind(...values){this.values=values;return this;},async first(column){const row=sql.prepare(query).get(...this.values);return column?row?.[column]??null:row??null;},async all(){return {results:sql.prepare(query).all(...this.values)};},async run(){const result=sql.prepare(query).run(...this.values);return {meta:{changes:Number(result.changes)}};}};},async batch(statements){sql.exec('BEGIN');try{const results=[];for(const statement of statements)results.push(await statement.run());sql.exec('COMMIT');return results;}catch(error){sql.exec('ROLLBACK');throw error;}},close(){sql.close();}};return db;
 }
 function fixture(t){const db=database();t.after(()=>db.close());const records=new Map(),env={BUDGET_DB:db,OWNER_EMAIL:'owner@example.com',FRONTEND_ORIGIN:'https://dashboard.test',PLAID_ENV:'sandbox',PLAID_CLIENT_ID:'test-client',PLAID_SECRET:'test-secret',NEST_KV:{get:async k=>records.get(k)||null,put:async(k,v)=>records.set(k,v),delete:async k=>records.delete(k)}};const deps={boundedJson,getRecord:async(e,k)=>records.get(k)||null,putRecord:async(e,k,v)=>records.set(k,v),hash:async s=>Buffer.from(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s))).toString('hex'),access:async()=> 'google-test-access'};return {db,env,deps,records,store:new BudgetStore(db,'owner')};}
 const post=(path,body)=>new Request('https://gateway.test/budget'+path,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
 const tx=(id,extra={})=>({transaction_id:id,account_id:'account',name:'Socket Internet',amount:25,date:'2026-10-15',iso_currency_code:'USD',...extra});
 const page=(added,next_cursor,has_more=false,extra={})=>({added,modified:[],removed:[],next_cursor,has_more,transactions_update_status:'HISTORICAL_UPDATE_COMPLETE',...extra});
+
+test('a selected-period snapshot uses index seeks with a large unrelated history',async t=>{
+ const f=fixture(t);await f.store.initialize();
+ const old=Array.from({length:20000},(_,i)=>({id:'old'+i,date:'1999-01-01',environment:'production',amountCents:100,classification:'purchase',currency:'USD'}));
+ await f.db.prepare("INSERT INTO budget_records SELECT ?, 'transaction',json_extract(value,'$.id'),value,? FROM json_each(?)").bind('owner',new Date().toISOString(),JSON.stringify(old)).run();
+ await f.store.put('transaction','selected',{date:'2000-01-05',environment:'production',amountCents:200,currency:'USD',classification:'purchase'});
+ await f.store.put('transaction','pending',{date:'2000-01-05',pending:true,environment:'production',amountCents:900,currency:'USD',classification:'purchase'});
+ await f.store.put('transaction','later-posted',{date:'2000-02-01',pendingId:'pending',environment:'production',amountCents:900,currency:'USD',classification:'purchase'});
+ const queries=[],statement=f.store.statement.bind(f.store);t.mock.method(f.store,'statement',(query,...values)=>{if(query.startsWith('SELECT'))queries.push({query,values});return statement(query,...values);});
+ const result=await snapshot(f.store,f.env,new URL('https://gateway.test/budget/snapshot?activityStart=2000-01-01&activityEnd=2000-01-07'));
+ assert.equal(result.transactionCount,1);assert.equal(result.activity.amountCents,200);assert.equal(result.summary.spending.amountCents,200);
+ const plans=[];for(const {query,values} of queries){const {results}=await f.db.prepare('EXPLAIN QUERY PLAN '+query).bind(...values).all();const detail=results.map(r=>r.detail);plans.push(...detail);if(query.includes('FROM budget_records'))assert.ok(detail.every(p=>!p.includes('TEMP B-TREE')),detail.join('\n'));}
+ assert.ok(plans.some(p=>p.includes('budget_dates')));assert.ok(plans.some(p=>p.includes('budget_pending_replacements')&&p.includes('<expr>=?')));assert.ok(plans.some(p=>p.includes('budget_record_lists')));assert.ok(plans.some(p=>p.includes('budget_live_history')));
+ assert.ok(plans.every(p=>!/^SCAN (?:budget_records|posted)\b/.test(p)),plans.join('\n'));
+});
+
+test('the quota-reset fallback installs missing read indexes once, without timers or repeated DDL',async t=>{
+ const f=fixture(t);let batches=0;const batch=f.db.batch.bind(f.db);t.mock.method(f.db,'batch',statements=>{batches++;assert.equal(statements.length,READ_INDEXES.length);return batch(statements);});
+ await ensureBudgetReadIndexes(f.db);assert.equal(batches,0);
+ for(const [name] of READ_INDEXES)await f.db.prepare('DROP INDEX '+name).run();
+ await ensureBudgetReadIndexes(f.db);assert.equal(batches,1);await ensureBudgetReadIndexes(f.db);assert.equal(batches,1);
+ t.mock.method(f.db,'prepare',()=>{throw Error('D1 daily allowance exhausted');});
+ await assert.rejects(ensureBudgetReadIndexes(f.db),/daily allowance/);assert.equal(batches,1);
+});
+
+test('date-filtered bank import pages are bounded and atomic, preserving other periods and corrections',async t=>{
+ const f=fixture(t);await bank(f);const range={start:'2026-10-01',end:'2026-10-20'};
+ await f.store.put('transaction','older',{date:'2026-09-01',itemId:'bank',amountCents:50});
+ await f.store.put('transaction','old-in-period',{date:'2026-10-01',itemId:'bank',amountCents:75});
+ await f.store.put('transaction','other-bank',{date:'2026-10-01',itemId:'other',amountCents:60});
+ await f.store.put('annotation','pending',{category:'Corrected',classification:'transfer'});
+ const rows=Array.from({length:201},(_,i)=>tx('row'+i));rows[0]=tx('pending',{pending:true});rows[200]=tx('posted',{pending_transaction_id:'pending'});const calls=[];
+ t.mock.method(globalThis,'fetch',async(url,options)=>{assert.equal(new URL(url).pathname,'/transactions/get');const input=JSON.parse(options.body);calls.push(input);assert.equal(input.start_date,range.start);assert.equal(input.end_date,range.end);assert.equal(input.options.count,100);assert.equal(input.cursor,undefined);return Response.json({transactions:rows.slice(input.options.offset,input.options.offset+100),total_transactions:rows.length,accounts:[]});});
+ assert.equal((await runBudgetJob(f.env,'owner','bank:bank',f.deps,range)).complete,false);assert.equal(calls.length,2);assert.ok(await f.store.get('transaction','old-in-period'));assert.equal(await f.store.get('transaction','row1'),null);
+ assert.equal((await runBudgetJob(f.env,'owner','bank:bank',f.deps,range)).complete,true);assert.deepEqual(calls.map(c=>c.options.offset),[0,100,200]);
+ assert.ok(await f.store.get('transaction','older'));assert.ok(await f.store.get('transaction','other-bank'));assert.equal(await f.store.get('transaction','old-in-period'),null);assert.equal(await f.store.get('transaction','pending'),null);assert.equal((await f.store.get('annotation','posted')).category,'Corrected');assert.equal((await f.store.get('item','bank')).cursor,'saved');assert.deepEqual((await f.store.get('item','bank')).lastRange,range);
+});
+
+test('bank range changes discard only staging and never replace saved history with an incomplete page',async t=>{
+ const f=fixture(t);await bank(f);await f.store.put('transaction','saved',{date:'2026-10-02',itemId:'bank',amountCents:123});let call=0;
+ t.mock.method(globalThis,'fetch',async(url,options)=>{const input=JSON.parse(options.body);call++;return Response.json({transactions:call<=2?Array.from({length:100},(_,i)=>tx('stage'+input.options.offset+'-'+i)):[],total_transactions:500,accounts:[]});});
+ await runBudgetJob(f.env,'owner','bank:bank',f.deps,{start:'2026-10-01',end:'2026-10-20'});assert.equal(await f.db.prepare('SELECT count(*) AS count FROM budget_sync_stage').first('count'),200);
+ const next=await runBudgetJob(f.env,'owner','bank:bank',f.deps,{start:'2026-09-01',end:'2026-09-30'});assert.match(next.error,/incomplete/);assert.equal(await f.db.prepare('SELECT count(*) AS count FROM budget_sync_stage').first('count'),0);assert.equal((await f.store.get('transaction','saved')).amountCents,123);
+});
+
+test('explicit Gmail imports query only the selected Chicago dates',async t=>{
+ const f=fixture(t);await f.store.put('mail-source','mail',{id:'mail',email:'owner@example.com',enabled:true,primary:true});await f.store.queue('mail','mail');
+ const range={start:'2026-10-01',end:'2026-10-20'},urls=[];
+ f.deps.provider=async url=>{urls.push(url);return {messages:[]};};
+ const result=await runBudgetJob(f.env,'owner','mail:mail',f.deps,range);assert.equal(result.complete,true);assert.equal(urls.length,1);
+ const url=new URL(urls[0]);assert.equal(url.searchParams.get('maxResults'),'15');assert.match(url.searchParams.get('q'),/after:1790830800 before:1792558800/);assert.deepEqual((await f.store.get('mail-source','mail')).lastRange,range);
+});
+
+test('explicit period sync finishes all queued sources without reloading snapshots between batches',async t=>{
+ const f=fixture(t);await bank(f);await f.store.put('mail-source','mail',{id:'mail',email:'owner@example.com',enabled:true,primary:true});await f.store.queue('mail','mail');
+ const range={activityStart:'2026-10-01',activityEnd:'2026-10-20'};let bankCalls=0,mailCalls=0;
+ t.mock.method(globalThis,'fetch',async()=>{bankCalls++;return Response.json({transactions:[],total_transactions:0,accounts:[]});});f.deps.provider=async()=>{mailCalls++;return {messages:[]};};
+ assert.equal((await (await handleBudget(post('/sync',range),f.env,'owner','session',f.deps)).json()).complete,false);
+ assert.equal((await (await handleBudget(post('/sync',range),f.env,'owner','session',f.deps)).json()).complete,true);assert.equal(bankCalls,1);assert.equal(mailCalls,1);
+ assert.ok((await f.store.jobs()).every(j=>j.status==='idle'));
+});
 
 test('a maximum-size CSV import uses three atomic statements with bounded parameter counts',async t=>{
  const f=fixture(t);await f.store.initialize();const batch=f.db.batch.bind(f.db);
@@ -37,7 +99,7 @@ test('an exhausted D1 daily allowance returns a safe retryable status without lo
  assert.equal(f.records.size,1);
 });
 
-test('date-filtered snapshots aggregate before pagination and leave planning and stored records unchanged',async t=>{
+test('date-filtered snapshots aggregate before pagination, limit review evidence and leave saved records unchanged',async t=>{
  const f=fixture(t);await f.store.initialize();
  for(let i=0;i<80;i++)await f.store.put('transaction','prod-'+i,{id:'prod-'+i,date:i<60?'2000-01-05':'1999-12-28',environment:'production',currency:'USD',classification:'purchase',amountCents:100,merchant:'Test merchant',category:'Food'});
  const row=(id,extra)=>f.store.put('transaction',id,{id,date:'2000-01-05',environment:'production',currency:'USD',classification:'purchase',amountCents:100,...extra});
@@ -48,7 +110,9 @@ test('date-filtered snapshots aggregate before pagination and leave planning and
  const first=await snapshot(f.store,f.env,new URL(query)),second=await snapshot(f.store,f.env,new URL(query+'&transactionPage=1'));
  assert.equal(first.activity.amountCents,6500);assert.equal(first.activity.refundsCents,200);assert.equal(first.transactionCount,65);
  assert.equal(first.transactions.length,50);assert.equal(second.transactions.length,15);assert.deepEqual(first.activity,second.activity);
- assert.deepEqual(first.summary,original.summary);assert.equal(await count(),before);assert.ok(first.reviewTransactions.some(t=>t.id==='older-review'));
+ for(const key of ['availableCents','currentCents','cashAccountCount','monthlyCommitments','annualRenewals','window'])assert.deepEqual(first.summary[key],original.summary[key]);
+ assert.equal(first.summary.spending.amountCents,6500);assert.equal(first.summary.spending.start,'2000-01-01');assert.equal(first.summary.spending.end,'2000-01-07');
+ assert.equal(await count(),before);assert.ok(!first.reviewTransactions.some(t=>t.id==='older-review'));assert.equal(original.transactionCount,0);
  await assert.rejects(snapshot(f.store,f.env,new URL(query+'&activityStart=2000-01-02')),/valid historical date range/);
 });
 async function bank(f){const item={id:'bank',tokenKey:'bank-token',environment:'sandbox',cursor:'saved',status:'connected'};await f.store.put('item',item.id,item);f.records.set(item.tokenKey,{access:'private-bank-token'});await f.store.queue('bank',item.id);return item;}
@@ -110,11 +174,12 @@ test('real gateway exchanges Link server-side and encrypts Plaid tokens without 
   const invoke=(path,body)=>gateway.fetch(new Request('https://gateway.test/budget'+path,{method:'POST',headers:{Origin:f.env.FRONTEND_ORIGIN,Authorization:'Bearer '+token,'Content-Type':'application/json'},body:JSON.stringify(body)}),f.env);
   assert.equal((await invoke('/link-token',{})).status,200);const response=await invoke('/exchange',{publicToken:'public-link-token'});assert.equal(response.status,200);assert.doesNotMatch(await response.text(),/never-return|test-secret|access_token/);const owner=await f.deps.hash(f.env.OWNER_EMAIL),store=new BudgetStore(f.db,owner),item=await store.get('item','item');assert.ok(item.tokenKey);assert.doesNotMatch(f.records.get(item.tokenKey),/never-return-this-bank-token/);assert.doesNotMatch(JSON.stringify(await store.list('item')),/never-return/);assert.equal((await store.get('account','account')).availableCents,null);assert.ok(calls.includes('/institutions/get_by_id'));
 });
-test('provider-verified webhooks deduplicate and retry safely when a budget job holds the lock',async t=>{
-  const f=fixture(t),owner=await f.deps.hash(f.env.OWNER_EMAIL),store=new BudgetStore(f.db,owner);await store.put('item','item',{id:'item',environment:'sandbox',status:'connected'});
-  const keys=await crypto.subtle.generateKey({name:'ECDSA',namedCurve:'P-256'},true,['sign','verify']),jwk={...await crypto.subtle.exportKey('jwk',keys.publicKey),kid:'key',alg:'ES256',created_at:0,expired_at:null},raw=JSON.stringify({item_id:'item',webhook_type:'TRANSACTIONS',webhook_code:'SYNC_UPDATES_AVAILABLE'}),hash=await f.deps.hash(raw),iat=Math.floor(Date.now()/1000),head=Buffer.from(JSON.stringify({alg:'ES256',kid:'key'})).toString('base64url'),payload=Buffer.from(JSON.stringify({iat,request_body_sha256:hash})).toString('base64url'),input=head+'.'+payload,signature=Buffer.from(await crypto.subtle.sign({name:'ECDSA',hash:'SHA-256'},keys.privateKey,new TextEncoder().encode(input))).toString('base64url');
-  t.mock.method(globalThis,'fetch',async()=>Response.json({key:jwk}));const request=()=>new Request('https://gateway.test/budget/plaid/webhook',{method:'POST',headers:{'plaid-verification':input+'.'+signature},body:raw});
-  const lock=await store.lock();await assert.rejects(plaidWebhook(request(),f.env,f.deps),/busy/);await store.unlock(lock);assert.equal((await plaidWebhook(request(),f.env,f.deps)).status,202);assert.equal((await plaidWebhook(request(),f.env,f.deps)).status,200);assert.equal((await store.jobs()).length,1);assert.equal((await f.db.prepare('SELECT count(*) AS count FROM budget_webhook_receipts').first()).count,1);
+test('webhooks and old cron deliveries cannot read, write, or sync the on-demand budget',async t=>{
+  const f=fixture(t);t.mock.method(f.db,'prepare',()=>{throw Error('Unexpected background database access');});
+  t.mock.method(globalThis,'fetch',()=>{throw Error('Unexpected background provider access');});
+  const request=()=>new Request('https://gateway.test/budget/plaid/webhook',{method:'POST',body:JSON.stringify({item_id:'item',webhook_type:'TRANSACTIONS',webhook_code:'SYNC_UPDATES_AVAILABLE'})});
+  for(let i=0;i<2;i++){const response=await plaidWebhook(request(),f.env,f.deps);assert.equal(response.status,202);assert.deepEqual(await response.json(),{accepted:true,mode:'on-demand',processed:false});}
+  await scheduledBudget(f.env,f.deps);await gateway.scheduled({},f.env,{waitUntil(){throw Error('Unexpected background job');}});
 });
 
 
