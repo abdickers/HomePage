@@ -2,6 +2,7 @@ import {BudgetStore} from './store.mjs';
 import {normalizeTransaction,money} from './domain.mjs';
 import {parseBudgetMessage,discoveryQuery} from './mail.mjs';
 import {plaidCall,BudgetError} from './plaid.mjs';
+import {activityWindow} from './activity.mjs';
 
 export function accountRecord(account,item) {
   return {id:account.account_id,itemId:item.id,name:String(account.name||'Bank account').slice(0,100),mask:account.mask||null,type:account.type,subtype:account.subtype||null,currentCents:money(account.balances?.current),availableCents:money(account.balances?.available),currency:account.balances?.iso_currency_code||null,environment:item.environment,balanceAt:account.balances?.last_updated_datetime||item.providerUpdatedAt||null,balanceRetrievedAt:new Date().toISOString(),balanceSource:'provider-cached',included:account.type==='depository'};
@@ -24,7 +25,7 @@ async function commitBankPage(store,job,item,state,page) {
   writes.push(store.statement('UPDATE budget_jobs SET state=? WHERE owner_id=? AND id=? AND lease_id=?',JSON.stringify(state),store.owner,job.id,job.lease_id));
   await store.db.batch(writes);
 }
-export async function promoteBankSync(store,item,state) {
+export async function promoteBankSync(store,item,state,range=null) {
   const now=new Date().toISOString(),where='owner_id=? AND source_id=? AND generation=?',args=[store.owner,item.id,state.generation];
   item.cursor=state.nextCursor;item.lastSync=now;item.error=null;item.status='connected';
   const accountWrites=[];for(const account of state.accounts||[]){const previous=await store.get('account',account.account_id),row=accountRecord(account,item);if(previous)row.included=previous.included;accountWrites.push(store.putStatement('account',row.id,row));}
@@ -33,10 +34,26 @@ export async function promoteBankSync(store,item,state) {
     store.statement(`DELETE FROM budget_records WHERE owner_id=? AND kind='annotation' AND id IN (SELECT json_extract(data,'$.pendingId') FROM budget_sync_stage WHERE ${where} AND operation='upsert' AND json_extract(data,'$.pendingId') IS NOT NULL)`,store.owner,...args),
     store.statement(`DELETE FROM budget_records WHERE owner_id=? AND kind='transaction' AND id IN (SELECT json_extract(data,'$.pendingId') FROM budget_sync_stage WHERE ${where} AND operation='upsert' AND json_extract(data,'$.pendingId') IS NOT NULL)`,store.owner,...args),
     store.statement(`DELETE FROM budget_records WHERE owner_id=? AND kind='transaction' AND id IN (SELECT id FROM budget_sync_stage WHERE ${where} AND operation='remove')`,store.owner,...args),
-    store.statement(`INSERT INTO budget_records(owner_id,kind,id,data,updated_at) SELECT owner_id,'transaction',id,data,? FROM budget_sync_stage s WHERE ${where} AND operation='upsert' AND NOT EXISTS (SELECT 1 FROM budget_sync_stage p WHERE p.owner_id=s.owner_id AND p.source_id=s.source_id AND p.generation=s.generation AND p.operation='upsert' AND json_extract(p.data,'$.pendingId')=s.id) ON CONFLICT(owner_id,kind,id) DO UPDATE SET data=excluded.data,updated_at=excluded.updated_at`,now,...args),
+    ...(range?[store.statement("DELETE FROM budget_records WHERE owner_id=? AND kind='transaction' AND json_extract(data,'$.date')>=? AND json_extract(data,'$.date')<=? AND json_extract(data,'$.itemId')=?",store.owner,range.start,range.end,item.id)]:[]),
+    store.statement(`INSERT INTO budget_records(owner_id,kind,id,data,updated_at) SELECT owner_id,'transaction',id,data,? FROM budget_sync_stage s WHERE ${where} AND operation='upsert' AND NOT EXISTS (SELECT 1 FROM budget_sync_stage p WHERE p.owner_id=s.owner_id AND p.source_id=s.source_id AND p.generation=s.generation AND p.operation='upsert' AND json_extract(p.data,'$.pendingId')=+s.id) ON CONFLICT(owner_id,kind,id) DO UPDATE SET data=excluded.data,updated_at=excluded.updated_at`,now,...args),
     ...accountWrites,store.putStatement('item',item.id,item),
     store.statement(`DELETE FROM budget_sync_stage WHERE ${where}`,...args)
   ]);
+}
+async function bankRangeSync(store,job,env,deps,range) {
+  const item=await store.get('item',job.source_id);if(!item||['disconnecting','disconnected'].includes(item.status))return {complete:true,state:{}};
+  const token=await deps.getRecord(env,item.tokenKey);if(!token?.access)throw new BudgetError(409,'Reconnect the bank to resume syncing.','ITEM_LOGIN_REQUIRED');
+  const state=JSON.parse(job.state||'{}');state.readRange=range;state.generation||=crypto.randomUUID();state.offset||=0;
+  for(let i=0;i<2;i++){
+    const page=await plaidCall(env,'/transactions/get',{access_token:token.access,start_date:range.start,end_date:range.end,options:{count:100,offset:state.offset}},deps.boundedJson);
+    if(!Array.isArray(page.transactions)||!Number.isInteger(page.total_transactions)||page.total_transactions<0||page.transactions.length>100||page.transactions.some(t=>typeof t.date!=='string'||t.date<range.start||t.date>range.end))throw new BudgetError(502,'The bank returned an incomplete date-filtered page. Saved history was retained.');
+    if(state.total!=null&&state.total!==page.total_transactions){await store.statement('DELETE FROM budget_sync_stage WHERE owner_id=? AND source_id=? AND generation=?',store.owner,item.id,state.generation).run();return {complete:false,state:{},error:'Bank history changed during pagination. Start this period again.',delay:60000};}
+    state.total=page.total_transactions;state.offset+=page.transactions.length;state.accounts=page.accounts||state.accounts||[];
+    if(!page.transactions.length&&state.offset<state.total)throw new BudgetError(502,'The bank returned an incomplete date-filtered page. Saved history was retained.');
+    await commitBankPage(store,job,item,state,{added:page.transactions,modified:[],removed:[],next_cursor:item.cursor||null});
+    if(state.offset>=state.total){item.historyStatus='Selected period imported';item.lastRange=range;await promoteBankSync(store,item,state,range);return {complete:true,state:{}};}
+  }
+  return {complete:false,state};
 }
 async function bankSync(store,job,env,deps) {
   const item=await store.get('item',job.source_id);if(!item||item.status==='disconnecting')return {complete:true,state:{}};
@@ -96,10 +113,10 @@ async function incorporateObservation(store,observation) {
     if(previous&&previous.amountCents!==event.amountCents)await store.put('proposal',observation.id,{...observation,reason:'Conflicting invoice amounts for the same due date.'});
   }
 }
-async function mailSync(store,job,env,deps) {
+async function mailSync(store,job,env,deps,range=null) {
   const source=await store.get('mail-source',job.source_id);if(!source?.enabled)return {complete:true,state:{}};
   const state=JSON.parse(job.state||'{}'),now=Math.floor(Date.now()/1000);
-  if(!state.before){state.before=now;state.after=source.completedThrough?Math.max(now-366*86400,source.completedThrough-2*86400):now-366*86400;state.pageToken=null;state.processed=0;}
+  if(!state.before){Object.assign(state,range?activityWindow(range):{before:now,after:source.completedThrough?Math.max(now-366*86400,source.completedThrough-2*86400):now-366*86400});state.readRange=range;state.pageToken=null;state.processed=0;}
   const params=new URLSearchParams({q:discoveryQuery(state.after,state.before),maxResults:'15'});if(state.pageToken)params.set('pageToken',state.pageToken);
   let page;
   try{page=await googleRead(env,source,'messages?'+params,deps);}catch(error){if(error.status===502&&state.pageToken){state.pageToken=null;return {complete:false,state,error:'Gmail pagination changed; restarting this scan window safely.',delay:60000};}throw error;}
@@ -108,15 +125,16 @@ async function mailSync(store,job,env,deps) {
     if(observation)await incorporateObservation(store,observation);state.processed++;
   }
   state.pageToken=page.nextPageToken||null;source.processedCount=(source.processedCount||0)+(page.messages||[]).length;source.lastBatchAt=new Date().toISOString();source.error=null;
-  if(!state.pageToken){source.completedThrough=state.before;source.lastSync=new Date().toISOString();source.backfillComplete=true;}
+  if(!state.pageToken){source.completedThrough=state.before;source.lastSync=new Date().toISOString();if(range)source.lastRange=range;else source.backfillComplete=true;}
   await store.put('mail-source',source.id,source);
   return {complete:!state.pageToken,state:state.pageToken?state:{}};
 }
-export async function runBudgetJob(env,owner,id,deps) {
+export async function runBudgetJob(env,owner,id,deps,range=null) {
   const store=new BudgetStore(env.BUDGET_DB,owner),lock=await store.lock();if(!lock)return {busy:true};
   const job=await store.lease(id);if(!job){await store.unlock(lock);return {busy:true};}
   try{
-    const result=job.kind==='bank'?await bankSync(store,job,env,deps):await mailSync(store,job,env,deps);
+    if(range){const old=JSON.parse(job.state||'{}');if(old.readRange?.start!==range.start||old.readRange?.end!==range.end){if(old.generation)await store.statement('DELETE FROM budget_sync_stage WHERE owner_id=? AND source_id=? AND generation=?',owner,job.source_id,old.generation).run();job.state=JSON.stringify({readRange:range});}}
+    const result=job.kind==='bank'?(range?await bankRangeSync(store,job,env,deps,range):await bankSync(store,job,env,deps)):await mailSync(store,job,env,deps,range);
     await store.finish(job,result.state,result);return {busy:false,complete:result.complete,error:result.error||null};
   }catch(error){
     const state=await store.statement('SELECT state FROM budget_jobs WHERE owner_id=? AND id=?',owner,job.id).first();
@@ -129,9 +147,5 @@ export async function runBudgetJob(env,owner,id,deps) {
   }finally{await store.unlock(lock);}
 }
 export async function scheduledBudget(env,deps) {
-  if(!env.BUDGET_DB)return;
-  const owner=await deps.hash(env.OWNER_EMAIL.toLowerCase());
-  const next=await env.BUDGET_DB.prepare('SELECT id FROM budget_jobs WHERE owner_id=? AND next_run<=? AND lease_until<? ORDER BY next_run,updated_at LIMIT 1').bind(owner,Date.now(),Date.now()).first();
-  if(next)await runBudgetJob(env,owner,next.id,deps);
-  await env.BUDGET_DB.prepare('DELETE FROM budget_webhook_receipts WHERE received_at<?').bind(Date.now()-86400000).run();
+  // Retained as a no-op for old scheduled deliveries during cron propagation.
 }

@@ -35,7 +35,7 @@
     "BUDGET_SECONDARY_EMAIL": "sage4997@gmail.com",
     "PLAID_ENV": "sandbox"
   },
-  "triggers": {"crons": ["*/10 * * * *"]},
+  "triggers": {"crons": []},
   "d1_databases": [{"binding":"BUDGET_DB","database_name":"sage-home-budget","database_id":"51cdb6ed-7a8f-45ec-a6bb-e72f4b85fec3","migrations_dir":"migrations"}],
   "kv_namespaces": [
     {

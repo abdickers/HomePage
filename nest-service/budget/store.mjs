@@ -1,4 +1,5 @@
 import {seedBills} from './domain.mjs';
+import {ensureBudgetReadIndexes} from './read-indexes.mjs';
 export class BudgetStore {
   constructor(db,owner){this.db=db;this.owner=owner;}
   statement(sql,...values){return this.db.prepare(sql).bind(...values);}
@@ -6,8 +7,20 @@ export class BudgetStore {
   async put(kind,id,data){await this.putStatement(kind,id,data).run();return {...data,id};}
   async get(kind,id){const row=await this.statement('SELECT data FROM budget_records WHERE owner_id=? AND kind=? AND id=?',this.owner,kind,id).first();return row?JSON.parse(row.data):null;}
   async list(kind,limit=10001,offset=0){const {results}=await this.statement('SELECT data FROM budget_records WHERE owner_id=? AND kind=? ORDER BY updated_at DESC,id LIMIT ? OFFSET ?',this.owner,kind,limit,offset).all();return results.map(row=>JSON.parse(row.data));}
+  async range(kind,{start,end},limit=1001){
+    // Unary + removes the column's TEXT affinity without changing the ID value.
+    // SQLite can then seek the JSON expression index instead of scanning a kind.
+    const pending=kind==='transaction'?` AND NOT EXISTS (SELECT 1 FROM budget_records AS posted WHERE posted.owner_id=budget_records.owner_id AND posted.kind='transaction' AND json_extract(posted.data,'$.pendingId')=+budget_records.id AND COALESCE(json_extract(posted.data,'$.environment'),'production')=COALESCE(json_extract(budget_records.data,'$.environment'),'production') AND COALESCE(json_extract(posted.data,'$.removed'),0)=0 AND COALESCE(json_extract(posted.data,'$.pending'),0)=0)` : '';
+    const {results}=await this.statement(`SELECT data FROM budget_records WHERE owner_id=? AND kind=? AND json_extract(data,'$.date')>=? AND json_extract(data,'$.date')<=?${pending} ORDER BY json_extract(data,'$.date') DESC LIMIT ?`,this.owner,kind,start,end,limit).all();return results.map(row=>JSON.parse(row.data));
+  }
+  async byIds(kind,ids){
+    if(!ids.length)return [];
+    const {results}=await this.statement('SELECT data FROM budget_records WHERE owner_id=? AND kind=? AND id IN (SELECT value FROM json_each(?))',this.owner,kind,JSON.stringify([...new Set(ids)])).all();return results.map(row=>JSON.parse(row.data));
+  }
+  async hasLiveTransactions(){return !!await this.statement("SELECT 1 AS present FROM budget_records INDEXED BY budget_live_history WHERE owner_id=? AND kind='transaction' AND json_extract(data,'$.environment')='production' AND COALESCE(json_extract(data,'$.source'),'')!='csv' AND COALESCE(json_extract(data,'$.removed'),0)=0 LIMIT 1",this.owner).first();}
   async remove(kind,id){await this.statement('DELETE FROM budget_records WHERE owner_id=? AND kind=? AND id=?',this.owner,kind,id).run();}
   async initialize(){
+    await ensureBudgetReadIndexes(this.db);
     const exists=await this.get('settings','main');if(exists)return;
     const lock=await this.lock();if(!lock)throw Error('Budget setup is busy. Retry.');
     try{

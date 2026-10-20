@@ -2,13 +2,14 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {budgetPreset,budgetToday,validateBudgetRange} from '../js/budget-period.js';
 import {treasurySummaryMarkup,periodIsReady} from '../js/treasury-presentation.js';
-import {activityRange,periodActivity} from '../nest-service/budget/activity.mjs';
+import {activityRange,periodActivity,activityWindow} from '../nest-service/budget/activity.mjs';
 
 test('Treasury presets use Chicago dates and exactly seven or thirty calendar dates across DST',()=>{
  const now=new Date('2026-11-02T01:30:00Z');assert.equal(budgetToday(now),'2026-11-01');
  assert.deepEqual(budgetPreset('7',now),{preset:'7',start:'2026-10-26',end:'2026-11-01'});
  assert.deepEqual(budgetPreset('30',now),{preset:'30',start:'2026-10-03',end:'2026-11-01'});
  assert.deepEqual(budgetPreset('month',now),{preset:'month',start:'2026-11-01',end:'2026-11-01'});
+ assert.deepEqual(budgetPreset(undefined,now),budgetPreset('month',now));
  assert.deepEqual(budgetPreset('7',new Date('2026-03-09T12:00:00Z')),{preset:'7',start:'2026-03-03',end:'2026-03-09'});
 });
 test('custom activity ranges reject invalid, reversed, future, missing and duplicate dates',()=>{
@@ -17,9 +18,14 @@ test('custom activity ranges reject invalid, reversed, future, missing and dupli
   assert.throws(()=>validateBudgetRange(start,end,now));
   assert.throws(()=>activityRange(new URLSearchParams({activityStart:start,activityEnd:end}),now));
  }
- assert.equal(activityRange(new URLSearchParams(),now),null);
+ assert.deepEqual(activityRange(new URLSearchParams(),now),{start:'2026-10-01',end:'2026-10-17'});
  assert.throws(()=>activityRange(new URLSearchParams('activityStart=2026-01-01&activityStart=2026-01-02&activityEnd=2026-10-17'),now));
  assert.deepEqual(activityRange(new URLSearchParams('activityStart=2024-02-29&activityEnd=2026-10-17'),now),{start:'2024-02-29',end:'2026-10-17'});
+});
+
+test('mail discovery ranges use Chicago midnight boundaries across daylight saving changes',()=>{
+ assert.deepEqual(activityWindow({start:'2026-03-08',end:'2026-03-08'}),{after:Date.parse('2026-03-08T06:00:00Z')/1000,before:Date.parse('2026-03-09T05:00:00Z')/1000});
+ assert.deepEqual(activityWindow({start:'2026-11-01',end:'2026-11-01'}),{after:Date.parse('2026-11-01T05:00:00Z')/1000,before:Date.parse('2026-11-02T06:00:00Z')/1000});
 });
 test('period totals use full history, exclude sandbox/transfers and replace pending entries before applying dates',()=>{
  const row=(id,extra={})=>({id,date:'2026-10-12',environment:'production',currency:'USD',classification:'purchase',amountCents:100,merchant:'Store',category:'Food',...extra});

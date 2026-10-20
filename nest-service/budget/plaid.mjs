@@ -1,7 +1,7 @@
 export class BudgetError extends Error {
   constructor(status,message,code='BUDGET_ERROR'){super(message);this.status=status;this.code=code;}
 }
-const allowed=new Set(['/institutions/search','/institutions/get_by_id','/link/token/create','/item/public_token/exchange','/item/get','/item/remove','/accounts/get','/accounts/balance/get','/transactions/sync','/webhook_verification_key/get']);
+const allowed=new Set(['/institutions/search','/institutions/get_by_id','/link/token/create','/item/public_token/exchange','/item/get','/item/remove','/accounts/get','/accounts/balance/get','/transactions/sync','/transactions/get','/webhook_verification_key/get']);
 function invalidField(result){
   // Only project a fixed field name. Provider text may echo credentials or PII.
   const text=(String(result.error_message||'')+' '+JSON.stringify(result.invalid_fields||[])).toLowerCase().replace(/[\s-]+/g,'_');

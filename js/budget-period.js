@@ -9,7 +9,7 @@ export function validateBudgetRange(start,end,now=new Date()) {
  if(!valid(start)||!valid(end)||start>end||end>budgetToday(now))throw Error('Choose a valid start and end date, ending today or earlier.');
  return {start,end};
 }
-export function budgetPreset(preset='7',now=new Date()) {
+export function budgetPreset(preset='month',now=new Date()) {
  const end=budgetToday(now);
  if(preset==='month')return {preset,start:end.slice(0,7)+'-01',end};
  const days=preset==='30'?30:7,start=new Date(end+'T12:00:00Z');start.setUTCDate(start.getUTCDate()-(days-1));

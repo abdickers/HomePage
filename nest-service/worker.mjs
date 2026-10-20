@@ -2,7 +2,6 @@
 import {GOOGLE_SCOPES,GMAIL_SCOPE,CALENDAR_SCOPE,googleReadTarget} from './google-read.mjs';
 import {handleBudget,startBudgetMail,completeBudgetMail,plaidWebhook} from './budget/handler.mjs';
 import {BudgetError} from './budget/plaid.mjs';
-import {scheduledBudget} from './budget/sync.mjs';
 export const SESSION_SECONDS=30*86400;
 const trait = (d, name) => d.traits?.['sdm.devices.traits.' + name] || {};
 const enc = new TextEncoder();
@@ -167,4 +166,4 @@ export default {async fetch(request,env){
   const responseHeaders=headers(env);
   if(dailyLimit){const now=new Date();responseHeaders['Retry-After']=String(Math.max(1,Math.ceil((Date.UTC(now.getUTCFullYear(),now.getUTCMonth(),now.getUTCDate()+1)-now.getTime())/1000)));}
   return new Response(JSON.stringify({error:known?error.message:'The private service encountered an error. Please retry.',...(error instanceof BudgetError?{code:error.code}:{})}),{status:known?error.status:500,headers:responseHeaders});}
-},async scheduled(event,env,ctx){ctx.waitUntil(scheduledBudget(env,budgetDependencies()).catch(()=>{console.error(JSON.stringify({event:'budget_scheduled_sync_failed',message:'Sync did not finish; saved data was retained.'}));}));}};
+},async scheduled(){/* Budget reads and syncs require an explicit signed-in user action. */}};

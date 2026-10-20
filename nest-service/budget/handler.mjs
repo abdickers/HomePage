@@ -1,6 +1,6 @@
 import {BudgetStore} from './store.mjs';
-import {BudgetError,plaidConfigured,plaidEnvironment,plaidCall,createBankLink,bankCandidates,institutionSupported,verifyWebhook} from './plaid.mjs';
-import {buildSummary,money,validDate,merchantFor} from './domain.mjs';
+import {BudgetError,plaidConfigured,plaidEnvironment,plaidCall,createBankLink,bankCandidates,institutionSupported} from './plaid.mjs';
+import {buildSummary,money,validDate,merchantFor,today,addDays} from './domain.mjs';
 import {activityRange,periodActivity} from './activity.mjs';
 import {runBudgetJob,storeAccounts} from './sync.mjs';
 import {importCsv,undoCsv,csvLedgerView} from './csv.mjs';
@@ -19,26 +19,40 @@ function budgetBill(input,previous={}) {
   return {...previous,id:input.id||crypto.randomUUID(),name,merchantId:clean(input.merchantId||previous.merchantId||input.id||'manual',80),category:clean(input.category||'Uncategorized',60),amountCents:amount(input.amount),frequency:input.frequency,day:input.day,nextDate:input.nextDate||null,contractualDueDate:input.contractualDueDate||previous.contractualDueDate||null,subscription:input.subscription===true,variable:input.variable===true,status:input.status,notes:clean(input.notes,500),certainty:'user-stated',manual:true};
 }
 function publicItem(item){return {id:item.id,name:item.name,institutionId:item.institutionId,institutionUrl:item.institutionUrl,environment:item.environment,status:item.status,lastSync:item.lastSync||null,error:item.error||null,historyStatus:item.historyStatus||'Not yet verified'};}
-function publicSource(source){return {id:source.id,email:source.email,primary:source.primary,enabled:source.enabled,lastSync:source.lastSync||null,lastBatchAt:source.lastBatchAt||null,backfillComplete:!!source.backfillComplete,processedCount:source.processedCount||0,error:source.error||null};}
+function publicSource(source){return {id:source.id,email:source.email,primary:source.primary,enabled:source.enabled,lastSync:source.lastSync||null,lastBatchAt:source.lastBatchAt||null,lastRange:source.lastRange||null,backfillComplete:!!source.backfillComplete,processedCount:source.processedCount||0,error:source.error||null};}
 export async function snapshot(store,env,url) {
   let range;try{range=activityRange(url.searchParams);}catch(error){throw new BudgetError(400,error.message);}
-  const names=['account','transaction','bill','event','observation','annotation','income','settings','item','mail-source','proposal','observation-override','event-override','match-override','review-resolution'];
-  const lists=await Promise.all(names.map(name=>store.list(name))),rows=Object.fromEntries(names.map((name,i)=>[name,lists[i]]));
+  const names=['account','bill','income','settings','item','mail-source','csv-source'];
+  const lists=await Promise.all(names.map(name=>store.list(name,501))),rows=Object.fromEntries(names.map((name,i)=>[name,lists[i]]));
+  // History is filtered by the indexed owner/kind/date key before it leaves D1.
+  // Future bill evidence is a separate bounded planning window, never an all-time scan.
+  const future={start:today(),end:addDays(today(),30)};
+  const [transactions,observations,events,upcoming,proposals,hasLive]=await Promise.all([
+    store.range('transaction',range),store.range('observation',range),store.range('event',range),
+    range.start<=future.start&&range.end>=future.end?[]:store.range('event',future),
+    store.range('proposal',range),store.hasLiveTransactions(),
+  ]);
+  rows.transaction=transactions;rows.observation=observations;rows.event=[...new Map([...events,...upcoming].map(e=>[e.id,e])).values()];rows.proposal=proposals;
+  const [annotations,overridesForObservations,overridesForEvents,matches]=await Promise.all([
+    store.byIds('annotation',transactions.map(t=>t.id)),store.byIds('observation-override',observations.map(o=>o.id)),
+    store.byIds('event-override',rows.event.map(e=>e.id)),store.byIds('match-override',observations.map(o=>o.id)),
+  ]);
+  rows.annotation=annotations;rows['observation-override']=overridesForObservations;rows['event-override']=overridesForEvents;rows['match-override']=matches;
   const overrides=new Map(rows['observation-override'].map(o=>[o.id,o])),eventOverrides=new Map(rows['event-override'].map(o=>[o.id,o]));
   rows.observation=rows.observation.map(o=>({...o,...overrides.get(o.id)}));rows.event=rows.event.map(e=>({...e,...eventOverrides.get(e.id)}));
-  const annotations=new Map(rows.annotation.map(a=>[a.id,a]));rows.transaction=csvLedgerView(rows.transaction.map(t=>({...t,...annotations.get(t.id)})));
+  const annotationMap=new Map(rows.annotation.map(a=>[a.id,a]));rows.transaction=csvLedgerView(rows.transaction.map(t=>({...t,...annotationMap.get(t.id)})),hasLive);
   const items=new Map(rows.item.map(i=>[i.id,i]));rows.account=rows.account.map(a=>({...a,disconnected:items.get(a.itemId)?.status==='disconnected'}));
-  const incomplete=lists.some(list=>list.length>10000),summary=buildSummary({accounts:rows.account,transactions:rows.transaction,bills:rows.bill,events:rows.event,observations:rows.observation,annotations:rows.annotation,incomes:rows.income,settings:rows.settings[0]||{},incomplete});
+  const incomplete=lists.some(list=>list.length>500)||[transactions,observations,events,upcoming,proposals].some(list=>list.length>1000),summary=buildSummary({accounts:rows.account,transactions:rows.transaction,bills:rows.bill,events:rows.event,observations:rows.observation,annotations:rows.annotation,incomes:rows.income,settings:rows.settings[0]||{},incomplete,historyRange:range});
   summary.review.push(...rows.proposal.map(p=>({id:'proposal:'+p.id,observationId:p.id,reason:p.reason})));
   const transactionIdsPresent=new Set(rows.transaction.map(t=>t.id)),manualMatches=rows['match-override'].filter(m=>m.transactionIds?.every(id=>transactionIdsPresent.has(id)));
-  summary.matches.push(...manualMatches);const resolved=new Set(manualMatches.map(m=>m.observationId)),reviewResolved=new Set(rows['review-resolution'].map(r=>r.id));summary.review=summary.review.filter(r=>(!r.observationId||!resolved.has(r.observationId))&&!reviewResolved.has(r.id));
+  summary.matches.push(...manualMatches);const resolved=new Set(manualMatches.map(m=>m.observationId)),reviewResolved=new Set((await store.byIds('review-resolution',summary.review.map(r=>r.id))).map(r=>r.id));summary.review=summary.review.filter(r=>(!r.observationId||!resolved.has(r.observationId))&&!reviewResolved.has(r.id));
   const transactionPage=Math.max(0,Math.min(1000,Number(url.searchParams.get('transactionPage'))||0)),reviewPage=Math.max(0,Math.min(1000,Number(url.searchParams.get('reviewPage'))||0));
-  const period=range?periodActivity(rows.transaction,range,incomplete):null;
-  const transactions=period?period.entries:rows.transaction.sort((a,b)=>(b.date||'').localeCompare(a.date||'')),reviewCount=summary.review.length;
+  const period=periodActivity(rows.transaction,range,incomplete);
+  const periodTransactions=period.entries,reviewCount=summary.review.length;
   summary.review=summary.review.slice(reviewPage*50,reviewPage*50+50);
   const evidenceIds=new Set(summary.review.map(r=>r.observationId).filter(Boolean)),evidence=rows.observation.filter(o=>evidenceIds.has(o.id));
   const transactionIds=new Set(summary.review.map(r=>r.transactionId).filter(Boolean));
-  return {configured:true,environment:plaidEnvironment(env),bankConfigured:plaidConfigured(env),timeZone:'America/Chicago',settings:rows.settings[0]||{},accounts:rows.account,bills:rows.bill,incomes:rows.income,items:rows.item.map(publicItem),mailSources:rows['mail-source'].map(publicSource),observations:[...evidence,...rows.observation.filter(o=>!evidenceIds.has(o.id)).slice(0,300)],reviewTransactions:rows.transaction.filter(t=>transactionIds.has(t.id)),transactions:transactions.slice(transactionPage*50,transactionPage*50+50),transactionCount:transactions.length,reviewCount,summary,...(period?{activity:period.summary}:{}),jobs:await store.jobs(),csvPaused:rows.transaction.some(t=>t.source==='csv'&&t.excludedFromTotals),csvSources:await store.list('csv-source'),csvImports:(await store.list('csv-import',5)).map(({transactionIds,...batch})=>batch),retrievedAt:new Date().toISOString()};
+  return {configured:true,environment:plaidEnvironment(env),bankConfigured:plaidConfigured(env),timeZone:'America/Chicago',settings:rows.settings[0]||{},accounts:rows.account,bills:rows.bill,incomes:rows.income,items:rows.item.map(publicItem),mailSources:rows['mail-source'].map(publicSource),observations:[...evidence,...rows.observation.filter(o=>!evidenceIds.has(o.id)).slice(0,300)],reviewTransactions:rows.transaction.filter(t=>transactionIds.has(t.id)),transactions:periodTransactions.slice(transactionPage*50,transactionPage*50+50),transactionCount:periodTransactions.length,reviewCount,summary,activity:period.summary,jobs:await store.jobs(),csvPaused:rows.transaction.some(t=>t.source==='csv'&&t.excludedFromTotals),csvSources:rows['csv-source'],csvImports:(await store.list('csv-import',5)).map(({transactionIds,...batch})=>batch),retrievedAt:new Date().toISOString()};
 }
 async function readInput(request,deps,max=65536){if(!request.headers.get('Content-Type')?.startsWith('application/json'))throw new BudgetError(415,'Use JSON.');return deps.boundedJson(request,max);}
 export async function handleBudget(request,env,owner,sessionId,deps) {
@@ -48,7 +62,10 @@ export async function handleBudget(request,env,owner,sessionId,deps) {
   if(path==='/institutions'&&request.method==='GET')return json(env,{environment:plaidEnvironment(env),institutions:await bankCandidates(env,deps.boundedJson),checkedAt:new Date().toISOString(),liveCoverageVerified:plaidEnvironment(env)==='production'});
   if(path==='/transactions'&&request.method==='GET'){
     const merchant=clean(url.searchParams.get('merchantId'),80),around=url.searchParams.get('date');
-    const annotations=new Map((await store.list('annotation')).map(a=>[a.id,a]));const transactions=(await store.list('transaction')).map(t=>({...t,...annotations.get(t.id)})).filter(t=>!merchant||t.merchantId===merchant).filter(t=>!validDate(around)||Math.abs(Date.parse(t.date)-Date.parse(around))<=30*86400000).slice(0,100);
+    if(!validDate(around))throw new BudgetError(400,'Choose an evidence date for the match search.');
+    let range;try{range=activityRange(url.searchParams);}catch(error){throw new BudgetError(400,error.message);}
+    await store.initialize();const within=await store.range('transaction',range,1001);
+    const annotations=new Map((await store.byIds('annotation',within.map(t=>t.id))).map(a=>[a.id,a]));const transactions=within.map(t=>({...t,...annotations.get(t.id)})).filter(t=>!merchant||t.merchantId===merchant).filter(t=>Math.abs(Date.parse(t.date)-Date.parse(around))<=30*86400000).slice(0,100);
     return json(env,{transactions});
   }
   if(request.method!=='POST')throw new BudgetError(405,'Use an authenticated POST for budget changes.');
@@ -129,7 +146,9 @@ export async function handleBudget(request,env,owner,sessionId,deps) {
     const candidates=await bankCandidates(env,deps.boundedJson);if(!candidates.length)throw new BudgetError(409,'No Central Bank institution currently matches centralbank.net and both Balance and Transactions. Live linking is blocked until coverage is verified.','BANK_COVERAGE');
     const update=input.itemId?await store.get('item',id(input.itemId)):null;if(input.itemId&&!update)throw new BudgetError(404,'Bank connection not found.');
     const token=update?await deps.getRecord(env,update.tokenKey):null;
-    const {result,nonOAuthSandbox}=await createBankLink(env,{client_name:'Sage personal budget',user:{client_user_id:owner},country_codes:['US'],language:'en',redirect_uri:env.FRONTEND_ORIGIN+'/HomePage/',webhook:url.origin+'/budget/plaid/webhook',...(update?{access_token:token?.access}:{products:['transactions'],transactions:{days_requested:365}})},deps.boundedJson);
+    let range;try{range=activityRange(new URLSearchParams(Object.entries(input).filter(([key])=>['activityStart','activityEnd'].includes(key))));}catch(error){throw new BudgetError(400,error.message);}
+    const days=Math.max(1,Math.min(730,Math.ceil((Date.parse(today()+'T12:00:00Z')-Date.parse(range.start+'T12:00:00Z'))/86400000)+1));
+    const {result,nonOAuthSandbox}=await createBankLink(env,{client_name:'Sage personal budget',user:{client_user_id:owner},country_codes:['US'],language:'en',redirect_uri:env.FRONTEND_ORIGIN+'/HomePage/',webhook:url.origin+'/budget/plaid/webhook',...(update?{access_token:token?.access}:{products:['transactions'],transactions:{days_requested:days}})},deps.boundedJson);
     if(nonOAuthSandbox)await store.put('diagnostic','plaid-setup',{operation:'/link/token/create',field:'redirect_uri',code:'SANDBOX_NON_OAUTH_LINK',checkedAt:new Date().toISOString()});
     await store.put('link-attempt','current',{id:'current',expires:Date.now()+30*60000,itemId:update?.id||null,environment:plaidEnvironment(env)});
     return json(env,{linkToken:result.link_token,expiration:result.expiration,environment:plaidEnvironment(env),institutions:candidates,update:!!update,nonOAuthSandbox});
@@ -168,10 +187,12 @@ export async function handleBudget(request,env,owner,sessionId,deps) {
   if(path==='/sync'){
     const jobs=await store.jobs(),requested=input.jobId?jobs.find(j=>j.id===input.jobId):jobs.find(j=>j.status==='queued'||j.status==='error'&&j.next_run<=Date.now());
     if(!requested)return json(env,{complete:true});
-    return json(env,await runBudgetJob(env,owner,requested.id,deps));
+    let range;try{range=activityRange(new URLSearchParams(Object.entries(input).filter(([key])=>['activityStart','activityEnd'].includes(key))));}catch(error){throw new BudgetError(400,error.message);}
+    const result=await runBudgetJob(env,owner,requested.id,deps,range);
+    return json(env,{...result,complete:result.complete&&!jobs.some(j=>j.id!==requested.id&&(j.status==='queued'||j.status==='error'&&j.next_run<=Date.now()))});
   }
   if(path==='/sync/queue'){
-    const settings=await store.get('settings','main');if(settings.syncRequestedAt&&Date.now()-Date.parse(settings.syncRequestedAt)<60000)throw new BudgetError(429,'Wait one minute before requesting another full sync.');
+    const settings=await store.get('settings','main');if(settings.syncRequestedAt&&Date.now()-Date.parse(settings.syncRequestedAt)<60000)throw new BudgetError(429,'Wait one minute before requesting another period sync.');
     await store.put('settings','main',{...settings,syncRequestedAt:new Date().toISOString()});
     for(const source of await store.list('mail-source'))if(source.enabled)await store.queue('mail',source.id);
     for(const item of await store.list('item'))if(item.status!=='disconnected')await store.queue('bank',item.id);
@@ -218,23 +239,9 @@ export async function completeBudgetMail(env,record,result,who,deps) {
   }finally{await store.unlock(lock);}
 }
 export async function plaidWebhook(request,env,deps) {
-  needDb(env);if(request.method!=='POST')throw new BudgetError(405,'Use POST.');
-  const reader=request.body?.getReader();if(!reader)throw new BudgetError(400,'Missing webhook.');let size=0,parts=[];
-  try{for(;;){const {done,value}=await reader.read();if(done)break;size+=value.length;if(size>65536){await reader.cancel();throw new BudgetError(413,'Webhook too large.');}parts.push(value);}}finally{reader.releaseLock();}
-  const raw=new Uint8Array(size);let offset=0;for(const part of parts){raw.set(part,offset);offset+=part.length;}
-  if(!await verifyWebhook(raw,request.headers.get('plaid-verification'),async kid=>(await plaidCall(env,'/webhook_verification_key/get',{key_id:kid},deps.boundedJson)).key))throw new BudgetError(401,'Webhook signature could not be verified.');
-  let event;try{event=JSON.parse(new TextDecoder().decode(raw));}catch{throw new BudgetError(400,'Invalid webhook JSON.');}
-  const owner=await deps.hash(env.OWNER_EMAIL.toLowerCase()),store=new BudgetStore(env.BUDGET_DB,owner),lock=await store.lock();
-  if(!lock)throw new BudgetError(503,'Budget sync is busy; retry this webhook.');
-  try{
-  const digest=await deps.hash(new TextDecoder().decode(raw)),seen=await env.BUDGET_DB.prepare('SELECT digest FROM budget_webhook_receipts WHERE digest=?').bind(digest).first();
-  if(seen)return json(env,{accepted:true});
-  const item=event.item_id?await store.get('item',event.item_id):null;
-  if(item&&item.environment===plaidEnvironment(env)&&item.status!=='disconnected'){
-    if(event.webhook_type==='ITEM'&&event.error)await store.put('item',item.id,{...item,status:'needs-attention',error:'Plaid requires attention. Use Reconnect bank.'});
-    if(['TRANSACTIONS','ITEM'].includes(event.webhook_type))await store.queue('bank',item.id);
-  }
-  await env.BUDGET_DB.prepare('INSERT OR IGNORE INTO budget_webhook_receipts(digest,received_at) VALUES(?,?)').bind(digest,Date.now()).run();
-  return json(env,{accepted:true},202);
-  }finally{await store.unlock(lock);}
+  // No webhook-driven imports or database access in on-demand mode. This
+  // acknowledgment grants no authority and never processes supplied events.
+  if(request.method!=='POST')throw new BudgetError(405,'Use POST.');
+  await deps.boundedJson(request,65536);
+  return json(env,{accepted:true,mode:'on-demand',processed:false},202);
 }
