@@ -3,30 +3,40 @@
     "fox": {
       "items": [
         {
-          "title": "Michael Robinson accused Jalen Hurts of faking an injury — then doctors found clots in his lungs",
-          "link": "https://www.foxnews.com/outkick-sports/michael-robinson-accused-jalen-hurts-faking-injury-doctors-found-clots-lungs",
-          "pubDate": "2026-10-20T05:57:56-04:00"
+          "title": "Jay-Z reportedly selects himself for Super Bowl LXI halftime show in Los Angeles at SoFi Stadium",
+          "link": "https://www.foxnews.com/outkick-sports/jay-z-reportedly-selects-himself-super-bowl-lxi-halftime-show-los-angeles-sofi-stadium",
+          "pubDate": "2026-10-20T10:37:04-04:00"
         },
         {
-          "title": "Angel Reese dominates Game 2 as Atlanta Dream even WNBA Finals against Golden State Valkyries",
-          "link": "https://www.foxnews.com/outkick-sports/angel-reese-dominates-game-2-atlanta-dream-even-wnba-finals-golden-state-valkyries",
-          "pubDate": "2026-10-20T05:55:43-04:00"
+          "title": "China ties suspected in sprawling California pot operations as GOP urges FBI probe",
+          "link": "https://www.foxnews.com/politics/china-ties-suspected-sprawling-california-pot-operations-gop-urges-fbi-probe",
+          "pubDate": "2026-10-20T10:26:18-04:00"
         },
         {
-          "title": "MORNING GLORY: Minnesota's massive fraud scandal could deliver a stunning Senate upset",
-          "link": "https://www.foxnews.com/opinion/morning-glory-minnesotas-massive-fraud-scandal-deliver-stunning-senate-upset",
-          "pubDate": "2026-10-20T05:00:52-04:00"
+          "title": "Turn membership cards into digital passes on your phone",
+          "link": "https://www.foxnews.com/tech/turn-membership-cards-digital-passes-phone",
+          "pubDate": "2026-10-20T10:25:57-04:00"
         },
         {
-          "title": "LIZ PEEK: Guaranteed — Democrat midterm win would deliver chaos not 'affordability'",
-          "link": "https://www.foxnews.com/opinion/liz-peek-guaranteed-democrat-midterm-win-would-deliver-chaos-not-affordability",
-          "pubDate": "2026-10-20T05:00:36-04:00"
+          "title": "Christina Applegate says she was misdiagnosed with MS and is now 'back at square one'",
+          "link": "https://www.foxnews.com/entertainment/christina-applegate-says-she-misdiagnosed-ms-now-back-square-one",
+          "pubDate": "2026-10-20T10:20:40-04:00"
         }
       ],
-      "updated": "2026-10-20T10:04:05.319876+00:00"
+      "updated": "2026-10-20T15:05:19.592827+00:00"
     },
     "wowhead": {
       "items": [
+        {
+          "title": "New Ring of Blood Style Quest Coming in WoW: Forever",
+          "link": "https://www.wowhead.com/news=383498/new-ring-of-blood-style-quest-coming-in-wow-forever",
+          "pubDate": "2026-10-20T10:00:00-05:00"
+        },
+        {
+          "title": "\"Phantom Damage\" Bug from Melee Attacks Fixed",
+          "link": "https://www.wowhead.com/news=383493/phantom-damage-bug-from-melee-attacks-fixed",
+          "pubDate": "2026-10-20T09:00:00-05:00"
+        },
         {
           "title": "Ascendant Venomstones Unlock Tomorrow - Finish Quest to Prepare",
           "link": "https://www.wowhead.com/news=383492/ascendant-venomstones-unlock-tomorrow-finish-quest-to-prepare",
@@ -36,19 +46,9 @@
           "title": "Rexxar Transmog Pack Returns to the Battle.net Store",
           "link": "https://www.wowhead.com/news=383500/rexxar-transmog-pack-returns-to-the-battle-net-store",
           "pubDate": "2026-10-19T17:21:11-05:00"
-        },
-        {
-          "title": "Eight Hours of Maintenance Scheduled for NA Servers Tomorrow",
-          "link": "https://www.wowhead.com/news=383496/eight-hours-of-maintenance-scheduled-for-na-servers-tomorrow",
-          "pubDate": "2026-10-19T16:24:35-05:00"
-        },
-        {
-          "title": "The Journey Past Level 30 in WoW: Forever - The Riverglades and Hyjal Zones",
-          "link": "https://www.wowhead.com/news=383495/the-journey-past-level-30-in-wow-forever-the-riverglades-and-hyjal-zones",
-          "pubDate": "2026-10-19T13:59:19-05:00"
         }
       ],
-      "updated": "2026-10-20T10:04:05.989087+00:00"
+      "updated": "2026-10-20T15:05:20.228001+00:00"
     }
   }
 }
