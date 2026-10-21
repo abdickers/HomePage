@@ -37,7 +37,7 @@ test('opening the homepage, restoring Google, and waiting do not request budget 
  const controller=initBudget({connection,serviceUrl:'https://dashboard.test',fetcher:async(url,options)=>{calls.push({url,options});const u=new URL(url);return Response.json({...data,retrievedAt:new Date().toISOString(),activity:{start:u.searchParams.get('activityStart'),end:u.searchParams.get('activityEnd'),complete:true,recent:[]}});}});
  const settled=async()=>{for(let i=0;i<12;i++)await new Promise(resolve=>setImmediate(resolve));};
  ready();subscriber(true);await settled();assert.equal(calls.length,0);assert.equal(interval.mock.callCount(),0);
- element('treasuryEntrance').click();await settled();assert.equal(calls.length,1);assert.match(calls[0].url,/activityStart=\d{4}-\d{2}-01/);
+ element('treasuryEntrance').click();await settled();assert.equal(calls.length,1);assert.match(calls[0].url,/activityStart=\d{4}-\d{2}-01/);assert.equal(calls[0].options.headers['X-Budget-Mode'],'on-demand-v1');
  element('treasuryClose').click();subscriber(true);await settled();assert.equal(calls.length,1);
  element('treasuryEntrance').click();await settled();assert.equal(calls.length,1);
  element('budgetRefresh').click();await settled();assert.equal(calls.length,2);

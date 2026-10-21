@@ -57,6 +57,9 @@ export async function snapshot(store,env,url) {
 async function readInput(request,deps,max=65536){if(!request.headers.get('Content-Type')?.startsWith('application/json'))throw new BudgetError(415,'Use JSON.');return deps.boundedJson(request,max);}
 export async function handleBudget(request,env,owner,sessionId,deps) {
   const url=new URL(request.url),path=url.pathname.slice('/budget'.length);
+  // Old, already-open homepage tabs may still run the retired polling timer.
+  // Reject those clients before opening D1; deploying new JS alone cannot stop them.
+  if(((request.method==='GET'&&['/snapshot','/transactions'].includes(path))||(request.method==='POST'&&path==='/sync'))&&request.headers.get('X-Budget-Mode')!=='on-demand-v1')throw new BudgetError(409,'Reload the homepage to use the on-demand budget. Older tabs cannot load or sync budget data.','BUDGET_CLIENT_RELOAD');
   needDb(env);const store=new BudgetStore(env.BUDGET_DB,owner);
   if(path==='/snapshot'&&request.method==='GET'){await store.initialize();return json(env,await snapshot(store,env,url));}
   if(path==='/institutions'&&request.method==='GET')return json(env,{environment:plaidEnvironment(env),institutions:await bankCandidates(env,deps.boundedJson),checkedAt:new Date().toISOString(),liveCoverageVerified:plaidEnvironment(env)==='production'});
