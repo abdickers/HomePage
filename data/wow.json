@@ -166,29 +166,29 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1792569600,
-              "name": "The Looming Mutagenitor",
-              "startingUt": 1792567800
-            },
-            {
-              "endingUt": 1792571400,
-              "name": "Mlurkkr Massacre",
-              "startingUt": 1792569600
-            },
-            {
-              "endingUt": 1792573200,
+              "endingUt": 1792591200,
               "name": "Siege at the Whispering Marsh",
-              "startingUt": 1792571400
+              "startingUt": 1792589400
             },
             {
-              "endingUt": 1792575000,
+              "endingUt": 1792593000,
               "name": "The Malformed Leviathan",
-              "startingUt": 1792573200
+              "startingUt": 1792591200
             },
             {
-              "endingUt": 1792576800,
+              "endingUt": 1792594800,
               "name": "The Broodmother's Nest",
-              "startingUt": 1792575000
+              "startingUt": 1792593000
+            },
+            {
+              "endingUt": 1792596600,
+              "name": "The Looming Mutagenitor",
+              "startingUt": 1792594800
+            },
+            {
+              "endingUt": 1792598400,
+              "name": "Mlurkkr Massacre",
+              "startingUt": 1792596600
             }
           ],
           "icons": ""
@@ -229,8 +229,8 @@
         "content": {
           "lines": [
             {
-              "ending": "7 hr 10 min",
-              "endingShort": "7h",
+              "ending": "1 hr 2 min",
+              "endingShort": "1h",
               "endingUt": 1792594800,
               "icon": "inv_achievement_sanktumoflight",
               "iconLabel": "Silvermoon City",
@@ -239,8 +239,8 @@
               "url": "/zone=16545/collegiate-calamity"
             },
             {
-              "ending": "7 hr 10 min",
-              "endingShort": "7h",
+              "ending": "1 hr 2 min",
+              "endingShort": "1h",
               "endingUt": 1792594800,
               "icon": "inv_zone_voidstorm",
               "iconLabel": "Voidstorm",
@@ -249,8 +249,8 @@
               "url": "/zone=16592/sunkiller-sanctum"
             },
             {
-              "ending": "7 hr 10 min",
-              "endingShort": "7h",
+              "ending": "1 hr 2 min",
+              "endingShort": "1h",
               "endingUt": 1792594800,
               "icon": "inv_achievement_zone_harandar",
               "iconLabel": "Harandar",
@@ -333,7 +333,7 @@
       }
     ],
     "source": "https://www.wowhead.com/today-in-wow",
-    "updated": "2026-10-21T07:49:31.357596+00:00"
+    "updated": "2026-10-21T13:57:14.370409+00:00"
   },
   "forever": {
     "events": [
