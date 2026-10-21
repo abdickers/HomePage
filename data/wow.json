@@ -166,29 +166,29 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1792609200,
-              "name": "Siege at the Whispering Marsh",
-              "startingUt": 1792607400
-            },
-            {
-              "endingUt": 1792611000,
-              "name": "The Malformed Leviathan",
-              "startingUt": 1792609200
-            },
-            {
-              "endingUt": 1792612800,
+              "endingUt": 1792621800,
               "name": "The Broodmother's Nest",
-              "startingUt": 1792611000
+              "startingUt": 1792620000
             },
             {
-              "endingUt": 1792614600,
+              "endingUt": 1792623600,
               "name": "The Looming Mutagenitor",
-              "startingUt": 1792612800
+              "startingUt": 1792621800
             },
             {
-              "endingUt": 1792616400,
+              "endingUt": 1792625400,
               "name": "Mlurkkr Massacre",
-              "startingUt": 1792614600
+              "startingUt": 1792623600
+            },
+            {
+              "endingUt": 1792627200,
+              "name": "Siege at the Whispering Marsh",
+              "startingUt": 1792625400
+            },
+            {
+              "endingUt": 1792629000,
+              "name": "The Malformed Leviathan",
+              "startingUt": 1792627200
             }
           ],
           "icons": ""
@@ -229,8 +229,8 @@
         "content": {
           "lines": [
             {
-              "ending": "20 hr 13 min",
-              "endingShort": "20h",
+              "ending": "16 hr 31 min",
+              "endingShort": "16h",
               "endingUt": 1792681200,
               "icon": "inv_achievement_sanktumoflight",
               "iconLabel": "Silvermoon City",
@@ -239,8 +239,8 @@
               "url": "/zone=16642/the-darkway"
             },
             {
-              "ending": "20 hr 13 min",
-              "endingShort": "20h",
+              "ending": "16 hr 31 min",
+              "endingShort": "16h",
               "endingUt": 1792681200,
               "name": "Active"
             }
@@ -319,7 +319,7 @@
       }
     ],
     "source": "https://www.wowhead.com/today-in-wow",
-    "updated": "2026-10-21T18:46:07.110350+00:00"
+    "updated": "2026-10-21T22:29:00.409053+00:00"
   },
   "forever": {
     "events": [
