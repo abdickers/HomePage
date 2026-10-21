@@ -20,7 +20,11 @@ Deploy the guarded Worker and allowlisted private asset bundle together. Never r
 
 Private initial bill values belong in D1, entered through the authenticated editor or a private administrative import. Public default records intentionally have unknown amounts and schedules. Deleting the entire budget resets those private values; a later new budget starts with unknown defaults.
 
-## Plaid setup: Sandbox first
+## Plaid production deployment
+
+The owner has approved Production access. The deployed configuration now uses `PLAID_ENV=production`, with the existing Production credentials encrypted in the Worker and the exact private homepage redirect registered in Plaid. Credentials are not stored in the repository. Real bank authorization is a separate Plaid Link step completed by the owner; Production configuration alone does not imply a connected bank. Sandbox history is retained, visibly labeled and excluded from real totals; its tokens are never used against Production, and it is not queued for new imports. Existing on-demand and selected-period limits apply unchanged.
+
+## Original Sandbox setup reference
 
 1. Open your Plaid dashboard, configure the app for **Transactions**, and obtain the client ID and **Sandbox** secret. The app verifies Balance and Transactions institution coverage; it does not request bank transfer or payment products.
 2. In Cloudflare → Workers & Pages → `sage-cabin-nest` → Settings → Variables and Secrets, add `PLAID_CLIENT_ID` and `PLAID_SECRET`, both as **Secret** values. Enter them directly there. Keep existing secrets. Leave the plain variable `PLAID_ENV` as `sandbox`.

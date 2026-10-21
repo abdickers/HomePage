@@ -19,6 +19,9 @@ export async function createBankLink(env,input,readJson){
   }
 }
 export function plaidEnvironment(env){return env.PLAID_ENV==='production'?'production':'sandbox';}
+export function requireBankEnvironment(env,item){
+  if(item&&item.environment!==plaidEnvironment(env))throw new BudgetError(409,'This saved bank connection belongs to '+item.environment+'. Connect a new '+plaidEnvironment(env)+' bank instead. Saved history is unchanged.','BANK_ENVIRONMENT');
+}
 export function plaidConfigured(env){return !!(env.PLAID_CLIENT_ID&&env.PLAID_SECRET);}
 export async function plaidCall(env,path,input,readJson) {
   if(!allowed.has(path))throw new BudgetError(400,'Unsupported bank operation.');
@@ -32,7 +35,7 @@ export async function plaidCall(env,path,input,readJson) {
     const code=/^[A-Z_]{1,100}$/.test(result.error_code||'')?result.error_code:'PLAID_ERROR';
     const message=code==='ITEM_LOGIN_REQUIRED'?'Your bank needs you to reconnect. Previously synced data is retained.':code.includes('RATE_LIMIT')?'Plaid is rate limiting requests. The sync will retry later.':code==='TRANSACTIONS_SYNC_MUTATION_DURING_PAGINATION'?'Bank history changed during pagination; restarting from the saved cursor.':code==='PRODUCT_NOT_READY'?'Plaid is still preparing transaction history. Retry later.':'Plaid could not complete this operation. Check the connection and product access.';
     const field=code==='INVALID_FIELD'?invalidField(result):null;
-    const detail=field==='redirect_uri'?`Plaid rejected the dashboard return URL. Add exactly ${env.FRONTEND_ORIGIN}/HomePage/ to Allowed redirect URIs in your Plaid dashboard.`:field==='client_id'||field==='secret'?'Plaid rejected a credential field. Check the saved Sandbox credentials.':field?`Plaid rejected the ${field} field during ${path==='/link/token/create'?'bank Link setup':'institution verification'}.`:code==='INVALID_FIELD'?`Plaid rejected a request field during ${path==='/link/token/create'?'bank Link setup':'institution verification'}.`:message;
+    const detail=field==='redirect_uri'?`Plaid rejected the dashboard return URL. Add exactly ${env.FRONTEND_ORIGIN}/HomePage/ to Allowed redirect URIs in your Plaid dashboard.`:field==='client_id'||field==='secret'?`Plaid rejected a credential field. Check the saved ${plaidEnvironment(env)} credentials.`:field?`Plaid rejected the ${field} field during ${path==='/link/token/create'?'bank Link setup':'institution verification'}.`:code==='INVALID_FIELD'?`Plaid rejected a request field during ${path==='/link/token/create'?'bank Link setup':'institution verification'}.`:message;
     const error=new BudgetError(code.includes('RATE_LIMIT')?429:409,detail,code);error.details={operation:path,field};throw error;
   }
   return result;

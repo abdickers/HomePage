@@ -1,7 +1,7 @@
 import {BudgetStore} from './store.mjs';
 import {normalizeTransaction,money} from './domain.mjs';
 import {parseBudgetMessage,discoveryQuery} from './mail.mjs';
-import {plaidCall,BudgetError} from './plaid.mjs';
+import {plaidCall,plaidEnvironment,BudgetError} from './plaid.mjs';
 import {activityWindow} from './activity.mjs';
 
 export function accountRecord(account,item) {
@@ -42,6 +42,7 @@ export async function promoteBankSync(store,item,state,range=null) {
 }
 async function bankRangeSync(store,job,env,deps,range) {
   const item=await store.get('item',job.source_id);if(!item||['disconnecting','disconnected'].includes(item.status))return {complete:true,state:{}};
+  if(item.environment!==plaidEnvironment(env))return {complete:true,state:{}};
   const token=await deps.getRecord(env,item.tokenKey);if(!token?.access)throw new BudgetError(409,'Reconnect the bank to resume syncing.','ITEM_LOGIN_REQUIRED');
   const state=JSON.parse(job.state||'{}');state.readRange=range;state.generation||=crypto.randomUUID();state.offset||=0;
   for(let i=0;i<2;i++){

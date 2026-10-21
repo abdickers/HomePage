@@ -81,6 +81,14 @@ test('explicit period sync finishes all queued sources without reloading snapsho
  assert.ok((await f.store.jobs()).every(j=>j.status==='idle'));
 });
 
+test('production preserves Sandbox history without sending its tokens to production or queueing new test syncs',async t=>{
+ const f=fixture(t);await bank(f);await f.store.put('transaction','test-history',{date:'2026-10-15',environment:'sandbox',itemId:'bank',amountCents:100});f.env.PLAID_ENV='production';
+ t.mock.method(globalThis,'fetch',()=>{throw Error('Sandbox token reached production');});
+ assert.equal((await runBudgetJob(f.env,'owner','bank:bank',f.deps,{start:'2026-10-01',end:'2026-10-20'})).complete,true);assert.ok(await f.store.get('transaction','test-history'));
+ for(const path of ['/balances','/link-updated'])await assert.rejects(handleBudget(post(path,{itemId:'bank'}),f.env,'owner','session',f.deps),error=>error.code==='BANK_ENVIRONMENT');
+ await f.db.prepare('DELETE FROM budget_jobs').run();await handleBudget(post('/sync/queue',{}),f.env,'owner','session',f.deps);assert.equal((await f.store.jobs()).length,0);
+});
+
 test('a maximum-size CSV import uses three atomic statements with bounded parameter counts',async t=>{
  const f=fixture(t);await f.store.initialize();const batch=f.db.batch.bind(f.db);
  t.mock.method(f.db,'batch',statements=>{assert.equal(statements.length,3);assert.ok(statements.every(s=>s.values.length<=5));return batch(statements);});
