@@ -57,7 +57,7 @@ export function thermostatCommand(d,input){
  if(mode==='HEATCOOL'&&params.coolCelsius-params.heatCelsius<1.7)fail(400,'Keep at least 3 °F between heating and cooling targets.');
  return {command:'sdm.devices.commands.ThermostatTemperatureSetpoint.'+(mode==='HEAT'?'SetHeat':mode==='COOL'?'SetCool':'SetRange'),params};
 }
-function headers(env){return {'Content-Type':'application/json','Cache-Control':'no-store','Access-Control-Allow-Origin':env.FRONTEND_ORIGIN,'Access-Control-Allow-Methods':'GET, POST, OPTIONS','Access-Control-Allow-Headers':'Authorization, Content-Type','Vary':'Origin','Referrer-Policy':'no-referrer','X-Content-Type-Options':'nosniff'};}
+function headers(env){return {'Content-Type':'application/json','Cache-Control':'no-store','Access-Control-Allow-Origin':env.FRONTEND_ORIGIN,'Access-Control-Allow-Methods':'GET, POST, OPTIONS','Access-Control-Allow-Headers':'Authorization, Content-Type, X-Budget-Mode','Vary':'Origin','Referrer-Policy':'no-referrer','X-Content-Type-Options':'nosniff'};}
 function ready(env){return Boolean(env.NEST_KV&&env.GOOGLE_CLIENT_ID&&env.GOOGLE_CLIENT_SECRET&&env.TOKEN_ENCRYPTION_KEY);}
 async function authorize(request,env,kind='nest'){
  if(request.headers.get('Origin')!==env.FRONTEND_ORIGIN)fail(403,'Untrusted dashboard origin.');

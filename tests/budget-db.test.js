@@ -16,7 +16,7 @@ function database(){
   const db={prepare(query){return {values:[],bind(...values){this.values=values;return this;},async first(column){const row=sql.prepare(query).get(...this.values);return column?row?.[column]??null:row??null;},async all(){return {results:sql.prepare(query).all(...this.values)};},async run(){const result=sql.prepare(query).run(...this.values);return {meta:{changes:Number(result.changes)}};}};},async batch(statements){sql.exec('BEGIN');try{const results=[];for(const statement of statements)results.push(await statement.run());sql.exec('COMMIT');return results;}catch(error){sql.exec('ROLLBACK');throw error;}},close(){sql.close();}};return db;
 }
 function fixture(t){const db=database();t.after(()=>db.close());const records=new Map(),env={BUDGET_DB:db,OWNER_EMAIL:'owner@example.com',FRONTEND_ORIGIN:'https://dashboard.test',PLAID_ENV:'sandbox',PLAID_CLIENT_ID:'test-client',PLAID_SECRET:'test-secret',NEST_KV:{get:async k=>records.get(k)||null,put:async(k,v)=>records.set(k,v),delete:async k=>records.delete(k)}};const deps={boundedJson,getRecord:async(e,k)=>records.get(k)||null,putRecord:async(e,k,v)=>records.set(k,v),hash:async s=>Buffer.from(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s))).toString('hex'),access:async()=> 'google-test-access'};return {db,env,deps,records,store:new BudgetStore(db,'owner')};}
-const post=(path,body)=>new Request('https://gateway.test/budget'+path,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+const post=(path,body)=>new Request('https://gateway.test/budget'+path,{method:'POST',headers:{'Content-Type':'application/json','X-Budget-Mode':'on-demand-v1'},body:JSON.stringify(body)});
 const tx=(id,extra={})=>({transaction_id:id,account_id:'account',name:'Socket Internet',amount:25,date:'2026-10-15',iso_currency_code:'USD',...extra});
 const page=(added,next_cursor,has_more=false,extra={})=>({added,modified:[],removed:[],next_cursor,has_more,transactions_update_status:'HISTORICAL_UPDATE_COMPLETE',...extra});
 
@@ -97,11 +97,22 @@ test('a maximum-size CSV import uses three atomic statements with bounded parame
  assert.equal(result.added,500);assert.equal((await f.store.list('transaction')).length,500);
 });
 
+test('retired polling clients are rejected before any D1 read, including valid signed-in sessions',async t=>{
+ const f=fixture(t);Object.assign(f.env,{TOKEN_ENCRYPTION_KEY:Buffer.alloc(32,7).toString('base64'),GOOGLE_CLIENT_ID:'test',GOOGLE_CLIENT_SECRET:'test'});const token='c'.repeat(64);
+ await encryptedSession(f.env,token,{kind:'google',ownerEmail:f.env.OWNER_EMAIL,expires:Date.now()+86400000});let calls=0;
+ t.mock.method(f.db,'prepare',()=>{calls++;throw Error('Retired client touched D1');});
+ for(const [path,method] of [['snapshot','GET'],['transactions','GET'],['sync','POST']]){
+  const response=await gateway.fetch(new Request('https://gateway.test/budget/'+path,{method,headers:{Origin:f.env.FRONTEND_ORIGIN,Authorization:'Bearer '+token,'Content-Type':'application/json'},...(method==='POST'?{body:'{}'}:{})}),f.env);
+  assert.equal(response.status,409);assert.equal((await response.json()).code,'BUDGET_CLIENT_RELOAD');
+ }
+ assert.equal(calls,0);
+});
+
 test('an exhausted D1 daily allowance returns a safe retryable status without losing the Google session',async t=>{
  const f=fixture(t);Object.assign(f.env,{TOKEN_ENCRYPTION_KEY:Buffer.alloc(32,7).toString('base64'),GOOGLE_CLIENT_ID:'test',GOOGLE_CLIENT_SECRET:'test'});const token='a'.repeat(64);
  await encryptedSession(f.env,token,{kind:'google',ownerEmail:f.env.OWNER_EMAIL,expires:Date.now()+86400000});
  t.mock.method(f.db,'prepare',()=>{throw Error('D1_ERROR: D1 DB exceeded its daily free operations limit.');});
- const r=await gateway.fetch(new Request('https://gateway.test/budget/snapshot',{headers:{Origin:f.env.FRONTEND_ORIGIN,Authorization:'Bearer '+token}}),f.env);
+ const r=await gateway.fetch(new Request('https://gateway.test/budget/snapshot',{headers:{Origin:f.env.FRONTEND_ORIGIN,Authorization:'Bearer '+token,'X-Budget-Mode':'on-demand-v1'}}),f.env);
  assert.equal(r.status,503);assert.ok(Number(r.headers.get('Retry-After'))>0&&Number(r.headers.get('Retry-After'))<=86400);
  const body=await r.json();assert.equal(body.code,'DATABASE_DAILY_LIMIT');assert.match(body.error,/Saved records are unchanged/);assert.match(body.error,/00:00 UTC/);
  assert.equal(f.records.size,1);
@@ -168,7 +179,7 @@ test('every financial operation rejects anonymous, foreign-origin, Nest-only and
   const f=fixture(t);Object.assign(f.env,{TOKEN_ENCRYPTION_KEY:Buffer.alloc(32,7).toString('base64'),GOOGLE_CLIENT_ID:'test',GOOGLE_CLIENT_SECRET:'test'});const token='a'.repeat(64),paths=['snapshot','institutions','transactions','bill','settings','income','account','transaction','observation','match','mail/enable','mail/connect','mail/disconnect','link-token','exchange','balances','bank/disconnect','sync','sync/queue','csv/import','csv/undo','delete'];
   for(const path of paths){const response=await gateway.fetch(new Request('https://gateway.test/budget/'+path,{headers:{Origin:f.env.FRONTEND_ORIGIN}}),f.env);assert.equal(response.status,401,path);}
   for(const path of ['csv/import','csv/undo'])assert.equal((await gateway.fetch(new Request(post('/'+path,{}),{headers:{Origin:f.env.FRONTEND_ORIGIN,'Content-Type':'application/json'}}),f.env)).status,401,path);
-  await encryptedSession(f.env,token,{kind:'google',ownerEmail:f.env.OWNER_EMAIL,expires:Date.now()+30*86400000});const good={Origin:f.env.FRONTEND_ORIGIN,Authorization:'Bearer '+token};assert.equal((await gateway.fetch(new Request('https://gateway.test/budget/snapshot',{headers:{...good,Origin:'https://evil.test'}}),f.env)).status,403);const response=await gateway.fetch(new Request('https://gateway.test/budget/snapshot',{headers:good}),f.env);assert.equal(response.status,200);assert.match(response.headers.get('Cache-Control'),/no-store/);
+  await encryptedSession(f.env,token,{kind:'google',ownerEmail:f.env.OWNER_EMAIL,expires:Date.now()+30*86400000});const good={Origin:f.env.FRONTEND_ORIGIN,Authorization:'Bearer '+token,'X-Budget-Mode':'on-demand-v1'};assert.equal((await gateway.fetch(new Request('https://gateway.test/budget/snapshot',{headers:{...good,Origin:'https://evil.test'}}),f.env)).status,403);const response=await gateway.fetch(new Request('https://gateway.test/budget/snapshot',{headers:good}),f.env);assert.equal(response.status,200);assert.match(response.headers.get('Cache-Control'),/no-store/);
   for(const path of ['csv/import','csv/undo'])assert.equal((await gateway.fetch(new Request('https://gateway.test/budget/'+path,{method:'POST',headers:{...good,Origin:'https://evil.test','Content-Type':'application/json'},body:'{}'}),f.env)).status,403,path);
   await encryptedSession(f.env,token,{kind:'nest',expires:Date.now()+30*86400000});assert.equal((await gateway.fetch(new Request('https://gateway.test/budget/snapshot',{headers:good}),f.env)).status,401);await encryptedSession(f.env,token,{kind:'google',ownerEmail:'other@example.com',expires:Date.now()+30*86400000});assert.equal((await gateway.fetch(new Request('https://gateway.test/budget/snapshot',{headers:good}),f.env)).status,403);
 });
@@ -179,7 +190,7 @@ test('real gateway exchanges Link server-side and encrypts Plaid tokens without 
   const f=fixture(t);Object.assign(f.env,{TOKEN_ENCRYPTION_KEY:Buffer.alloc(32,9).toString('base64'),GOOGLE_CLIENT_ID:'test',GOOGLE_CLIENT_SECRET:'test',PLAID_ENV:'production'});const token='b'.repeat(64);await encryptedSession(f.env,token,{kind:'google',ownerEmail:f.env.OWNER_EMAIL,expires:Date.now()+30*86400000});
   const institution={institution_id:'central-personal',name:'Central Bank (MO) - Personal',url:'https://www.centralbank.net',products:['balance','transactions'],connection_availability:'SUPPORTED'},calls=[];
   t.mock.method(globalThis,'fetch',async(url,options)=>{const path=new URL(url).pathname,body=JSON.parse(options.body);assert.equal(new URL(url).origin,'https://production.plaid.com');assert.equal(body.secret,'test-secret');calls.push(path);return Response.json(path==='/institutions/search'?{institutions:[institution]}:path==='/link/token/create'?{link_token:'short-lived-link',expiration:new Date(Date.now()+60000).toISOString()}:path==='/item/public_token/exchange'?{access_token:'never-return-this-bank-token',item_id:'item'}:path==='/item/get'?{item:{institution_id:'central-personal'}}:path==='/institutions/get_by_id'?{institution}:path==='/accounts/get'?{accounts:[{account_id:'account',name:'Cash',type:'depository',balances:{current:100,available:null,iso_currency_code:'USD'}}]}:{});});
-  const invoke=(path,body)=>gateway.fetch(new Request('https://gateway.test/budget'+path,{method:'POST',headers:{Origin:f.env.FRONTEND_ORIGIN,Authorization:'Bearer '+token,'Content-Type':'application/json'},body:JSON.stringify(body)}),f.env);
+  const invoke=(path,body)=>gateway.fetch(new Request('https://gateway.test/budget'+path,{method:'POST',headers:{Origin:f.env.FRONTEND_ORIGIN,Authorization:'Bearer '+token,'X-Budget-Mode':'on-demand-v1','Content-Type':'application/json'},body:JSON.stringify(body)}),f.env);
   assert.equal((await invoke('/link-token',{})).status,200);const response=await invoke('/exchange',{publicToken:'public-link-token'});assert.equal(response.status,200);assert.doesNotMatch(await response.text(),/never-return|test-secret|access_token/);const owner=await f.deps.hash(f.env.OWNER_EMAIL),store=new BudgetStore(f.db,owner),item=await store.get('item','item');assert.ok(item.tokenKey);assert.doesNotMatch(f.records.get(item.tokenKey),/never-return-this-bank-token/);assert.doesNotMatch(JSON.stringify(await store.list('item')),/never-return/);assert.equal((await store.get('account','account')).availableCents,null);assert.ok(calls.includes('/institutions/get_by_id'));
 });
 test('webhooks and old cron deliveries cannot read, write, or sync the on-demand budget',async t=>{
