@@ -59,11 +59,6 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1792537208,
-              "name": "Zul'Aman",
-              "startingUt": 1792508400
-            },
-            {
               "endingUt": 1792566008,
               "name": "Eversong Woods",
               "startingUt": 1792537200
@@ -107,6 +102,11 @@
               "endingUt": 1792796408,
               "name": "Harandar",
               "startingUt": 1792767600
+            },
+            {
+              "endingUt": 1792825208,
+              "name": "Eversong Woods",
+              "startingUt": 1792796400
             }
           ],
           "icons": ""
@@ -153,29 +153,29 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1792535400,
-              "name": "Mlurkkr Massacre",
-              "startingUt": 1792533600
-            },
-            {
-              "endingUt": 1792537200,
-              "name": "Siege at the Whispering Marsh",
-              "startingUt": 1792535400
-            },
-            {
-              "endingUt": 1792539000,
+              "endingUt": 1792548000,
               "name": "The Malformed Leviathan",
-              "startingUt": 1792537200
+              "startingUt": 1792546200
             },
             {
-              "endingUt": 1792540800,
+              "endingUt": 1792549800,
               "name": "The Broodmother's Nest",
-              "startingUt": 1792539000
+              "startingUt": 1792548000
             },
             {
-              "endingUt": 1792542600,
+              "endingUt": 1792551600,
               "name": "The Looming Mutagenitor",
-              "startingUt": 1792540800
+              "startingUt": 1792549800
+            },
+            {
+              "endingUt": 1792553400,
+              "name": "Mlurkkr Massacre",
+              "startingUt": 1792551600
+            },
+            {
+              "endingUt": 1792555200,
+              "name": "Siege at the Whispering Marsh",
+              "startingUt": 1792553400
             }
           ],
           "icons": ""
@@ -216,8 +216,8 @@
         "content": {
           "lines": [
             {
-              "ending": "16 hr 34 min",
-              "endingShort": "16h",
+              "ending": "13 hr 17 min",
+              "endingShort": "13h",
               "endingUt": 1792594800,
               "icon": "inv_achievement_sanktumoflight",
               "iconLabel": "Silvermoon City",
@@ -226,10 +226,14 @@
               "url": "/zone=16545/collegiate-calamity"
             },
             {
-              "ending": "16 hr 34 min",
-              "endingShort": "16h",
+              "ending": "13 hr 17 min",
+              "endingShort": "13h",
               "endingUt": 1792594800,
-              "name": "Active"
+              "icon": "inv_zone_voidstorm",
+              "iconLabel": "Voidstorm",
+              "iconUrl": "/zone=15458/voidstorm",
+              "name": "Voidstorm: Sunkiller Sanctum",
+              "url": "/zone=16592/sunkiller-sanctum"
             }
           ],
           "icons": ""
@@ -306,7 +310,7 @@
       }
     ],
     "source": "https://www.wowhead.com/today-in-wow",
-    "updated": "2026-10-20T22:25:31.767489+00:00"
+    "updated": "2026-10-21T01:42:56.065573+00:00"
   },
   "forever": {
     "events": [
