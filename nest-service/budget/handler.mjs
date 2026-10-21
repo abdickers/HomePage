@@ -1,5 +1,5 @@
 import {BudgetStore} from './store.mjs';
-import {BudgetError,plaidConfigured,plaidEnvironment,plaidCall,createBankLink,bankCandidates,institutionSupported} from './plaid.mjs';
+import {BudgetError,plaidConfigured,plaidEnvironment,requireBankEnvironment,plaidCall,createBankLink,bankCandidates,institutionSupported} from './plaid.mjs';
 import {buildSummary,money,validDate,merchantFor,today,addDays} from './domain.mjs';
 import {activityRange,periodActivity} from './activity.mjs';
 import {runBudgetJob,storeAccounts} from './sync.mjs';
@@ -145,6 +145,7 @@ export async function handleBudget(request,env,owner,sessionId,deps) {
     if(!input.itemId&&(await store.list('item')).some(i=>i.environment===plaidEnvironment(env)))throw new BudgetError(409,'A bank import already exists in this environment. Use Reconnect bank, or delete the disconnected import before creating a new connection to avoid duplicates.');
     const candidates=await bankCandidates(env,deps.boundedJson);if(!candidates.length)throw new BudgetError(409,'No Central Bank institution currently matches centralbank.net and both Balance and Transactions. Live linking is blocked until coverage is verified.','BANK_COVERAGE');
     const update=input.itemId?await store.get('item',id(input.itemId)):null;if(input.itemId&&!update)throw new BudgetError(404,'Bank connection not found.');
+    requireBankEnvironment(env,update);
     const token=update?await deps.getRecord(env,update.tokenKey):null;
     let range;try{range=activityRange(new URLSearchParams(Object.entries(input).filter(([key])=>['activityStart','activityEnd'].includes(key))));}catch(error){throw new BudgetError(400,error.message);}
     const days=Math.max(1,Math.min(730,Math.ceil((Date.parse(today()+'T12:00:00Z')-Date.parse(range.start+'T12:00:00Z'))/86400000)+1));
@@ -169,18 +170,20 @@ export async function handleBudget(request,env,owner,sessionId,deps) {
     }catch(error){if(!connectionSaved&&!connectionRemoved){try{await plaidCall(env,'/item/remove',{access_token:exchanged.access_token},deps.boundedJson);}catch{const tokenKey='budget:plaid:'+owner+':'+exchanged.item_id;await deps.putRecord(env,tokenKey,{access:exchanged.access_token});await store.put('item',exchanged.item_id,{id:exchanged.item_id,tokenKey,name:'Bank connection requiring cleanup',environment:plaidEnvironment(env),status:'needs-attention',error:'Setup did not finish and disconnection could not be confirmed. Use Disconnect before retrying.'});}}throw error;}
   }
   if(path==='/link-updated'){
-    const item=await store.get('item',id(input.itemId));if(!item)throw new BudgetError(404,'Bank connection not found.');await store.put('item',item.id,{...item,status:'connected',error:null});await store.queue('bank',item.id);return json(env,{queued:true});
+    const item=await store.get('item',id(input.itemId));if(!item)throw new BudgetError(404,'Bank connection not found.');requireBankEnvironment(env,item);await store.put('item',item.id,{...item,status:'connected',error:null});await store.queue('bank',item.id);return json(env,{queued:true});
   }
   if(path==='/balances'){
     const item=await store.get('item',id(input.itemId));if(!item)throw new BudgetError(404,'Bank connection not found.');
+    requireBankEnvironment(env,item);
     if(item.balanceRequestedAt&&Date.now()-Date.parse(item.balanceRequestedAt)<60000)throw new BudgetError(429,'Wait one minute before another live balance request.');
     const token=await deps.getRecord(env,item.tokenKey);if(!token)throw new BudgetError(409,'Reconnect this bank.');
     const result=await plaidCall(env,'/accounts/balance/get',{access_token:token.access},deps.boundedJson);await storeAccounts(store,result.accounts,item,'on-demand');await store.put('item',item.id,{...item,balanceRequestedAt:new Date().toISOString()});return json(env,{refreshed:true});
   }
   if(path==='/bank/disconnect'){
     const item=await store.get('item',id(input.id));if(!item)throw new BudgetError(404,'Bank connection not found.');
+    if(item.environment!=='sandbox')requireBankEnvironment(env,item);
     if(input.deleteData===true&&input.confirmation!=='DELETE SOURCE DATA')throw new BudgetError(400,'Type DELETE SOURCE DATA to delete imported bank data.');
-    const token=await deps.getRecord(env,item.tokenKey);if(token)await plaidCall(env,'/item/remove',{access_token:token.access},deps.boundedJson);
+    const token=await deps.getRecord(env,item.tokenKey);if(token&&item.environment===plaidEnvironment(env))await plaidCall(env,'/item/remove',{access_token:token.access},deps.boundedJson);
     await env.NEST_KV.delete(item.tokenKey);await store.put('item',item.id,{...item,status:'disconnected'});await store.statement('DELETE FROM budget_jobs WHERE owner_id=? AND kind=? AND source_id=?',owner,'bank',item.id).run();
     if(input.deleteData===true)await store.deleteSource('bank',item.id);return json(env,{disconnected:true,deleted:input.deleteData===true});
   }
@@ -195,12 +198,13 @@ export async function handleBudget(request,env,owner,sessionId,deps) {
     const settings=await store.get('settings','main');if(settings.syncRequestedAt&&Date.now()-Date.parse(settings.syncRequestedAt)<60000)throw new BudgetError(429,'Wait one minute before requesting another period sync.');
     await store.put('settings','main',{...settings,syncRequestedAt:new Date().toISOString()});
     for(const source of await store.list('mail-source'))if(source.enabled)await store.queue('mail',source.id);
-    for(const item of await store.list('item'))if(item.status!=='disconnected')await store.queue('bank',item.id);
+    for(const item of await store.list('item'))if(item.status!=='disconnected'&&item.environment===plaidEnvironment(env))await store.queue('bank',item.id);
     return json(env,{queued:true});
   }
   if(path==='/delete'){
     if(input.confirmation!=='DELETE MY BUDGET DATA')throw new BudgetError(400,'Type DELETE MY BUDGET DATA to remove the private budget and its connections.');
-    for(const item of await store.list('item')){const token=await deps.getRecord(env,item.tokenKey);if(token)await plaidCall(env,'/item/remove',{access_token:token.access},deps.boundedJson);await env.NEST_KV.delete(item.tokenKey);}
+    const items=await store.list('item');for(const item of items)if(item.environment!=='sandbox')requireBankEnvironment(env,item);
+    for(const item of items){const token=await deps.getRecord(env,item.tokenKey);if(token&&item.environment===plaidEnvironment(env))await plaidCall(env,'/item/remove',{access_token:token.access},deps.boundedJson);await env.NEST_KV.delete(item.tokenKey);}
     for(const source of await store.list('mail-source'))if(!source.primary&&source.tokenKey)await env.NEST_KV.delete(source.tokenKey);
     await store.db.batch(['budget_records','budget_jobs','budget_sync_stage'].map(table=>store.statement(`DELETE FROM ${table} WHERE owner_id=?`,owner)));return json(env,{deleted:true});
   }
