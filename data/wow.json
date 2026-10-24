@@ -173,29 +173,29 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1792866600,
+              "endingUt": 1792875600,
               "name": "The Looming Mutagenitor",
-              "startingUt": 1792864800
+              "startingUt": 1792873800
             },
             {
-              "endingUt": 1792868400,
+              "endingUt": 1792877400,
               "name": "Mlurkkr Massacre",
-              "startingUt": 1792866600
+              "startingUt": 1792875600
             },
             {
-              "endingUt": 1792870200,
+              "endingUt": 1792879200,
               "name": "Siege at the Whispering Marsh",
-              "startingUt": 1792868400
+              "startingUt": 1792877400
             },
             {
-              "endingUt": 1792872000,
+              "endingUt": 1792881000,
               "name": "The Malformed Leviathan",
-              "startingUt": 1792870200
+              "startingUt": 1792879200
             },
             {
-              "endingUt": 1792873800,
+              "endingUt": 1792882800,
               "name": "The Broodmother's Nest",
-              "startingUt": 1792872000
+              "startingUt": 1792881000
             }
           ],
           "icons": ""
@@ -236,16 +236,24 @@
         "content": {
           "lines": [
             {
-              "ending": "20 hr 45 min",
-              "endingShort": "20h",
+              "ending": "18 hr 51 sec",
+              "endingShort": "18h",
               "endingUt": 1792940400,
-              "name": "Active"
+              "icon": "inv_zone_voidstorm",
+              "iconLabel": "Voidstorm",
+              "iconUrl": "/zone=15458/voidstorm",
+              "name": "Voidstorm: Sunkiller Sanctum",
+              "url": "/zone=16592/sunkiller-sanctum"
             },
             {
-              "ending": "20 hr 45 min",
-              "endingShort": "20h",
+              "ending": "18 hr 51 sec",
+              "endingShort": "18h",
               "endingUt": 1792940400,
-              "name": "Active"
+              "icon": "inv_zone_voidstorm",
+              "iconLabel": "Voidstorm",
+              "iconUrl": "/zone=15458/voidstorm",
+              "name": "Voidstorm: Shadowguard Point",
+              "url": "/zone=16549/shadowguard-point"
             }
           ],
           "icons": ""
@@ -322,7 +330,7 @@
       }
     ],
     "source": "https://www.wowhead.com/today-in-wow",
-    "updated": "2026-10-24T18:14:58.434045+00:00"
+    "updated": "2026-10-24T20:59:18.654115+00:00"
   },
   "forever": {
     "events": [
