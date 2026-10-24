@@ -79,11 +79,6 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1792796408,
-              "name": "Harandar",
-              "startingUt": 1792767600
-            },
-            {
               "endingUt": 1792825208,
               "name": "Eversong Woods",
               "startingUt": 1792796400
@@ -127,6 +122,11 @@
               "endingUt": 1793055608,
               "name": "Harandar",
               "startingUt": 1793026800
+            },
+            {
+              "endingUt": 1793084408,
+              "name": "Eversong Woods",
+              "startingUt": 1793055600
             }
           ],
           "icons": ""
@@ -173,29 +173,29 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1792794600,
+              "endingUt": 1792803600,
               "name": "The Looming Mutagenitor",
-              "startingUt": 1792792800
+              "startingUt": 1792801800
             },
             {
-              "endingUt": 1792796400,
+              "endingUt": 1792805400,
               "name": "Mlurkkr Massacre",
-              "startingUt": 1792794600
+              "startingUt": 1792803600
             },
             {
-              "endingUt": 1792798200,
+              "endingUt": 1792807200,
               "name": "Siege at the Whispering Marsh",
-              "startingUt": 1792796400
+              "startingUt": 1792805400
             },
             {
-              "endingUt": 1792800000,
+              "endingUt": 1792809000,
               "name": "The Malformed Leviathan",
-              "startingUt": 1792798200
+              "startingUt": 1792807200
             },
             {
-              "endingUt": 1792801800,
+              "endingUt": 1792810800,
               "name": "The Broodmother's Nest",
-              "startingUt": 1792800000
+              "startingUt": 1792809000
             }
           ],
           "icons": ""
@@ -236,8 +236,8 @@
         "content": {
           "lines": [
             {
-              "ending": "16 hr 42 min",
-              "endingShort": "16h",
+              "ending": "14 hr 5 min",
+              "endingShort": "14h",
               "endingUt": 1792854000,
               "icon": "inv_achievement_sanktumoflight",
               "iconLabel": "Silvermoon City",
@@ -246,8 +246,8 @@
               "url": "/zone=16545/collegiate-calamity"
             },
             {
-              "ending": "16 hr 42 min",
-              "endingShort": "16h",
+              "ending": "14 hr 5 min",
+              "endingShort": "14h",
               "endingUt": 1792854000,
               "icon": "inv_achievement_sanktumoflight",
               "iconLabel": "Eversong Woods",
@@ -330,7 +330,7 @@
       }
     ],
     "source": "https://www.wowhead.com/today-in-wow",
-    "updated": "2026-10-23T22:23:01.408483+00:00"
+    "updated": "2026-10-24T00:54:20.127801+00:00"
   },
   "forever": {
     "events": [
