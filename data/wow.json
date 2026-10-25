@@ -180,29 +180,29 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1792922400,
-              "name": "Mlurkkr Massacre",
-              "startingUt": 1792920600
-            },
-            {
-              "endingUt": 1792924200,
-              "name": "Siege at the Whispering Marsh",
-              "startingUt": 1792922400
-            },
-            {
-              "endingUt": 1792926000,
-              "name": "The Malformed Leviathan",
-              "startingUt": 1792924200
-            },
-            {
-              "endingUt": 1792927800,
-              "name": "The Broodmother's Nest",
-              "startingUt": 1792926000
-            },
-            {
-              "endingUt": 1792929600,
+              "endingUt": 1792938600,
               "name": "The Looming Mutagenitor",
-              "startingUt": 1792927800
+              "startingUt": 1792936800
+            },
+            {
+              "endingUt": 1792940400,
+              "name": "Mlurkkr Massacre",
+              "startingUt": 1792938600
+            },
+            {
+              "endingUt": 1792942200,
+              "name": "Siege at the Whispering Marsh",
+              "startingUt": 1792940400
+            },
+            {
+              "endingUt": 1792944000,
+              "name": "The Malformed Leviathan",
+              "startingUt": 1792942200
+            },
+            {
+              "endingUt": 1792945800,
+              "name": "The Broodmother's Nest",
+              "startingUt": 1792944000
             }
           ],
           "icons": ""
@@ -243,8 +243,8 @@
         "content": {
           "lines": [
             {
-              "ending": "5 hr 4 min",
-              "endingShort": "5h",
+              "ending": "32 min 51 sec",
+              "endingShort": "32m",
               "endingUt": 1792940400,
               "icon": "achievement_zone_isleofqueldanas",
               "iconLabel": "Isle of Quel'Danas",
@@ -253,8 +253,8 @@
               "url": "/zone=16542/parhelion-plaza"
             },
             {
-              "ending": "5 hr 4 min",
-              "endingShort": "5h",
+              "ending": "32 min 51 sec",
+              "endingShort": "32m",
               "endingUt": 1792940400,
               "icon": "inv_zone_voidstorm",
               "iconLabel": "Voidstorm",
@@ -263,8 +263,8 @@
               "url": "/zone=16592/sunkiller-sanctum"
             },
             {
-              "ending": "5 hr 4 min",
-              "endingShort": "5h",
+              "ending": "32 min 51 sec",
+              "endingShort": "32m",
               "endingUt": 1792940400,
               "icon": "inv_zone_voidstorm",
               "iconLabel": "Voidstorm",
@@ -347,7 +347,7 @@
       }
     ],
     "source": "https://www.wowhead.com/today-in-wow",
-    "updated": "2026-10-25T09:55:32.907579+00:00"
+    "updated": "2026-10-25T14:27:30.683715+00:00"
   },
   "forever": {
     "events": [
