@@ -86,11 +86,6 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1792940408,
-              "name": "Zul'Aman",
-              "startingUt": 1792911600
-            },
-            {
               "endingUt": 1792969208,
               "name": "Eversong Woods",
               "startingUt": 1792940400
@@ -134,6 +129,11 @@
               "endingUt": 1793199608,
               "name": "Eversong Woods",
               "startingUt": 1793170800
+            },
+            {
+              "endingUt": 1793228408,
+              "name": "Zul'Aman",
+              "startingUt": 1793199600
             }
           ],
           "icons": ""
@@ -180,29 +180,29 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1792938600,
-              "name": "The Looming Mutagenitor",
-              "startingUt": 1792936800
-            },
-            {
-              "endingUt": 1792940400,
-              "name": "Mlurkkr Massacre",
-              "startingUt": 1792938600
-            },
-            {
-              "endingUt": 1792942200,
-              "name": "Siege at the Whispering Marsh",
-              "startingUt": 1792940400
-            },
-            {
-              "endingUt": 1792944000,
+              "endingUt": 1792953000,
               "name": "The Malformed Leviathan",
-              "startingUt": 1792942200
+              "startingUt": 1792951200
             },
             {
-              "endingUt": 1792945800,
+              "endingUt": 1792954800,
               "name": "The Broodmother's Nest",
-              "startingUt": 1792944000
+              "startingUt": 1792953000
+            },
+            {
+              "endingUt": 1792956600,
+              "name": "The Looming Mutagenitor",
+              "startingUt": 1792954800
+            },
+            {
+              "endingUt": 1792958400,
+              "name": "Mlurkkr Massacre",
+              "startingUt": 1792956600
+            },
+            {
+              "endingUt": 1792960200,
+              "name": "Siege at the Whispering Marsh",
+              "startingUt": 1792958400
             }
           ],
           "icons": ""
@@ -243,34 +243,20 @@
         "content": {
           "lines": [
             {
-              "ending": "32 min 51 sec",
-              "endingShort": "32m",
-              "endingUt": 1792940400,
-              "icon": "achievement_zone_isleofqueldanas",
-              "iconLabel": "Isle of Quel'Danas",
-              "iconUrl": "/zone=16182/isle-of-queldanas",
-              "name": "Isle of Quel'Danas: Parhelion Plaza",
-              "url": "/zone=16542/parhelion-plaza"
+              "ending": "20 hr 32 min",
+              "endingShort": "20h",
+              "endingUt": 1793026800,
+              "icon": "inv_achievement_sanktumoflight",
+              "iconLabel": "Eversong Woods",
+              "iconUrl": "/zone=15968/eversong-woods",
+              "name": "Eversong Woods: The Shadow Enclave",
+              "url": "/zone=16594/the-shadow-enclave"
             },
             {
-              "ending": "32 min 51 sec",
-              "endingShort": "32m",
-              "endingUt": 1792940400,
-              "icon": "inv_zone_voidstorm",
-              "iconLabel": "Voidstorm",
-              "iconUrl": "/zone=15458/voidstorm",
-              "name": "Voidstorm: Sunkiller Sanctum",
-              "url": "/zone=16592/sunkiller-sanctum"
-            },
-            {
-              "ending": "32 min 51 sec",
-              "endingShort": "32m",
-              "endingUt": 1792940400,
-              "icon": "inv_zone_voidstorm",
-              "iconLabel": "Voidstorm",
-              "iconUrl": "/zone=15458/voidstorm",
-              "name": "Voidstorm: Shadowguard Point",
-              "url": "/zone=16549/shadowguard-point"
+              "ending": "20 hr 32 min",
+              "endingShort": "20h",
+              "endingUt": 1793026800,
+              "name": "Active"
             }
           ],
           "icons": ""
@@ -347,7 +333,7 @@
       }
     ],
     "source": "https://www.wowhead.com/today-in-wow",
-    "updated": "2026-10-25T14:27:30.683715+00:00"
+    "updated": "2026-10-25T18:27:59.157363+00:00"
   },
   "forever": {
     "events": [
