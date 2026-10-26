@@ -180,29 +180,29 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1792974600,
-              "name": "The Looming Mutagenitor",
-              "startingUt": 1792972800
-            },
-            {
-              "endingUt": 1792976400,
-              "name": "Mlurkkr Massacre",
-              "startingUt": 1792974600
-            },
-            {
-              "endingUt": 1792978200,
+              "endingUt": 1792996200,
               "name": "Siege at the Whispering Marsh",
-              "startingUt": 1792976400
+              "startingUt": 1792994400
             },
             {
-              "endingUt": 1792980000,
+              "endingUt": 1792998000,
               "name": "The Malformed Leviathan",
-              "startingUt": 1792978200
+              "startingUt": 1792996200
             },
             {
-              "endingUt": 1792981800,
+              "endingUt": 1792999800,
               "name": "The Broodmother's Nest",
-              "startingUt": 1792980000
+              "startingUt": 1792998000
+            },
+            {
+              "endingUt": 1793001600,
+              "name": "The Looming Mutagenitor",
+              "startingUt": 1792999800
+            },
+            {
+              "endingUt": 1793003400,
+              "name": "Mlurkkr Massacre",
+              "startingUt": 1793001600
             }
           ],
           "icons": ""
@@ -243,8 +243,8 @@
         "content": {
           "lines": [
             {
-              "ending": "14 hr 31 min",
-              "endingShort": "14h",
+              "ending": "8 hr 33 min",
+              "endingShort": "8h",
               "endingUt": 1793026800,
               "icon": "inv_achievement_zone_harandar",
               "iconLabel": "Harandar",
@@ -253,8 +253,8 @@
               "url": "/zone=16548/the-grudge-pit"
             },
             {
-              "ending": "14 hr 31 min",
-              "endingShort": "14h",
+              "ending": "8 hr 33 min",
+              "endingShort": "8h",
               "endingUt": 1793026800,
               "icon": "inv_achievement_sanktumoflight",
               "iconLabel": "Eversong Woods",
@@ -263,8 +263,8 @@
               "url": "/zone=16594/the-shadow-enclave"
             },
             {
-              "ending": "14 hr 31 min",
-              "endingShort": "14h",
+              "ending": "8 hr 33 min",
+              "endingShort": "8h",
               "endingUt": 1793026800,
               "icon": "inv_achievement_zone_zulaman1",
               "iconLabel": "Zul'Aman",
@@ -347,7 +347,7 @@
       }
     ],
     "source": "https://www.wowhead.com/today-in-wow",
-    "updated": "2026-10-26T00:28:56.730037+00:00"
+    "updated": "2026-10-26T06:26:32.471576+00:00"
   },
   "forever": {
     "events": [
