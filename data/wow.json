@@ -5,18 +5,6 @@
         "content": {
           "lines": [
             {
-              "icon": "ability_evoker_bronze_01",
-              "name": "Lindormi's Guidance",
-              "side": "both",
-              "url": "/affix=165/lindormis-guidance"
-            },
-            {
-              "icon": "inv_cosmicvoid_buff",
-              "name": "Xal'atath's Bargain: Voidbound",
-              "side": "both",
-              "url": "/affix=158/xalataths-bargain-voidbound"
-            },
-            {
               "icon": "achievement_boss_archaedas",
               "name": "Tyrannical",
               "side": "both",
@@ -47,32 +35,11 @@
         "content": {
           "lines": [
             {
-              "icon": "8032875",
-              "iconLabel": "Reward: A Stack of Snacks",
-              "iconUrl": "/achievement=63633/a-stack-of-snacks",
-              "name": "Ki'clak Snack Attack",
-              "url": "/quest=94967/kiclak-snack-attack"
-            },
-            {
               "icon": "inv_misc_treasurechest05b",
               "iconLabel": "Reward: Fabled Adventurer's Cache",
               "iconUrl": "/item=264274/fabled-adventurers-cache",
               "name": "Special Assignment: Shade and Claw",
               "url": "/quest=92139/special-assignment-shade-and-claw"
-            },
-            {
-              "icon": "inv_misc_treasurechest05b",
-              "iconLabel": "Reward: Fabled Adventurer's Cache",
-              "iconUrl": "/item=264274/fabled-adventurers-cache",
-              "name": "Special Assignment: Agents of the Shield",
-              "url": "/quest=93244/special-assignment-agents-of-the-shield"
-            },
-            {
-              "icon": "inv_misc_treasurechest05b",
-              "iconLabel": "Reward: Fabled Adventurer's Cache",
-              "iconUrl": "/item=264274/fabled-adventurers-cache",
-              "name": "Special Assignment: Wraith Wrath",
-              "url": "/quest=95918/special-assignment-wraith-wrath"
             }
           ],
           "icons": ""
@@ -85,11 +52,6 @@
       {
         "content": {
           "lines": [
-            {
-              "endingUt": 1793113208,
-              "name": "Harandar",
-              "startingUt": 1793084400
-            },
             {
               "endingUt": 1793142008,
               "name": "Eversong Woods",
@@ -134,6 +96,11 @@
               "endingUt": 1793372408,
               "name": "Harandar",
               "startingUt": 1793343600
+            },
+            {
+              "endingUt": 1793401208,
+              "name": "Zul'Aman",
+              "startingUt": 1793372400
             }
           ],
           "icons": ""
@@ -148,8 +115,8 @@
         "content": {
           "lines": [
             {
-              "name": "Naigtal",
-              "url": "/zone=16943/naigtal"
+              "name": "Val",
+              "url": "/zone=16900/val"
             }
           ],
           "icons": ""
@@ -164,8 +131,8 @@
         "content": {
           "lines": [
             {
-              "name": "Eversong Woods",
-              "url": "/zone=15968/eversong-woods"
+              "name": "Zul'Aman",
+              "url": "/zone=15947/zulaman"
             }
           ],
           "icons": ""
@@ -180,29 +147,29 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1793107800,
-              "name": "The Broodmother's Nest",
-              "startingUt": 1793106000
-            },
-            {
-              "endingUt": 1793109600,
-              "name": "The Looming Mutagenitor",
-              "startingUt": 1793107800
-            },
-            {
-              "endingUt": 1793111400,
+              "endingUt": 1793129400,
               "name": "Mlurkkr Massacre",
-              "startingUt": 1793109600
+              "startingUt": 1793127600
             },
             {
-              "endingUt": 1793113200,
+              "endingUt": 1793131200,
               "name": "Siege at the Whispering Marsh",
-              "startingUt": 1793111400
+              "startingUt": 1793129400
             },
             {
-              "endingUt": 1793115000,
+              "endingUt": 1793133000,
               "name": "The Malformed Leviathan",
-              "startingUt": 1793113200
+              "startingUt": 1793131200
+            },
+            {
+              "endingUt": 1793134800,
+              "name": "The Broodmother's Nest",
+              "startingUt": 1793133000
+            },
+            {
+              "endingUt": 1793136600,
+              "name": "The Looming Mutagenitor",
+              "startingUt": 1793134800
             }
           ],
           "icons": ""
@@ -243,34 +210,20 @@
         "content": {
           "lines": [
             {
-              "ending": "1 hr 36 min",
-              "endingShort": "1h",
-              "endingUt": 1793113200,
-              "icon": "inv_achievement_zone_harandar",
-              "iconLabel": "Harandar",
-              "iconUrl": "/zone=15355/harandar",
-              "name": "Harandar: The Gulf of Memory",
-              "url": "/zone=16595/the-gulf-of-memory"
-            },
-            {
-              "ending": "1 hr 36 min",
-              "endingShort": "1h",
-              "endingUt": 1793113200,
+              "ending": "19 hr 30 min",
+              "endingShort": "19h",
+              "endingUt": 1793199600,
               "icon": "inv_achievement_sanktumoflight",
               "iconLabel": "Silvermoon City",
               "iconUrl": "/zone=15969/silvermoon-city",
-              "name": "Silvermoon City: The Darkway",
-              "url": "/zone=16642/the-darkway"
+              "name": "Silvermoon City: Collegiate Calamity",
+              "url": "/zone=16545/collegiate-calamity"
             },
             {
-              "ending": "1 hr 36 min",
-              "endingShort": "1h",
-              "endingUt": 1793113200,
-              "icon": "inv_achievement_zone_zulaman1",
-              "iconLabel": "Zul'Aman",
-              "iconUrl": "/zone=15947/zulaman",
-              "name": "Zul'Aman: Atal'Aman",
-              "url": "/zone=16556/atalaman"
+              "ending": "19 hr 30 min",
+              "endingShort": "19h",
+              "endingUt": 1793199600,
+              "name": "Active"
             }
           ],
           "icons": ""
@@ -300,9 +253,9 @@
             },
             {
               "icon": "calendar_brawl",
-              "name": "PvP Brawl: Deepwind Dunk",
+              "name": "PvP Brawl: Shado-Pan Showdown",
               "side": "both",
-              "url": "/event=1240/pvp-brawl-deepwind-dunk"
+              "url": "/event=1233/pvp-brawl-shado-pan-showdown"
             }
           ],
           "icons": ""
@@ -315,9 +268,9 @@
         "content": {
           "lines": [
             {
-              "name": "Predaxas",
+              "name": "Lu'ashal",
               "side": "both",
-              "url": "/quest=92636/predaxas"
+              "url": "/quest=92560/luashal"
             }
           ],
           "icons": ""
@@ -347,7 +300,7 @@
       }
     ],
     "source": "https://www.wowhead.com/today-in-wow",
-    "updated": "2026-10-27T13:23:14.572924+00:00"
+    "updated": "2026-10-27T19:29:28.418711+00:00"
   },
   "forever": {
     "events": [
