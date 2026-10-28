@@ -72,11 +72,6 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1793228408,
-              "name": "Zul'Aman",
-              "startingUt": 1793199600
-            },
-            {
               "endingUt": 1793257208,
               "name": "Harandar",
               "startingUt": 1793228400
@@ -120,6 +115,11 @@
               "endingUt": 1793487608,
               "name": "Eversong Woods",
               "startingUt": 1793458800
+            },
+            {
+              "endingUt": 1793516408,
+              "name": "Zul'Aman",
+              "startingUt": 1793487600
             }
           ],
           "icons": ""
@@ -166,29 +166,29 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1793214000,
-              "name": "The Malformed Leviathan",
-              "startingUt": 1793212200
-            },
-            {
-              "endingUt": 1793215800,
-              "name": "The Broodmother's Nest",
-              "startingUt": 1793214000
-            },
-            {
-              "endingUt": 1793217600,
-              "name": "The Looming Mutagenitor",
-              "startingUt": 1793215800
-            },
-            {
-              "endingUt": 1793219400,
-              "name": "Mlurkkr Massacre",
-              "startingUt": 1793217600
-            },
-            {
-              "endingUt": 1793221200,
+              "endingUt": 1793230200,
               "name": "Siege at the Whispering Marsh",
-              "startingUt": 1793219400
+              "startingUt": 1793228400
+            },
+            {
+              "endingUt": 1793232000,
+              "name": "The Malformed Leviathan",
+              "startingUt": 1793230200
+            },
+            {
+              "endingUt": 1793233800,
+              "name": "The Broodmother's Nest",
+              "startingUt": 1793232000
+            },
+            {
+              "endingUt": 1793235600,
+              "name": "The Looming Mutagenitor",
+              "startingUt": 1793233800
+            },
+            {
+              "endingUt": 1793237400,
+              "name": "Mlurkkr Massacre",
+              "startingUt": 1793235600
             }
           ],
           "icons": ""
@@ -229,8 +229,8 @@
         "content": {
           "lines": [
             {
-              "ending": "20 hr 4 min",
-              "endingShort": "20h",
+              "ending": "15 hr 39 min",
+              "endingShort": "15h",
               "endingUt": 1793286000,
               "icon": "inv_achievement_sanktumoflight",
               "iconLabel": "Silvermoon City",
@@ -239,10 +239,14 @@
               "url": "/zone=16642/the-darkway"
             },
             {
-              "ending": "20 hr 4 min",
-              "endingShort": "20h",
+              "ending": "15 hr 39 min",
+              "endingShort": "15h",
               "endingUt": 1793286000,
-              "name": "Active"
+              "icon": "inv_achievement_zone_zulaman1",
+              "iconLabel": "Zul'Aman",
+              "iconUrl": "/zone=15947/zulaman",
+              "name": "Zul'Aman: Twilight Crypts",
+              "url": "/zone=16557/twilight-crypts"
             }
           ],
           "icons": ""
@@ -319,7 +323,7 @@
       }
     ],
     "source": "https://www.wowhead.com/today-in-wow",
-    "updated": "2026-10-28T18:55:59.523452+00:00"
+    "updated": "2026-10-28T23:20:17.966373+00:00"
   },
   "forever": {
     "events": [
