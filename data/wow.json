@@ -5,12 +5,6 @@
         "content": {
           "lines": [
             {
-              "icon": "achievement_boss_archaedas",
-              "name": "Tyrannical",
-              "side": "both",
-              "url": "/affix=9/tyrannical"
-            },
-            {
               "icon": "ability_toughness",
               "name": "Fortified",
               "side": "both",
@@ -21,6 +15,12 @@
               "name": "Xal'atath's Bargain: Devour",
               "side": "both",
               "url": "/affix=160/xalataths-bargain-devour"
+            },
+            {
+              "icon": "achievement_boss_archaedas",
+              "name": "Tyrannical",
+              "side": "both",
+              "url": "/affix=9/tyrannical"
             },
             {
               "icon": "ability_racial_chillofnight",
@@ -153,29 +153,29 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1793145600,
-              "name": "The Looming Mutagenitor",
-              "startingUt": 1793143800
-            },
-            {
-              "endingUt": 1793147400,
-              "name": "Mlurkkr Massacre",
-              "startingUt": 1793145600
-            },
-            {
-              "endingUt": 1793149200,
+              "endingUt": 1793167200,
               "name": "Siege at the Whispering Marsh",
-              "startingUt": 1793147400
+              "startingUt": 1793165400
             },
             {
-              "endingUt": 1793151000,
+              "endingUt": 1793169000,
               "name": "The Malformed Leviathan",
-              "startingUt": 1793149200
+              "startingUt": 1793167200
             },
             {
-              "endingUt": 1793152800,
+              "endingUt": 1793170800,
               "name": "The Broodmother's Nest",
-              "startingUt": 1793151000
+              "startingUt": 1793169000
+            },
+            {
+              "endingUt": 1793172600,
+              "name": "The Looming Mutagenitor",
+              "startingUt": 1793170800
+            },
+            {
+              "endingUt": 1793174400,
+              "name": "Mlurkkr Massacre",
+              "startingUt": 1793172600
             }
           ],
           "icons": ""
@@ -216,8 +216,8 @@
         "content": {
           "lines": [
             {
-              "ending": "15 hr 8 min",
-              "endingShort": "15h",
+              "ending": "9 hr 3 min",
+              "endingShort": "9h",
               "endingUt": 1793199600,
               "icon": "inv_achievement_sanktumoflight",
               "iconLabel": "Silvermoon City",
@@ -226,8 +226,8 @@
               "url": "/zone=16545/collegiate-calamity"
             },
             {
-              "ending": "15 hr 8 min",
-              "endingShort": "15h",
+              "ending": "9 hr 3 min",
+              "endingShort": "9h",
               "endingUt": 1793199600,
               "icon": "inv_zone_voidstorm",
               "iconLabel": "Voidstorm",
@@ -310,7 +310,7 @@
       }
     ],
     "source": "https://www.wowhead.com/today-in-wow",
-    "updated": "2026-10-27T23:51:21.877781+00:00"
+    "updated": "2026-10-28T05:56:19.889812+00:00"
   },
   "forever": {
     "events": [
