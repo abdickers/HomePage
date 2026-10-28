@@ -1,0 +1,37 @@
+/* Natural-height cards keep the existing oak frame around every added row. */
+#dashboard #toolsPanel :is(.tool-grid,.workshop-grid) { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,170px),1fr)); gap:14px; align-items:stretch; }
+#dashboard #toolsPanel .app-card { min-width:0; height:auto; padding:18px 12px; }
+#dashboard #toolsPanel .app-card>span:not(.app-icon) { min-width:0; max-width:100%; overflow-wrap:anywhere; line-height:1.45; }
+#dashboard #toolsPanel .app-icon { flex-shrink:0; }
+#dashboard #toolsPanel .app-icon img { width:100%; height:100%; object-fit:contain; }
+#dashboard #siteTools img[src$="github.svg"] { background:#e5e3dc; padding:6px; }
+#dashboard #dailyProvisioning .provision-grid { grid-template-columns:repeat(3,minmax(0,1fr)); align-items:stretch; }
+#dailyProvisioning .provision-brand { width:56px; height:56px; object-fit:contain; align-self:center; border-radius:12px; }
+#dailyProvisioning .provision-card { min-width:0; }
+#dailyProvisioning .provision-card :is(h3,p,a) { overflow-wrap:break-word; }
+#dashboard #dailyProvisioning .provision-card-actions>a { flex-basis:100%; min-width:0; }
+#dashboard .play-panel { align-self:stretch; display:flex; flex-direction:column; gap:16px; }
+#playPanel>.panel-title { flex-wrap:wrap; gap:16px; margin-bottom:0; }
+#playPanel>.panel-title .section-icon { object-fit:contain; }
+#playPanel p { line-height:1.65; margin:0; }
+.play-toolbar { display:flex; flex-wrap:wrap; align-items:end; gap:12px; }
+.play-toolbar label { display:grid; gap:6px; flex:1 1 180px; min-width:0; font-size:13px; }
+.play-toolbar :is(select,button) { min-height:44px; max-width:100%; }
+.play-apps { display:grid; gap:14px; min-width:0; }
+@media(min-width:1200px) { .play-apps { grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); } }
+.play-app { padding:18px; border:1px solid #ac92585c; border-radius:8px; background:linear-gradient(140deg,#263b2b,#101e16); min-width:0; }
+.play-app h3 { margin:0 0 6px; font-size:23px; overflow-wrap:anywhere; }
+.play-app small { display:block; overflow-wrap:anywhere; color:#d8cfb4; }
+.play-app button { margin-top:12px; }
+.play-metrics { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin:14px 0; }
+.play-metrics>div { padding:12px; border:1px solid #ac925845; border-radius:6px; background:#0b1915a3; }
+.play-metrics dt { font-size:12px; line-height:1.5; }
+.play-metrics dd { margin:6px 0 0; font-size:22px; color:#f0dfb4; }
+#playPanel .play-footnote { margin-top:auto; padding-top:6px; font-size:12px; color:#d8cfb4; }
+@media(max-width:1199px) { #dashboard #dailyProvisioning .provision-grid { grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr)); } }
+@media(max-width:480px) {
+ #dashboard #toolsPanel :is(.tool-grid,.workshop-grid) { grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+ #dashboard #dailyProvisioning .provision-grid { grid-template-columns:minmax(0,1fr); }
+ .play-metrics { grid-template-columns:minmax(0,1fr); }
+}
+@media(max-width:340px) { #dashboard #toolsPanel :is(.tool-grid,.workshop-grid) { grid-template-columns:minmax(0,1fr); } }

@@ -2,14 +2,14 @@ import {initSettingsPresentation} from './settings-presentation.js?v=20261018-ba
 import {initWizardDisclosure} from './wizard-disclosure.js?v=20261017-gondor1';
 import {initNest} from './nest.js?v=20261017-private1';
 import {NEST_SERVICE_URL} from './nest-config.js?v=20261017-private1';
-import {createGoogleConnection} from './google-connection.js?v=20261017-private1';
+import {createGoogleConnection} from './google-connection.js?v=20261028-apps1';
 import {initBudget} from './budget.js?v=20261020-demand2';
 import { initPersonalMail } from './personal-mail.js?v=20261017-polish1';
 import { accountLink, PERSONAL_EMAIL } from './account-links.mjs?v=20261015-personal7';
 import {DATA_KEY, escapeHtml as esc, safeUrl, safeLinkUrl, localDate, normalizeData, readData, mergeBackup, normalizeObservation} from './core.js?v=20261018-bagend4';
-import {initQuickLinks, linkArtwork, linkDestination} from './quick-links-ui.js?v=20261018-header-icons3';
-import {internalLink} from './quick-links.js?v=20261018-header-icons3';
-import {initKeepNotes} from './keep-notes.js?v=20261018-bagend4';
+import {initQuickLinks, linkArtwork, linkDestination} from './quick-links-ui.js?v=20261028-apps1';
+import {internalLink} from './quick-links.js?v=20261028-apps1';
+import {initPlayApps} from './play-apps.js?v=20261028-apps1';
 const $ = id => document.getElementById(id);
 const uid = () => crypto.randomUUID();
 const settingsUI=initSettingsPresentation();
@@ -18,7 +18,7 @@ let storage;
 try { storage = window.localStorage; } catch { storage = {getItem:()=>null,setItem:()=>{throw new Error('Storage blocked');}}; }
 let data = readData(storage);
 const quickLinks=initQuickLinks({getData:()=>data,openEditor:openLinks});
-const keepNotes=initKeepNotes({getData:()=>data,persist,toast});
+initPlayApps(NEST_SERVICE_URL,{storage});
 const googleConnection=createGoogleConnection(NEST_SERVICE_URL,{storage});
 const personalMail = initPersonalMail(()=>data.settings.clientId,googleConnection);
 for (const a of document.querySelectorAll('a[href]')) {
@@ -59,7 +59,7 @@ function renderLinks() {
     $(id).innerHTML = links.length ? links.map(l=>`<a class="app-card" href="${esc(linkDestination(l))}" ${internalLink(l.url)?'':'target="_blank" rel="noopener noreferrer"'}>${icon(l,'app-icon')}<span>${esc(l.name)}</span></a>`).join('') : '<p class="empty-state">Add your own links with Add Link.</p>';
   }
   quickLinks.refresh();
-  keepNotes.render();
+
 }
 function updateTime() {
   const now=new Date(),today=localDate(now);

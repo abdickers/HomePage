@@ -1,5 +1,5 @@
 import { accountLink, PERSONAL_EMAIL, WORK_URL } from './account-links.mjs?v=20261015-personal6';
-import {normalizeQuickLinks, internalLink, LINK_ICONS} from './quick-links.js?v=20261018-header-icons3';
+import {normalizeQuickLinks, internalLink, LINK_ICONS} from './quick-links.js?v=20261028-apps1';
 import {normalizeKeepLinks} from './keep-notes-data.js?v=20261018-bagend4';
 export const DATA_KEY = 'sage_command_v9';
 export const DEFAULT_SETTINGS = {
