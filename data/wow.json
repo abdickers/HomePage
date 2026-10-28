@@ -5,16 +5,22 @@
         "content": {
           "lines": [
             {
-              "icon": "ability_toughness",
-              "name": "Fortified",
+              "icon": "ability_evoker_bronze_01",
+              "name": "Lindormi's Guidance",
               "side": "both",
-              "url": "/affix=10/fortified"
+              "url": "/affix=165/lindormis-guidance"
             },
             {
               "icon": "inv_ability_voidweaverpriest_entropicrift",
               "name": "Xal'atath's Bargain: Devour",
               "side": "both",
               "url": "/affix=160/xalataths-bargain-devour"
+            },
+            {
+              "icon": "ability_toughness",
+              "name": "Fortified",
+              "side": "both",
+              "url": "/affix=10/fortified"
             },
             {
               "icon": "achievement_boss_archaedas",
@@ -46,6 +52,13 @@
               "iconUrl": "/item=264274/fabled-adventurers-cache",
               "name": "Special Assignment: Shade and Claw",
               "url": "/quest=92139/special-assignment-shade-and-claw"
+            },
+            {
+              "icon": "inv_misc_treasurechest05b",
+              "iconLabel": "Reward: Fabled Adventurer's Cache",
+              "iconUrl": "/item=264274/fabled-adventurers-cache",
+              "name": "Special Assignment: Face the Swarm",
+              "url": "/quest=95922/special-assignment-face-the-swarm"
             }
           ],
           "icons": ""
@@ -58,11 +71,6 @@
       {
         "content": {
           "lines": [
-            {
-              "endingUt": 1793170808,
-              "name": "Zul'Aman",
-              "startingUt": 1793142000
-            },
             {
               "endingUt": 1793199608,
               "name": "Eversong Woods",
@@ -107,6 +115,11 @@
               "endingUt": 1793430008,
               "name": "Eversong Woods",
               "startingUt": 1793401200
+            },
+            {
+              "endingUt": 1793458808,
+              "name": "Harandar",
+              "startingUt": 1793430000
             }
           ],
           "icons": ""
@@ -153,29 +166,29 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1793167200,
+              "endingUt": 1793194200,
               "name": "Siege at the Whispering Marsh",
-              "startingUt": 1793165400
+              "startingUt": 1793192400
             },
             {
-              "endingUt": 1793169000,
+              "endingUt": 1793196000,
               "name": "The Malformed Leviathan",
-              "startingUt": 1793167200
+              "startingUt": 1793194200
             },
             {
-              "endingUt": 1793170800,
+              "endingUt": 1793197800,
               "name": "The Broodmother's Nest",
-              "startingUt": 1793169000
+              "startingUt": 1793196000
             },
             {
-              "endingUt": 1793172600,
+              "endingUt": 1793199600,
               "name": "The Looming Mutagenitor",
-              "startingUt": 1793170800
+              "startingUt": 1793197800
             },
             {
-              "endingUt": 1793174400,
+              "endingUt": 1793201400,
               "name": "Mlurkkr Massacre",
-              "startingUt": 1793172600
+              "startingUt": 1793199600
             }
           ],
           "icons": ""
@@ -216,8 +229,8 @@
         "content": {
           "lines": [
             {
-              "ending": "9 hr 3 min",
-              "endingShort": "9h",
+              "ending": "1 hr 45 min",
+              "endingShort": "1h",
               "endingUt": 1793199600,
               "icon": "inv_achievement_sanktumoflight",
               "iconLabel": "Silvermoon City",
@@ -226,8 +239,8 @@
               "url": "/zone=16545/collegiate-calamity"
             },
             {
-              "ending": "9 hr 3 min",
-              "endingShort": "9h",
+              "ending": "1 hr 45 min",
+              "endingShort": "1h",
               "endingUt": 1793199600,
               "icon": "inv_zone_voidstorm",
               "iconLabel": "Voidstorm",
@@ -310,7 +323,7 @@
       }
     ],
     "source": "https://www.wowhead.com/today-in-wow",
-    "updated": "2026-10-28T05:56:19.889812+00:00"
+    "updated": "2026-10-28T13:14:31.426539+00:00"
   },
   "forever": {
     "events": [
