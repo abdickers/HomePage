@@ -1,6 +1,9 @@
 // Shared by saved data, the header and the Settings draft. No network icons.
 export const LINK_ICONS = {
   auto: ['Automatic', ''], neutral: ['Link', 'assets/service-icons/link.svg'],
+  play: ['Google Play Console', 'assets/logos/play.png'], samsclub: ["Sam’s Club", 'assets/logos/samsclub.png'],
+  walmart: ['Walmart', 'assets/logos/walmart.png'], amazon: ['Amazon', 'assets/logos/amazon.png'],
+  plaid: ['Plaid', 'assets/logos/plaid.png'], googlecloud: ['Google Cloud Console', 'assets/logos/googlecloud.png'],
   chatgpt: ['ChatGPT', 'assets/logos/chatgpt.svg'], gemini: ['Gemini', 'assets/logos/gemini.svg'],
   github: ['GitHub', 'assets/logos/github.svg'], gmail: ['Gmail', 'assets/logos/gmail.png'],
   calendar: ['Calendar', 'assets/logos/calendar.png'], drive: ['Drive', 'assets/logos/drive.png'],
@@ -17,12 +20,18 @@ export function linkIcon(link) {
   const known = {'ChatGPT':'chatgpt','Gemini':'gemini','GitHub':'github','Gmail':'gmail',
     'Google Calendar':'calendar','My Drive':'drive','Recent Files':'drive','Google Docs':'docs',
     'Google Sheets':'sheets','Google Slides':'slides','Google Keep':'keep','Google Photos':'photos',
-    'Google Meet':'meet','Work Command Center':'work','Battle.net':'battlenet','Frear · Armory':'warcraft'};
+    'Google Meet':'meet','Google Play Console':'play','Work Command Center':'work','Battle.net':'battlenet','Frear · Armory':'warcraft'};
   // Existing saved links need no migration; recognize their official hosts even
   // when the user has renamed the link. An explicit icon choice still wins.
   let destinationIcon;
   try {
     const url=new URL(link.url);
+    const host=url.hostname.toLowerCase(),is=domain=>host===domain||host.endsWith('.'+domain);
+    for(const [domain,icon] of Object.entries({'samsclub.com':'samsclub','walmart.com':'walmart','amazon.com':'amazon','github.com':'github','cloudflare.com':'Cloudflare','plaid.com':'plaid','battle.net':'battlenet','slack.com':'Slack','vercel.com':'Vercel'}))if(is(domain))destinationIcon=icon;
+    if(host==='play.google.com'&&/^\/console(?:\/|$)/.test(url.pathname))destinationIcon='play';
+    if(host==='console.cloud.google.com'||host==='cloud.google.com')destinationIcon='googlecloud';
+    for(const [domain,icon] of Object.entries({'mail.google.com':'gmail','calendar.google.com':'calendar','drive.google.com':'drive','keep.google.com':'keep','photos.google.com':'photos','meet.google.com':'meet','chatgpt.com':'chatgpt','gemini.google.com':'gemini'}))if(host===domain)destinationIcon=icon;
+    if(host==='docs.google.com')destinationIcon=url.pathname.startsWith('/spreadsheets')?'sheets':url.pathname.startsWith('/presentation')?'slides':'docs';
     if(['battle.net','www.battle.net','account.battle.net'].includes(url.hostname))destinationIcon='battlenet';
     if(url.hostname==='worldofwarcraft.blizzard.com')destinationIcon='warcraft';
   } catch { /* Internal routes and unknown destinations retain their fallback. */ }
@@ -42,7 +51,7 @@ export function headerLinks(links, preferences) {
   const byId = new Map(links.map(link => [link.id,link]));
   return normalizeQuickLinks(preferences,links).items.filter(item => item.enabled).map(item => byId.get(item.id));
 }
-const sections = new Set(['dashboard','homePanel','dailyProvisioning','keepPanel','wowPanel','budgetPanel','toolsPanel','breePanel']);
+const sections = new Set(['dashboard','homePanel','dailyProvisioning','keepPanel','playPanel','wowPanel','budgetPanel','toolsPanel','breePanel']);
 export function internalLink(value) {
   if (typeof value !== 'string') return null;
   const text = value.trim();

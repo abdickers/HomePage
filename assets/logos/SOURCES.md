@@ -28,3 +28,5 @@ These are software brand assets, not generated approximations. Copies are served
 | World of Warcraft / Armory | https://assets-bwa.worldofwarcraft.blizzard.com/static/wow-icon-32x32.1a38d7c1c3d8df560d53f5c2ad5442c0401edf83.png (advertised by https://worldofwarcraft.blizzard.com/en-us/) |
 
 Monochrome marks use theme-aware inversion on dark backgrounds. Colored assets keep their original colors.
+
+Personal provision and developer icons (2026-10-28): play.png, samsclub.png, walmart.png, amazon.png, plaid.png and googlecloud.png are bundled company favicons retrieved using Google’s favicon service for play.google.com, samsclub.com, walmart.com, amazon.com, plaid.com and cloud.google.com respectively. No account or path information is sent when displaying these local assets.

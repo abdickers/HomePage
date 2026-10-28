@@ -1,6 +1,7 @@
 // Personal Nest gateway. No Google credentials or raw Google tokens reach GitHub Pages.
 import {GOOGLE_SCOPES,GMAIL_SCOPE,CALENDAR_SCOPE,googleReadTarget} from './google-read.mjs';
 import {handleBudget,startBudgetMail,completeBudgetMail,plaidWebhook} from './budget/handler.mjs';
+import {PLAY_SCOPE,PlayError,playOverview} from './play-reporting.mjs';
 import {BudgetError} from './budget/plaid.mjs';
 export const SESSION_SECONDS=30*86400;
 const trait = (d, name) => d.traits?.['sdm.devices.traits.' + name] || {};
@@ -34,7 +35,7 @@ async function provider(url,options={},limit=262144){
  return body;
 }
 async function exchange(env,fields){return provider('https://oauth2.googleapis.com/token',{method:'POST',body:new URLSearchParams({client_id:env.GOOGLE_CLIENT_ID,client_secret:env.GOOGLE_CLIENT_SECRET,...fields})});}
-async function access(env,kind='nest'){const ownerKey=kind==='google'?'google:owner':'owner';const record=await getRecord(env,ownerKey);if(!record)fail(401,'Connect your personal '+(kind==='google'?'Google':'Nest')+' account first.');
+async function access(env,kind='nest'){const ownerKey=kind==='google'?'google:owner':kind==='play'?'play:owner':'owner';const record=await getRecord(env,ownerKey);if(!record)fail(401,'Connect your personal '+(kind==='google'?'Google':'Nest')+' account first.');
  if(record.expires>Date.now()+60000)return record.access;
  const result=await exchange(env,{grant_type:'refresh_token',refresh_token:record.refresh});
  record.access=result.access_token;if(result.refresh_token)record.refresh=result.refresh_token;record.expires=Date.now()+result.expires_in*1000;await putRecord(env,ownerKey,record);return record.access;
@@ -89,10 +90,10 @@ export default {async fetch(request,env){
   if(url.pathname==='/budget/plaid/webhook')return await plaidWebhook(request,env,budgetDependencies());
   if(url.pathname==='/auth/budget-mail'&&request.method==='GET')return await startBudgetMail(request,env,budgetDependencies());
   if(url.pathname==='/auth/start'&&request.method==='GET'){
-   const kind=url.searchParams.get('service')||'nest';if(!['nest','google'].includes(kind))fail(400,'Unknown connection.');
-   const state=random();const auth=new URL(kind==='google'?'https://accounts.google.com/o/oauth2/v2/auth':`https://nestservices.google.com/partnerconnections/${env.NEST_PROJECT_ID}/auth`);
+   const kind=url.searchParams.get('service')||'nest';if(!['nest','google','play'].includes(kind))fail(400,'Unknown connection.');
+   const state=random();const auth=new URL(kind!=='nest'?'https://accounts.google.com/o/oauth2/v2/auth':`https://nestservices.google.com/partnerconnections/${env.NEST_PROJECT_ID}/auth`);
    // PCM supplies its own login_hint after account selection; forwarding one duplicates it.
-   for(const [k,v]of Object.entries({client_id:env.GOOGLE_CLIENT_ID,redirect_uri:url.origin+'/auth/callback',response_type:'code',scope:kind==='google'?GOOGLE_SCOPES:'openid email https://www.googleapis.com/auth/sdm.service',access_type:'offline',prompt:'consent',state}))auth.searchParams.set(k,v);
+   for(const [k,v]of Object.entries({client_id:env.GOOGLE_CLIENT_ID,redirect_uri:url.origin+'/auth/callback',response_type:'code',scope:kind==='play'?'openid email '+PLAY_SCOPE:kind==='google'?GOOGLE_SCOPES:'openid email https://www.googleapis.com/auth/sdm.service',access_type:'offline',prompt:'consent',state}))auth.searchParams.set(k,v);
    await putRecord(env,'state:'+await hash(state),{expires:Date.now()+600000,kind},600);
    return new Response(null,{status:302,headers:{Location:auth.href,'Set-Cookie':`__Host-nest-state=${state}; Path=/; Secure; HttpOnly; SameSite=Lax; Max-Age=600`,'Cache-Control':'no-store','Referrer-Policy':'no-referrer'}});
   }
@@ -111,19 +112,29 @@ export default {async fetch(request,env){
     const scopes=new Set((result.scope||'').split(' '));if(![GMAIL_SCOPE,CALENDAR_SCOPE].every(scope=>scopes.has(scope)))fail(403,'Grant read-only Gmail and Calendar access to remember this Google connection.');
     const profile=await provider('https://gmail.googleapis.com/gmail/v1/users/me/profile',{headers:{Authorization:'Bearer '+result.access_token}});
     if(profile.emailAddress?.toLowerCase()!==env.OWNER_EMAIL.toLowerCase())fail(403,'Use the personal Gmail account assigned to this dashboard.');
+   }else if(kind==='play'){
+    if(!(result.scope||'').split(' ').includes(PLAY_SCOPE))fail(403,'Grant read-only Play reporting access to connect your apps.');
    }else{
     // Verify real device access before storing credentials or issuing an app session.
     await provider(`https://smartdevicemanagement.googleapis.com/v1/enterprises/${env.NEST_PROJECT_ID}/devices`,{headers:{Authorization:'Bearer '+result.access_token}});
    }
-   const ownerKey=kind==='google'?'google:owner':'owner',previous=await getRecord(env,ownerKey);if(!result.refresh_token&&!previous?.refresh)fail(401,'Google did not grant offline access. Reconnect with consent.');
+   const ownerKey=kind==='google'?'google:owner':kind==='play'?'play:owner':'owner',previous=await getRecord(env,ownerKey);if(!result.refresh_token&&!previous?.refresh)fail(401,'Google did not grant offline access. Reconnect with consent.');
    await putRecord(env,ownerKey,{access:result.access_token,refresh:result.refresh_token||previous.refresh,expires:Date.now()+result.expires_in*1000});
    const session=random();await putRecord(env,'session:'+await hash(session),{expires:Date.now()+SESSION_SECONDS*1000,kind,ownerEmail:env.OWNER_EMAIL.toLowerCase()},SESSION_SECONDS);
-   response=page(env,kind==='google'?'Your personal Gmail and Calendar connection is ready.':'Your personal Nest connection is ready. Return to Bag End.',session,kind);response.headers.set('Set-Cookie','__Host-nest-state=; Path=/; Secure; HttpOnly; SameSite=Lax; Max-Age=0');return response;
+   response=page(env,kind==='play'?'Your read-only Play reporting connection is ready.':kind==='google'?'Your personal Gmail and Calendar connection is ready.':'Your personal Nest connection is ready. Return to Bag End.',session,kind);response.headers.set('Set-Cookie','__Host-nest-state=; Path=/; Secure; HttpOnly; SameSite=Lax; Max-Age=0');return response;
   }
-  const kind=url.pathname.startsWith('/google/')||url.pathname.startsWith('/budget/')?'google':'nest';
+  const kind=url.pathname.startsWith('/play/')?'play':url.pathname.startsWith('/google/')||url.pathname.startsWith('/budget/')?'google':'nest';
   const {id:session,expires:sessionExpiresAt}=await authorize(request,env,kind);
   authorizedSession=session;
   if(url.pathname.startsWith('/budget/'))return await handleBudget(request,env,await budgetOwner(env,session),session,budgetDependencies());
+  if(kind==='play'){
+   if(url.pathname==='/play/disconnect'&&request.method==='POST'){await env.NEST_KV.delete('session:'+session);return new Response('{}',{headers:headers(env)});}
+   if(request.method!=='GET')fail(405,'Play reporting is read-only.');
+   if(url.pathname==='/play/session')return new Response(JSON.stringify({email:env.OWNER_EMAIL,expiresAt:sessionExpiresAt}),{headers:headers(env)});
+   if(url.pathname!=='/play/overview')fail(404,'Unknown Play reporting endpoint.');
+   const result=await playOverview(url,await access(env,'play'),{boundedJson});
+   return new Response(JSON.stringify(result),{headers:headers(env)});
+  }
   if(kind==='google'){
    if(url.pathname==='/google/disconnect'&&request.method==='POST'){await env.NEST_KV.delete('session:'+session);return new Response('{}',{headers:headers(env)});}
    if(request.method!=='GET')fail(405,'This connection supports read-only Google requests.');
@@ -161,7 +172,7 @@ export default {async fetch(request,env){
   const databaseMessage=String(error?.message||'')+' '+String(error?.cause?.message||'');
   const dailyLimit=/D1_ERROR/.test(databaseMessage)&&/exceeded.*daily.*limit/i.test(databaseMessage);
   if(dailyLimit)error=new BudgetError(503,'The Treasury has reached its daily database allowance. Saved records are unchanged. Access resumes after the daily reset at 00:00 UTC.','DATABASE_DAILY_LIMIT');
-  const known=error instanceof Failure||error instanceof BudgetError;
+  const known=error instanceof Failure||error instanceof BudgetError||error instanceof PlayError;
   if(known&&error.status===401&&authorizedSession){try{await env.NEST_KV.delete('session:'+authorizedSession);}catch{}}
   const responseHeaders=headers(env);
   if(dailyLimit){const now=new Date();responseHeaders['Retry-After']=String(Math.max(1,Math.ceil((Date.UTC(now.getUTCFullYear(),now.getUTCMonth(),now.getUTCDate()+1)-now.getTime())/1000)));}

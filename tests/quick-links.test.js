@@ -55,3 +55,11 @@ test('existing and renamed game links resolve to official local icons without ch
   }
   assert.equal(linkIcon({name:'Game',url:'https://account.battle.net.evil.example/'}),'assets/service-icons/link.svg');
 });
+
+test('renamed service links use company assets while deceptive domains cannot impersonate them',()=>{
+ for(const [url,file] of [['https://play.google.com/console/u/0/developers/123/home','play.png'],['https://www.samsclub.com/orders','samsclub.png'],['https://www.walmart.com/plus','walmart.png'],['https://www.amazon.com/gp/orders','amazon.png'],['https://console.cloud.google.com/','googlecloud.png'],['https://dashboard.plaid.com','plaid.png']]){
+  assert.equal(linkIcon({name:'My renamed tool',url}),'assets/logos/'+file);
+  assert.equal(linkIcon({name:'My renamed tool',url,icon:'neutral'}),'assets/service-icons/link.svg');
+ }
+ for(const url of ['https://play.google.com.evil.example/console/','https://samsclub.com.evil.example/','https://play.google.com/books/'])assert.equal(linkIcon({name:'Unknown',url}),'assets/service-icons/link.svg');
+});
