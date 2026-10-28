@@ -9,7 +9,7 @@ import { accountLink, PERSONAL_EMAIL } from './account-links.mjs?v=20261015-pers
 import {DATA_KEY, escapeHtml as esc, safeUrl, safeLinkUrl, localDate, normalizeData, readData, mergeBackup, normalizeObservation} from './core.js?v=20261018-bagend4';
 import {initQuickLinks, linkArtwork, linkDestination} from './quick-links-ui.js?v=20261028-apps1';
 import {internalLink} from './quick-links.js?v=20261028-apps1';
-import {initPlayApps} from './play-apps.js?v=20261028-apps1';
+import {initPlayApps} from './play-apps.js?v=20261028-compact2';
 const $ = id => document.getElementById(id);
 const uid = () => crypto.randomUUID();
 const settingsUI=initSettingsPresentation();

@@ -26,7 +26,7 @@
   <link rel="stylesheet" href="css/dashboard-review.css?v=20261018-review1" />
   <link rel="stylesheet" href="css/bag-end-room.css?v=20261018-room1" />
   <link rel="stylesheet" href="css/personal-theme.css?v=20261028-apps1" />
-  <link rel="stylesheet" href="css/personal-apps.css?v=20261028-apps1" />
+  <link rel="stylesheet" href="css/personal-apps.css?v=20261028-compact2" />
 </head>
 <body data-command-realm="personal">
   <aside class="realm-sidebar" aria-label="Personal command center">
@@ -207,10 +207,10 @@
       <div class="provision-grid">
         <article class="provision-card"><img class="provision-brand" src="assets/logos/walmart.png" width="64" height="64" alt="" /><h3>Walmart+</h3><p>Groceries, deliveries &amp; member benefits</p><div class="provision-card-actions"><a href="https://www.walmart.com/plus" target="_blank" rel="noopener noreferrer">Membership ↗</a><a href="https://www.walmart.com/orders" target="_blank" rel="noopener noreferrer">Orders ↗</a></div></article>
         <article class="provision-card"><img class="provision-brand" src="assets/logos/amazon.png" width="64" height="64" alt="" /><h3>Amazon</h3><p>Your account, parcels &amp; Prime</p><div class="provision-card-actions"><a href="https://www.amazon.com/gp/css/homepage.html" target="_blank" rel="noopener noreferrer">Account ↗</a><a href="https://www.amazon.com/gp/your-account/order-history" target="_blank" rel="noopener noreferrer">Orders ↗</a><a href="https://www.amazon.com/amazonprime" target="_blank" rel="noopener noreferrer">Prime ↗</a></div></article>
-        <article class="provision-card"><img class="provision-brand" src="assets/logos/samsclub.png" width="64" height="64" alt="" /><h3>Sam’s Club</h3><p>Membership linked with Walmart+<br />Club savings &amp; everyday supplies</p><div class="provision-card-actions"><a href="https://www.samsclub.com/" target="_blank" rel="noopener noreferrer">Open Sam’s Club ↗</a><a href="https://www.samsclub.com/orders" target="_blank" rel="noopener noreferrer">Orders ↗</a></div></article>
+        <article class="provision-card"><img class="provision-brand" src="assets/logos/samsclub.png" width="64" height="64" alt="" /><h3>Sam’s Club</h3><p>Membership linked with Walmart+</p><div class="provision-card-actions"><a href="https://www.samsclub.com/" target="_blank" rel="noopener noreferrer">Open club ↗</a><a href="https://www.samsclub.com/orders" target="_blank" rel="noopener noreferrer">Orders ↗</a></div></article>
       </div>
-      <p class="realm-account"><span>Receipt history from abdickers@gmail.com · last 180 days · email evidence, not live retailer status.</span></p>
-      <div class="daily-feed-footer"><button id="receiptsConnect" type="button" disabled>Refresh receipts</button><button id="receiptsMore" type="button" hidden>More receipt emails</button><button id="receiptsClear" type="button" hidden>Clear receipt view</button></div>
+      <div class="provision-receipt-toolbar"><p class="realm-account"><span>Receipt history from abdickers@gmail.com · last 180 days · email evidence, not live retailer status.</span></p>
+      <div class="daily-feed-footer"><button id="receiptsConnect" type="button" disabled>Refresh receipts</button><button id="receiptsMore" type="button" hidden>More receipt emails</button><button id="receiptsClear" type="button" hidden>Clear receipt view</button></div></div>
       <p id="receiptsState" role="status">Connect personal Gmail to show real Amazon and Walmart receipts here.</p>
       <div class="receipt-columns"><section aria-label="Walmart receipt history"><h3>Walmart · the supply wagon</h3><div id="walmartReceipts"></div></section><section aria-label="Amazon receipt history"><h3>Amazon · the arriving caravans</h3><div id="amazonReceipts"></div></section></div>
     </section>
@@ -218,8 +218,7 @@
     <section class="panel play-panel bagend-panel" id="playPanel" aria-labelledby="playTitle">
       <span class="panel-surface" aria-hidden="true"></span><div class="bagend-frame" aria-hidden="true"><span class="oak-tl"></span><span class="oak-tr"></span><span class="oak-bl"></span><span class="oak-br"></span><span class="oak-top"></span><span class="oak-bottom"></span><span class="oak-left"></span><span class="oak-right"></span></div>
       <span id="keepPanel" aria-hidden="true"></span>
-      <div class="panel-title"><div class="section-identity"><img class="section-icon" src="assets/logos/play.png" width="48" height="48" alt="" /><div><span class="section-kicker">The artificer’s workshop</span><h2 id="playTitle">Your Android apps</h2></div></div><a href="https://play.google.com/console/u/0/developers/7414653158827125834/home" target="_blank" rel="noopener noreferrer">Play Console ↗</a></div>
-      <p>Watch over your apps with Google Play’s crash and responsiveness reports.</p>
+      <div class="panel-title"><div class="section-identity"><img class="section-icon" src="assets/logos/play.png" width="48" height="48" alt="" /><div><span class="section-kicker">The artificer’s workshop</span><h2 id="playTitle">Your Android apps</h2></div></div><a href="https://play.google.com/console/u/0/developers/7414653158827125834/home" target="_blank" rel="noopener noreferrer" aria-label="Open Google Play Console" title="Open Google Play Console"><span class="play-console-label">Play Console </span><span aria-hidden="true">↗</span></a></div>
       <div class="play-toolbar"><button id="playLoad" type="button">Connect &amp; load apps</button><label>Reporting audience<select id="playCohort"><option value="APP_TESTERS">App testers</option><option value="OS_PUBLIC">Public Android versions</option></select></label></div>
       <p id="playState" role="status" aria-live="polite">Reporting loads only when you ask. Connect read-only Play reporting to begin.</p>
       <div id="playApps" class="play-apps"></div>
@@ -364,7 +363,7 @@
   <dialog id="budgetDialog" aria-label="Budget editor"><div id="budgetDialogBody"></div></dialog>
   <script type="module" src="js/realm-expansion.js?v=20261016-expansion1"></script>
   <script type="module" src="js/private-site.js?v=20261017-private1"></script>
-  <script type="module" src="js/app.js?v=20261028-apps1"></script>
+  <script type="module" src="js/app.js?v=20261028-compact2"></script>
   <script type="module" src="js/wow.js?v=20261016-warcraft1"></script>
 </body>
 </html>
