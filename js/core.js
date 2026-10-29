@@ -3,7 +3,7 @@ import {normalizeQuickLinks, internalLink, LINK_ICONS} from './quick-links.js?v=
 import {normalizeKeepLinks} from './keep-notes-data.js?v=20261018-bagend4';
 export const DATA_KEY = 'sage_command_v9';
 export const DEFAULT_SETTINGS = {
-  name: 'Sage', unit: 'fahrenheit',
+  name: 'Sage', unit: 'fahrenheit', weatherSource:'station',
   location: {name: 'Columbia, MO', lat: 38.9517, lon: -92.3341},
   clientId: '644801431816-9f7u70h62fipmebva3llupi2o17b1g80.apps.googleusercontent.com',
   calendarId: 'primary'
@@ -75,6 +75,7 @@ export function normalizeSettings(value = {}, links = DEFAULT_LINKS) {
   const s = {...DEFAULT_SETTINGS};
   if (typeof value.name === 'string' && value.name.trim()) s.name = value.name.trim().slice(0,40);
   if (['fahrenheit','celsius'].includes(value.unit)) s.unit = value.unit;
+  if(['station','regional'].includes(value.weatherSource))s.weatherSource=value.weatherSource;
   for (const key of ['clientId','calendarId']) if (typeof value[key] === 'string') s[key] = value[key].trim().slice(0,300);
   if (!s.calendarId) s.calendarId = 'primary';
   const l = value.location;

@@ -63,7 +63,7 @@ body[data-command-realm] #homePanel :is(button,select,input,.media-actions>a) { 
 #homePanel .weather-main { margin-bottom: 18px; }
 #homePanel .weather-main b { color: #f0d291; }
 #homePanel .weather-grid { gap: 10px; }
-#homePanel .weather-grid span { background: #0e191580; border-color: #b59b5e55; }
+#homePanel .weather-grid>span { background: #0e191580; border-color: #b59b5e55; }
 #homePanel #weatherLocation { width: 100%; }
 #homePanel #gatePanel .gate-label { font-size: 27px; line-height: 1.1; margin-bottom: 18px; }
 #homePanel #gatePanel .camera-preview,#homePanel #gatePanel .camera-toolbar,#homePanel #gatePanel .nest-footer { max-width: 640px; }

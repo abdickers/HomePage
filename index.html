@@ -180,7 +180,7 @@
       <div class="weather-grid">
         <span>Humidity <b id="weatherHumidity">--</b></span>
         <span>Wind <b id="weatherWind">--</b></span>
-        <span>Rain / last hour <b id="weatherRain">--</b></span>
+        <span><span id="weatherRainLabel">Rain / last hour</span> <b id="weatherRain">--</b></span>
         <span>Updated <b id="weatherUpdated">--</b></span>
       </div>
       <small id="weatherSource" role="status"></small>
@@ -340,7 +340,7 @@
       <section id="settingsPreferences" role="tabpanel" aria-labelledby="settingsTabPreferences" data-settings-panel="preferences" hidden>
         <form id="settingsForm" class="dialog-form">
           <label>Your name<input id="settingName" maxlength="40" required /></label>
-          <fieldset><legend>Weather location</legend><div class="inline-form"><input id="locationQuery" aria-label="Search for a city" placeholder="Search city or ZIP code" /><button id="findLocation" type="button">Find</button></div><div id="locationResults" role="status"></div><p id="selectedLocation"></p><label>Temperature<select id="settingUnit"><option value="fahrenheit">Fahrenheit (°F)</option><option value="celsius">Celsius (°C)</option></select></label></fieldset>
+          <fieldset><legend>Weather location</legend><label>Weather source<select id="settingWeatherSource"><option value="station">Sage Cabin station (preferred)</option><option value="regional">Selected location</option></select></label><p id="weatherStationStatus" class="help" role="status">Current station readings are used when available; regional weather is labeled as a fallback.</p><div class="inline-form"><input id="locationQuery" aria-label="Search for a city" placeholder="Search city or ZIP code" /><button id="findLocation" type="button">Find</button></div><div id="locationResults" role="status"></div><p id="selectedLocation"></p><label>Temperature<select id="settingUnit"><option value="fahrenheit">Fahrenheit (°F)</option><option value="celsius">Celsius (°C)</option></select></label></fieldset>
           <fieldset><legend>Calendar display</legend><input id="settingClientId" type="hidden" /><label>Calendar ID<input id="settingCalendarId" placeholder="primary" /></label><p class="help">Use primary for your personal calendar. Account sign-in is managed under Connections.</p><code id="oauthOrigin" hidden></code></fieldset>
 <fieldset class="quick-links-group"><legend>Quick links</legend><p class="help">Choose the icons shown beside Sage in the header. Use Move up and Move down to set their order. Preferences are saved only in this browser.</p><ol id="quickLinkSettings" class="quick-link-settings"></ol><p id="quickLinkOrderStatus" class="help" role="status" aria-live="polite"></p><button id="quickLinksManage" type="button">Manage links</button><p class="help">Add, edit, remove or choose icons in the existing link editor; those changes save individually. Header switches and ordering apply when you save preferences.</p></fieldset>
           <div class="dialog-actions"><button class="primary-button" type="submit">Save preferences</button><button type="button" data-close>Cancel</button></div>
@@ -363,7 +363,7 @@
   <dialog id="budgetDialog" aria-label="Budget editor"><div id="budgetDialogBody"></div></dialog>
   <script type="module" src="js/realm-expansion.js?v=20261016-expansion1"></script>
   <script type="module" src="js/private-site.js?v=20261017-private1"></script>
-  <script type="module" src="js/app.js?v=20261028-compact2"></script>
+  <script type="module" src="js/app.js?v=20261028-station1"></script>
   <script type="module" src="js/wow.js?v=20261016-warcraft1"></script>
 </body>
 </html>

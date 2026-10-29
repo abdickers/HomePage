@@ -1,5 +1,6 @@
 import gateway,{boundedJson} from './worker.mjs';
 import {verifySiteAccess,AccessDenied} from './access-guard.mjs';
+import {stationCurrent} from './station-weather.mjs';
 
 const BASE_PATH='/HomePage/';
 const CSP=[
@@ -47,6 +48,7 @@ export function createPrivateWorker({verify=verifySiteAccess,service=gateway,rew
         const identity=await verify(request,env);
         if(url.origin!==env.FRONTEND_ORIGIN)throw new AccessDenied();
         if(url.pathname==='/__access/session'&&request.method==='GET')return privateHeaders(Response.json(identity));
+        if(url.pathname==='/weather/current')return privateHeaders(await stationCurrent(request,env,{boundedJson}));
         if(url.pathname==='/'||url.pathname==='/HomePage')return privateHeaders(Response.redirect(url.origin+BASE_PATH,302));
         if(url.pathname.startsWith(BASE_PATH)) {
           if(!['GET','HEAD'].includes(request.method))return privateHeaders(new Response('Method not allowed',{status:405,headers:{Allow:'GET, HEAD'}}));

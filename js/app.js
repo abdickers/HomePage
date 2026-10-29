@@ -1,3 +1,4 @@
+import {stationWeather} from './station-weather.js?v=20261028-station1';
 import {initSettingsPresentation} from './settings-presentation.js?v=20261018-bagend4';
 import {initWizardDisclosure} from './wizard-disclosure.js?v=20261017-gondor1';
 import {initNest} from './nest.js?v=20261017-private1';
@@ -6,7 +7,7 @@ import {createGoogleConnection} from './google-connection.js?v=20261028-apps1';
 import {initBudget} from './budget.js?v=20261020-demand2';
 import { initPersonalMail } from './personal-mail.js?v=20261017-polish1';
 import { accountLink, PERSONAL_EMAIL } from './account-links.mjs?v=20261015-personal7';
-import {DATA_KEY, escapeHtml as esc, safeUrl, safeLinkUrl, localDate, normalizeData, readData, mergeBackup, normalizeObservation} from './core.js?v=20261018-bagend4';
+import {DATA_KEY, escapeHtml as esc, safeUrl, safeLinkUrl, localDate, normalizeData, readData, mergeBackup, normalizeObservation} from './core.js?v=20261028-station1';
 import {initQuickLinks, linkArtwork, linkDestination} from './quick-links-ui.js?v=20261028-apps1';
 import {internalLink} from './quick-links.js?v=20261028-apps1';
 import {initPlayApps} from './play-apps.js?v=20261028-compact2';
@@ -28,7 +29,7 @@ for (const a of document.querySelectorAll('a[href]')) {
 
 let calendarDay = new Date(), lastToday = localDate();
 let token = '', calendarRequest = 0;
-let newsRequest = 0, weatherRequest = 0, locationRequest = 0;
+let newsRequest = 0, weatherRequest = 0, locationRequest = 0, weatherLoadedAt = 0;
 let activeFeed = 'fox', undo = null, toastTimer, draftLocation;
 let newsController, weatherController;
 const feeds = {
@@ -138,14 +139,26 @@ async function loadNews(){
 }
 function displayWeather(w,source){
   const c=data.settings.unit==='celsius',fmt=(v,suffix)=>Number.isFinite(v)?Math.round(v)+suffix:'—';
+  $('weatherRainLabel').textContent=w.rainLabel||'Rain / last hour';
   $('weatherTemp').textContent=fmt(w.temp,c?'°C':'°F');$('weatherDesc').textContent=w.description;$('weatherHumidity').textContent=fmt(w.humidity,'%');$('weatherWind').textContent=fmt(w.wind,c?' km/h':' mph');$('weatherRain').textContent=Number.isFinite(w.rain)?w.rain.toFixed(c?1:2)+(c?' mm':' in'):'—';
-  const date=new Date(w.time);$('weatherUpdated').textContent=Number.isNaN(date.getTime())?'Unknown':date.toLocaleString([],{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'});$('weatherSource').textContent=source+' · '+data.settings.location.name;$('weatherLocation').textContent='Change location · '+data.settings.location.name;
-  $('weatherIcon').textContent=/thunder|storm/i.test(w.description)?'ϟ':/rain|drizzle/i.test(w.description)?'☂':/snow/i.test(w.description)?'❄':/clear|sun/i.test(w.description)?'☀':'☁';
+  const date=new Date(w.time);$('weatherUpdated').textContent=Number.isNaN(date.getTime())?'Unknown':date.toLocaleString([],{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'});$('weatherSource').textContent=source+' · '+(w.locationName||data.settings.location.name);$('weatherLocation').textContent='Change location · '+data.settings.location.name;
+  $('weatherIcon').textContent=w.icon||(/thunder|storm/i.test(w.description)?'ϟ':/rain|drizzle/i.test(w.description)?'☂':/snow/i.test(w.description)?'❄':/clear|sun/i.test(w.description)?'☀':'☁');
 }
 async function loadWeather(){
+  if(document.hidden)return;
   const request=++weatherRequest,s=data.settings,l=s.location,c=s.unit==='celsius';weatherController?.abort();weatherController=new AbortController();const signal=weatherController.signal;
-  $('refreshWeather').disabled=true;$('weatherSource').textContent='Checking weather for '+l.name+'...';let weather,source;
+  $('refreshWeather').disabled=true;$('weatherSource').textContent='Checking weather for '+l.name+'...';let weather,source,stationNote='';
   try{
+    if(s.weatherSource!=='regional'){
+      try{
+        const result=await json(NEST_SERVICE_URL+'/weather/current',{signal,credentials:'same-origin',cache:'no-store'});
+        const local=stationWeather(result,s.unit);
+        if(request!==weatherRequest||signal.aborted)return;
+        if(local){displayWeather(local,local.source);$('weatherStationStatus').textContent='Sage Cabin station connected · current readings via Weather Underground.';weatherLoadedAt=Date.now();return;}
+        stationNote=result.reason==='STALE'?'Station offline':result.configured?'Station unavailable':'Station not connected';
+      }catch{if(signal.aborted)return;stationNote='Station unavailable';}
+      $('weatherStationStatus').textContent=stationNote+'. Selected-location weather is shown as a regional fallback.';
+    }else $('weatherStationStatus').textContent='Selected-location weather is enabled. Choose Sage Cabin station to prefer your own observations.';
     try{
       const point=await json(`https://api.weather.gov/points/${l.lat.toFixed(4)},${l.lon.toFixed(4)}`,{signal});const stations=await json(point.properties.observationStations,{signal});const station=stations.features?.[0]?.properties?.stationIdentifier;if(!station)throw new Error('No station');
       const obs=await json(`https://api.weather.gov/stations/${encodeURIComponent(station)}/observations/latest`,{signal});weather=normalizeObservation(obs.properties,s.unit);if(weather.temp===null||!Number.isFinite(Date.parse(weather.time))||Date.now()-Date.parse(weather.time)>3*3600000)throw new Error('Observation unavailable');source='NWS / '+station;
@@ -155,11 +168,11 @@ async function loadWeather(){
       const result=await json('https://api.open-meteo.com/v1/forecast?'+params,{signal});const v=result.current;if(typeof v?.temperature_2m!=='number')throw new Error('No weather');const code=v.weather_code,description=code===0?'Clear skies':code<=3?'Partly cloudy':code<=48?'Fog':code<=67?'Rain':code<=77?'Snow':code<=82?'Rain showers':code<=86?'Snow showers':'Thunderstorms';
       weather={temp:v.temperature_2m,humidity:v.relative_humidity_2m,wind:v.wind_speed_10m,rain:null,description,time:v.time+'Z'};source='Open-Meteo forecast';
     }
-    if(request!==weatherRequest)return;displayWeather(weather,source);
+    if(request!==weatherRequest)return;displayWeather(weather,stationNote?'Regional fallback: '+source:source);if(stationNote)$('weatherSource').textContent+=' · '+stationNote;weatherLoadedAt=Date.now();
   }catch{if(request!==weatherRequest)return;displayWeather({description:'Weather unavailable'},'Weather services unavailable');$('weatherSource').textContent='Could not load weather for '+l.name+'. Try Refresh.';}
   finally{if(request===weatherRequest)$('refreshWeather').disabled=false;}
 }
-function openSettings(section='connections'){const s=data.settings;draftLocation={...s.location};quickLinks.begin();$('settingName').value=s.name;$('settingUnit').value=s.unit;$('settingClientId').value=s.clientId;$('settingCalendarId').value=s.calendarId;$('oauthOrigin').textContent=location.origin;$('selectedLocation').textContent='Selected: '+s.location.name;$('locationQuery').value='';$('locationResults').replaceChildren();settingsUI.select(section);$('settingsDialog').showModal();settingsUI.select(section,{focus:true});}
+function openSettings(section='connections'){const s=data.settings;draftLocation={...s.location};quickLinks.begin();$('settingName').value=s.name;$('settingUnit').value=s.unit;$('settingWeatherSource').value=s.weatherSource;$('settingClientId').value=s.clientId;$('settingCalendarId').value=s.calendarId;$('oauthOrigin').textContent=location.origin;$('selectedLocation').textContent='Selected: '+s.location.name;$('locationQuery').value='';$('locationResults').replaceChildren();settingsUI.select(section);$('settingsDialog').showModal();settingsUI.select(section,{focus:true});}
 function openLinks(){$('linkForm').reset();$('linkId').value='';$('linkError').textContent='';renderLinkManager();$('linkDialog').showModal();}
 function renderLinkManager(){$('manageLinks').innerHTML=data.links.map(l=>`<div><span>${esc(l.name)} <small>${esc(l.group)}</small></span><button type="button" data-edit-link="${esc(l.id)}" aria-label="Edit ${esc(l.name)}">Edit</button><button type="button" data-delete-link="${esc(l.id)}" aria-label="Delete link ${esc(l.name)}">×</button></div>`).join('');}
 $('searchForm').addEventListener('submit',e=>{e.preventDefault();const q=$('searchInput').value.trim();if(q)$('searchScope').value==='dashboard'?searchDashboard(q):external('https://www.google.com/search?q='+encodeURIComponent(q));});
@@ -170,7 +183,7 @@ $('calendarConnect').addEventListener('click',()=>{if(googleConnection.connected
 for(const [id,offset] of [['calendarPrev',-1],['calendarNext',1],['calendarToday',0]])$(id).addEventListener('click',()=>{if(offset)calendarDay.setDate(calendarDay.getDate()+offset);else calendarDay=new Date();updateTime();loadCalendar();});
 $('newsTabs').addEventListener('click',e=>{const b=e.target.closest('[data-feed]');if(!b)return;activeFeed=b.dataset.feed;document.querySelectorAll('[data-feed]').forEach(t=>{t.classList.toggle('active',t===b);t.setAttribute('aria-pressed',t===b);});loadNews();});
 $('refreshNews').addEventListener('click',loadNews);$('refreshWeather').addEventListener('click',loadWeather);
-$('settingsForm').addEventListener('submit',e=>{e.preventDefault();const old=data.settings;data.settings=normalizeData({links:data.links,settings:{...old,name:$('settingName').value,unit:$('settingUnit').value,clientId:$('settingClientId').value,calendarId:$('settingCalendarId').value,location:draftLocation,quickLinks:quickLinks.value()}}).settings;const saved=persist();quickLinks.renderHeader();$('settingsDialog').close();updateTime();loadWeather();if(old.clientId!==data.settings.clientId||old.calendarId!==data.settings.calendarId){personalMail.disconnect(false);disconnectCalendar(false);prepareCalendar();}if(saved)toast('Settings saved.');});
+$('settingsForm').addEventListener('submit',e=>{e.preventDefault();const old=data.settings;data.settings=normalizeData({links:data.links,settings:{...old,name:$('settingName').value,unit:$('settingUnit').value,weatherSource:$('settingWeatherSource').value,clientId:$('settingClientId').value,calendarId:$('settingCalendarId').value,location:draftLocation,quickLinks:quickLinks.value()}}).settings;const saved=persist();quickLinks.renderHeader();$('settingsDialog').close();updateTime();loadWeather();if(old.clientId!==data.settings.clientId||old.calendarId!==data.settings.calendarId){personalMail.disconnect(false);disconnectCalendar(false);prepareCalendar();}if(saved)toast('Settings saved.');});
 $('findLocation').addEventListener('click',async()=>{
   const q=$('locationQuery').value.trim();if(!q)return;const request=++locationRequest;$('locationResults').textContent='Finding your city...';
   try{const result=await json('https://geocoding-api.open-meteo.com/v1/search?count=5&language=en&format=json&name='+encodeURIComponent(q));if(request!==locationRequest)return;const locations=(result.results||[]).map(l=>({name:[l.name,l.admin1,l.country_code].filter(Boolean).join(', '),lat:l.latitude,lon:l.longitude}));$('locationResults').replaceChildren();if(!locations.length)$('locationResults').textContent='No cities found. Try a nearby city name.';for(const l of locations){const button=document.createElement('button');button.type='button';button.textContent=l.name;button.addEventListener('click',()=>{draftLocation=l;$('selectedLocation').textContent='Selected: '+l.name;$('locationResults').replaceChildren();});$('locationResults').append(button);}}
@@ -188,6 +201,7 @@ document.querySelectorAll('dialog').forEach(dialog=>dialog.addEventListener('cli
 document.addEventListener('error',e=>{if(e.target instanceof HTMLImageElement){e.target.hidden=true;const fallback=e.target.nextElementSibling;if(fallback?.classList.contains('icon-fallback'))fallback.hidden=false;}},true);
 document.addEventListener('keydown',e=>{if(e.key==='/'&&!document.querySelector('dialog[open]')&&!['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName)){e.preventDefault();$('searchInput').focus();}});
 window.addEventListener('storage',e=>{if(e.key===DATA_KEY){const old=data.settings;data=readData(storage);renderLinks();updateTime();if(JSON.stringify(old)!==JSON.stringify(data.settings)){if(old.clientId!==data.settings.clientId)personalMail.disconnect(false);disconnectCalendar(false);prepareCalendar();loadWeather();}}});
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&Date.now()-weatherLoadedAt>=10*60*1000)void loadWeather();});
 window.addEventListener('online',()=>{loadWeather();loadNews();});
 try{if(storage.getItem('sage_theme')==='ember')document.body.classList.add('ember-mode');}catch{}
 $('themeToggle')?.setAttribute('aria-pressed',document.body.classList.contains('ember-mode'));
