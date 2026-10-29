@@ -72,11 +72,6 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1793257208,
-              "name": "Harandar",
-              "startingUt": 1793228400
-            },
-            {
               "endingUt": 1793286008,
               "name": "Eversong Woods",
               "startingUt": 1793257200
@@ -120,6 +115,11 @@
               "endingUt": 1793516408,
               "name": "Zul'Aman",
               "startingUt": 1793487600
+            },
+            {
+              "endingUt": 1793545208,
+              "name": "Harandar",
+              "startingUt": 1793516400
             }
           ],
           "icons": ""
@@ -166,29 +166,29 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1793242800,
+              "endingUt": 1793269800,
               "name": "The Broodmother's Nest",
-              "startingUt": 1793241000
+              "startingUt": 1793268000
             },
             {
-              "endingUt": 1793244600,
+              "endingUt": 1793271600,
               "name": "The Looming Mutagenitor",
-              "startingUt": 1793242800
+              "startingUt": 1793269800
             },
             {
-              "endingUt": 1793246400,
+              "endingUt": 1793273400,
               "name": "Mlurkkr Massacre",
-              "startingUt": 1793244600
+              "startingUt": 1793271600
             },
             {
-              "endingUt": 1793248200,
+              "endingUt": 1793275200,
               "name": "Siege at the Whispering Marsh",
-              "startingUt": 1793246400
+              "startingUt": 1793273400
             },
             {
-              "endingUt": 1793250000,
+              "endingUt": 1793277000,
               "name": "The Malformed Leviathan",
-              "startingUt": 1793248200
+              "startingUt": 1793275200
             }
           ],
           "icons": ""
@@ -229,8 +229,8 @@
         "content": {
           "lines": [
             {
-              "ending": "12 hr 25 min",
-              "endingShort": "12h",
+              "ending": "4 hr 47 min",
+              "endingShort": "4h",
               "endingUt": 1793286000,
               "icon": "inv_achievement_zone_harandar",
               "iconLabel": "Harandar",
@@ -239,8 +239,8 @@
               "url": "/zone=16595/the-gulf-of-memory"
             },
             {
-              "ending": "12 hr 25 min",
-              "endingShort": "12h",
+              "ending": "4 hr 47 min",
+              "endingShort": "4h",
               "endingUt": 1793286000,
               "icon": "inv_achievement_sanktumoflight",
               "iconLabel": "Silvermoon City",
@@ -249,8 +249,8 @@
               "url": "/zone=16642/the-darkway"
             },
             {
-              "ending": "12 hr 25 min",
-              "endingShort": "12h",
+              "ending": "4 hr 47 min",
+              "endingShort": "4h",
               "endingUt": 1793286000,
               "icon": "inv_achievement_zone_zulaman1",
               "iconLabel": "Zul'Aman",
@@ -333,7 +333,7 @@
       }
     ],
     "source": "https://www.wowhead.com/today-in-wow",
-    "updated": "2026-10-29T02:34:12.762246+00:00"
+    "updated": "2026-10-29T10:12:28.193499+00:00"
   },
   "forever": {
     "events": [
