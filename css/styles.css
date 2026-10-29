@@ -747,7 +747,7 @@ img{display:block;max-width:100%}
   margin:18px 0 10px;
 }
 
-.weather-grid span{
+.weather-grid>span{
   border:1px solid rgba(214,151,50,.2);
   border-radius:7px;
   padding:9px;
