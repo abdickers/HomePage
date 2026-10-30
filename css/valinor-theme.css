@@ -248,3 +248,25 @@ body[data-command-realm="personal"] #dashboard #toolsPanel .workshop-account { m
 }
 
 body[data-command-realm="personal"] #dashboard #toolsPanel img.app-icon[src$="github.svg"] { background:#e5e3dc; padding:3px; }
+
+/* The hearth uses the same input and action columns in both rows. */
+body[data-command-realm="personal"] #homePanel #nestControls .media-actions { display:grid; grid-template-columns:minmax(100px,140px) minmax(0,1fr); align-items:end; gap:12px; }
+body[data-command-realm="personal"] #homePanel #nestControls label { display:flex; flex-direction:column; gap:6px; min-width:0; margin:0; }
+body[data-command-realm="personal"] #homePanel #nestControls label[hidden] { display:none; }
+body[data-command-realm="personal"] #homePanel #nestControls .temperature-fields { display:grid; grid-auto-flow:column; grid-auto-columns:minmax(0,1fr); gap:8px; min-width:0; }
+body[data-command-realm="personal"] #homePanel #nestControls :is(input,select,button) { box-sizing:border-box; width:100%; min-width:0; height:44px; min-height:44px; margin:0; padding:8px 18px; line-height:1.2; }
+body[data-command-realm="personal"] #homePanel #nestControls input { text-align:center; padding-inline:10px; border-image-width:8px 15px; }
+body[data-command-realm="personal"] #homePanel #nestControls button { padding-inline:22px; }
+@media(max-width:380px) {
+ body[data-command-realm="personal"] #homePanel #nestControls .media-actions { grid-template-columns:minmax(0,1fr); gap:8px; }
+}
+
+@media(min-width:761px) {
+ body[data-command-realm="personal"] #dashboard .date-box #daynum { position:relative; top:-4px; line-height:1.1; }
+ body[data-command-realm="personal"] #dashboard .date-box #monthyear { margin-top:4px; }
+}
+
+@media(min-width:381px) and (max-width:560px) {
+ body[data-command-realm="personal"] #homePanel #nestControls .media-actions { grid-template-columns:minmax(92px,110px) minmax(0,1fr); }
+ body[data-command-realm="personal"] #homePanel #nestControls button { padding-inline:12px; font-size:12px; }
+}

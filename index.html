@@ -27,7 +27,7 @@
   <link rel="stylesheet" href="css/bag-end-room.css?v=20261018-room1" />
   <link rel="stylesheet" href="css/personal-theme.css?v=20261029-shire1" />
   <link rel="stylesheet" href="css/personal-apps.css?v=20261028-compact2" />
-  <link rel="stylesheet" href="css/valinor-theme.css?v=20261030-tools1" />
+  <link rel="stylesheet" href="css/valinor-theme.css?v=20261030-controls1" />
 </head>
 <body data-command-realm="personal">
   <aside class="realm-sidebar" aria-label="Personal command center">
@@ -161,7 +161,7 @@
    <select id="nestThermostat" aria-label="Thermostat" hidden></select><p id="nestThermostatInfo">Your personal thermostat</p></div></article>
   <div id="nestControls" class="nest-controls" hidden>
    <div class="media-actions"><label>Mode <select id="nestMode"></select></label><button id="nestModeApply" type="button">Apply mode</button></div>
-   <div class="media-actions"><label><span>Heat <span id="nestHeatUnit">°F</span></span><input id="nestHeat" type="number" required></label><label><span>Cool <span id="nestCoolUnit">°F</span></span><input id="nestCool" type="number" required></label><button id="nestApply" type="button">Apply temperature</button></div>
+   <div class="media-actions"><div class="temperature-fields"><label><span>Heat <span id="nestHeatUnit">°F</span></span><input id="nestHeat" type="number" required></label><label><span>Cool <span id="nestCoolUnit">°F</span></span><input id="nestCool" type="number" required></label></div><button id="nestApply" type="button">Apply temperature</button></div>
   </div>
  </div>
 
@@ -224,25 +224,6 @@
       <p id="playState" role="status" aria-live="polite">Reporting loads only when you ask. Connect read-only Play reporting to begin.</p>
       <div id="playApps" class="play-apps"></div>
       <p class="play-footnote">Seven-day Android vitals · Google may not report metrics until enough users are active. Downloads, sales and release management remain in Play Console.</p>
-    </section>
-
-    <section class="panel news-panel bree-news oak-framed valinor-surface" id="breePanel">
-      <span class="panel-surface" aria-hidden="true"></span><div class="bagend-frame" aria-hidden="true"><span class="oak-tl"></span><span class="oak-tr"></span><span class="oak-bl"></span><span class="oak-br"></span><span class="oak-top"></span><span class="oak-bottom"></span><span class="oak-left"></span><span class="oak-right"></span></div>
-      <div class="panel-title">
-        <div class="section-identity"><img class="section-icon" src="assets/valinor/icon-news.webp" width="64" height="64" alt="" aria-hidden="true" loading="lazy" decoding="async" /><div><span class="section-kicker">The Prancing Pony noticeboard</span><h2>News from Bree</h2></div></div>
-        <div class="panel-actions">
-          <button id="refreshNews" type="button">Refresh</button>
-          <a id="viewSource" href="https://www.foxnews.com/" target="_blank" rel="noopener">Source ↗</a>
-        </div>
-      </div>
-      <div class="tabs" id="newsTabs" role="group" aria-label="News sources">
-        <button class="active" data-feed="fox" type="button" aria-pressed="true">Fox News</button>
-        <button data-feed="wowhead" type="button" aria-pressed="false">Wowhead</button>
-        <button data-feed="tech" type="button" aria-pressed="false">Tech</button>
-      </div>
-      <p id="newsState" class="feed-state" role="status"></p>
-      <div class="bree-board"><picture class="bree-art" aria-hidden="true"><source media="(max-width: 1000px)" srcset="assets/valinor/background-960.webp 768w, assets/valinor/background-1672.webp 1672w" sizes="(max-width: 760px) calc(100vw - 80px), calc(100vw - 240px)" /><img src="assets/valinor/background-1672.webp" width="1672" height="941" alt="" loading="lazy" decoding="async" /></picture><div id="newsList" class="news-list"></div></div>
-      <a id="viewAllNews" class="wide-link" href="https://www.foxnews.com/" target="_blank" rel="noopener">View All News ↗</a>
     </section>
 
 
@@ -365,7 +346,7 @@
   <dialog id="budgetDialog" aria-label="Budget editor"><div id="budgetDialogBody"></div></dialog>
   <script type="module" src="js/realm-expansion.js?v=20261016-expansion1"></script>
   <script type="module" src="js/private-site.js?v=20261017-private1"></script>
-  <script type="module" src="js/app.js?v=20261030-search1"></script>
+  <script type="module" src="js/app.js?v=20261030-nonews1"></script>
   <script type="module" src="js/wow.js?v=20261016-warcraft1"></script>
 </body>
 </html>

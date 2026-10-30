@@ -29,14 +29,9 @@ for (const a of document.querySelectorAll('a[href]')) {
 
 let calendarDay = new Date(), lastToday = localDate();
 let token = '', calendarRequest = 0;
-let newsRequest = 0, weatherRequest = 0, locationRequest = 0, weatherLoadedAt = 0;
-let activeFeed = 'fox', undo = null, toastTimer, draftLocation;
-let newsController, weatherController;
-const feeds = {
-  fox:{name:'Fox News',rss:'https://moxie.foxnews.com/google-publisher/latest.xml',url:'https://www.foxnews.com/'},
-  wowhead:{name:'Wowhead',rss:'https://www.wowhead.com/news/rss/all',url:'https://www.wowhead.com/news'},
-  tech:{name:'Hacker News',url:'https://news.ycombinator.com/'}
-};
+let weatherRequest = 0, locationRequest = 0, weatherLoadedAt = 0;
+let undo = null, toastTimer, draftLocation;
+let weatherController;
 const quotes = [
   ['All we have to decide is what to do with the time that is given us.','Gandalf'],
   ['Not all those who wander are lost.','J.R.R. Tolkien'],
@@ -79,13 +74,6 @@ async function json(url,options={}) {
   const timeout=AbortSignal.timeout(12000),signal=options.signal?AbortSignal.any([options.signal,timeout]):timeout;
   const response=await fetch(url,{...options,signal});if(!response.ok){const error=new Error('Request failed');error.status=response.status;throw error;}return response.json();
 }
-async function readRss(url,signal){
-  const response=await fetch(url,{signal:AbortSignal.any([signal,AbortSignal.timeout(8000)])});
-  if(!response.ok)throw new Error('Feed unavailable');
-  const doc=new DOMParser().parseFromString(await response.text(),'application/xml');
-  if(doc.querySelector('parsererror'))throw new Error('Invalid feed');
-  return [...doc.querySelectorAll('item')].slice(0,4).map(item=>({title:item.querySelector('title')?.textContent||'',link:safeUrl(item.querySelector('link')?.textContent),pubDate:item.querySelector('pubDate')?.textContent||''}));
-}
 function calendarState(message,tone='neutral'){$('calendarState').textContent=message;$('calendarState').dataset.tone=tone;$('calendarState').hidden=!message;}
 function disconnectCalendar(endConnection=true){token='';calendarRequest++;$('calendarConnect').textContent='Refresh';$('calendarConnect').disabled=true;$('eventList').replaceChildren();calendarState('Connect personal Google in Settings for Gmail and Calendar.');if(endConnection!==false)googleConnection.disconnect();}
 function restoreCalendar(){
@@ -108,34 +96,6 @@ async function loadCalendar() {
     if(request!==calendarRequest||activeToken!==token)return;const events=(result.items||[]).filter(e=>e.status!=='cancelled');calendarState(events.length?'':'No events scheduled for this day.','ok');
     $('eventList').innerHTML=events.map(e=>{const allDay=Boolean(e.start?.date),time=allDay?'All day':new Date(e.start.dateTime).toLocaleTimeString([],{hour:'numeric',minute:'2-digit'});const minutes=allDay?0:Math.round((new Date(e.end.dateTime)-new Date(e.start.dateTime))/60000);return `<a class="event-row" href="${esc(accountLink(e.htmlLink||'https://calendar.google.com/calendar/r',PERSONAL_EMAIL))}" target="_blank" rel="noopener noreferrer"><span class="event-dot" style="--event:#e6bb62"></span><time>${esc(time)}</time><strong>${esc(e.summary||'Untitled event')}</strong><em>${minutes?minutes+'m':''}</em></a>`;}).join('');
   }catch(error){if(request!==calendarRequest)return;calendarState(error.message||'Calendar could not load. Check the calendar ID and try Refresh.','warn');}
-}
-function renderNews(items,feed){
-  $('newsList').innerHTML=items.slice(0,4).map(item=>{const url=safeUrl(item.link);if(!url)return '';const d=new Date(item.pubDate),date=Number.isNaN(d.getTime())?'':d.toLocaleString([],{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'});return `<article class="news-item">${icon({name:feeds[feed].name,url},'news-icon')}<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(item.title)}</a><small>${esc(date||feeds[feed].name)}</small></article>`;}).join('');
-}
-async function loadNews(){
-  const request=++newsRequest,feed=activeFeed,cfg=feeds[feed];newsController?.abort();newsController=new AbortController();
-  $('viewSource').href=cfg.url;$('viewAllNews').href=cfg.url;$('newsState').textContent='Summoning ravens...';$('newsList').replaceChildren();$('refreshNews').disabled=true;
-  try{
-    let items,snapshotTime='';
-    if(feed==='tech'){const result=await json('https://hn.algolia.com/api/v1/search?tags=front_page&hitsPerPage=4',{signal:newsController.signal});items=(result.hits||[]).map(i=>({title:i.title,link:safeUrl(i.url)||`https://news.ycombinator.com/item?id=${encodeURIComponent(i.objectID)}`,pubDate:i.created_at}));}
-    else{
-      try{
-        if(feed==='wowhead'){
-          const source=location.hostname==='inkedsage.github.io'?'https://raw.githubusercontent.com/InkedSage/Homepage/main/data/news.json':'data/news.json';
-          let snapshot;
-          try{snapshot=await json(source,{signal:newsController.signal,cache:'no-cache'});}
-          catch{snapshot=await json('data/news.json',{signal:newsController.signal});}
-          items=snapshot.feeds?.wowhead?.items;snapshotTime=snapshot.feeds?.wowhead?.updated||'';
-          if(!Array.isArray(items))throw new Error('No snapshot');
-        }else items=await readRss(cfg.rss,newsController.signal);
-        if(!items.length)throw new Error('Empty feed');
-      }
-      catch{const result=await json('https://api.rss2json.com/v1/api.json?rss_url='+encodeURIComponent(cfg.rss),{signal:newsController.signal});if(result.status!=='ok')throw new Error('Feed unavailable');items=(result.items||[]).map(i=>({title:String(i.title||''),link:safeUrl(i.link),pubDate:i.pubDate?i.pubDate.replace(' ','T')+'Z':''}));}
-    }
-    items=items.filter(i=>i.title&&safeUrl(i.link));if(!items.length)throw new Error('Empty feed');if(request!==newsRequest)return;
-    renderNews(items,feed);$('newsState').textContent=snapshotTime?cfg.name+' · feed updated '+new Date(snapshotTime).toLocaleString():'Latest from '+cfg.name;try{storage.setItem('sage_news_'+feed,JSON.stringify({items:items.slice(0,4),time:snapshotTime?Date.parse(snapshotTime):Date.now()}));}catch{}
-  }catch{if(request!==newsRequest)return;let cache;try{cache=JSON.parse(storage.getItem('sage_news_'+feed));}catch{}if(Array.isArray(cache?.items)&&cache.items.length){renderNews(cache.items,feed);$('newsState').textContent='Saved headlines · '+new Date(cache.time).toLocaleString()+'. Live feed unavailable.';}else $('newsState').textContent=cfg.name+' headlines are unavailable right now. Open the source below for the latest news.';}
-  finally{if(request===newsRequest)$('refreshNews').disabled=false;}
 }
 function displayWeather(w,source){
   const c=data.settings.unit==='celsius',fmt=(v,suffix)=>Number.isFinite(v)?Math.round(v)+suffix:'—';
@@ -180,8 +140,7 @@ $('themeToggle')?.addEventListener('click',()=>{const ember=document.body.classL
 for(const id of ['settingsOpen','footerSettings','weatherLocation'])$(id).addEventListener('click',()=>openSettings(id==='weatherLocation'?'preferences':'connections'));
 $('calendarConnect').addEventListener('click',()=>{if(googleConnection.connected())return token?loadCalendar():restoreCalendar();});
 for(const [id,offset] of [['calendarPrev',-1],['calendarNext',1],['calendarToday',0]])$(id).addEventListener('click',()=>{if(offset)calendarDay.setDate(calendarDay.getDate()+offset);else calendarDay=new Date();updateTime();loadCalendar();});
-$('newsTabs').addEventListener('click',e=>{const b=e.target.closest('[data-feed]');if(!b)return;activeFeed=b.dataset.feed;document.querySelectorAll('[data-feed]').forEach(t=>{t.classList.toggle('active',t===b);t.setAttribute('aria-pressed',t===b);});loadNews();});
-$('refreshNews').addEventListener('click',loadNews);$('refreshWeather').addEventListener('click',loadWeather);
+$('refreshWeather').addEventListener('click',loadWeather);
 $('settingsForm').addEventListener('submit',e=>{e.preventDefault();const old=data.settings;data.settings=normalizeData({links:data.links,settings:{...old,name:$('settingName').value,unit:$('settingUnit').value,weatherSource:$('settingWeatherSource').value,clientId:$('settingClientId').value,calendarId:$('settingCalendarId').value,location:draftLocation,quickLinks:quickLinks.value()}}).settings;const saved=persist();quickLinks.renderHeader();$('settingsDialog').close();updateTime();loadWeather();if(old.clientId!==data.settings.clientId||old.calendarId!==data.settings.calendarId){personalMail.disconnect(false);disconnectCalendar(false);prepareCalendar();}if(saved)toast('Settings saved.');});
 $('findLocation').addEventListener('click',async()=>{
   const q=$('locationQuery').value.trim();if(!q)return;const request=++locationRequest;$('locationResults').textContent='Finding your city...';
@@ -201,14 +160,14 @@ document.addEventListener('error',e=>{if(e.target instanceof HTMLImageElement){e
 document.addEventListener('keydown',e=>{if(e.key==='/'&&!document.querySelector('dialog[open]')&&!['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName)){e.preventDefault();$('searchInput').focus();}});
 window.addEventListener('storage',e=>{if(e.key===DATA_KEY){const old=data.settings;data=readData(storage);renderLinks();updateTime();if(JSON.stringify(old)!==JSON.stringify(data.settings)){if(old.clientId!==data.settings.clientId)personalMail.disconnect(false);disconnectCalendar(false);prepareCalendar();loadWeather();}}});
 document.addEventListener('visibilitychange',()=>{if(!document.hidden&&Date.now()-weatherLoadedAt>=10*60*1000)void loadWeather();});
-window.addEventListener('online',()=>{loadWeather();loadNews();});
+window.addEventListener('online',()=>{loadWeather();});
 try{if(storage.getItem('sage_theme')==='ember')document.body.classList.add('ember-mode');}catch{}
 $('themeToggle')?.setAttribute('aria-pressed',document.body.classList.contains('ember-mode'));
 document.querySelectorAll('a[target="_blank"]').forEach(a=>a.rel='noopener noreferrer');
 renderLinks();updateTime();persist();
 const quote=quotes[Math.floor(Date.now()/86400000)%quotes.length];$('quoteText').textContent='“'+quote[0]+'”';$('quoteBy').textContent=quote[1];
-prepareCalendar();loadNews();loadWeather();
-setInterval(updateTime,30000);setInterval(loadWeather,10*60*1000);setInterval(loadNews,15*60*1000);
+prepareCalendar();loadWeather();
+setInterval(updateTime,30000);setInterval(loadWeather,10*60*1000);
 
 initNest(NEST_SERVICE_URL);
 initBudget({connection:googleConnection,serviceUrl:NEST_SERVICE_URL});
