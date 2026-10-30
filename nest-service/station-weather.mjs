@@ -26,7 +26,8 @@ export async function stationCurrent(request,env,{fetcher=fetch,cache=globalThis
   const endpoint=new URL('https://api.weather.com/v2/pws/observations/current');
   endpoint.search=new URLSearchParams({stationId,format:'json',units:'e',numericPrecision:'decimal',apiKey}).toString();
   const response=await fetcher(endpoint.href,{headers:{Accept:'application/json'},redirect:'manual',signal:AbortSignal.timeout(8000)});
-  if(!response.ok){await response.body?.cancel();result={configured:true,available:false,reason:[401,403].includes(response.status)?'CONNECTION_ERROR':response.status===429?'RATE_LIMITED':'UNAVAILABLE'};}
+  if(response.status===204)result={configured:true,available:false,reason:'NO_OBSERVATIONS'};
+  else if(!response.ok){await response.body?.cancel();result={configured:true,available:false,reason:[401,403].includes(response.status)?'CONNECTION_ERROR':response.status===429?'RATE_LIMITED':'UNAVAILABLE'};}
   else result=stationObservation(await boundedJson(response,65536),stationId,name,now);
  }catch{result={configured:true,available:false,reason:'UNAVAILABLE'};}
  // Only the sanitized observation is cached. Access validation precedes this handler.
