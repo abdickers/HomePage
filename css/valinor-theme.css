@@ -270,3 +270,5 @@ body[data-command-realm="personal"] #homePanel #nestControls button { padding-in
  body[data-command-realm="personal"] #homePanel #nestControls .media-actions { grid-template-columns:minmax(92px,110px) minmax(0,1fr); }
  body[data-command-realm="personal"] #homePanel #nestControls button { padding-inline:12px; font-size:12px; }
 }
+
+body[data-command-realm="personal"] #homePanel #nestControls #nestMode { text-align:center; text-align-last:center; }
