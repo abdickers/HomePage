@@ -27,6 +27,7 @@
   <link rel="stylesheet" href="css/bag-end-room.css?v=20261018-room1" />
   <link rel="stylesheet" href="css/personal-theme.css?v=20261029-shire1" />
   <link rel="stylesheet" href="css/personal-apps.css?v=20261028-compact2" />
+  <link rel="stylesheet" href="css/valinor-theme.css?v=20261029-valinor3" />
 </head>
 <body data-command-realm="personal">
   <aside class="realm-sidebar" aria-label="Personal command center">
@@ -34,13 +35,14 @@
     <nav class="realm-switch" aria-label="Command center"><a href="./" aria-current="page">The Shire</a><a href="https://adams-middle-earth-command.spirit-of-76-1921.chatgpt.site/">Work</a></nav>
     <p class="realm-account">PERSONAL<br>abdickers@gmail.com</p>
     <nav class="realm-nav" aria-label="Dashboard sections">
-      <a href="#dashboard"><img class="nav-art" src="assets/redesign/icon-calendar.webp" width="28" height="28" alt="" aria-hidden="true" decoding="async" /><span>Overview</span></a>
-      <a href="#homePanel"><img class="nav-art" src="assets/redesign/icon-bag-end.webp" width="28" height="28" alt="" aria-hidden="true" decoding="async" /><span>Bag End</span></a>
-      <a href="#dailyProvisioning"><img class="nav-art" src="assets/redesign/icon-provisions.webp" width="28" height="28" alt="" aria-hidden="true" decoding="async" /><span>Daily provisions</span></a>
+      <a href="#dashboard"><img class="nav-art" src="assets/valinor/icon-calendar.webp" width="28" height="28" alt="" aria-hidden="true" decoding="async" /><span>Overview</span></a>
+      <a href="#homePanel"><img class="nav-art" src="assets/valinor/icon-home.webp" width="28" height="28" alt="" aria-hidden="true" decoding="async" /><span>Bag End</span></a>
+      <a href="#dailyProvisioning"><img class="nav-art" src="assets/valinor/icon-provisions.webp" width="28" height="28" alt="" aria-hidden="true" decoding="async" /><span>Daily provisions</span></a>
       <a href="#wowPanel"><img class="nav-art" src="assets/redesign/icon-war-room.webp" width="28" height="28" alt="" aria-hidden="true" decoding="async" /><span>WoW war room</span></a>
       <a href="#budgetPanel"><img class="nav-art" src="assets/personal-theme/dwarven-vault.webp" width="28" height="28" alt="" aria-hidden="true" decoding="async" /><span>The Treasury <small>Budget &amp; bills</small></span></a>
     </nav>
     <p class="realm-account">One realm. One account.<br>A little less chaos.</p>
+    <button class="sidebar-settings" id="footerSettings" type="button" aria-label="Settings &amp; backup"><img src="assets/valinor/icon-settings.webp" width="25" height="25" alt="" aria-hidden="true" /><span>Settings</span></button>
   </aside>
   <div class="bagend-page-rail" aria-hidden="true"><span class="rail-top"></span><span class="rail-shaft"></span><span class="rail-bottom"></span></div>
   <a class="skip-link" href="#dashboard">Skip to dashboard</a>
@@ -48,7 +50,7 @@
     <div class="bagend-frame" aria-hidden="true"><span class="oak-tl"></span><span class="oak-tr"></span><span class="oak-bl"></span><span class="oak-br"></span><span class="oak-top"></span><span class="oak-bottom"></span><span class="oak-left"></span><span class="oak-right"></span></div>
     <div class="hero-top">
       <div class="identity">
-        <img class="sigil" src="assets/sigil.svg" alt="Sage sigil" />
+        <img class="sigil" src="assets/valinor/icon-compass.webp" alt="Sage sigil" />
         <div class="time-stack">
           <strong id="greeting">Good Evening, Sage</strong>
           <span id="clockDate">Loading date...</span>
@@ -62,7 +64,7 @@
           <span>Sage</span>
         </button>
         <div class="wizard-menu" id="wizardActions" hidden>
-        <button id="settingsOpen" class="top-action" type="button"><span class="settings-icon" aria-hidden="true">⚙</span><span>Settings</span></button>
+        <button id="settingsOpen" class="top-action" type="button"><img class="settings-icon" src="assets/valinor/icon-settings.webp" alt="" width="24" height="24" /><span>Settings</span></button>
         <a class="top-action" href="https://myaccount.google.com/" target="_blank" rel="noopener">
           <img src="https://www.google.com/s2/favicons?domain=myaccount.google.com&amp;sz=64" alt="" />
           <span>Account</span>
@@ -87,7 +89,7 @@
 
     <form class="command-bar" id="searchForm">
       <div class="palantir">
-        <img src="assets/redesign/icon-ai-orb.webp" width="58" height="64" alt="" aria-hidden="true" />
+        <img src="assets/valinor/icon-orb.webp" width="58" height="64" alt="" aria-hidden="true" />
         <span>Palantir</span>
       </div>
       <label class="sr-only" for="searchInput">Search the web or your dashboard</label>
@@ -100,10 +102,10 @@
 
   <main class="dashboard realm-dashboard" id="dashboard">
     <div class="dashboard-stack realm-dashboard">
-    <section class="panel calendar-panel bagend-panel">
+    <section class="panel calendar-panel bagend-panel valinor-surface">
       <span class="panel-surface" aria-hidden="true"></span><div class="bagend-frame" aria-hidden="true"><span class="oak-tl"></span><span class="oak-tr"></span><span class="oak-bl"></span><span class="oak-br"></span><span class="oak-top"></span><span class="oak-bottom"></span><span class="oak-left"></span><span class="oak-right"></span></div>
       <div class="panel-title">
-        <div class="section-identity"><img class="section-icon" src="assets/redesign/icon-calendar.webp" width="64" height="64" alt="" aria-hidden="true" loading="lazy" decoding="async" /><div><span class="section-kicker">The days ahead</span><h2>The Calendar</h2></div></div>
+        <div class="section-identity"><img class="section-icon" src="assets/valinor/icon-calendar.webp" width="64" height="64" alt="" aria-hidden="true" loading="lazy" decoding="async" /><div><span class="section-kicker">The days ahead</span><h2>The Calendar</h2></div></div>
         <div class="calendar-actions">
           <button id="calendarConnect" type="button" disabled>Refresh</button>
 
@@ -124,20 +126,21 @@
       <a class="wide-link" href="https://calendar.google.com/calendar/u/0/r" target="_blank" rel="noopener">Open Google Calendar</a>
     </section>
 
-    <section class="panel ai-panel bagend-panel">
+    <section class="panel ai-panel bagend-panel valinor-surface">
       <span class="panel-surface" aria-hidden="true"></span><div class="bagend-frame" aria-hidden="true"><span class="oak-tl"></span><span class="oak-tr"></span><span class="oak-bl"></span><span class="oak-br"></span><span class="oak-top"></span><span class="oak-bottom"></span><span class="oak-left"></span><span class="oak-right"></span></div>
       <div class="panel-title">
-        <div class="section-identity"><img class="section-icon" src="assets/redesign/icon-ai-orb.webp" width="64" height="64" alt="" aria-hidden="true" loading="lazy" decoding="async" /><div><span class="section-kicker">The seeing stones</span><h2>AI Tools</h2></div></div>
+        <div class="section-identity"><img class="section-icon" src="assets/valinor/icon-orb.webp" width="64" height="64" alt="" aria-hidden="true" loading="lazy" decoding="async" /><div><span class="section-kicker">The seeing stones</span><h2>AI Tools</h2></div></div>
       </div>
       <div class="app-grid ai-grid" id="aiGrid"></div><p class="realm-account">ChatGPT: choose abdickers@gmail.com in its account switcher. ChatGPT shares the browser’s current login.</p>
     </section>
 
     </div>
 
-    <section class="panel ravens-panel parchment-scroll" id="personalRavens">
-      <img class="ravens-scroll-art" src="assets/ravens-scroll.webp" width="1254" height="1254" alt="" aria-hidden="true" decoding="sync" />
+    <section class="panel ravens-panel parchment-scroll valinor-surface" id="personalRavens">
+      <span class="panel-surface" aria-hidden="true"></span><div class="bagend-frame" aria-hidden="true"><span class="oak-tl"></span><span class="oak-tr"></span><span class="oak-bl"></span><span class="oak-br"></span><span class="oak-top"></span><span class="oak-bottom"></span><span class="oak-left"></span><span class="oak-right"></span></div>
+      <img class="ravens-scroll-art" loading="lazy" src="assets/valinor/elven-scroll.webp" width="1254" height="1254" alt="" aria-hidden="true" decoding="sync" />
       <div class="ravens-reading">
-      <div class="panel-title"><div class="section-identity"><img class="section-icon" src="assets/redesign/icon-raven.webp" width="64" height="64" alt="" aria-hidden="true" loading="lazy" decoding="async" /><div><span class="section-kicker">Letters from afar</span><h2>The Ravens</h2></div></div><span class="realm-account">PERSONAL MESSAGES</span></div>
+      <div class="panel-title"><div class="section-identity"><img class="section-icon" src="assets/valinor/icon-raven.webp" width="64" height="64" alt="" aria-hidden="true" loading="lazy" decoding="async" /><div><span class="section-kicker">Letters from afar</span><h2>The Ravens</h2></div></div><span class="realm-account">PERSONAL MESSAGES</span></div>
       <div class="daily-tabs" role="group" aria-label="Personal inbox"><button type="button" data-inbox="primary" aria-pressed="true">Primary</button><button type="button" data-inbox="updates" aria-pressed="false">Updates</button></div>
       <p class="realm-account" id="ravensCaption">Latest unread Primary conversations · abdickers@gmail.com</p>
       <p id="ravensState" role="status">Connect personal Google in Settings to bring the ravens home.</p><div id="ravensList" class="daily-list"></div>
@@ -145,15 +148,15 @@
 
       </div>
     </section>
-    <section class="panel home-panel oak-framed" id="homePanel" aria-labelledby="bagEndTitle">
+    <section class="panel home-panel oak-framed valinor-surface" id="homePanel" aria-labelledby="bagEndTitle">
       <span class="panel-surface" aria-hidden="true"></span>
  <div class="bagend-frame" aria-hidden="true"><span class="oak-tl"></span><span class="oak-tr"></span><span class="oak-bl"></span><span class="oak-br"></span><span class="oak-top"></span><span class="oak-bottom"></span><span class="oak-left"></span><span class="oak-right"></span></div>
- <img class="bag-end-emblem" src="assets/redesign/hobbit-bag-end-door.webp" width="180" height="180" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+ <img class="bag-end-emblem" src="assets/valinor/two-trees-emblem.webp" width="180" height="180" alt="" aria-hidden="true" loading="lazy" decoding="async" />
  <div class="panel-title"><div><span class="section-kicker">There is no place like home</span><h2 id="bagEndTitle">Bag End</h2><span class="realm-account">SAGE CABIN · GOOGLE NEST</span></div></div>
  <div class="bag-end-layout"><div class="home-devices">
   <div class="nest-hearth hobbit-control"><span class="hobbit-surface" aria-hidden="true"></span><div class="bagend-frame" aria-hidden="true"><span class="oak-tl"></span><span class="oak-tr"></span><span class="oak-bl"></span><span class="oak-br"></span><span class="oak-top"></span><span class="oak-bottom"></span><span class="oak-left"></span><span class="oak-right"></span></div><article class="home-device">
    <div class="climate-art" aria-hidden="true"><img id="nestModeArt" width="144" height="144" sizes="(max-width: 760px) 88px, 128px" alt="" decoding="async" hidden /><span id="nestNeutralGlyph" class="climate-neutral">°</span></div>
-   <div class="climate-reading"><h3 class="hearth-heading"><img class="home-small-icon" src="assets/expansion/hobbit-icon-window-64.webp" srcset="assets/expansion/hobbit-icon-window-64.webp 64w, assets/expansion/hobbit-icon-window-128.webp 128w" sizes="28px" width="28" height="28" alt="" aria-hidden="true" loading="lazy" decoding="async" />The hearth</h3>
+   <div class="climate-reading"><h3 class="hearth-heading"><img class="home-small-icon" src="assets/valinor/icon-home.webp" width="28" height="28" alt="" aria-hidden="true" loading="lazy" decoding="async" />The hearth</h3>
    <div class="ambient-reading"><div class="temperature-dial"><span id="nestTemperature">—</span><small id="nestTemperatureUnit">°F</small></div><small id="nestTemperatureLabel">Ambient temperature</small></div>
    <p class="climate-state"><strong id="nestConfirmedMode">Status unavailable</strong><span aria-hidden="true"> · </span><span id="nestActivity">Activity unavailable</span></p>
    <p id="nestLastChecked" class="climate-checked" hidden></p><p id="nestStateNote" class="climate-note" hidden></p>
@@ -164,11 +167,11 @@
   </div>
  </div>
 
-    <section class="panel weather-panel hobbit-control" aria-labelledby="homeWeatherTitle">
+    <section class="panel weather-panel hobbit-control valinor-surface" aria-labelledby="homeWeatherTitle">
       <span class="hobbit-surface" aria-hidden="true"></span><div class="bagend-frame" aria-hidden="true"><span class="oak-tl"></span><span class="oak-tr"></span><span class="oak-bl"></span><span class="oak-br"></span><span class="oak-top"></span><span class="oak-bottom"></span><span class="oak-left"></span><span class="oak-right"></span></div>
       <div class="panel-title">
-        <div class="section-identity"><img class="section-icon" src="assets/redesign/icon-weather.webp" width="64" height="64" alt="" aria-hidden="true" loading="lazy" decoding="async" /><div><span class="section-kicker">Under an open sky</span><h3 id="homeWeatherTitle">Weather in Rohan</h3></div></div>
-        <button id="refreshWeather" type="button" aria-label="Refresh weather">↻</button>
+        <div class="section-identity"><img class="section-icon" src="assets/valinor/icon-weather.webp" width="64" height="64" alt="" aria-hidden="true" loading="lazy" decoding="async" /><div><span class="section-kicker">Under an open sky</span><h3 id="homeWeatherTitle">Weather in Rohan</h3></div></div>
+        <button id="refreshWeather" type="button" aria-label="Refresh weather"><img src="assets/valinor/icon-refresh.webp" width="30" height="30" alt="" aria-hidden="true" /></button>
       </div>
       <div class="weather-main">
         <div class="weather-icon" id="weatherIcon" aria-hidden="true">☁</div>
@@ -190,8 +193,8 @@
 
  <div class="nest-watch hobbit-control" id="gatePanel" role="group" aria-labelledby="nestWatchTitle">
   <span class="hobbit-surface" aria-hidden="true"></span><div class="bagend-frame" aria-hidden="true"><span class="oak-tl"></span><span class="oak-tr"></span><span class="oak-bl"></span><span class="oak-br"></span><span class="oak-top"></span><span class="oak-bottom"></span><span class="oak-left"></span><span class="oak-right"></span></div>
-  <h3 class="gate-label" id="nestWatchTitle"><img class="home-small-icon" src="assets/expansion/hobbit-icon-gate-64.webp" srcset="assets/expansion/hobbit-icon-gate-64.webp 64w, assets/expansion/hobbit-icon-gate-128.webp 128w" sizes="32px" width="32" height="32" alt="" aria-hidden="true" loading="lazy" decoding="async" />The watch at the gate</h3>
-  <div class="camera-preview"><picture id="nestCameraArt" aria-hidden="true"><source media="(max-width: 1000px)" srcset="assets/bag-end/hobbit-hearth-garden-window-small.webp" /><img src="assets/bag-end/hobbit-hearth-garden-window.webp" width="1672" height="941" alt="" loading="lazy" decoding="async" /></picture><video id="nestVideo" controls autoplay muted playsinline hidden aria-label="Live Nest camera"></video></div>
+  <h3 class="gate-label" id="nestWatchTitle"><img class="home-small-icon" src="assets/valinor/icon-camera.webp" srcset="assets/valinor/icon-camera.webp 160w" sizes="32px" width="32" height="32" alt="" aria-hidden="true" loading="lazy" decoding="async" />The watch at the gate</h3>
+  <div class="camera-preview"><picture id="nestCameraArt" aria-hidden="true"><source media="(max-width: 1000px)" srcset="assets/valinor/background-960.webp" /><img src="assets/valinor/background-1672.webp" width="1672" height="941" alt="" loading="lazy" decoding="async" /></picture><video id="nestVideo" controls autoplay muted playsinline hidden aria-label="Live Nest camera"></video></div>
   <div class="camera-toolbar"><div class="camera-selection"><label for="nestCamera" id="nestCameraLabel" hidden>Camera</label><select id="nestCamera" aria-describedby="nestCameraInfo" hidden></select><small id="nestCameraInfo">Private Nest camera</small></div>
    <div class="media-actions"><button id="nestPlay" type="button" disabled>▶ Watch the gate</button><button id="nestStop" type="button" hidden>Stop video</button><button id="nestRefresh" type="button" disabled>Refresh</button><a href="https://home.google.com/" target="_blank" rel="noopener noreferrer">Google Home ↗</a></div>
   </div>
@@ -200,10 +203,10 @@
  </div>
 </section>
 
-    <section class="panel provisions-panel oak-framed" id="dailyProvisioning">
+    <section class="panel provisions-panel oak-framed valinor-surface" id="dailyProvisioning">
       <span class="panel-surface" aria-hidden="true"></span>
       <div class="bagend-frame" aria-hidden="true"><span class="oak-tl"></span><span class="oak-tr"></span><span class="oak-bl"></span><span class="oak-br"></span><span class="oak-top"></span><span class="oak-bottom"></span><span class="oak-left"></span><span class="oak-right"></span></div>
-      <div class="panel-title"><div class="section-identity"><img class="section-icon" src="assets/redesign/icon-provisions.webp" width="64" height="64" alt="" aria-hidden="true" loading="lazy" decoding="async" /><div><span class="section-kicker">Well stocked for the journey</span><h2>The Quartermaster</h2></div></div><span class="realm-account">DAILY PROVISIONS</span></div>
+      <div class="panel-title"><div class="section-identity"><img class="section-icon" src="assets/valinor/icon-provisions.webp" width="64" height="64" alt="" aria-hidden="true" loading="lazy" decoding="async" /><div><span class="section-kicker">Well stocked for the journey</span><h2>The Quartermaster</h2></div></div><span class="realm-account">DAILY PROVISIONS</span></div>
       <div class="provision-grid">
         <article class="provision-card"><img class="provision-brand" src="assets/logos/walmart.png" width="64" height="64" alt="" /><h3>Walmart+</h3><p>Groceries, deliveries &amp; member benefits</p><div class="provision-card-actions"><a href="https://www.walmart.com/plus" target="_blank" rel="noopener noreferrer">Membership ↗</a><a href="https://www.walmart.com/orders" target="_blank" rel="noopener noreferrer">Orders ↗</a></div></article>
         <article class="provision-card"><img class="provision-brand" src="assets/logos/amazon.png" width="64" height="64" alt="" /><h3>Amazon</h3><p>Your account, parcels &amp; Prime</p><div class="provision-card-actions"><a href="https://www.amazon.com/gp/css/homepage.html" target="_blank" rel="noopener noreferrer">Account ↗</a><a href="https://www.amazon.com/gp/your-account/order-history" target="_blank" rel="noopener noreferrer">Orders ↗</a><a href="https://www.amazon.com/amazonprime" target="_blank" rel="noopener noreferrer">Prime ↗</a></div></article>
@@ -215,7 +218,7 @@
       <div class="receipt-columns"><section aria-label="Walmart receipt history"><h3>Walmart · the supply wagon</h3><div id="walmartReceipts"></div></section><section aria-label="Amazon receipt history"><h3>Amazon · the arriving caravans</h3><div id="amazonReceipts"></div></section></div>
     </section>
 
-    <section class="panel play-panel bagend-panel" id="playPanel" aria-labelledby="playTitle">
+    <section class="panel play-panel bagend-panel valinor-surface" id="playPanel" aria-labelledby="playTitle">
       <span class="panel-surface" aria-hidden="true"></span><div class="bagend-frame" aria-hidden="true"><span class="oak-tl"></span><span class="oak-tr"></span><span class="oak-bl"></span><span class="oak-br"></span><span class="oak-top"></span><span class="oak-bottom"></span><span class="oak-left"></span><span class="oak-right"></span></div>
       <span id="keepPanel" aria-hidden="true"></span>
       <div class="panel-title"><div class="section-identity"><img class="section-icon" src="assets/logos/play.png" width="48" height="48" alt="" /><div><span class="section-kicker">The artificer’s workshop</span><h2 id="playTitle">Your Android apps</h2></div></div><a href="https://play.google.com/console/u/0/developers/7414653158827125834/home" target="_blank" rel="noopener noreferrer" aria-label="Open Google Play Console" title="Open Google Play Console"><span class="play-console-label">Play Console </span><span aria-hidden="true">↗</span></a></div>
@@ -225,10 +228,10 @@
       <p class="play-footnote">Seven-day Android vitals · Google may not report metrics until enough users are active. Downloads, sales and release management remain in Play Console.</p>
     </section>
 
-    <section class="panel news-panel bree-news oak-framed" id="breePanel">
+    <section class="panel news-panel bree-news oak-framed valinor-surface" id="breePanel">
       <span class="panel-surface" aria-hidden="true"></span><div class="bagend-frame" aria-hidden="true"><span class="oak-tl"></span><span class="oak-tr"></span><span class="oak-bl"></span><span class="oak-br"></span><span class="oak-top"></span><span class="oak-bottom"></span><span class="oak-left"></span><span class="oak-right"></span></div>
       <div class="panel-title">
-        <div class="section-identity"><img class="section-icon" src="assets/redesign/icon-news.webp" width="64" height="64" alt="" aria-hidden="true" loading="lazy" decoding="async" /><div><span class="section-kicker">The Prancing Pony noticeboard</span><h2>News from Bree</h2></div></div>
+        <div class="section-identity"><img class="section-icon" src="assets/valinor/icon-news.webp" width="64" height="64" alt="" aria-hidden="true" loading="lazy" decoding="async" /><div><span class="section-kicker">The Prancing Pony noticeboard</span><h2>News from Bree</h2></div></div>
         <div class="panel-actions">
           <button id="refreshNews" type="button">Refresh</button>
           <a id="viewSource" href="https://www.foxnews.com/" target="_blank" rel="noopener">Source ↗</a>
@@ -240,7 +243,7 @@
         <button data-feed="tech" type="button" aria-pressed="false">Tech</button>
       </div>
       <p id="newsState" class="feed-state" role="status"></p>
-      <div class="bree-board"><picture class="bree-art" aria-hidden="true"><source media="(max-width: 1000px)" srcset="assets/expansion/bree-prancing-pony-news-board-small.webp 768w, assets/expansion/bree-prancing-pony-news-board.webp 1672w" sizes="(max-width: 760px) calc(100vw - 80px), calc(100vw - 240px)" /><img src="assets/expansion/bree-prancing-pony-news-board.webp" width="1672" height="941" alt="" loading="lazy" decoding="async" /></picture><div id="newsList" class="news-list"></div></div>
+      <div class="bree-board"><picture class="bree-art" aria-hidden="true"><source media="(max-width: 1000px)" srcset="assets/valinor/background-960.webp 768w, assets/valinor/background-1672.webp 1672w" sizes="(max-width: 760px) calc(100vw - 80px), calc(100vw - 240px)" /><img src="assets/valinor/background-1672.webp" width="1672" height="941" alt="" loading="lazy" decoding="async" /></picture><div id="newsList" class="news-list"></div></div>
       <a id="viewAllNews" class="wide-link" href="https://www.foxnews.com/" target="_blank" rel="noopener">View All News ↗</a>
     </section>
 
@@ -248,10 +251,10 @@
 
 
 
-    <section class="panel tools-panel bagend-panel" id="toolsPanel">
+    <section class="panel tools-panel bagend-panel valinor-surface" id="toolsPanel">
       <span class="panel-surface" aria-hidden="true"></span><div class="bagend-frame" aria-hidden="true"><span class="oak-tl"></span><span class="oak-tr"></span><span class="oak-bl"></span><span class="oak-br"></span><span class="oak-top"></span><span class="oak-bottom"></span><span class="oak-left"></span><span class="oak-right"></span></div>
       <div class="panel-title">
-        <div class="section-identity"><img class="section-icon" src="assets/redesign/icon-wisdom.webp" width="64" height="64" alt="" aria-hidden="true" loading="lazy" decoding="async" /><div><span class="section-kicker">A well-stocked study</span><h2>Tools &amp; Systems</h2></div></div>
+        <div class="section-identity"><img class="section-icon" src="assets/valinor/icon-tools.webp" width="64" height="64" alt="" aria-hidden="true" loading="lazy" decoding="async" /><div><span class="section-kicker">A well-stocked study</span><h2>Tools &amp; Systems</h2></div></div>
         <button id="addLink" type="button">Add Link</button>
       </div>
       <h3 class="workshop-heading">Manage this page</h3><div class="app-grid workshop-grid" id="siteTools"><a class="app-card" href="https://dash.cloudflare.com/5e6a580fb3f9a04573693f7c6c123fbd" target="_blank" rel="noopener noreferrer"><img class="app-icon" src="assets/logos/cloudflare.svg" width="40" height="40" alt="" /><span>Cloudflare<small>Private hosting</small></span></a><a class="app-card" href="https://github.com/abdickers/HomePage" target="_blank" rel="noopener noreferrer"><img class="app-icon" src="assets/logos/github.svg" width="40" height="40" alt="" /><span>GitHub<small>Source & releases</small></span></a><a class="app-card" href="https://dashboard.plaid.com/" target="_blank" rel="noopener noreferrer"><img class="app-icon" src="assets/logos/plaid.png" width="40" height="40" alt="" /><span>Plaid<small>Bank integration</small></span></a><a class="app-card" href="https://console.cloud.google.com/?authuser=abdickers%40gmail.com" target="_blank" rel="noopener noreferrer"><img class="app-icon" src="assets/logos/googlecloud.png" width="40" height="40" alt="" /><span>Google Cloud Console<small>Google APIs & OAuth</small></span></a></div><p class="workshop-account">Personal workshop · abdickers. Google Cloud selects abdickers@gmail.com; Cloudflare opens your existing account. GitHub and Plaid use their current browser sign-in.</p><h3 class="workshop-heading">Your other tools</h3>
@@ -292,10 +295,10 @@
       </div>
     </section>
 
-    <section class="panel wisdom-panel bagend-panel">
+    <section class="panel wisdom-panel bagend-panel valinor-surface">
       <span class="panel-surface" aria-hidden="true"></span><div class="bagend-frame" aria-hidden="true"><span class="oak-tl"></span><span class="oak-tr"></span><span class="oak-bl"></span><span class="oak-br"></span><span class="oak-top"></span><span class="oak-bottom"></span><span class="oak-left"></span><span class="oak-right"></span></div>
       <div class="panel-title">
-        <div class="section-identity"><img class="section-icon" src="assets/redesign/icon-wisdom.webp" width="64" height="64" alt="" aria-hidden="true" loading="lazy" decoding="async" /><div><span class="section-kicker">A moment to reflect</span><h2>Words of Wisdom</h2></div></div>
+        <div class="section-identity"><img class="section-icon" src="assets/valinor/icon-compass.webp" width="64" height="64" alt="" aria-hidden="true" loading="lazy" decoding="async" /><div><span class="section-kicker">A moment to reflect</span><h2>Words of Wisdom</h2></div></div>
       </div>
       <blockquote id="quoteText"></blockquote>
       <cite id="quoteBy"></cite>
@@ -304,9 +307,9 @@
   </main>
 
   <footer class="footer">
-    <picture aria-hidden="true"><source srcset="assets/expansion/one-ring-footer-small.webp 256w, assets/expansion/one-ring-footer.webp 480w" sizes="(max-width: 760px) 156px, 192px" /><img src="assets/expansion/one-ring-footer.webp" width="480" height="320" alt="" loading="lazy" decoding="async" /></picture>
+    <picture aria-hidden="true"><source srcset="assets/valinor/two-trees-emblem.webp 160w" sizes="(max-width: 760px) 156px, 192px" /><img src="assets/valinor/two-trees-emblem.webp" width="480" height="320" alt="" loading="lazy" decoding="async" /></picture>
   </footer>
-  <p class="footer-caption">Your tools. Your quests. Your corner of Middle-earth. <button class="text-button" id="footerSettings" type="button">Settings &amp; backup</button></p>
+  <p class="footer-caption">Your tools. Your quests. Your corner of Middle-earth. </p>
   <noscript><p class="panel">Enable JavaScript to use dashboard widgets. Your Google tools remain available at <a href="https://workspace.google.com/" target="_blank" rel="noopener">Google Workspace</a>.</p></noscript>
 
   <dialog id="settingsDialog" data-theme="gondor" aria-labelledby="settingsTitle">
@@ -321,12 +324,12 @@
       <section id="settingsConnections" role="tabpanel" aria-labelledby="settingsTabConnections" data-settings-panel="connections">
         <p class="settings-intro">Your private connections, together in one place. Refresh and everyday controls stay on the dashboard.</p>
         <div class="settings-connection-grid">
-          <section class="settings-card"><div class="settings-card-heading"><img src="assets/redesign/icon-raven.webp" width="48" height="48" alt="" /><div><h3>Google</h3><p>Ravens, Calendar &amp; receipts</p></div></div>
+          <section class="settings-card"><div class="settings-card-heading"><img src="assets/valinor/icon-raven.webp" width="48" height="48" alt="" /><div><h3>Google</h3><p>Ravens, Calendar &amp; receipts</p></div></div>
             <p id="googleConnectionStatus" class="connection-status" role="status">Checking your personal Google connection…</p><p class="help">abdickers@gmail.com · read-only Gmail and Calendar access</p>
             <div class="settings-actions"><button id="mailConnect" type="button">Connect Gmail &amp; Calendar</button><button id="mailDisconnect" type="button" hidden>Sign out Google</button></div><details class="mail-privacy"><summary>Read-only access &amp; privacy</summary><p>One personal Google connection supplies read-only Gmail and Calendar access. Google grants mailbox-wide read access; this page queries only these feeds. Google credentials stay encrypted on the private service. This browser remembers a revocable dashboard session for up to 30 days, renewed while active. Signing out Google disconnects both Gmail and Calendar here.</p><p>Message and receipt content stays in memory and clears on reload or sign-out. No mail is sent to AI or saved in this public repository. Gmail and Calendar APIs must be enabled in the gateway’s Google project.</p></details>
           </section>
           <section class="settings-card"><div class="settings-card-heading"><img src="assets/logos/play.png" width="48" height="48" alt="" /><div><h3>Google Play</h3><p>Android apps &amp; vitals</p></div></div><p id="playConnectionStatus" class="connection-status" role="status">Read-only reporting · connect when needed.</p><div class="settings-actions"><button id="playConnect" type="button">Connect Play reporting</button><button id="playDisconnect" type="button" hidden>Sign out Play</button></div><p class="help">Separate permission for abdickers@gmail.com. App names and Android vitals only; no publishing access. Credentials stay encrypted on the private service. No background polling or budget database reads.</p></section>
-          <section class="settings-card"><div class="settings-card-heading"><img src="assets/redesign/icon-bag-end.webp" width="48" height="48" alt="" /><div><h3>Nest</h3><p>Bag End · thermostat &amp; camera</p></div></div>
+          <section class="settings-card"><div class="settings-card-heading"><img src="assets/valinor/icon-home.webp" width="48" height="48" alt="" /><div><h3>Nest</h3><p>Bag End · thermostat &amp; camera</p></div></div>
             <p id="nestConnectionStatus" class="connection-status" role="status">Checking the hearth and gate…</p>
             <div class="settings-actions"><button id="nestConnect" type="button">Connect personal Nest</button><button id="nestDisconnect" type="button" hidden>Sign out</button></div><p class="help">abdickers@gmail.com · Nest remembers this browser for up to 30 days, renewed while active. Sign out to forget it. Video stops when you leave this tab.</p>
           </section>
@@ -351,8 +354,8 @@
       </section>
     </div>
   </dialog>
-  <dialog id="linkDialog" data-theme="gondor" aria-labelledby="linkTitle"><div class="dialog-heading"><h2 id="linkTitle">Your Tools &amp; Links</h2><button type="button" data-close aria-label="Close links">×</button></div><form id="linkForm" class="dialog-form"><input id="linkId" type="hidden" /><label>Name<input id="linkName" maxlength="60" required /></label><label>Destination<input id="linkUrl" type="text" placeholder="https://example.com or #homePanel" aria-describedby="linkError" required /></label><label>Icon<select id="linkIcon"></select></label><label>Section<select id="linkGroup"><option value="tools">Tools &amp; Systems</option><option value="ai">AI Tools</option><option value="quick">Header quick links</option></select></label><p id="linkError" class="form-error" role="status"></p><button class="primary-button" type="submit">Save Link</button></form><div id="manageLinks" class="manage-links"></div></dialog>
-  <dialog id="searchDialog" aria-labelledby="searchTitle"><div class="dialog-heading"><h2 id="searchTitle">The Palantir Found</h2><button type="button" data-close aria-label="Close results">×</button></div><div id="searchResults"></div></dialog>
+  <dialog id="linkDialog" data-theme="gondor" aria-labelledby="linkTitle"><div class="silver-frame" aria-hidden="true"><span class="silver-tl"></span><span class="silver-tr"></span><span class="silver-bl"></span><span class="silver-br"></span><span class="silver-top"></span><span class="silver-bottom"></span><span class="silver-left"></span><span class="silver-right"></span></div><div class="dialog-heading"><h2 id="linkTitle">Your Tools &amp; Links</h2><button type="button" data-close aria-label="Close links">×</button></div><form id="linkForm" class="dialog-form"><input id="linkId" type="hidden" /><label>Name<input id="linkName" maxlength="60" required /></label><label>Destination<input id="linkUrl" type="text" placeholder="https://example.com or #homePanel" aria-describedby="linkError" required /></label><label>Icon<select id="linkIcon"></select></label><label>Section<select id="linkGroup"><option value="tools">Tools &amp; Systems</option><option value="ai">AI Tools</option><option value="quick">Header quick links</option></select></label><p id="linkError" class="form-error" role="status"></p><button class="primary-button" type="submit">Save Link</button></form><div id="manageLinks" class="manage-links"></div></dialog>
+  <dialog id="searchDialog" aria-labelledby="searchTitle"><div class="silver-frame" aria-hidden="true"><span class="silver-tl"></span><span class="silver-tr"></span><span class="silver-bl"></span><span class="silver-br"></span><span class="silver-top"></span><span class="silver-bottom"></span><span class="silver-left"></span><span class="silver-right"></span></div><div class="dialog-heading"><h2 id="searchTitle">The Palantir Found</h2><button type="button" data-close aria-label="Close results">×</button></div><div id="searchResults"></div></dialog>
   <div id="toast" class="toast" role="status" hidden><span id="toastText"></span><button id="undoAction" type="button" hidden>Undo</button><button id="dismissToast" type="button" aria-label="Dismiss notification">×</button></div>
   <dialog id="budgetWorkspace" class="realm-dashboard treasury-workspace vault-frame" aria-labelledby="budgetWorkspaceTitle" aria-describedby="budgetWorkspaceMode">
     <div class="treasury-workspace-heading"><div><span class="section-kicker">The steward’s ledger</span><h2 id="budgetWorkspaceTitle">Treasury details</h2><p id="budgetWorkspaceMode">Read-only details</p></div><button type="button" id="budgetWorkspaceClose" aria-label="Close Treasury workspace">×</button></div>

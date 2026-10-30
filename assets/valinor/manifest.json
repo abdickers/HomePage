@@ -1,0 +1,254 @@
+{
+  "header-2172": {
+    "size": [
+      2172,
+      724
+    ],
+    "bytes": 335718
+  },
+  "header-1100": {
+    "size": [
+      1100,
+      367
+    ],
+    "bytes": 112640
+  },
+  "background-1672": {
+    "size": [
+      1672,
+      941
+    ],
+    "bytes": 442648
+  },
+  "background-960": {
+    "size": [
+      960,
+      540
+    ],
+    "bytes": 185882
+  },
+  "frame-tl": {
+    "size": [
+      220,
+      220
+    ],
+    "bytes": 59260
+  },
+  "frame-tr": {
+    "size": [
+      220,
+      220
+    ],
+    "bytes": 60710
+  },
+  "frame-bl": {
+    "size": [
+      220,
+      220
+    ],
+    "bytes": 57386
+  },
+  "frame-br": {
+    "size": [
+      220,
+      220
+    ],
+    "bytes": 59004
+  },
+  "frame-top": {
+    "size": [
+      300,
+      220
+    ],
+    "bytes": 10010
+  },
+  "frame-bottom": {
+    "size": [
+      300,
+      220
+    ],
+    "bytes": 10504
+  },
+  "frame-left": {
+    "size": [
+      220,
+      200
+    ],
+    "bytes": 15392
+  },
+  "frame-right": {
+    "size": [
+      220,
+      200
+    ],
+    "bytes": 7784
+  },
+  "frame-crest": {
+    "size": [
+      135,
+      112
+    ],
+    "bytes": 22714
+  },
+  "rail-top": {
+    "size": [
+      255,
+      400
+    ],
+    "bytes": 106608
+  },
+  "rail-shaft": {
+    "size": [
+      75,
+      300
+    ],
+    "bytes": 24024
+  },
+  "rail-bottom": {
+    "size": [
+      185,
+      330
+    ],
+    "bytes": 57756
+  },
+  "icon-calendar": {
+    "size": [
+      160,
+      146
+    ],
+    "bytes": 35400
+  },
+  "icon-home": {
+    "size": [
+      160,
+      156
+    ],
+    "bytes": 38238
+  },
+  "icon-provisions": {
+    "size": [
+      160,
+      131
+    ],
+    "bytes": 40424
+  },
+  "icon-raven": {
+    "size": [
+      160,
+      159
+    ],
+    "bytes": 30198
+  },
+  "icon-orb": {
+    "size": [
+      144,
+      160
+    ],
+    "bytes": 33136
+  },
+  "icon-news": {
+    "size": [
+      160,
+      159
+    ],
+    "bytes": 30400
+  },
+  "icon-tools": {
+    "size": [
+      160,
+      158
+    ],
+    "bytes": 25892
+  },
+  "icon-compass": {
+    "size": [
+      158,
+      160
+    ],
+    "bytes": 33628
+  },
+  "icon-weather": {
+    "size": [
+      160,
+      150
+    ],
+    "bytes": 37826
+  },
+  "icon-camera": {
+    "size": [
+      160,
+      121
+    ],
+    "bytes": 38300
+  },
+  "icon-refresh": {
+    "size": [
+      160,
+      159
+    ],
+    "bytes": 35868
+  },
+  "icon-settings": {
+    "size": [
+      154,
+      160
+    ],
+    "bytes": 44780
+  },
+  "button-normal": {
+    "size": [
+      671,
+      173
+    ],
+    "bytes": 140154
+  },
+  "button-hover": {
+    "size": [
+      671,
+      173
+    ],
+    "bytes": 148180
+  },
+  "button-pressed": {
+    "size": [
+      672,
+      173
+    ],
+    "bytes": 129722
+  },
+  "button-secondary": {
+    "size": [
+      671,
+      174
+    ],
+    "bytes": 132008
+  },
+  "button-secondary-hover": {
+    "size": [
+      671,
+      174
+    ],
+    "bytes": 138066
+  },
+  "button-disabled": {
+    "size": [
+      672,
+      173
+    ],
+    "bytes": 116736
+  },
+  "elven-scroll": {
+    "size": [
+      1254,
+      1254
+    ],
+    "bytes": 179266
+  },
+  "two-trees-emblem": {
+    "size": [
+      160,
+      160
+    ],
+    "bytes": 39964
+  }
+}
