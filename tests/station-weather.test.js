@@ -36,6 +36,12 @@ test('missing credentials and arbitrary query input cause no provider reads; pro
  assert.equal((await stationCurrent(request('/weather/current',{method:'POST'}),env,{fetcher})).status,405);assert.equal(calls,0);
  const failed=await stationCurrent(request(),env,{fetcher,cache:null,boundedJson,now}),body=await failed.text();assert.ok(!body.includes(secret));assert.equal(JSON.parse(body).reason,'CONNECTION_ERROR');assert.equal(calls,1);
 });
+test('provider 204 means no station uploads and never attempts to parse an empty body',async()=>{
+ let parsed=false;const stored=[];
+ const result=await stationCurrent(request(),env,{now,fetcher:async()=>new Response(null,{status:204}),boundedJson:async()=>{parsed=true;throw Error('Empty body');},cache:{match:async()=>undefined,put:async(key,response)=>stored.push(response)}});
+ assert.equal((await result.json()).reason,'NO_OBSERVATIONS');assert.equal(parsed,false);assert.equal(stored.length,1);assert.equal(stored[0].headers.get('Cache-Control'),'public, max-age=60');
+});
+
 test('Access protection precedes station reads, and weather never opens D1',async()=>{
  const denial=new AccessDenied();const locked=createPrivateWorker({verify:async()=>{throw denial;}});
  assert.equal((await locked.fetch(request(),env,{})).status,403);

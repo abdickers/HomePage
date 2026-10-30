@@ -155,7 +155,7 @@ async function loadWeather(){
         const local=stationWeather(result,s.unit);
         if(request!==weatherRequest||signal.aborted)return;
         if(local){displayWeather(local,local.source);$('weatherStationStatus').textContent='Sage Cabin station connected · current readings via Weather Underground.';weatherLoadedAt=Date.now();return;}
-        stationNote=result.reason==='STALE'?'Station offline':result.configured?'Station unavailable':'Station not connected';
+        stationNote=result.reason==='STALE'?'Station offline':result.reason==='NO_OBSERVATIONS'?'Waiting for station uploads':result.configured?'Station unavailable':'Station not connected';
       }catch{if(signal.aborted)return;stationNote='Station unavailable';}
       $('weatherStationStatus').textContent=stationNote+'. Selected-location weather is shown as a regional fallback.';
     }else $('weatherStationStatus').textContent='Selected-location weather is enabled. Choose Sage Cabin station to prefer your own observations.';
