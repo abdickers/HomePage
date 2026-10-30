@@ -10,6 +10,8 @@ import android.util.Base64;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.accessibilityservice.AccessibilityServiceInfo;
+import android.view.accessibility.AccessibilityNodeInfo;
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -58,7 +60,7 @@ public class PocketTest {
                 assertTrue("Widget binding permission",manager.bindAppWidgetIdIfAllowed(id,provider,options));AppWidgetProviderInfo info=manager.getAppWidgetInfo(id);assertNotNull(info);
                 try(ActivityScenario<MainActivity> scenario=ActivityScenario.launch(new Intent(context(),MainActivity.class))){
                     final AppWidgetHostView[] view={null};
-                    scenario.onActivity(a->{view[0]=host.createView(a,id,info);view[0].setAppWidget(id,info);a.setContentView(view[0]);});
+                    scenario.onActivity(a->{view[0]=host.createView(a,id,info);view[0].setAppWidget(id,info);android.widget.FrameLayout hostRoot=new android.widget.FrameLayout(a);hostRoot.setPadding(0,72,0,72);hostRoot.addView(view[0]);a.setContentView(hostRoot);});
                     for(int[] size:new int[][]{{390,700},{300,340},{220,220}}){
                         Bundle dimensions=options(size[0],size[1]);manager.updateAppWidgetOptions(id,dimensions);manager.updateAppWidget(id,RealmWidget.views(context(),realm,dimensions));
                         scenario.onActivity(a->{int width=Math.round(size[0]*a.getResources().getDisplayMetrics().density),height=Math.round(size[1]*a.getResources().getDisplayMetrics().density);view[0].setLayoutParams(new android.widget.FrameLayout.LayoutParams(width,height));});
@@ -72,5 +74,5 @@ public class PocketTest {
     }
     static Bundle options(int width,int height){Bundle b=new Bundle();b.putInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH,width);b.putInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH,width);b.putInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT,height);b.putInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT,height);return b;}
     private void checkBounds(View v,int screen){assertTrue("View extends beyond screen: "+v.getClass().getSimpleName(),v.getWidth()<=screen);if(v instanceof ViewGroup)for(int i=0;i<((ViewGroup)v).getChildCount();i++)checkBounds(((ViewGroup)v).getChildAt(i),screen);}
-    private void shot(String name)throws IOException{Bitmap b=InstrumentationRegistry.getInstrumentation().getUiAutomation().takeScreenshot();assertNotNull(b);File dir=new File(context().getExternalFilesDir(null),"screenshots");assertTrue(dir.isDirectory()||dir.mkdirs());String prefix=InstrumentationRegistry.getArguments().getString("screenLabel","pixel");try(FileOutputStream out=new FileOutputStream(new File(dir,prefix+"-"+name+".png"))){assertTrue(b.compress(Bitmap.CompressFormat.PNG,100,out));}b.recycle();}
+    private void shot(String name)throws IOException{AccessibilityNodeInfo window=InstrumentationRegistry.getInstrumentation().getUiAutomation().getRootInActiveWindow();assertNotNull(window);assertEquals("Screenshot must show our app, not a system dialog", "com.abdickers.pocket",String.valueOf(window.getPackageName()));Bitmap b=InstrumentationRegistry.getInstrumentation().getUiAutomation().takeScreenshot();assertNotNull(b);File dir=new File(context().getExternalFilesDir(null),"screenshots");assertTrue(dir.isDirectory()||dir.mkdirs());String prefix=InstrumentationRegistry.getArguments().getString("screenLabel","pixel");try(FileOutputStream out=new FileOutputStream(new File(dir,prefix+"-"+name+".png"))){assertTrue(b.compress(Bitmap.CompressFormat.PNG,100,out));}b.recycle();}
 }
