@@ -21,6 +21,7 @@ public abstract class RealmWidget extends AppWidgetProvider {
         RemoteViews v=new RemoteViews(c.getPackageName(),R.layout.realm_widget);
         JSONObject data=Snapshots.read(c,realm);v.setImageViewResource(R.id.scene,Realms.scene(realm));v.setImageViewResource(R.id.emblem,Realms.emblem(realm));v.setTextViewText(R.id.title,Realms.title(realm));v.setTextViewText(R.id.updated,Snapshots.updated(data));
         int height=options.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT,400);
+        if(height<300){v.setViewVisibility(R.id.cards,View.GONE);v.setViewVisibility(R.id.privacy,View.GONE);v.setViewVisibility(R.id.emblem,View.GONE);v.setTextViewTextSize(R.id.title,android.util.TypedValue.COMPLEX_UNIT_SP,18);v.setTextViewTextSize(R.id.updated,android.util.TypedValue.COMPLEX_UNIT_SP,10);}
         int[] titles={R.id.card_title_1,R.id.card_title_2,R.id.card_title_3}, bodies={R.id.card_body_1,R.id.card_body_2,R.id.card_body_3},containers={R.id.card_1,R.id.card_2,R.id.card_3};
         JSONArray cards=data.optJSONArray("cards");
         for(int i=0;i<3;i++){

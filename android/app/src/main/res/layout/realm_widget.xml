@@ -6,7 +6,7 @@
    <TextView android:id="@+id/title" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:paddingStart="8dp" android:paddingEnd="0dp" android:fontFamily="serif" android:textSize="24sp" android:textColor="#F4ECDC" android:text="The Shire"/>
   </LinearLayout>
   <TextView android:id="@+id/updated" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="Not synced yet" android:textColor="#BDCCE0" android:textSize="11sp"/>
-  <LinearLayout android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:orientation="vertical" android:paddingTop="8dp">
+  <LinearLayout android:id="@+id/cards" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:orientation="vertical" android:paddingTop="8dp">
    <LinearLayout android:id="@+id/card_1" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:orientation="vertical" android:background="@drawable/card" android:layout_marginBottom="6dp">
     <TextView android:id="@+id/card_title_1" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Your realm, at a glance" android:textColor="#E5CD92" android:textSize="15sp" android:maxLines="1" android:ellipsize="end"/>
     <TextView android:id="@+id/card_body_1" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:paddingTop="4dp" android:text="Tap Sync to save a snapshot." android:textColor="#F4ECDC" android:textSize="13sp" android:maxLines="5" android:ellipsize="end"/>
