@@ -173,29 +173,61 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1793377800,
-              "name": "The Broodmother's Nest",
-              "startingUt": 1793376000
-            },
+              "name": "Eversong Woods",
+              "url": "/zone=15968/eversong-woods"
+            }
+          ],
+          "icons": ""
+        },
+        "id": "mn-void-assault",
+        "name": "Void Assaults",
+        "type": "lines",
+        "url": "/guide/midnight/void-assaults-strikes-incursions-rewards",
+        "wowExpansion": 11
+      },
+      {
+        "content": {
+          "lines": [
             {
-              "endingUt": 1793379600,
-              "name": "The Looming Mutagenitor",
-              "startingUt": 1793377800
-            },
+              "name": "Zul'Aman",
+              "url": "/zone=15947/zulaman"
+            }
+          ],
+          "icons": ""
+        },
+        "id": "mn-aqir-invasion",
+        "name": "Aqir Invasions",
+        "type": "lines",
+        "url": "/guide/midnight/aqir-invasions-locations-reputation-rewards",
+        "wowExpansion": 11
+      },
+      {
+        "content": {
+          "lines": [
             {
-              "endingUt": 1793381400,
-              "name": "Mlurkkr Massacre",
-              "startingUt": 1793379600
-            },
-            {
-              "endingUt": 1793383200,
-              "name": "Siege at the Whispering Marsh",
-              "startingUt": 1793381400
-            },
-            {
-              "endingUt": 1793385000,
+              "endingUt": 1793394000,
               "name": "The Malformed Leviathan",
-              "startingUt": 1793383200
+              "startingUt": 1793392200
+            },
+            {
+              "endingUt": 1793395800,
+              "name": "The Broodmother's Nest",
+              "startingUt": 1793394000
+            },
+            {
+              "endingUt": 1793397600,
+              "name": "The Looming Mutagenitor",
+              "startingUt": 1793395800
+            },
+            {
+              "endingUt": 1793399400,
+              "name": "Mlurkkr Massacre",
+              "startingUt": 1793397600
+            },
+            {
+              "endingUt": 1793401200,
+              "name": "Siege at the Whispering Marsh",
+              "startingUt": 1793399400
             }
           ],
           "icons": ""
@@ -236,14 +268,18 @@
         "content": {
           "lines": [
             {
-              "ending": "22 hr 58 min",
-              "endingShort": "22h",
+              "ending": "18 hr 5 min",
+              "endingShort": "18h",
               "endingUt": 1793458800,
-              "name": "Active"
+              "icon": "inv_achievement_sanktumoflight",
+              "iconLabel": "Eversong Woods",
+              "iconUrl": "/zone=15968/eversong-woods",
+              "name": "Eversong Woods: The Shadow Enclave",
+              "url": "/zone=16594/the-shadow-enclave"
             },
             {
-              "ending": "22 hr 58 min",
-              "endingShort": "22h",
+              "ending": "18 hr 5 min",
+              "endingShort": "18h",
               "endingUt": 1793458800,
               "name": "Active"
             }
@@ -322,7 +358,7 @@
       }
     ],
     "source": "https://www.wowhead.com/today-in-wow",
-    "updated": "2026-10-30T16:01:27.903173+00:00"
+    "updated": "2026-10-30T20:54:14.522337+00:00"
   },
   "forever": {
     "events": [
