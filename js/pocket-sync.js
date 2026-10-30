@@ -12,10 +12,10 @@ export function snapshotCards(doc,realm){
   add('apps','Android apps',list('#playApps .play-app-card h3')||text('#playState'));
  }else if(realm==='work'){
   add('projects','Beacons · selected project view',list('.operations .citadel-project-card',2)||list('.operations .realm-beacons',1)||text('.operations .feed-error')||text('.operations .operations-empty'));
-  add('calendar','Today’s council',list('.agenda .agenda-item')||list('.agenda .agenda-event')||text('.agenda .empty-state'));
+  add('calendar','Today’s council',list('.agenda .event')||text('.agenda .agenda-empty'));
   add('mail','The Ravens',list('.daily-panel.ravens .daily-entry strong')||text('.daily-panel.ravens .daily-error')||text('.daily-panel.ravens .daily-empty'));
   add('quests','Active quests',list('.daily-panel.quests .daily-entry strong')||text('.daily-panel.quests .daily-error')||text('.daily-panel.quests .daily-empty'));
-  add('priorities','Your priorities',list('.priorities .task-text')||list('.priorities .task-name'));
+  add('priorities','Your priorities',list('.priorities .task > span'));
  }
  return cards.slice(0,6).map(card=>({...card,body:clean(card.body)}));
 }

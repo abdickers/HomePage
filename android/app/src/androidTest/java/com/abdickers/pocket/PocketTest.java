@@ -50,7 +50,7 @@ public class PocketTest {
         }
     }
     @Test public void realWidgetHostResizesBothProviders()throws Exception{
-        InstrumentationRegistry.getInstrumentation().getUiAutomation().executeShellCommand("appwidget grantbind --package com.abdickers.pocket --user 0").close();
+        InstrumentationRegistry.getInstrumentation().getUiAutomation().adoptShellPermissionIdentity("android.permission.BIND_APPWIDGET");
         AppWidgetManager manager=AppWidgetManager.getInstance(context());AppWidgetHost host=new AppWidgetHost(context(),812);host.startListening();
         try{
             for(String realm:new String[]{"personal","work"}){
@@ -68,7 +68,7 @@ public class PocketTest {
                     }
                 }finally{host.deleteAppWidgetId(id);}
             }
-        }finally{host.stopListening();host.deleteHost();}
+        }finally{host.stopListening();host.deleteHost();InstrumentationRegistry.getInstrumentation().getUiAutomation().dropShellPermissionIdentity();}
     }
     static Bundle options(int width,int height){Bundle b=new Bundle();b.putInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH,width);b.putInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH,width);b.putInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT,height);b.putInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT,height);return b;}
     private void checkBounds(View v,int screen){assertTrue("View extends beyond screen: "+v.getClass().getSimpleName(),v.getWidth()<=screen);if(v instanceof ViewGroup)for(int i=0;i<((ViewGroup)v).getChildCount();i++)checkBounds(((ViewGroup)v).getChildAt(i),screen);}
