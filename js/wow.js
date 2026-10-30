@@ -23,7 +23,10 @@ async function load(){
  catch{error='Event schedules are unavailable. Open the full calendar below.';}
  finally{$('wowRefresh').disabled=false;render();}
 }
+if(document.documentElement.dataset.dashboardApp!=='personal'){
 for(const tab of tabs)tab.addEventListener('click',()=>{edition=tab.dataset.wowEdition;try{localStorage.setItem('wow-edition',edition);}catch{}render();});
 $('wowRefresh').addEventListener('click',load);
 $('frearPortrait').addEventListener('error',()=>{$('frearPortrait').hidden=true;$('wowPortraitFallback').hidden=false;});
 render();load();setInterval(render,30000);
+
+}
