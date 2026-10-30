@@ -10,7 +10,7 @@ try{if((await lstat(output)).isSymbolicLink())throw Error('Build output must not
 const git=process.env.SAGE_GIT_BIN||'git';
 const tracked=execFileSync(git,['ls-files','--cached','--others','--exclude-standard','-z'],{cwd:root,encoding:'utf8'}).split('\0').filter(Boolean);
 const allowed=name=>name==='index.html'||name==='Revindale.jpg'||
-  /^(css\/.*\.css|js\/.*\.(js|mjs)|data\/(news|wow)\.json)$/.test(name)||
+  /^(css\/.*\.css|js\/.*\.(js|mjs)|data\/wow\.json)$/.test(name)||
   (name.startsWith('assets/')&&!name.includes('/originals/')&&/\.(png|jpe?g|webp|svg|gif|avif|woff2?)$/i.test(name));
 // Include newly authored browser modules before their first commit, but no
 // credentials, backend source, migrations, fixtures, source maps or Git files.
