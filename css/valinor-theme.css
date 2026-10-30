@@ -228,3 +228,23 @@ body[data-command-realm="personal"] #realmHeader.hero .command-bar .search-submi
  body[data-command-realm="personal"] #realmHeader.hero .command-bar .palantir { flex-basis:100%; }
  body[data-command-realm="personal"] #realmHeader.hero .command-bar .search-field { flex-basis:120px; }
 }
+
+/* Compact icon tiles, with room for additional links to wrap naturally. */
+body[data-command-realm="personal"] #dashboard #toolsPanel .tools-groups { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px; align-items:start; }
+body[data-command-realm="personal"] #dashboard #toolsPanel .workshop-heading { margin:0 0 12px; font:inherit; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:#bdc9df; }
+body[data-command-realm="personal"] #dashboard #toolsPanel :is(.tool-grid,.workshop-grid) { grid-template-columns:repeat(auto-fill,minmax(104px,1fr)); gap:10px; }
+body[data-command-realm="personal"] #dashboard #toolsPanel .app-card { position:relative; min-height:104px; height:auto; padding:12px 8px; gap:8px; justify-content:center; }
+body[data-command-realm="personal"] #dashboard #toolsPanel .app-card::after { content:'↗'; position:absolute; right:8px; top:5px; font-size:12px; color:#aebdd0; }
+body[data-command-realm="personal"] #dashboard #toolsPanel .app-icon { width:32px; height:32px; padding:0; border:0; border-radius:4px; background:transparent; object-fit:contain; }
+body[data-command-realm="personal"] #dashboard #toolsPanel .app-icon img { width:100%; height:100%; object-fit:contain; }
+body[data-command-realm="personal"] #dashboard #toolsPanel .app-card>span:not(.app-icon) { font-size:12px; line-height:1.35; }
+body[data-command-realm="personal"] #dashboard #toolsPanel .app-card small { display:none; }
+body[data-command-realm="personal"] #dashboard #toolsPanel .workshop-account { margin:12px 0 0; font-size:11px; line-height:1.5; }
+@media(max-width:1000px) {
+ body[data-command-realm="personal"] #dashboard #toolsPanel .tools-groups { grid-template-columns:minmax(0,1fr); gap:18px; }
+}
+@media(max-width:560px) {
+ body[data-command-realm="personal"] #dashboard #toolsPanel :is(.tool-grid,.workshop-grid) { grid-template-columns:repeat(auto-fill,minmax(104px,1fr)); gap:8px; }
+}
+
+body[data-command-realm="personal"] #dashboard #toolsPanel img.app-icon[src$="github.svg"] { background:#e5e3dc; padding:3px; }
