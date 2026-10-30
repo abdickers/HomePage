@@ -1,0 +1,220 @@
+/* Approved Two Trees presentation. Warcraft and all Treasury surfaces are excluded.
+   Palette variables live on affected containers, never on the shared dashboard. */
+body[data-command-realm="personal"]::before {
+  background:linear-gradient(180deg,#101b3333,#101b3359),url('../assets/valinor/background-1672.webp') center / cover no-repeat;
+}
+body.ember-mode[data-command-realm="personal"]::before {
+  background-image:linear-gradient(180deg,#5a3a2445,#19243b66),url('../assets/valinor/background-1672.webp');
+}
+body[data-command-realm="personal"] :is(.valinor-surface,.realm-sidebar,#realmHeader,#settingsDialog,#linkDialog,#searchDialog,.footer-caption) {
+  --ink:#eee6d7; --text:#eee6d7; --muted:#bcc8dc; --gold:#d8bd83; --gold-light:#f1e1b7; --gold-strong:#f1e1b7;
+  --line:#a9b8d16b; --line-soft:#a9b8d133; --control-line:#adbacf; --control-ink:#f1e8d8;
+  --control-bg:linear-gradient(#243a58,#13243c); --control-hover:linear-gradient(#344d6f,#203753); --control-active:linear-gradient(#375073,#243752);
+  --field-bg:#101e33; --field-ink:#f1e8d8;
+  --bagend-control-bg:var(--control-bg); --bagend-control-hover:var(--control-hover); --bagend-control-active:var(--control-active);
+  --bagend-control-line:var(--control-line); --bagend-control-ink:var(--control-ink);
+  --bagend-tile-bg:linear-gradient(145deg,#233650,#15243b); --bagend-tile-hover:linear-gradient(145deg,#304663,#20334d);
+  color:var(--ink);
+}
+body[data-command-realm="personal"] .realm-sidebar { background:linear-gradient(100deg,#101b31f5,#15223af5); }
+body[data-command-realm="personal"] .realm-nav a:hover { background:#b9cbe520; color:#f2e7cc; }
+body[data-command-realm="personal"] .realm-nav a.active { background:#c5d8ef20; border-color:#d8bd83; }
+body[data-command-realm="personal"] .realm-sidebar .realm-account { color:#b7c4d7; }
+body[data-command-realm="personal"] .bagend-page-rail { width:34px; left:calc(var(--personal-sidebar-width) - 17px); grid-template-rows:53.33px minmax(0,1fr) 44px; }
+body[data-command-realm="personal"] .bagend-page-rail .rail-top { width:34px; background-image:url('../assets/valinor/rail-top.webp'); }
+body[data-command-realm="personal"] .bagend-page-rail .rail-shaft { width:10px; background-image:url('../assets/valinor/rail-shaft.webp'); background-size:100% 40px; }
+body[data-command-realm="personal"] .bagend-page-rail .rail-bottom { width:24.67px; background-image:url('../assets/valinor/rail-bottom.webp'); }
+
+/* Real nine-slice ornament: corners retain their proportions; only quiet rails repeat. */
+body[data-command-realm="personal"] :is(.bagend-frame,.silver-frame) { --vf:50px; position:absolute; inset:0; z-index:1; pointer-events:none; }
+body[data-command-realm="personal"] :where(.bagend-frame,.silver-frame)>span {
+  position:absolute; display:block; width:var(--vf); height:var(--vf); margin:0;
+  background-repeat:no-repeat; background-size:100% 100%;
+}
+body[data-command-realm="personal"] :is(.oak-tl,.oak-tr,.oak-bl,.oak-br,.silver-tl,.silver-tr,.silver-bl,.silver-br) { width:var(--vf); height:var(--vf); }
+body[data-command-realm="personal"] :is(.oak-tl,.silver-tl) { left:0; top:0; background-image:url('../assets/valinor/frame-tl.webp'); }
+body[data-command-realm="personal"] :is(.oak-tr,.silver-tr) { right:0; top:0; background-image:url('../assets/valinor/frame-tr.webp'); }
+body[data-command-realm="personal"] :is(.oak-bl,.silver-bl) { left:0; bottom:0; top:auto; background-image:url('../assets/valinor/frame-bl.webp'); }
+body[data-command-realm="personal"] :is(.oak-br,.silver-br) { right:0; bottom:0; top:auto; background-image:url('../assets/valinor/frame-br.webp'); }
+body[data-command-realm="personal"] :is(.oak-top,.oak-bottom,.silver-top,.silver-bottom) {
+  left:var(--vf); right:var(--vf); width:auto; height:var(--vf); background-repeat:repeat-x; background-size:68.18px 100%;
+}
+body[data-command-realm="personal"] :is(.oak-top,.silver-top) { top:0; background-image:url('../assets/valinor/frame-top.webp'); }
+body[data-command-realm="personal"] :is(.oak-bottom,.silver-bottom) { top:auto; bottom:0; background-image:url('../assets/valinor/frame-bottom.webp'); }
+body[data-command-realm="personal"] :is(.oak-left,.oak-right,.silver-left,.silver-right) {
+  top:var(--vf); bottom:var(--vf); width:var(--vf); height:auto; background-repeat:repeat-y; background-size:100% 45.45px;
+}
+body[data-command-realm="personal"] :is(.oak-left,.silver-left) { left:0; background-image:url('../assets/valinor/frame-left.webp'); }
+body[data-command-realm="personal"] :is(.oak-right,.silver-right) { right:0; background-image:url('../assets/valinor/frame-right.webp'); }
+body[data-command-realm="personal"] :is(.bagend-frame,.silver-frame)::before {
+  content:""; position:absolute; z-index:2; width:30.68px; height:25.45px; top:0; left:calc(50% - 15.34px);
+  background:url('../assets/valinor/frame-crest.webp') center / contain no-repeat;
+}
+body[data-command-realm="personal"] #realmHeader.hero { background:none; padding:32px 34px; min-height:450px; }
+body[data-command-realm="personal"] #realmHeader.hero::before {
+  inset:11px; border-radius:22px;
+  background:linear-gradient(90deg,#0e1a32e8,#12213b77 50%,#12213b0a 85%),url('../assets/valinor/header-2172.webp') 63% center / cover no-repeat;
+}
+body[data-command-realm="personal"] #realmHeader.hero::after { display:none; }
+body[data-command-realm="personal"] #realmHeader .title-wrap { max-width:60%; margin-block:24px 30px; }
+body[data-command-realm="personal"] #realmHeader h1 { color:#f3ead9; text-shadow:0 2px 12px #091325; }
+body[data-command-realm="personal"] #realmHeader h1>span { color:#e9d09a; }
+body[data-command-realm="personal"] #realmHeader .hero-eyebrow { color:#e9d6ac; }
+body[data-command-realm="personal"] #realmHeader.hero .command-bar { background:linear-gradient(115deg,#22334ded,#11213aeb); border-color:#b3bed080; box-shadow:inset 0 1px #d8e5ff22,0 8px 24px #0003; }
+body[data-command-realm="personal"] #realmHeader .header-shortcut { background:#14243ae6; border-color:#afc2e06b; }
+body[data-command-realm="personal"] #realmHeader .header-shortcut:hover { background:#304563; border-color:#e1c891; }
+body[data-command-realm="personal"] #realmHeader :is(.wizard-menu,.shortcut-overflow,.shortcut-tooltip) { background:#15253df5; border-color:#bac7dd; color:#f1e8d8; }
+body[data-command-realm="personal"] #realmHeader .wizard-trigger:is(:hover,[aria-expanded=true]) { background:#304563; border-color:#d8bd83; }
+body[data-command-realm="personal"] #realmHeader .sigil { width:62px; height:62px; object-fit:contain; border:0; background:none; }
+
+body[data-command-realm="personal"] #dashboard .valinor-surface {
+  position:relative; isolation:isolate; background:none; border:0; box-shadow:none;
+  padding:30px; min-width:0; --surface-inset:11px; --surface-radius:22px;
+}
+body[data-command-realm="personal"] #dashboard .valinor-surface>.panel-surface,
+body[data-command-realm="personal"] #homePanel .hobbit-surface {
+  position:absolute; inset:11px; z-index:-2; border-radius:22px;
+  background:linear-gradient(145deg,#1a2943f8,#101e33f5); box-shadow:0 10px 26px #0003; pointer-events:none;
+}
+body[data-command-realm="personal"] #dashboard .valinor-surface .panel-title { border-color:#b1c2dd44; }
+body[data-command-realm="personal"] #dashboard .valinor-surface :is(h2,h3,h4,.workshop-heading) { color:#f1e7d3; }
+body[data-command-realm="personal"] #dashboard .valinor-surface :is(.section-kicker,.realm-account,.workshop-account,.app-card small) { color:#bdc9df; }
+body[data-command-realm="personal"] #dashboard .valinor-surface :is(.app-card,.quick-item,.provision-card,.play-app-card,.play-metric) { color:#eee6d7; border-color:#9caeca66; background:linear-gradient(145deg,#22344fe8,#13233be8); }
+body[data-command-realm="personal"] #dashboard .valinor-surface :is(.app-card,.quick-item):hover { background:linear-gradient(145deg,#304662,#1c304b); border-color:#e1c891; }
+body[data-command-realm="personal"] #dashboard .valinor-surface :is(.play-app,.play-metrics>div) { background:linear-gradient(145deg,#22344fe8,#13233be8); border-color:#9caeca66; }
+body[data-command-realm="personal"] #playPanel :is(.play-app small,.play-metrics dd,.play-footnote) { color:#d9e0ed; }
+body[data-command-realm="personal"] #playPanel>.panel-title>a { border-image:url('../assets/valinor/button-normal.webp') 42 110 fill / 12px 28px / 0 stretch; background:none; padding:11px 22px; }
+body[data-command-realm="personal"] #dashboard .valinor-surface .app-icon { background:#c1d5f00a; border-color:#b0c3e044; }
+body[data-command-realm="personal"] #dashboard .valinor-surface .section-icon { object-fit:contain; }
+body[data-command-realm="personal"] .valinor-surface .date-box { background:#10203799; border-color:#a8bbd455; }
+/* Genuine company marks remain unchanged inside the newly themed tiles. */
+body[data-command-realm="personal"] #dashboard>#personalRavens { aspect-ratio:1; padding:0; background:none; box-shadow:none; }
+body[data-command-realm="personal"] #personalRavens>:is(.panel-surface,.bagend-frame) { display:none; }
+body[data-command-realm="personal"] #personalRavens>.ravens-scroll-art { display:block; }
+body[data-command-realm="personal"] #personalRavens .ravens-reading { position:absolute; top:18%; bottom:19%; left:20%; right:20%; min-height:0; overflow:auto; color:#263b52; --ink:#263b52; --text:#263b52; --muted:#526779; --line:#7f91a455; --line-soft:#7f91a433; scrollbar-color:#8999ad transparent; }
+body[data-command-realm="personal"] #personalRavens :is(h2,.section-kicker,.realm-account,#ravensCaption,#ravensState,#mailReadAt,.daily-entry,.daily-entry small,.daily-entry strong,.daily-entry time,.daily-entry span) { color:#263b52; }
+body[data-command-realm="personal"] #personalRavens .daily-entry { border-color:#7f91a455; }
+body[data-command-realm="personal"] #personalRavens .daily-list { flex:1 1 0; max-height:none; min-height:0; overflow:auto; scrollbar-color:#8999ad transparent; }
+body[data-command-realm="personal"] #personalRavens .daily-feed-footer { border-color:#7f91a455; }
+body[data-command-realm="personal"] #personalRavens .raven-seal { font-size:0; width:22px; min-height:25px; background:url('../assets/valinor/icon-raven.webp') center / contain no-repeat; }
+body[data-command-realm="personal"] #personalRavens .ravens-reading :is(.daily-tabs,.daily-feed-footer) button { color:#f3e7cf; background:none; }
+body[data-command-realm="personal"] #personalRavens .ravens-reading :is(.daily-tabs,.daily-feed-footer) button:hover:not(:disabled) { color:#fff1d1; background:none; border-image-source:url('../assets/valinor/button-hover.webp'); }
+body[data-command-realm="personal"] #personalRavens .panel-title { margin-bottom:8px; padding-bottom:8px; }
+body[data-command-realm="personal"] #personalRavens .panel-title>.realm-account { display:none; }
+body[data-command-realm="personal"] #personalRavens :is(#ravensCaption,#ravensState) { font-size:12px; line-height:1.4; margin-bottom:8px; }
+body[data-command-realm="personal"] #personalRavens #ravensState:empty { display:none; }
+/* Bree's wooden noticeboard is replaced by the approved Elven city artwork. */
+body[data-command-realm="personal"] #breePanel .bree-board { position:relative; display:block; min-height:0; border:1px solid #a7bbd455; border-radius:12px; overflow:hidden; background:#12213a; }
+body[data-command-realm="personal"] #breePanel .bree-board::before,
+body[data-command-realm="personal"] #breePanel .bree-board::after { display:none; }
+body[data-command-realm="personal"] #breePanel .bree-art { position:absolute; inset:0; width:100%; height:100%; aspect-ratio:auto; mask-image:none; opacity:.35; pointer-events:none; }
+body[data-command-realm="personal"] #breePanel .bree-art img { width:100%; height:100%; object-fit:cover; }
+body[data-command-realm="personal"] #breePanel .bree-board .news-list { position:relative; z-index:1; padding:16px; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+body[data-command-realm="personal"] #breePanel .news-item { padding:18px; min-height:0; background:#10213bed; border:1px solid #a7bbd466; border-radius:8px; color:#eee6d7; box-shadow:0 4px 12px #0003; }
+body[data-command-realm="personal"] #breePanel .news-item::before { display:none; }
+body[data-command-realm="personal"] #breePanel .news-item a { color:#f2e7d1; }
+body[data-command-realm="personal"] #breePanel .news-item small { color:#bdc9df; }
+
+/* Bag End retains its three equal-height functional controls, inside Elven frames. */
+body[data-command-realm="personal"] #dashboard>#homePanel { padding:32px; --surface-paint:linear-gradient(145deg,#172740f5,#0e1c31f5); }
+body[data-command-realm="personal"] #homePanel>.panel-surface::after { display:none; }
+body[data-command-realm="personal"] #homePanel>.panel-title { margin:0 78px 22px 0; padding:0 0 18px; width:auto; min-height:0; background:none; border-radius:0; border-bottom:1px solid #adbed544; }
+body[data-command-realm="personal"] #homePanel>.panel-title :is(h2,.section-kicker,.realm-account) { color:#eee6d7; }
+body[data-command-realm="personal"] #homePanel .bag-end-emblem { width:64px; height:64px; top:24px; right:28px; object-fit:contain; }
+body[data-command-realm="personal"] #homePanel .hobbit-control { padding:28px; color:#eee6d7; }
+body[data-command-realm="personal"] #homePanel .hobbit-surface { background:linear-gradient(145deg,#20324bef,#12223bea); }
+body[data-command-realm="personal"] #homePanel .home-device { color:#eee6d7; }
+body[data-command-realm="personal"] #homePanel .climate-art { background:url('../assets/valinor/icon-weather.webp') center / contain no-repeat; }
+body[data-command-realm="personal"] #homePanel .climate-art :is(img,span) { visibility:hidden; }
+body[data-command-realm="personal"] #homePanel .weather-main b { color:#f1d69a; }
+body[data-command-realm="personal"] #homePanel #weatherIcon { font-size:0; background:url('../assets/valinor/icon-weather.webp') center / contain no-repeat; }
+body[data-command-realm="personal"] #homePanel .weather-grid>span { border-color:#a7bad45c; background:#11223a88; }
+body[data-command-realm="personal"] #homePanel .camera-preview { background:linear-gradient(#0c182328,#0c182328),url('../assets/valinor/background-960.webp') center / cover no-repeat; border-color:#9bb0cd; }
+body[data-command-realm="personal"] #homePanel #gatePanel .nest-footer { border-color:#a7bad444; }
+
+/* Existing semantic buttons and fields keep all labels, states and event handlers. */
+body[data-command-realm="personal"] :is(.valinor-surface,#realmHeader,#settingsDialog,#linkDialog,#searchDialog,.footer-caption) :is(button:not(.wizard-trigger):not(.header-shortcut),.wide-link,.command-button,.provision-card-actions>a,.media-actions>a,.button-label,.play-console-action) {
+  border:1px solid #a8b9d0; border-image:url('../assets/valinor/button-normal.webp') 42 110 fill / 12px 28px / 0 stretch;
+  border-radius:6px; background:none; box-shadow:none; color:#f3e7cf;
+  min-height:42px; padding:11px 22px; line-height:1.4;
+}
+body[data-command-realm="personal"] :is(.valinor-surface,#realmHeader,#settingsDialog,#linkDialog,#searchDialog,.footer-caption) :is(button,.wide-link,.command-button,.provision-card-actions>a,.media-actions>a,.button-label):hover:not(:disabled) { border-image-source:url('../assets/valinor/button-hover.webp'); background:none; color:#fff1d1; }
+body[data-command-realm="personal"] :is(.valinor-surface,#realmHeader,#settingsDialog,#linkDialog,#searchDialog) button:is(:active,[aria-selected=true],[aria-pressed=true],.primary-button) { border-image-source:url('../assets/valinor/button-pressed.webp'); color:#fff1d1; background:none; }
+body[data-command-realm="personal"] :is(.valinor-surface,#realmHeader,#settingsDialog,#linkDialog,#searchDialog) button:disabled { border-image-source:url('../assets/valinor/button-disabled.webp'); opacity:.6; }
+body[data-command-realm="personal"] :is(.valinor-surface,#realmHeader,#settingsDialog,#linkDialog,#searchDialog) :is(input:not([type=checkbox]):not([type=file]):not([type=hidden]),select,textarea) { background:#101e33; color:#eee6d7; border-color:#a4b7d1; }
+body[data-command-realm="personal"] :is(.valinor-surface,#realmHeader,#settingsDialog,#linkDialog,#searchDialog) :focus-visible { outline:3px solid #f2d294; outline-offset:3px; }
+body[data-command-realm="personal"] :is(.valinor-surface,#realmHeader,#settingsDialog,#linkDialog,#searchDialog) input[type=checkbox] { accent-color:#c6b482; }
+body[data-command-realm="personal"] :is(#settingsDialog,#linkDialog,#searchDialog) .dialog-heading>button {
+  border-image:none; border:1px solid #a8b9d0; background:linear-gradient(#2c405c,#192b45); padding:7px 10px; min-width:36px;
+}
+body[data-command-realm="personal"] #dashboard .valinor-surface .day-nav { display:grid; grid-template-columns:24px minmax(0,1fr) 24px; gap:3px; width:100%; min-width:0; }
+body[data-command-realm="personal"] #dashboard .valinor-surface .day-nav button { width:100%; min-width:0; min-height:32px; padding:4px 0; border-image:none; border:1px solid #b9c8dd; border-radius:7px; background:linear-gradient(#30425d,#1a2a44); color:#f0dba8; font-size:11px; }
+body[data-command-realm="personal"] #homePanel #refreshWeather { display:grid; place-items:center; flex:0 0 44px; width:44px; height:44px; min-height:44px; padding:5px; border-image:none; border:1px solid #d1b77f; border-radius:50%; background:radial-gradient(#2b405e,#12233d); box-shadow:inset 0 0 0 3px #bfcee526; }
+body[data-command-realm="personal"] #homePanel #refreshWeather img { width:30px; height:30px; object-fit:contain; }
+body[data-command-realm="personal"] #realmHeader.hero .command-bar .search-field :is(input,select),
+body[data-command-realm="personal"] :is(.valinor-surface,#settingsDialog,#linkDialog,#searchDialog) :is(input:not([type=checkbox]):not([type=file]):not([type=hidden]),select,textarea) { border:1px solid transparent; border-image:url('../assets/valinor/button-secondary.webp') 42 110 fill / 9px 24px / 0 stretch; background:none; padding:12px 26px; color:#eee6d7; }
+body[data-command-realm="personal"] #realmHeader.hero .command-bar .search-field select { padding-inline:20px 24px; }
+body[data-command-realm="personal"] :is(.valinor-surface,#realmHeader,#settingsDialog,#linkDialog,#searchDialog) option { background:#15253f; color:#eee6d7; }
+body[data-command-realm="personal"] #dashboard .valinor-surface .panel-actions>a { border:1px solid transparent; border-image:url('../assets/valinor/button-normal.webp') 42 110 fill / 12px 28px / 0 stretch; background:none; color:#eee6d7; min-height:42px; padding:11px 22px; }
+body[data-command-realm="personal"] :is(.valinor-surface,#realmHeader,#settingsDialog,#linkDialog,#searchDialog) img[src$="/link.svg"] { content:url('../assets/valinor/icon-compass.webp'); background:none; padding:0; }
+body[data-command-realm="personal"] :is(.valinor-surface,#realmHeader,#settingsDialog,#linkDialog,#searchDialog) .icon-fallback:not([hidden]) { display:inline-block; width:26px; height:26px; font-size:0; background:url('../assets/valinor/icon-compass.webp') center / contain no-repeat; }
+body[data-command-realm="personal"] #breePanel .news-icon { background:none; border:0; padding:0; width:26px; height:26px; }
+body[data-command-realm="personal"] #settingsDialog input[type=checkbox] { accent-color:#c6b482; }
+
+body[data-command-realm="personal"] :is(#settingsDialog,#linkDialog)[data-theme="gondor"],
+body[data-command-realm="personal"] #searchDialog { padding:26px; border:0; border-radius:22px; background:none; color:#eee6d7; isolation:isolate; }
+body[data-command-realm="personal"] :is(#settingsDialog,#linkDialog,#searchDialog)::before { content:""; position:absolute; inset:11px; z-index:-1; border-radius:22px; background:linear-gradient(145deg,#22344d,#101e33); pointer-events:none; }
+body[data-command-realm="personal"] #settingsDialog>.dialog-heading { padding:12px 10px 18px 60px; min-height:75px; border-color:#adbed555; }
+body[data-command-realm="personal"] #settingsDialog>.dialog-heading::before { background-image:url('../assets/valinor/icon-settings.webp'); width:42px; height:48px; top:8px; left:0; }
+body[data-command-realm="personal"] #settingsDialog :is(h2,h3,h4,legend,.section-kicker,.dialog-form>label) { color:#eee6d7; }
+body[data-command-realm="personal"] #settingsDialog :is(.help,.settings-intro,.connection-status,.settings-card-heading p,.mail-privacy,.mail-privacy summary) { color:#bdc9df; }
+body[data-command-realm="personal"] #settingsDialog :is(.settings-card,fieldset) { background:#101f3580; border-color:#a7bbd45c; }
+body[data-command-realm="personal"] #settingsDialog .settings-tab { color:#eee6d7; }
+body[data-command-realm="personal"] #settingsDialog .quick-link-settings>li { border-color:#adbed544; }
+body[data-command-realm="personal"] #settingsDialog .settings-card-heading>img { filter:none; }
+body[data-command-realm="personal"] #footerSettings { border:1px solid #a8b9d0; border-image:url('../assets/valinor/button-secondary.webp') 42 110 fill / 12px 28px / 0 stretch; background:none; color:#eee6d7; padding:11px 24px; }
+body[data-command-realm="personal"] .realm-sidebar { display:flex; flex-direction:column; min-height:0; }
+body[data-command-realm="personal"] .realm-sidebar #footerSettings { display:flex; align-items:center; justify-content:center; gap:8px; flex:0 0 auto; margin-top:auto; width:100%; min-height:44px; font-size:12px; padding:10px 16px; text-decoration:none; }
+body[data-command-realm="personal"] #footerSettings img { width:25px; height:25px; object-fit:contain; }
+body[data-command-realm="personal"] .footer picture { width:128px; }
+body[data-command-realm="personal"] .footer picture img { width:128px; height:128px; object-fit:contain; }
+
+@container(max-width:720px) {
+  body[data-command-realm="personal"] #personalRavens .daily-list { flex:0 0 auto; overflow:visible; }
+  body[data-command-realm="personal"] #personalRavens .ravens-reading { overflow:auto; }
+}
+
+@media(max-width:1100px) {
+  body[data-command-realm="personal"] #realmHeader .title-wrap { max-width:76%; }
+}
+@media(max-width:760px) {
+  body[data-command-realm="personal"]::before { background-image:linear-gradient(180deg,#101b3333,#101b3359),url('../assets/valinor/background-960.webp'); background-position:62% center; }
+  body.ember-mode[data-command-realm="personal"]::before { background-image:linear-gradient(180deg,#5a3a2445,#19243b66),url('../assets/valinor/background-960.webp'); }
+  body[data-command-realm="personal"] #realmHeader.hero { padding:28px 24px; min-height:420px; }
+  body[data-command-realm="personal"] #realmHeader.hero::before { background-image:linear-gradient(90deg,#0e1a32e8,#12213b77),url('../assets/valinor/header-1100.webp'); background-position:62% center; }
+  body[data-command-realm="personal"] #realmHeader .title-wrap { max-width:100%; margin-block:24px; }
+  body[data-command-realm="personal"] #realmHeader h1 { font-size:clamp(30px,8vw,42px); }
+  body[data-command-realm="personal"] #dashboard .valinor-surface { padding:26px; }
+  body[data-command-realm="personal"] #dashboard>#homePanel { padding:28px 22px; }
+  body[data-command-realm="personal"] #homePanel .hobbit-control { padding:28px 24px; }
+  body[data-command-realm="personal"] #homePanel .bag-end-emblem { width:50px; height:50px; right:23px; top:25px; }
+  body[data-command-realm="personal"] #homePanel>.panel-title { margin-right:58px; }
+  body[data-command-realm="personal"] #personalRavens .daily-list { flex:0 0 auto; overflow:visible; }
+  body[data-command-realm="personal"] #breePanel .bree-board .news-list { grid-template-columns:1fr; padding:12px; gap:12px; }
+  body[data-command-realm="personal"] #dashboard>#personalRavens { padding:0; aspect-ratio:auto; min-height:550px; border:0 solid transparent; border-image:url('../assets/valinor/elven-scroll.webp') 270 0 280 fill / calc((100vw - 28px) * .2109375) 0 calc((100vw - 28px) * .21875) / 0 stretch; }
+  body[data-command-realm="personal"] #personalRavens>.ravens-scroll-art { display:none; }
+  body[data-command-realm="personal"] #personalRavens .ravens-reading { top:calc((100vw - 28px) * .2109375 + 12px); bottom:calc((100vw - 28px) * .21875 + 12px); }
+  body[data-command-realm="personal"] .realm-sidebar { flex-direction:row; }
+  body[data-command-realm="personal"] .realm-sidebar #footerSettings { width:auto; margin:0; padding:9px 16px; }
+  body[data-command-realm="personal"] :is(#settingsDialog,#linkDialog)[data-theme="gondor"] { padding:24px 20px; }
+  body[data-command-realm="personal"] #settingsDialog { width:calc(100vw - 24px); max-width:calc(100vw - 24px); overflow:hidden; }
+  body[data-command-realm="personal"] #settingsDialog :is(.dialog-heading,.settings-tabs,.settings-body) { min-width:0; max-width:100%; }
+  body[data-command-realm="personal"] #settingsDialog>.dialog-heading { padding:10px 0 16px 48px; gap:8px; }
+  body[data-command-realm="personal"] #settingsDialog .dialog-heading>div { min-width:0; }
+  body[data-command-realm="personal"] #settingsDialog .dialog-heading h2 { font-size:24px; overflow-wrap:anywhere; }
+  body[data-command-realm="personal"] #settingsDialog .dialog-heading>button { flex:0 0 36px; padding:7px; }
+  body[data-command-realm="personal"] #settingsDialog .settings-tabs { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); padding:12px 0; gap:5px; }
+  body[data-command-realm="personal"] #settingsDialog .settings-tabs>button { padding:10px 7px; font-size:11px; }
+  body[data-command-realm="personal"] #settingsDialog .settings-body { padding:0 0 12px; }
+  body[data-command-realm="personal"] #settingsDialog .settings-card :is(button,a) { max-width:100%; white-space:normal; }
+}

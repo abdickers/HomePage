@@ -1,0 +1,14 @@
+{
+  "tool": "built-in image_gen",
+  "date": "2026-10-29",
+  "entries": [
+    {
+      "asset": "elven-scroll.png",
+      "prompt": "Create a new standalone square 1:1 Elven parchment SCROLL UI BACKGROUND asset, on genuine transparent alpha outside its silhouette. Theme: the Two Trees of Valinor and the High Elves. It is a rolled parchment sheet for a mail inbox, matching polished moon-silver, champagne-gold, ivory and pale moonstone materials. Full scroll from top roller to bottom roller entirely visible with small transparent margin. Very large completely blank uninterrupted light ivory parchment center, subtly softly textured, no drawing, no writing, no text, no symbols anywhere in the writing area. Wide horizontal rolled parchment cylinders across top and bottom, their end caps exquisite delicate silver and pale gold leaf filigree with small moonstone cabochons. Slender restrained ornamental Elven vine edging along left and right paper margins, graceful clean edge, pale cream not brown weathered. Ivory center rectangular safe area approximately x14% to86%, y17% to83% of canvas. Roller silhouettes remain horizontal, no dangling tassels. Small two-leaf silver-and-gold motif on the roller end caps only, references the Two Trees without consuming center space. Realistic premium fantasy game interface art, elegant refined craftsmanship, physically plausible parchment and metal, crisp alpha cutout, no smoke, no glowing haze outside silhouette, no cast shadow background, no border rectangle behind object, no UI text or icons. This is a usable scroll panel background, not a scene and not a mockup."
+    },
+    {
+      "asset": "two-trees-emblem.png",
+      "prompt": "Create a single small circular emblem icon for a premium Two Trees of Valinor / High Elven dashboard, genuine transparent alpha background. A silver-white luminous tree on the left and a golden luminous tree on the right sharing a broad rounded canopy, distinct two graceful trunks and roots, in an elegant slender circular moon-silver and champagne-gold rim with a tiny pale moonstone at its base. Balanced compact square silhouette readable at 64 pixels, centered with clear transparent padding, realistic richly detailed fantasy metalwork, soft restrained internal light. Match ivory, silver, champagne gold and twilight blue materials. No scenery, no parchment, no banner, no lettering, no long stem, no door or building, no heavy Gothic spikes, no haze or cast shadow outside silhouette. One polished round Two Trees medallion only."
+    }
+  ]
+}
