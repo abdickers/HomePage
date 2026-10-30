@@ -265,3 +265,8 @@ body[data-command-realm="personal"] #homePanel #nestControls button { padding-in
  body[data-command-realm="personal"] #dashboard .date-box #daynum { position:relative; top:-4px; line-height:1.1; }
  body[data-command-realm="personal"] #dashboard .date-box #monthyear { margin-top:4px; }
 }
+
+@media(min-width:381px) and (max-width:560px) {
+ body[data-command-realm="personal"] #homePanel #nestControls .media-actions { grid-template-columns:minmax(92px,110px) minmax(0,1fr); }
+ body[data-command-realm="personal"] #homePanel #nestControls button { padding-inline:12px; font-size:12px; }
+}
