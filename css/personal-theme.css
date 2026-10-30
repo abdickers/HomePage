@@ -1,7 +1,7 @@
 /* PERSONAL boundaries: Bag End surfaces, Dwarven Treasury, Gondor Settings.
    Every selector is anchored to the personal profile or a dedicated theme. */
 body[data-command-realm="personal"] {
-  position:relative; display:flow-root; background:radial-gradient(ellipse at 70% 0,#68502c35,transparent 850px),#111a12;
+  position:relative; display:flow-root; isolation:isolate; background:#111a12;
   --personal-sidebar-width:210px; --personal-content-inset:calc(var(--personal-sidebar-width) + 32px);
   --bagend-control-bg:linear-gradient(180deg,#26362b,#14231b);
   --bagend-control-hover:linear-gradient(180deg,#344a37,#203326);
@@ -11,6 +11,27 @@ body[data-command-realm="personal"] {
   --bagend-tile-hover:linear-gradient(145deg,#344c37,#203626);
   --control-bg:var(--bagend-control-bg); --control-hover:var(--bagend-control-hover);
   --control-active:var(--bagend-control-active); --control-line:var(--bagend-control-line); --control-ink:var(--bagend-control-ink);
+}
+/* A single viewport-sized scenic layer stays behind every frame as the page scrolls. */
+body[data-command-realm="personal"]::before {
+  content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
+  background:linear-gradient(180deg,#101b123d,#0d191454),
+    url('../assets/personal-theme/shire-countryside-1600.webp') center center / cover no-repeat;
+}
+body.ember-mode[data-command-realm="personal"]::before {
+  background-image:linear-gradient(180deg,#45240c45,#211c145c),
+    url('../assets/personal-theme/shire-countryside-1600.webp');
+}
+@media(max-width:760px) {
+  body[data-command-realm="personal"]::before {
+    background-image:linear-gradient(180deg,#101b123d,#0d191454),
+      url('../assets/personal-theme/shire-countryside-960.webp');
+    background-position:62% center;
+  }
+  body.ember-mode[data-command-realm="personal"]::before {
+    background-image:linear-gradient(180deg,#45240c45,#211c145c),
+      url('../assets/personal-theme/shire-countryside-960.webp');
+  }
 }
 /* One forest-green palette for ordinary controls, including nested home and
    parchment widgets. The named dialog, Treasury and Warcraft themes own theirs. */
