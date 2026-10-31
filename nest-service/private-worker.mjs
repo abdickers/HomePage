@@ -17,12 +17,12 @@ const CSP=[
   "object-src 'none'","base-uri 'self'","frame-ancestors 'none'","form-action 'self'","upgrade-insecure-requests"
 ].join('; ');
 
-export function privateHeaders(response,{document=false,nonce=''}={}) {
+export function privateHeaders(response,{document=false,nonce='',referrerPolicy='no-referrer'}={}) {
   const result=new Response(response.body,response);
   result.headers.set('Cache-Control','private, no-store, max-age=0');
   result.headers.set('Pragma','no-cache');
   result.headers.set('X-Content-Type-Options','nosniff');
-  result.headers.set('Referrer-Policy','no-referrer');
+  result.headers.set('Referrer-Policy',referrerPolicy==='same-origin'?'same-origin':'no-referrer');
   result.headers.set('X-Frame-Options','DENY');
   result.headers.set('X-Robots-Tag','noindex, nofollow, noarchive');
   result.headers.set('Strict-Transport-Security','max-age=31536000');
@@ -48,7 +48,9 @@ export function createPrivateWorker({verify=verifySiteAccess,service=gateway,rew
       try {
         const identity=await verify(request,env);
         if(url.origin!==env.FRONTEND_ORIGIN)throw new AccessDenied();
-        if(url.pathname==='/native/home')return privateHeaders(await nativeHome(request,env,identity,{createSession:createNativeNestSession}));
+        // A navigation-mode form POST under no-referrer sends Origin: null.
+        // Preserve same-origin form metadata while suppressing cross-origin referrers.
+        if(url.pathname==='/native/home')return privateHeaders(await nativeHome(request,env,identity,{createSession:createNativeNestSession}),{referrerPolicy:'same-origin'});
         if(url.pathname==='/__access/session'&&request.method==='GET')return privateHeaders(Response.json(identity));
         if(url.pathname==='/weather/current')return privateHeaders(await stationCurrent(request,env,{boundedJson}));
         if(url.pathname==='/'||url.pathname==='/HomePage')return privateHeaders(Response.redirect(url.origin+BASE_PATH,302));

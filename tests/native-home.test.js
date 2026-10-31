@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {generateKeyPair,exportSPKI,compactDecrypt} from 'jose';
 import {nativeHome} from '../nest-service/native-home.mjs';
 import gateway,{createNativeNestSession} from '../nest-service/worker.mjs';
+import {createPrivateWorker} from '../nest-service/private-worker.mjs';
 
 const origin='https://sage-cabin-nest.nest-service.workers.dev';
 const pair=await generateKeyPair('RSA-OAEP-256',{modulusLength:2048,extractable:true});
@@ -22,9 +23,16 @@ test('Home approval returns only ciphertext decryptable by the initiating phone'
 test('work identity, cross-origin, missing browser state, expired and malformed requests fail closed',async()=>{
  const env=setup();assert.equal((await nativeHome(start(),env,{...identity,email:'dickersona@76fireworks.com'},dependencies)).status,403);assert.equal(env.values.size,0);
  const response=await nativeHome(start(),env,identity,dependencies),csrf=response.headers.get('Set-Cookie').match(/__Host-native-home=([a-f0-9]{64})/)[1];
- for(const options of [{headers:{Origin:'https://attacker.invalid'}},{headers:{Cookie:''}},{fields:{redirect_uri:'https://attacker.invalid'}},{fields:{csrf:'c'.repeat(64)}}])assert.ok((await nativeHome(approve(csrf,options),env,identity,dependencies)).status>=400);
+ for(const options of [{headers:{Origin:'https://attacker.invalid'}},{headers:{Origin:'null'}},{headers:{Origin:''}},{headers:{Cookie:''}},{fields:{redirect_uri:'https://attacker.invalid'}},{fields:{csrf:'c'.repeat(64)}}])assert.ok((await nativeHome(approve(csrf,options),env,identity,dependencies)).status>=400);
  assert.equal((await nativeHome(approve(csrf),env,identity,{...dependencies,now:now+300001})).status,403);
  assert.equal((await nativeHome(new Request(origin+'/native/home?state=x&key=x'),env,identity,dependencies)).status,400);
+});
+test('private wrapper preserves the native form Origin policy without changing other private pages',async()=>{
+ const env=setup(),app=createPrivateWorker({verify:async()=>identity,service:{fetch:async()=>new Response('synthetic private response')}});
+ const approval=await app.fetch(start(),env);assert.equal(approval.status,200);assert.equal(approval.headers.get('Referrer-Policy'),'same-origin');assert.match(approval.headers.get('Content-Security-Policy'),/form-action 'self'/);assert.match(approval.headers.get('Cache-Control'),/no-store/);
+ const ordinary=await app.fetch(new Request(origin+'/devices'),env);assert.equal(ordinary.headers.get('Referrer-Policy'),'no-referrer');
+ const csrf=approval.headers.get('Set-Cookie').match(/__Host-native-home=([a-f0-9]{64})/)[1];
+ const forged=await app.fetch(approve(csrf,{headers:{Origin:'null'}}),env);assert.equal(forged.status,403);assert.match(await forged.text(),/Untrusted connection/);
 });
 test('native session is separately encrypted, scoped to Nest, and needs an existing owner grant',async()=>{
  const env={...setup(),TOKEN_ENCRYPTION_KEY:Buffer.alloc(32,7).toString('base64'),GOOGLE_CLIENT_ID:'synthetic-client',GOOGLE_CLIENT_SECRET:'synthetic-secret'};
