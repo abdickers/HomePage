@@ -32,3 +32,9 @@ The browser revalidates its saved session on each page load. Gmail/Calendar use 
 ## Validation
 
 `npm test` at repository root includes unauthenticated/session/origin rejection, OAuth state rejection, setpoint bounds and device state, safe device projection, and bounded provider responses. A Wrangler dry run validates the production bundle. Device read and camera playback must additionally be verified after the owner completes Google consent; unit tests do not imply a live connection.
+
+## Native Home approval
+
+`/native/home` remains behind the same whole-host signed Cloudflare Access guard. Only the personal owner can approve a five-minute browser-cookie-bound request initiated by the phone. Explicit approval creates a separate Nest-only application session; the Access identity session and new Nest session are returned only as RSA-OAEP-256/A256GCM ciphertext to a temporary phone public key. No provider Google tokens, station key, budget session or encryption key are returned. The app verifies both protected identity/session endpoints before encrypted storage. There is no public API exception or shared service-token bypass, and Access policy configuration is unchanged. Expired private-site authorization requires another browser approval. The app session can be revoked with the existing `/disconnect` endpoint without removing the website's Nest connection.
+
+`/native/session` reports only the owner email and current Nest session expiry after the existing application-session checks. Native sessions are restricted to this endpoint, device reads, validated thermostat/camera actions and disconnect. Station reads retain the existing five-minute current-observation cache and freshness checks. Approval uses KV only and never reads the budget database. The existing browser OAuth and app sessions are unchanged.
