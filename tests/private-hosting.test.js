@@ -44,7 +44,7 @@ test('missing or unsafe Access configuration fails closed before assets or gatew
 
 test('dashboard HTML, scripts, images, release metadata and every API require Access',async()=>{
   let calls=0;const app=createPrivateWorker({verify,service:{fetch(){calls++;return new Response('private');}}});
-  for(const path of ['/','/HomePage/','/HomePage/js/app.js','/HomePage/assets/sigil.svg','/HomePage/release.json','/health','/google/session','/devices','/budget/snapshot','/auth/start','/auth/callback']){
+  for(const path of ['/','/HomePage/','/HomePage/js/app.js','/HomePage/assets/sigil.svg','/HomePage/release.json','/health','/google/session','/devices','/budget/snapshot','/auth/start','/auth/callback','/native/home','/native/session','/weather/current']){
     const response=await app.fetch(request(path),{...env,ASSETS:{fetch(){calls++;return new Response('private');}}});
     assert.equal(response.status,403,path);assert.doesNotMatch(await response.text(),/private.*records|Bearer|session=/);
   }

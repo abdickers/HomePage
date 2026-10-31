@@ -1,4 +1,5 @@
-import gateway,{boundedJson} from './worker.mjs';
+import gateway,{boundedJson,createNativeNestSession} from './worker.mjs';
+import {nativeHome} from './native-home.mjs';
 import {verifySiteAccess,AccessDenied} from './access-guard.mjs';
 import {stationCurrent} from './station-weather.mjs';
 
@@ -47,6 +48,7 @@ export function createPrivateWorker({verify=verifySiteAccess,service=gateway,rew
       try {
         const identity=await verify(request,env);
         if(url.origin!==env.FRONTEND_ORIGIN)throw new AccessDenied();
+        if(url.pathname==='/native/home')return privateHeaders(await nativeHome(request,env,identity,{createSession:createNativeNestSession}));
         if(url.pathname==='/__access/session'&&request.method==='GET')return privateHeaders(Response.json(identity));
         if(url.pathname==='/weather/current')return privateHeaders(await stationCurrent(request,env,{boundedJson}));
         if(url.pathname==='/'||url.pathname==='/HomePage')return privateHeaders(Response.redirect(url.origin+BASE_PATH,302));

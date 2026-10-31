@@ -21,6 +21,13 @@ async function seal(env,value){const iv=crypto.getRandomValues(new Uint8Array(12
 async function unseal(env,value){const v=JSON.parse(value);return JSON.parse(new TextDecoder().decode(await crypto.subtle.decrypt({name:'AES-GCM',iv:Uint8Array.from(atob(v.iv),c=>c.charCodeAt(0))},await key(env),Uint8Array.from(atob(v.data),c=>c.charCodeAt(0)))));}
 async function getRecord(env,id){const raw=await env.NEST_KV.get(id);return raw?unseal(env,raw):null;}
 async function putRecord(env,id,value,ttl){await env.NEST_KV.put(id,await seal(env,value),ttl?{expirationTtl:ttl}:{});}
+export async function createNativeNestSession(env,email){
+ if(email!=='abdickers@gmail.com'||email!==env.OWNER_EMAIL?.toLowerCase())fail(403,'Use your personal owner account.');
+ if(!await getRecord(env,'owner'))fail(409,'Connect Nest on your personal website first, then try again.');
+ const token=random(),expires=Date.now()+SESSION_SECONDS*1000;
+ await putRecord(env,'session:'+await hash(token),{expires,kind:'nest',ownerEmail:email,client:'native-home'},SESSION_SECONDS);
+ return {token,expires};
+}
 async function provider(url,options={},limit=262144){
  // Workers supports manual/follow, but rejects redirect:'error' before any I/O.
  // Handle redirects ourselves so Google credentials never follow a Location.
@@ -64,6 +71,7 @@ async function authorize(request,env,kind='nest'){
  if(request.headers.get('Origin')!==env.FRONTEND_ORIGIN)fail(403,'Untrusted dashboard origin.');
  const bearer=request.headers.get('Authorization')?.match(/^Bearer ([a-f0-9]{64})$/)?.[1];if(!bearer)fail(401,'Sign in to your personal '+(kind==='google'?'Google':'Nest')+' account.');
  const id=await hash(bearer),session=await getRecord(env,'session:'+id);if(!session||session.expires<=Date.now()||(session.kind||'nest')!==kind)fail(401,'Your saved session expired. Reconnect.');
+ if(session.client==='native-home'&&!['/native/session','/devices','/thermostat','/camera/start','/camera/stop','/disconnect'].includes(new URL(request.url).pathname))fail(403,'This phone connection is limited to Home devices.');
  if(session.expires<Date.now()+23*86400000){session.expires=Date.now()+SESSION_SECONDS*1000;await putRecord(env,'session:'+id,session,SESSION_SECONDS);}
  return {id,expires:session.expires};
 }
@@ -126,6 +134,7 @@ export default {async fetch(request,env){
   const kind=url.pathname.startsWith('/play/')?'play':url.pathname.startsWith('/google/')||url.pathname.startsWith('/budget/')?'google':'nest';
   const {id:session,expires:sessionExpiresAt}=await authorize(request,env,kind);
   authorizedSession=session;
+  if(url.pathname==='/native/session'&&request.method==='GET')return Response.json({email:env.OWNER_EMAIL,expiresAt:sessionExpiresAt},{headers:headers(env)});
   if(url.pathname.startsWith('/budget/'))return await handleBudget(request,env,await budgetOwner(env,session),session,budgetDependencies());
   if(kind==='play'){
    if(url.pathname==='/play/disconnect'&&request.method==='POST'){await env.NEST_KV.delete('session:'+session);return new Response('{}',{headers:headers(env)});}
