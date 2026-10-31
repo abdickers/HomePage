@@ -64,6 +64,13 @@
               "icon": "inv_misc_treasurechest05b",
               "iconLabel": "Reward: Fabled Adventurer's Cache",
               "iconUrl": "/item=264274/fabled-adventurers-cache",
+              "name": "Special Assignment: The Grand Magister's Drink",
+              "url": "/quest=92145/special-assignment-the-grand-magisters-drink"
+            },
+            {
+              "icon": "inv_misc_treasurechest05b",
+              "iconLabel": "Reward: Fabled Adventurer's Cache",
+              "iconUrl": "/item=264274/fabled-adventurers-cache",
               "name": "Special Assignment: Face the Swarm",
               "url": "/quest=95922/special-assignment-face-the-swarm"
             }
@@ -205,29 +212,29 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1793473200,
-              "name": "Siege at the Whispering Marsh",
-              "startingUt": 1793471400
-            },
-            {
-              "endingUt": 1793475000,
-              "name": "The Malformed Leviathan",
-              "startingUt": 1793473200
-            },
-            {
-              "endingUt": 1793476800,
-              "name": "The Broodmother's Nest",
-              "startingUt": 1793475000
-            },
-            {
-              "endingUt": 1793478600,
+              "endingUt": 1793487600,
               "name": "The Looming Mutagenitor",
-              "startingUt": 1793476800
+              "startingUt": 1793485800
             },
             {
-              "endingUt": 1793480400,
+              "endingUt": 1793489400,
               "name": "Mlurkkr Massacre",
-              "startingUt": 1793478600
+              "startingUt": 1793487600
+            },
+            {
+              "endingUt": 1793491200,
+              "name": "Siege at the Whispering Marsh",
+              "startingUt": 1793489400
+            },
+            {
+              "endingUt": 1793493000,
+              "name": "The Malformed Leviathan",
+              "startingUt": 1793491200
+            },
+            {
+              "endingUt": 1793494800,
+              "name": "The Broodmother's Nest",
+              "startingUt": 1793493000
             }
           ],
           "icons": ""
@@ -268,16 +275,34 @@
         "content": {
           "lines": [
             {
-              "ending": "20 hr 21 min",
-              "endingShort": "20h",
+              "ending": "16 hr 23 min",
+              "endingShort": "16h",
               "endingUt": 1793545200,
-              "name": "Active"
+              "icon": "inv_zone_voidstorm",
+              "iconLabel": "Voidstorm",
+              "iconUrl": "/zone=15458/voidstorm",
+              "name": "Voidstorm: Shadowguard Point",
+              "url": "/zone=16549/shadowguard-point"
             },
             {
-              "ending": "20 hr 21 min",
-              "endingShort": "20h",
+              "ending": "16 hr 23 min",
+              "endingShort": "16h",
               "endingUt": 1793545200,
-              "name": "Active"
+              "icon": "inv_achievement_zone_harandar",
+              "iconLabel": "Harandar",
+              "iconUrl": "/zone=15355/harandar",
+              "name": "Harandar: The Gulf of Memory",
+              "url": "/zone=16595/the-gulf-of-memory"
+            },
+            {
+              "ending": "16 hr 23 min",
+              "endingShort": "16h",
+              "endingUt": 1793545200,
+              "icon": "inv_achievement_zone_zulaman1",
+              "iconLabel": "Zul'Aman",
+              "iconUrl": "/zone=15947/zulaman",
+              "name": "Zul'Aman: Twilight Crypts",
+              "url": "/zone=16557/twilight-crypts"
             }
           ],
           "icons": ""
@@ -354,7 +379,7 @@
       }
     ],
     "source": "https://www.wowhead.com/today-in-wow",
-    "updated": "2026-10-31T18:38:47.970596+00:00"
+    "updated": "2026-10-31T22:36:10.485705+00:00"
   },
   "forever": {
     "events": [
