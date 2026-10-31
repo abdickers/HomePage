@@ -47,18 +47,18 @@
         "content": {
           "lines": [
             {
-              "icon": "inv_misc_treasurechest05b",
-              "iconLabel": "Reward: Fabled Adventurer's Cache",
-              "iconUrl": "/item=264274/fabled-adventurers-cache",
-              "name": "Special Assignment: A Hunter's Regret",
-              "url": "/quest=92063/special-assignment-a-hunters-regret"
+              "icon": "8032875",
+              "iconLabel": "Reward: A Stack of Snacks",
+              "iconUrl": "/achievement=63633/a-stack-of-snacks",
+              "name": "Ki'clak Snack Attack",
+              "url": "/quest=94967/kiclak-snack-attack"
             },
             {
               "icon": "inv_misc_treasurechest05b",
               "iconLabel": "Reward: Fabled Adventurer's Cache",
               "iconUrl": "/item=264274/fabled-adventurers-cache",
-              "name": "Special Assignment: Shade and Claw",
-              "url": "/quest=92139/special-assignment-shade-and-claw"
+              "name": "Special Assignment: A Hunter's Regret",
+              "url": "/quest=92063/special-assignment-a-hunters-regret"
             },
             {
               "icon": "inv_misc_treasurechest05b",
@@ -78,11 +78,6 @@
       {
         "content": {
           "lines": [
-            {
-              "endingUt": 1793430008,
-              "name": "Eversong Woods",
-              "startingUt": 1793401200
-            },
             {
               "endingUt": 1793458808,
               "name": "Harandar",
@@ -205,29 +200,29 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1793408400,
-              "name": "Mlurkkr Massacre",
-              "startingUt": 1793406600
-            },
-            {
-              "endingUt": 1793410200,
-              "name": "Siege at the Whispering Marsh",
-              "startingUt": 1793408400
-            },
-            {
-              "endingUt": 1793412000,
-              "name": "The Malformed Leviathan",
-              "startingUt": 1793410200
-            },
-            {
-              "endingUt": 1793413800,
+              "endingUt": 1793431800,
               "name": "The Broodmother's Nest",
-              "startingUt": 1793412000
+              "startingUt": 1793430000
             },
             {
-              "endingUt": 1793415600,
+              "endingUt": 1793433600,
               "name": "The Looming Mutagenitor",
-              "startingUt": 1793413800
+              "startingUt": 1793431800
+            },
+            {
+              "endingUt": 1793435400,
+              "name": "Mlurkkr Massacre",
+              "startingUt": 1793433600
+            },
+            {
+              "endingUt": 1793437200,
+              "name": "Siege at the Whispering Marsh",
+              "startingUt": 1793435400
+            },
+            {
+              "endingUt": 1793439000,
+              "name": "The Malformed Leviathan",
+              "startingUt": 1793437200
             }
           ],
           "icons": ""
@@ -268,8 +263,8 @@
         "content": {
           "lines": [
             {
-              "ending": "14 hr 7 min",
-              "endingShort": "14h",
+              "ending": "7 hr 54 min",
+              "endingShort": "7h",
               "endingUt": 1793458800,
               "icon": "inv_zone_voidstorm",
               "iconLabel": "Voidstorm",
@@ -278,8 +273,8 @@
               "url": "/zone=16592/sunkiller-sanctum"
             },
             {
-              "ending": "14 hr 7 min",
-              "endingShort": "14h",
+              "ending": "7 hr 54 min",
+              "endingShort": "7h",
               "endingUt": 1793458800,
               "icon": "inv_achievement_zone_harandar",
               "iconLabel": "Harandar",
@@ -288,8 +283,8 @@
               "url": "/zone=16548/the-grudge-pit"
             },
             {
-              "ending": "14 hr 7 min",
-              "endingShort": "14h",
+              "ending": "7 hr 54 min",
+              "endingShort": "7h",
               "endingUt": 1793458800,
               "icon": "inv_achievement_sanktumoflight",
               "iconLabel": "Eversong Woods",
@@ -372,7 +367,7 @@
       }
     ],
     "source": "https://www.wowhead.com/today-in-wow",
-    "updated": "2026-10-31T00:53:06.242474+00:00"
+    "updated": "2026-10-31T07:05:58.649633+00:00"
   },
   "forever": {
     "events": [
