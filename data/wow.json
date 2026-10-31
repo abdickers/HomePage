@@ -79,11 +79,6 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1793458808,
-              "name": "Harandar",
-              "startingUt": 1793430000
-            },
-            {
               "endingUt": 1793487608,
               "name": "Eversong Woods",
               "startingUt": 1793458800
@@ -127,6 +122,11 @@
               "endingUt": 1793718008,
               "name": "Zul'Aman",
               "startingUt": 1793689200
+            },
+            {
+              "endingUt": 1793746808,
+              "name": "Harandar",
+              "startingUt": 1793718000
             }
           ],
           "icons": ""
@@ -205,29 +205,29 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1793455200,
+              "endingUt": 1793473200,
               "name": "Siege at the Whispering Marsh",
-              "startingUt": 1793453400
+              "startingUt": 1793471400
             },
             {
-              "endingUt": 1793457000,
+              "endingUt": 1793475000,
               "name": "The Malformed Leviathan",
-              "startingUt": 1793455200
+              "startingUt": 1793473200
             },
             {
-              "endingUt": 1793458800,
+              "endingUt": 1793476800,
               "name": "The Broodmother's Nest",
-              "startingUt": 1793457000
+              "startingUt": 1793475000
             },
             {
-              "endingUt": 1793460600,
+              "endingUt": 1793478600,
               "name": "The Looming Mutagenitor",
-              "startingUt": 1793458800
+              "startingUt": 1793476800
             },
             {
-              "endingUt": 1793462400,
+              "endingUt": 1793480400,
               "name": "Mlurkkr Massacre",
-              "startingUt": 1793460600
+              "startingUt": 1793478600
             }
           ],
           "icons": ""
@@ -268,34 +268,16 @@
         "content": {
           "lines": [
             {
-              "ending": "1 hr 15 min",
-              "endingShort": "1h",
-              "endingUt": 1793458800,
-              "icon": "inv_zone_voidstorm",
-              "iconLabel": "Voidstorm",
-              "iconUrl": "/zone=15458/voidstorm",
-              "name": "Voidstorm: Sunkiller Sanctum",
-              "url": "/zone=16592/sunkiller-sanctum"
+              "ending": "20 hr 21 min",
+              "endingShort": "20h",
+              "endingUt": 1793545200,
+              "name": "Active"
             },
             {
-              "ending": "1 hr 15 min",
-              "endingShort": "1h",
-              "endingUt": 1793458800,
-              "icon": "inv_achievement_zone_harandar",
-              "iconLabel": "Harandar",
-              "iconUrl": "/zone=15355/harandar",
-              "name": "Harandar: The Grudge Pit",
-              "url": "/zone=16548/the-grudge-pit"
-            },
-            {
-              "ending": "1 hr 15 min",
-              "endingShort": "1h",
-              "endingUt": 1793458800,
-              "icon": "inv_achievement_sanktumoflight",
-              "iconLabel": "Eversong Woods",
-              "iconUrl": "/zone=15968/eversong-woods",
-              "name": "Eversong Woods: The Shadow Enclave",
-              "url": "/zone=16594/the-shadow-enclave"
+              "ending": "20 hr 21 min",
+              "endingShort": "20h",
+              "endingUt": 1793545200,
+              "name": "Active"
             }
           ],
           "icons": ""
@@ -372,7 +354,7 @@
       }
     ],
     "source": "https://www.wowhead.com/today-in-wow",
-    "updated": "2026-10-31T13:44:20.860653+00:00"
+    "updated": "2026-10-31T18:38:47.970596+00:00"
   },
   "forever": {
     "events": [
