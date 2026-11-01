@@ -212,29 +212,29 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1793552400,
-              "name": "Mlurkkr Massacre",
-              "startingUt": 1793550600
-            },
-            {
-              "endingUt": 1793554200,
-              "name": "Siege at the Whispering Marsh",
-              "startingUt": 1793552400
-            },
-            {
-              "endingUt": 1793556000,
-              "name": "The Malformed Leviathan",
-              "startingUt": 1793554200
-            },
-            {
-              "endingUt": 1793557800,
-              "name": "The Broodmother's Nest",
-              "startingUt": 1793556000
-            },
-            {
-              "endingUt": 1793559600,
+              "endingUt": 1793568600,
               "name": "The Looming Mutagenitor",
-              "startingUt": 1793557800
+              "startingUt": 1793566800
+            },
+            {
+              "endingUt": 1793570400,
+              "name": "Mlurkkr Massacre",
+              "startingUt": 1793568600
+            },
+            {
+              "endingUt": 1793572200,
+              "name": "Siege at the Whispering Marsh",
+              "startingUt": 1793570400
+            },
+            {
+              "endingUt": 1793574000,
+              "name": "The Malformed Leviathan",
+              "startingUt": 1793572200
+            },
+            {
+              "endingUt": 1793575800,
+              "name": "The Broodmother's Nest",
+              "startingUt": 1793574000
             }
           ],
           "icons": ""
@@ -275,16 +275,24 @@
         "content": {
           "lines": [
             {
-              "ending": "22 hr 9 min",
-              "endingShort": "22h",
+              "ending": "17 hr 43 min",
+              "endingShort": "17h",
               "endingUt": 1793631600,
-              "name": "Active"
+              "icon": "inv_achievement_sanktumoflight",
+              "iconLabel": "Silvermoon City",
+              "iconUrl": "/zone=15969/silvermoon-city",
+              "name": "Silvermoon City: Collegiate Calamity",
+              "url": "/zone=16545/collegiate-calamity"
             },
             {
-              "ending": "22 hr 9 min",
-              "endingShort": "22h",
+              "ending": "17 hr 43 min",
+              "endingShort": "17h",
               "endingUt": 1793631600,
-              "name": "Active"
+              "icon": "inv_achievement_sanktumoflight",
+              "iconLabel": "Silvermoon City",
+              "iconUrl": "/zone=15969/silvermoon-city",
+              "name": "Silvermoon City: The Darkway",
+              "url": "/zone=16642/the-darkway"
             }
           ],
           "icons": ""
@@ -373,7 +381,7 @@
       }
     ],
     "source": "https://www.wowhead.com/today-in-wow",
-    "updated": "2026-11-01T16:51:10.422173+00:00"
+    "updated": "2026-11-01T21:16:38.693884+00:00"
   },
   "forever": {
     "events": [
