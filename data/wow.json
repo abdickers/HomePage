@@ -3,7 +3,32 @@
     "groups": [
       {
         "content": {
-          "lines": [],
+          "lines": [
+            {
+              "icon": "achievement_boss_archaedas",
+              "name": "Tyrannical",
+              "side": "both",
+              "url": "/affix=9/tyrannical"
+            },
+            {
+              "icon": "ability_toughness",
+              "name": "Fortified",
+              "side": "both",
+              "url": "/affix=10/fortified"
+            },
+            {
+              "icon": "inv_cosmicvoid_nova",
+              "name": "Xal'atath's Bargain: Pulsar",
+              "side": "both",
+              "url": "/affix=162/xalataths-bargain-pulsar"
+            },
+            {
+              "icon": "ability_racial_chillofnight",
+              "name": "Xal'atath's Guile",
+              "side": "both",
+              "url": "/affix=147/xalataths-guile"
+            }
+          ],
           "icons": "large"
         },
         "id": "mythicaffix",
@@ -33,11 +58,6 @@
       {
         "content": {
           "lines": [
-            {
-              "endingUt": 1793746808,
-              "name": "Harandar",
-              "startingUt": 1793718000
-            },
             {
               "endingUt": 1793775608,
               "name": "Eversong Woods",
@@ -82,6 +102,11 @@
               "endingUt": 1794006008,
               "name": "Harandar",
               "startingUt": 1793977200
+            },
+            {
+              "endingUt": 1794034808,
+              "name": "Eversong Woods",
+              "startingUt": 1794006000
             }
           ],
           "icons": ""
@@ -160,29 +185,29 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1793728800,
-              "name": "The Broodmother's Nest",
-              "startingUt": 1793727000
-            },
-            {
-              "endingUt": 1793730600,
-              "name": "The Looming Mutagenitor",
-              "startingUt": 1793728800
-            },
-            {
-              "endingUt": 1793732400,
+              "endingUt": 1793750400,
               "name": "Mlurkkr Massacre",
-              "startingUt": 1793730600
+              "startingUt": 1793748600
             },
             {
-              "endingUt": 1793734200,
+              "endingUt": 1793752200,
               "name": "Siege at the Whispering Marsh",
-              "startingUt": 1793732400
+              "startingUt": 1793750400
             },
             {
-              "endingUt": 1793736000,
+              "endingUt": 1793754000,
               "name": "The Malformed Leviathan",
-              "startingUt": 1793734200
+              "startingUt": 1793752200
+            },
+            {
+              "endingUt": 1793755800,
+              "name": "The Broodmother's Nest",
+              "startingUt": 1793754000
+            },
+            {
+              "endingUt": 1793757600,
+              "name": "The Looming Mutagenitor",
+              "startingUt": 1793755800
             }
           ],
           "icons": ""
@@ -223,20 +248,34 @@
         "content": {
           "lines": [
             {
-              "ending": "21 hr 3 min",
-              "endingShort": "21h",
+              "ending": "15 hr 29 min",
+              "endingShort": "15h",
+              "endingUt": 1793804400,
+              "icon": "inv_zone_voidstorm",
+              "iconLabel": "Voidstorm",
+              "iconUrl": "/zone=15458/voidstorm",
+              "name": "Voidstorm: Sunkiller Sanctum",
+              "url": "/zone=16592/sunkiller-sanctum"
+            },
+            {
+              "ending": "15 hr 29 min",
+              "endingShort": "15h",
+              "endingUt": 1793804400,
+              "icon": "inv_zone_voidstorm",
+              "iconLabel": "Voidstorm",
+              "iconUrl": "/zone=15458/voidstorm",
+              "name": "Voidstorm: Shadowguard Point",
+              "url": "/zone=16549/shadowguard-point"
+            },
+            {
+              "ending": "15 hr 29 min",
+              "endingShort": "15h",
               "endingUt": 1793804400,
               "icon": "inv_achievement_sanktumoflight",
               "iconLabel": "Silvermoon City",
               "iconUrl": "/zone=15969/silvermoon-city",
               "name": "Silvermoon City: The Darkway",
               "url": "/zone=16642/the-darkway"
-            },
-            {
-              "ending": "21 hr 3 min",
-              "endingShort": "21h",
-              "endingUt": 1793804400,
-              "name": "Active"
             }
           ],
           "icons": ""
@@ -313,7 +352,7 @@
       }
     ],
     "source": "https://www.wowhead.com/today-in-wow",
-    "updated": "2026-11-03T17:56:10.049190+00:00"
+    "updated": "2026-11-03T23:30:16.119471+00:00"
   },
   "forever": {
     "events": [
