@@ -1,0 +1,3 @@
+/* App-only presentation. The website remains the UI, with its actual controls. */
+html[data-dashboard-app="personal"] :is(#wowPanel,#budgetPanel,#budgetWorkspace,#budgetDialog),
+html[data-dashboard-app="personal"] a:is([href="#wowPanel"],[href="#budgetPanel"]) { display:none !important; }
