@@ -59,6 +59,13 @@
               "iconUrl": "/item=264274/fabled-adventurers-cache",
               "name": "Special Assignment: The Grand Magister's Drink",
               "url": "/quest=92145/special-assignment-the-grand-magisters-drink"
+            },
+            {
+              "icon": "inv_misc_treasurechest05b",
+              "iconLabel": "Reward: Fabled Adventurer's Cache",
+              "iconUrl": "/item=264274/fabled-adventurers-cache",
+              "name": "Special Assignment: Demand and Supply",
+              "url": "/quest=95921/special-assignment-demand-and-supply"
             }
           ],
           "icons": ""
@@ -71,11 +78,6 @@
       {
         "content": {
           "lines": [
-            {
-              "endingUt": 1793862008,
-              "name": "Eversong Woods",
-              "startingUt": 1793833200
-            },
             {
               "endingUt": 1793890808,
               "name": "Zul'Aman",
@@ -120,6 +122,11 @@
               "endingUt": 1794121208,
               "name": "Eversong Woods",
               "startingUt": 1794092400
+            },
+            {
+              "endingUt": 1794150008,
+              "name": "Zul'Aman",
+              "startingUt": 1794121200
             }
           ],
           "icons": ""
@@ -198,29 +205,29 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1793847600,
-              "name": "The Looming Mutagenitor",
-              "startingUt": 1793845800
-            },
-            {
-              "endingUt": 1793849400,
-              "name": "Mlurkkr Massacre",
-              "startingUt": 1793847600
-            },
-            {
-              "endingUt": 1793851200,
+              "endingUt": 1793878200,
               "name": "Siege at the Whispering Marsh",
-              "startingUt": 1793849400
+              "startingUt": 1793876400
             },
             {
-              "endingUt": 1793853000,
+              "endingUt": 1793880000,
               "name": "The Malformed Leviathan",
-              "startingUt": 1793851200
+              "startingUt": 1793878200
             },
             {
-              "endingUt": 1793854800,
+              "endingUt": 1793881800,
               "name": "The Broodmother's Nest",
-              "startingUt": 1793853000
+              "startingUt": 1793880000
+            },
+            {
+              "endingUt": 1793883600,
+              "name": "The Looming Mutagenitor",
+              "startingUt": 1793881800
+            },
+            {
+              "endingUt": 1793885400,
+              "name": "Mlurkkr Massacre",
+              "startingUt": 1793883600
             }
           ],
           "icons": ""
@@ -261,20 +268,24 @@
         "content": {
           "lines": [
             {
-              "ending": "12 hr 24 min",
-              "endingShort": "12h",
+              "ending": "3 hr 47 min",
+              "endingShort": "3h",
+              "endingUt": 1793890800,
+              "icon": "achievement_zone_isleofqueldanas",
+              "iconLabel": "Isle of Quel'Danas",
+              "iconUrl": "/zone=16182/isle-of-queldanas",
+              "name": "Isle of Quel'Danas: Parhelion Plaza",
+              "url": "/zone=16542/parhelion-plaza"
+            },
+            {
+              "ending": "3 hr 47 min",
+              "endingShort": "3h",
               "endingUt": 1793890800,
               "icon": "inv_achievement_zone_zulaman1",
               "iconLabel": "Zul'Aman",
               "iconUrl": "/zone=15947/zulaman",
               "name": "Zul'Aman: Twilight Crypts",
               "url": "/zone=16557/twilight-crypts"
-            },
-            {
-              "ending": "12 hr 24 min",
-              "endingShort": "12h",
-              "endingUt": 1793890800,
-              "name": "Active"
             }
           ],
           "icons": ""
@@ -351,7 +362,7 @@
       }
     ],
     "source": "https://www.wowhead.com/today-in-wow",
-    "updated": "2026-11-05T02:35:25.460048+00:00"
+    "updated": "2026-11-05T11:12:51.447193+00:00"
   },
   "forever": {
     "events": [
