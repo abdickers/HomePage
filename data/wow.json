@@ -205,29 +205,29 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1793982600,
-              "name": "The Looming Mutagenitor",
-              "startingUt": 1793980800
-            },
-            {
-              "endingUt": 1793984400,
+              "endingUt": 1794002400,
               "name": "Mlurkkr Massacre",
-              "startingUt": 1793982600
+              "startingUt": 1794000600
             },
             {
-              "endingUt": 1793986200,
+              "endingUt": 1794004200,
               "name": "Siege at the Whispering Marsh",
-              "startingUt": 1793984400
+              "startingUt": 1794002400
             },
             {
-              "endingUt": 1793988000,
+              "endingUt": 1794006000,
               "name": "The Malformed Leviathan",
-              "startingUt": 1793986200
+              "startingUt": 1794004200
             },
             {
-              "endingUt": 1793989800,
+              "endingUt": 1794007800,
               "name": "The Broodmother's Nest",
-              "startingUt": 1793988000
+              "startingUt": 1794006000
+            },
+            {
+              "endingUt": 1794009600,
+              "name": "The Looming Mutagenitor",
+              "startingUt": 1794007800
             }
           ],
           "icons": ""
@@ -268,14 +268,18 @@
         "content": {
           "lines": [
             {
-              "ending": "22 hr 59 min",
-              "endingShort": "22h",
+              "ending": "17 hr 21 min",
+              "endingShort": "17h",
               "endingUt": 1794063600,
-              "name": "Active"
+              "icon": "inv_achievement_sanktumoflight",
+              "iconLabel": "Eversong Woods",
+              "iconUrl": "/zone=15968/eversong-woods",
+              "name": "Eversong Woods: The Shadow Enclave",
+              "url": "/zone=16594/the-shadow-enclave"
             },
             {
-              "ending": "22 hr 59 min",
-              "endingShort": "22h",
+              "ending": "17 hr 21 min",
+              "endingShort": "17h",
               "endingUt": 1794063600,
               "name": "Active"
             }
@@ -354,7 +358,7 @@
       }
     ],
     "source": "https://www.wowhead.com/today-in-wow",
-    "updated": "2026-11-06T16:00:28.805046+00:00"
+    "updated": "2026-11-06T21:38:36.771392+00:00"
   },
   "forever": {
     "events": [
