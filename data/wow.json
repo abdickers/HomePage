@@ -79,11 +79,6 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1794006008,
-              "name": "Harandar",
-              "startingUt": 1793977200
-            },
-            {
               "endingUt": 1794034808,
               "name": "Eversong Woods",
               "startingUt": 1794006000
@@ -127,6 +122,11 @@
               "endingUt": 1794265208,
               "name": "Eversong Woods",
               "startingUt": 1794236400
+            },
+            {
+              "endingUt": 1794294008,
+              "name": "Harandar",
+              "startingUt": 1794265200
             }
           ],
           "icons": ""
@@ -205,29 +205,29 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1794002400,
-              "name": "Mlurkkr Massacre",
-              "startingUt": 1794000600
-            },
-            {
-              "endingUt": 1794004200,
-              "name": "Siege at the Whispering Marsh",
-              "startingUt": 1794002400
-            },
-            {
-              "endingUt": 1794006000,
-              "name": "The Malformed Leviathan",
-              "startingUt": 1794004200
-            },
-            {
-              "endingUt": 1794007800,
-              "name": "The Broodmother's Nest",
-              "startingUt": 1794006000
-            },
-            {
-              "endingUt": 1794009600,
+              "endingUt": 1794018600,
               "name": "The Looming Mutagenitor",
-              "startingUt": 1794007800
+              "startingUt": 1794016800
+            },
+            {
+              "endingUt": 1794020400,
+              "name": "Mlurkkr Massacre",
+              "startingUt": 1794018600
+            },
+            {
+              "endingUt": 1794022200,
+              "name": "Siege at the Whispering Marsh",
+              "startingUt": 1794020400
+            },
+            {
+              "endingUt": 1794024000,
+              "name": "The Malformed Leviathan",
+              "startingUt": 1794022200
+            },
+            {
+              "endingUt": 1794025800,
+              "name": "The Broodmother's Nest",
+              "startingUt": 1794024000
             }
           ],
           "icons": ""
@@ -268,8 +268,8 @@
         "content": {
           "lines": [
             {
-              "ending": "17 hr 21 min",
-              "endingShort": "17h",
+              "ending": "12 hr 58 min",
+              "endingShort": "12h",
               "endingUt": 1794063600,
               "icon": "inv_achievement_sanktumoflight",
               "iconLabel": "Eversong Woods",
@@ -278,8 +278,8 @@
               "url": "/zone=16594/the-shadow-enclave"
             },
             {
-              "ending": "17 hr 21 min",
-              "endingShort": "17h",
+              "ending": "12 hr 58 min",
+              "endingShort": "12h",
               "endingUt": 1794063600,
               "name": "Active"
             }
@@ -358,7 +358,7 @@
       }
     ],
     "source": "https://www.wowhead.com/today-in-wow",
-    "updated": "2026-11-06T21:38:36.771392+00:00"
+    "updated": "2026-11-07T02:02:04.590041+00:00"
   },
   "forever": {
     "events": [
