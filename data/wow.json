@@ -47,18 +47,18 @@
         "content": {
           "lines": [
             {
-              "icon": "inv_misc_treasurechest05b",
-              "iconLabel": "Reward: Fabled Adventurer's Cache",
-              "iconUrl": "/item=264274/fabled-adventurers-cache",
-              "name": "Special Assignment: Ours Once More!",
-              "url": "/quest=91796/special-assignment-ours-once-more"
+              "icon": "8032875",
+              "iconLabel": "Reward: A Stack of Snacks",
+              "iconUrl": "/achievement=63633/a-stack-of-snacks",
+              "name": "Ki'clak Snack Attack",
+              "url": "/quest=94967/kiclak-snack-attack"
             },
             {
               "icon": "inv_misc_treasurechest05b",
               "iconLabel": "Reward: Fabled Adventurer's Cache",
               "iconUrl": "/item=264274/fabled-adventurers-cache",
-              "name": "Special Assignment: The Grand Magister's Drink",
-              "url": "/quest=92145/special-assignment-the-grand-magisters-drink"
+              "name": "Special Assignment: Ours Once More!",
+              "url": "/quest=91796/special-assignment-ours-once-more"
             },
             {
               "icon": "inv_misc_treasurechest05b",
@@ -78,11 +78,6 @@
       {
         "content": {
           "lines": [
-            {
-              "endingUt": 1794034808,
-              "name": "Eversong Woods",
-              "startingUt": 1794006000
-            },
             {
               "endingUt": 1794063608,
               "name": "Harandar",
@@ -127,6 +122,11 @@
               "endingUt": 1794294008,
               "name": "Harandar",
               "startingUt": 1794265200
+            },
+            {
+              "endingUt": 1794322808,
+              "name": "Zul'Aman",
+              "startingUt": 1794294000
             }
           ],
           "icons": ""
@@ -205,29 +205,29 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1794018600,
-              "name": "The Looming Mutagenitor",
-              "startingUt": 1794016800
-            },
-            {
-              "endingUt": 1794020400,
-              "name": "Mlurkkr Massacre",
-              "startingUt": 1794018600
-            },
-            {
-              "endingUt": 1794022200,
-              "name": "Siege at the Whispering Marsh",
-              "startingUt": 1794020400
-            },
-            {
-              "endingUt": 1794024000,
+              "endingUt": 1794042000,
               "name": "The Malformed Leviathan",
-              "startingUt": 1794022200
+              "startingUt": 1794040200
             },
             {
-              "endingUt": 1794025800,
+              "endingUt": 1794043800,
               "name": "The Broodmother's Nest",
-              "startingUt": 1794024000
+              "startingUt": 1794042000
+            },
+            {
+              "endingUt": 1794045600,
+              "name": "The Looming Mutagenitor",
+              "startingUt": 1794043800
+            },
+            {
+              "endingUt": 1794047400,
+              "name": "Mlurkkr Massacre",
+              "startingUt": 1794045600
+            },
+            {
+              "endingUt": 1794049200,
+              "name": "Siege at the Whispering Marsh",
+              "startingUt": 1794047400
             }
           ],
           "icons": ""
@@ -268,8 +268,8 @@
         "content": {
           "lines": [
             {
-              "ending": "12 hr 58 min",
-              "endingShort": "12h",
+              "ending": "6 hr 3 min",
+              "endingShort": "6h",
               "endingUt": 1794063600,
               "icon": "inv_achievement_sanktumoflight",
               "iconLabel": "Eversong Woods",
@@ -278,8 +278,8 @@
               "url": "/zone=16594/the-shadow-enclave"
             },
             {
-              "ending": "12 hr 58 min",
-              "endingShort": "12h",
+              "ending": "6 hr 3 min",
+              "endingShort": "6h",
               "endingUt": 1794063600,
               "name": "Active"
             }
@@ -358,7 +358,7 @@
       }
     ],
     "source": "https://www.wowhead.com/today-in-wow",
-    "updated": "2026-11-07T02:02:04.590041+00:00"
+    "updated": "2026-11-07T08:56:49.453078+00:00"
   },
   "forever": {
     "events": [
