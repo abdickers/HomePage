@@ -64,6 +64,13 @@
               "icon": "inv_misc_treasurechest05b",
               "iconLabel": "Reward: Fabled Adventurer's Cache",
               "iconUrl": "/item=264274/fabled-adventurers-cache",
+              "name": "Special Assignment: Precision Excision",
+              "url": "/quest=93438/special-assignment-precision-excision"
+            },
+            {
+              "icon": "inv_misc_treasurechest05b",
+              "iconLabel": "Reward: Fabled Adventurer's Cache",
+              "iconUrl": "/item=264274/fabled-adventurers-cache",
               "name": "Special Assignment: Demand and Supply",
               "url": "/quest=95921/special-assignment-demand-and-supply"
             }
@@ -205,29 +212,29 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1794164400,
-              "name": "Mlurkkr Massacre",
-              "startingUt": 1794162600
-            },
-            {
-              "endingUt": 1794166200,
-              "name": "Siege at the Whispering Marsh",
-              "startingUt": 1794164400
-            },
-            {
-              "endingUt": 1794168000,
-              "name": "The Malformed Leviathan",
-              "startingUt": 1794166200
-            },
-            {
-              "endingUt": 1794169800,
+              "endingUt": 1794178800,
               "name": "The Broodmother's Nest",
-              "startingUt": 1794168000
+              "startingUt": 1794177000
             },
             {
-              "endingUt": 1794171600,
+              "endingUt": 1794180600,
               "name": "The Looming Mutagenitor",
-              "startingUt": 1794169800
+              "startingUt": 1794178800
+            },
+            {
+              "endingUt": 1794182400,
+              "name": "Mlurkkr Massacre",
+              "startingUt": 1794180600
+            },
+            {
+              "endingUt": 1794184200,
+              "name": "Siege at the Whispering Marsh",
+              "startingUt": 1794182400
+            },
+            {
+              "endingUt": 1794186000,
+              "name": "The Malformed Leviathan",
+              "startingUt": 1794184200
             }
           ],
           "icons": ""
@@ -268,8 +275,8 @@
         "content": {
           "lines": [
             {
-              "ending": "20 hr 6 min",
-              "endingShort": "20h",
+              "ending": "16 hr 2 min",
+              "endingShort": "16h",
               "endingUt": 1794236400,
               "icon": "inv_achievement_sanktumoflight",
               "iconLabel": "Silvermoon City",
@@ -278,8 +285,8 @@
               "url": "/zone=16545/collegiate-calamity"
             },
             {
-              "ending": "20 hr 6 min",
-              "endingShort": "20h",
+              "ending": "16 hr 2 min",
+              "endingShort": "16h",
               "endingUt": 1794236400,
               "name": "Active"
             }
@@ -352,7 +359,7 @@
       }
     ],
     "source": "https://www.wowhead.com/today-in-wow",
-    "updated": "2026-11-08T18:53:54.088668+00:00"
+    "updated": "2026-11-08T22:57:40.704065+00:00"
   },
   "forever": {
     "events": [
