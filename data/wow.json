@@ -86,11 +86,6 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1794294008,
-              "name": "Harandar",
-              "startingUt": 1794265200
-            },
-            {
               "endingUt": 1794322808,
               "name": "Zul'Aman",
               "startingUt": 1794294000
@@ -134,6 +129,11 @@
               "endingUt": 1794553208,
               "name": "Zul'Aman",
               "startingUt": 1794524400
+            },
+            {
+              "endingUt": 1794582008,
+              "name": "Harandar",
+              "startingUt": 1794553200
             }
           ],
           "icons": ""
@@ -212,29 +212,29 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1794286800,
-              "name": "The Broodmother's Nest",
-              "startingUt": 1794285000
-            },
-            {
-              "endingUt": 1794288600,
-              "name": "The Looming Mutagenitor",
-              "startingUt": 1794286800
-            },
-            {
-              "endingUt": 1794290400,
-              "name": "Mlurkkr Massacre",
-              "startingUt": 1794288600
-            },
-            {
-              "endingUt": 1794292200,
+              "endingUt": 1794319200,
               "name": "Siege at the Whispering Marsh",
-              "startingUt": 1794290400
+              "startingUt": 1794317400
             },
             {
-              "endingUt": 1794294000,
+              "endingUt": 1794321000,
               "name": "The Malformed Leviathan",
-              "startingUt": 1794292200
+              "startingUt": 1794319200
+            },
+            {
+              "endingUt": 1794322800,
+              "name": "The Broodmother's Nest",
+              "startingUt": 1794321000
+            },
+            {
+              "endingUt": 1794324600,
+              "name": "The Looming Mutagenitor",
+              "startingUt": 1794322800
+            },
+            {
+              "endingUt": 1794326400,
+              "name": "Mlurkkr Massacre",
+              "startingUt": 1794324600
             }
           ],
           "icons": ""
@@ -275,8 +275,8 @@
         "content": {
           "lines": [
             {
-              "ending": "10 hr 18 min",
-              "endingShort": "10h",
+              "ending": "1 hr 22 min",
+              "endingShort": "1h",
               "endingUt": 1794322800,
               "icon": "inv_zone_voidstorm",
               "iconLabel": "Voidstorm",
@@ -285,8 +285,8 @@
               "url": "/zone=16549/shadowguard-point"
             },
             {
-              "ending": "10 hr 18 min",
-              "endingShort": "10h",
+              "ending": "1 hr 22 min",
+              "endingShort": "1h",
               "endingUt": 1794322800,
               "icon": "inv_achievement_sanktumoflight",
               "iconLabel": "Silvermoon City",
@@ -295,8 +295,8 @@
               "url": "/zone=16642/the-darkway"
             },
             {
-              "ending": "10 hr 18 min",
-              "endingShort": "10h",
+              "ending": "1 hr 22 min",
+              "endingShort": "1h",
               "endingUt": 1794322800,
               "icon": "inv_achievement_zone_zulaman1",
               "iconLabel": "Zul'Aman",
@@ -319,16 +319,16 @@
         "content": {
           "lines": [
             {
+              "icon": "calendar_weekendpvpskirmishstart",
+              "name": "Arena Skirmish Bonus Event",
+              "side": "both",
+              "url": "/event=561/arena-skirmish-bonus-event"
+            },
+            {
               "icon": "calendar_brawl",
               "name": "PvP Brawl: Warsong Scramble",
               "side": "both",
               "url": "/event=664/pvp-brawl-warsong-scramble"
-            },
-            {
-              "icon": "calendar_weekendmidnightstart",
-              "name": "Midnight Dungeon Event",
-              "side": "both",
-              "url": "/event=1802/midnight-dungeon-event"
             }
           ],
           "icons": ""
@@ -373,7 +373,7 @@
       }
     ],
     "source": "https://www.wowhead.com/today-in-wow",
-    "updated": "2026-11-10T04:41:19.613028+00:00"
+    "updated": "2026-11-10T13:37:26.392684+00:00"
   },
   "forever": {
     "events": [
