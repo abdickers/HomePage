@@ -3,38 +3,7 @@
     "groups": [
       {
         "content": {
-          "lines": [
-            {
-              "icon": "ability_evoker_bronze_01",
-              "name": "Lindormi's Guidance",
-              "side": "both",
-              "url": "/affix=165/lindormis-guidance"
-            },
-            {
-              "icon": "inv_cosmicvoid_nova",
-              "name": "Xal'atath's Bargain: Pulsar",
-              "side": "both",
-              "url": "/affix=162/xalataths-bargain-pulsar"
-            },
-            {
-              "icon": "achievement_boss_archaedas",
-              "name": "Tyrannical",
-              "side": "both",
-              "url": "/affix=9/tyrannical"
-            },
-            {
-              "icon": "ability_toughness",
-              "name": "Fortified",
-              "side": "both",
-              "url": "/affix=10/fortified"
-            },
-            {
-              "icon": "ability_racial_chillofnight",
-              "name": "Xal'atath's Guile",
-              "side": "both",
-              "url": "/affix=147/xalataths-guile"
-            }
-          ],
+          "lines": [],
           "icons": "large"
         },
         "id": "mythicaffix",
@@ -47,32 +16,11 @@
         "content": {
           "lines": [
             {
-              "icon": "8032875",
-              "iconLabel": "Reward: A Stack of Snacks",
-              "iconUrl": "/achievement=63633/a-stack-of-snacks",
-              "name": "Ki'clak Snack Attack",
-              "url": "/quest=94967/kiclak-snack-attack"
-            },
-            {
-              "icon": "inv_misc_treasurechest05b",
-              "iconLabel": "Reward: Fabled Adventurer's Cache",
-              "iconUrl": "/item=264274/fabled-adventurers-cache",
-              "name": "Special Assignment: Ours Once More!",
-              "url": "/quest=91796/special-assignment-ours-once-more"
-            },
-            {
               "icon": "inv_misc_treasurechest05b",
               "iconLabel": "Reward: Fabled Adventurer's Cache",
               "iconUrl": "/item=264274/fabled-adventurers-cache",
               "name": "Special Assignment: Precision Excision",
               "url": "/quest=93438/special-assignment-precision-excision"
-            },
-            {
-              "icon": "inv_misc_treasurechest05b",
-              "iconLabel": "Reward: Fabled Adventurer's Cache",
-              "iconUrl": "/item=264274/fabled-adventurers-cache",
-              "name": "Special Assignment: Demand and Supply",
-              "url": "/quest=95921/special-assignment-demand-and-supply"
             }
           ],
           "icons": ""
@@ -85,11 +33,6 @@
       {
         "content": {
           "lines": [
-            {
-              "endingUt": 1794322808,
-              "name": "Zul'Aman",
-              "startingUt": 1794294000
-            },
             {
               "endingUt": 1794351608,
               "name": "Eversong Woods",
@@ -134,6 +77,11 @@
               "endingUt": 1794582008,
               "name": "Harandar",
               "startingUt": 1794553200
+            },
+            {
+              "endingUt": 1794610808,
+              "name": "Zul'Aman",
+              "startingUt": 1794582000
             }
           ],
           "icons": ""
@@ -148,8 +96,8 @@
         "content": {
           "lines": [
             {
-              "name": "Naigtal",
-              "url": "/zone=16943/naigtal"
+              "name": "Val",
+              "url": "/zone=16900/val"
             }
           ],
           "icons": ""
@@ -164,8 +112,8 @@
         "content": {
           "lines": [
             {
-              "name": "Eversong Woods",
-              "url": "/zone=15968/eversong-woods"
+              "name": "Zul'Aman",
+              "url": "/zone=15947/zulaman"
             }
           ],
           "icons": ""
@@ -180,8 +128,8 @@
         "content": {
           "lines": [
             {
-              "name": "Zul'Aman",
-              "url": "/zone=15947/zulaman"
+              "name": "Eversong Woods",
+              "url": "/zone=15968/eversong-woods"
             }
           ],
           "icons": ""
@@ -196,8 +144,8 @@
         "content": {
           "lines": [
             {
-              "name": "Eversong Woods",
-              "url": "/zone=15968/eversong-woods"
+              "name": "Zul'Aman",
+              "url": "/zone=15947/zulaman"
             }
           ],
           "icons": ""
@@ -212,29 +160,29 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1794319200,
-              "name": "Siege at the Whispering Marsh",
-              "startingUt": 1794317400
-            },
-            {
-              "endingUt": 1794321000,
-              "name": "The Malformed Leviathan",
-              "startingUt": 1794319200
-            },
-            {
-              "endingUt": 1794322800,
-              "name": "The Broodmother's Nest",
-              "startingUt": 1794321000
-            },
-            {
-              "endingUt": 1794324600,
-              "name": "The Looming Mutagenitor",
-              "startingUt": 1794322800
-            },
-            {
-              "endingUt": 1794326400,
+              "endingUt": 1794344400,
               "name": "Mlurkkr Massacre",
-              "startingUt": 1794324600
+              "startingUt": 1794342600
+            },
+            {
+              "endingUt": 1794346200,
+              "name": "Siege at the Whispering Marsh",
+              "startingUt": 1794344400
+            },
+            {
+              "endingUt": 1794348000,
+              "name": "The Malformed Leviathan",
+              "startingUt": 1794346200
+            },
+            {
+              "endingUt": 1794349800,
+              "name": "The Broodmother's Nest",
+              "startingUt": 1794348000
+            },
+            {
+              "endingUt": 1794351600,
+              "name": "The Looming Mutagenitor",
+              "startingUt": 1794349800
             }
           ],
           "icons": ""
@@ -275,34 +223,16 @@
         "content": {
           "lines": [
             {
-              "ending": "1 hr 22 min",
-              "endingShort": "1h",
-              "endingUt": 1794322800,
-              "icon": "inv_zone_voidstorm",
-              "iconLabel": "Voidstorm",
-              "iconUrl": "/zone=15458/voidstorm",
-              "name": "Voidstorm: Shadowguard Point",
-              "url": "/zone=16549/shadowguard-point"
+              "ending": "18 hr 5 min",
+              "endingShort": "18h",
+              "endingUt": 1794409200,
+              "name": "Active"
             },
             {
-              "ending": "1 hr 22 min",
-              "endingShort": "1h",
-              "endingUt": 1794322800,
-              "icon": "inv_achievement_sanktumoflight",
-              "iconLabel": "Silvermoon City",
-              "iconUrl": "/zone=15969/silvermoon-city",
-              "name": "Silvermoon City: The Darkway",
-              "url": "/zone=16642/the-darkway"
-            },
-            {
-              "ending": "1 hr 22 min",
-              "endingShort": "1h",
-              "endingUt": 1794322800,
-              "icon": "inv_achievement_zone_zulaman1",
-              "iconLabel": "Zul'Aman",
-              "iconUrl": "/zone=15947/zulaman",
-              "name": "Zul'Aman: Atal'Aman",
-              "url": "/zone=16556/atalaman"
+              "ending": "18 hr 5 min",
+              "endingShort": "18h",
+              "endingUt": 1794409200,
+              "name": "Active"
             }
           ],
           "icons": ""
@@ -326,9 +256,9 @@
             },
             {
               "icon": "calendar_brawl",
-              "name": "PvP Brawl: Warsong Scramble",
+              "name": "PvP Brawl: Cooking Impossible",
               "side": "both",
-              "url": "/event=664/pvp-brawl-warsong-scramble"
+              "url": "/event=1047/pvp-brawl-cooking-impossible"
             }
           ],
           "icons": ""
@@ -341,9 +271,9 @@
         "content": {
           "lines": [
             {
-              "name": "Cragpine",
+              "name": "Thorm'belan",
               "side": "both",
-              "url": "/quest=92123/cragpine"
+              "url": "/quest=92034/thormbelan"
             }
           ],
           "icons": ""
@@ -373,7 +303,7 @@
       }
     ],
     "source": "https://www.wowhead.com/today-in-wow",
-    "updated": "2026-11-10T13:37:26.392684+00:00"
+    "updated": "2026-11-10T20:54:41.183679+00:00"
   },
   "forever": {
     "events": [
