@@ -170,4 +170,4 @@ prepareCalendar();loadWeather();
 setInterval(updateTime,30000);setInterval(loadWeather,10*60*1000);
 
 initNest(NEST_SERVICE_URL);
-initBudget({connection:googleConnection,serviceUrl:NEST_SERVICE_URL});
+if(document.documentElement.dataset.dashboardApp!=='personal')initBudget({connection:googleConnection,serviceUrl:NEST_SERVICE_URL});
