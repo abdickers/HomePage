@@ -17,6 +17,12 @@
               "url": "/affix=10/fortified"
             },
             {
+              "icon": "inv_nullstone_cosmicvoid",
+              "name": "Xal'atath's Bargain: Ascendant",
+              "side": "both",
+              "url": "/affix=148/xalataths-bargain-ascendant"
+            },
+            {
               "icon": "ability_racial_chillofnight",
               "name": "Xal'atath's Guile",
               "side": "both",
@@ -38,6 +44,13 @@
               "icon": "inv_misc_treasurechest05b",
               "iconLabel": "Reward: Fabled Adventurer's Cache",
               "iconUrl": "/item=264274/fabled-adventurers-cache",
+              "name": "Special Assignment: What Remains of a Temple Broken",
+              "url": "/quest=91390/special-assignment-what-remains-of-a-temple-broken"
+            },
+            {
+              "icon": "inv_misc_treasurechest05b",
+              "iconLabel": "Reward: Fabled Adventurer's Cache",
+              "iconUrl": "/item=264274/fabled-adventurers-cache",
               "name": "Special Assignment: Precision Excision",
               "url": "/quest=93438/special-assignment-precision-excision"
             }
@@ -52,11 +65,6 @@
       {
         "content": {
           "lines": [
-            {
-              "endingUt": 1794380408,
-              "name": "Harandar",
-              "startingUt": 1794351600
-            },
             {
               "endingUt": 1794409208,
               "name": "Eversong Woods",
@@ -101,6 +109,11 @@
               "endingUt": 1794639608,
               "name": "Eversong Woods",
               "startingUt": 1794610800
+            },
+            {
+              "endingUt": 1794668408,
+              "name": "Zul'Aman",
+              "startingUt": 1794639600
             }
           ],
           "icons": ""
@@ -179,29 +192,29 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1794360600,
-              "name": "The Looming Mutagenitor",
-              "startingUt": 1794358800
-            },
-            {
-              "endingUt": 1794362400,
-              "name": "Mlurkkr Massacre",
-              "startingUt": 1794360600
-            },
-            {
-              "endingUt": 1794364200,
-              "name": "Siege at the Whispering Marsh",
-              "startingUt": 1794362400
-            },
-            {
-              "endingUt": 1794366000,
+              "endingUt": 1794384000,
               "name": "The Malformed Leviathan",
-              "startingUt": 1794364200
+              "startingUt": 1794382200
             },
             {
-              "endingUt": 1794367800,
+              "endingUt": 1794385800,
               "name": "The Broodmother's Nest",
-              "startingUt": 1794366000
+              "startingUt": 1794384000
+            },
+            {
+              "endingUt": 1794387600,
+              "name": "The Looming Mutagenitor",
+              "startingUt": 1794385800
+            },
+            {
+              "endingUt": 1794389400,
+              "name": "Mlurkkr Massacre",
+              "startingUt": 1794387600
+            },
+            {
+              "endingUt": 1794391200,
+              "name": "Siege at the Whispering Marsh",
+              "startingUt": 1794389400
             }
           ],
           "icons": ""
@@ -242,8 +255,8 @@
         "content": {
           "lines": [
             {
-              "ending": "13 hr 41 min",
-              "endingShort": "13h",
+              "ending": "7 hr 9 min",
+              "endingShort": "7h",
               "endingUt": 1794409200,
               "icon": "inv_zone_voidstorm",
               "iconLabel": "Voidstorm",
@@ -252,10 +265,14 @@
               "url": "/zone=16592/sunkiller-sanctum"
             },
             {
-              "ending": "13 hr 41 min",
-              "endingShort": "13h",
+              "ending": "7 hr 9 min",
+              "endingShort": "7h",
               "endingUt": 1794409200,
-              "name": "Active"
+              "icon": "inv_achievement_zone_harandar",
+              "iconLabel": "Harandar",
+              "iconUrl": "/zone=15355/harandar",
+              "name": "Harandar: The Grudge Pit",
+              "url": "/zone=16548/the-grudge-pit"
             }
           ],
           "icons": ""
@@ -326,7 +343,7 @@
       }
     ],
     "source": "https://www.wowhead.com/today-in-wow",
-    "updated": "2026-11-11T01:18:52.415113+00:00"
+    "updated": "2026-11-11T07:50:32.423171+00:00"
   },
   "forever": {
     "events": [
