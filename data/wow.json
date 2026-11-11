@@ -53,6 +53,13 @@
               "iconUrl": "/item=264274/fabled-adventurers-cache",
               "name": "Special Assignment: Precision Excision",
               "url": "/quest=93438/special-assignment-precision-excision"
+            },
+            {
+              "icon": "inv_misc_treasurechest05b",
+              "iconLabel": "Reward: Fabled Adventurer's Cache",
+              "iconUrl": "/item=264274/fabled-adventurers-cache",
+              "name": "Special Assignment: Wraith Wrath",
+              "url": "/quest=95918/special-assignment-wraith-wrath"
             }
           ],
           "icons": ""
@@ -65,11 +72,6 @@
       {
         "content": {
           "lines": [
-            {
-              "endingUt": 1794409208,
-              "name": "Eversong Woods",
-              "startingUt": 1794380400
-            },
             {
               "endingUt": 1794438008,
               "name": "Zul'Aman",
@@ -114,6 +116,11 @@
               "endingUt": 1794668408,
               "name": "Zul'Aman",
               "startingUt": 1794639600
+            },
+            {
+              "endingUt": 1794697208,
+              "name": "Eversong Woods",
+              "startingUt": 1794668400
             }
           ],
           "icons": ""
@@ -192,29 +199,29 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1794384000,
-              "name": "The Malformed Leviathan",
-              "startingUt": 1794382200
-            },
-            {
-              "endingUt": 1794385800,
-              "name": "The Broodmother's Nest",
-              "startingUt": 1794384000
-            },
-            {
-              "endingUt": 1794387600,
+              "endingUt": 1794414600,
               "name": "The Looming Mutagenitor",
-              "startingUt": 1794385800
+              "startingUt": 1794412800
             },
             {
-              "endingUt": 1794389400,
+              "endingUt": 1794416400,
               "name": "Mlurkkr Massacre",
-              "startingUt": 1794387600
+              "startingUt": 1794414600
             },
             {
-              "endingUt": 1794391200,
+              "endingUt": 1794418200,
               "name": "Siege at the Whispering Marsh",
-              "startingUt": 1794389400
+              "startingUt": 1794416400
+            },
+            {
+              "endingUt": 1794420000,
+              "name": "The Malformed Leviathan",
+              "startingUt": 1794418200
+            },
+            {
+              "endingUt": 1794421800,
+              "name": "The Broodmother's Nest",
+              "startingUt": 1794420000
             }
           ],
           "icons": ""
@@ -255,24 +262,16 @@
         "content": {
           "lines": [
             {
-              "ending": "7 hr 9 min",
-              "endingShort": "7h",
-              "endingUt": 1794409200,
-              "icon": "inv_zone_voidstorm",
-              "iconLabel": "Voidstorm",
-              "iconUrl": "/zone=15458/voidstorm",
-              "name": "Voidstorm: Sunkiller Sanctum",
-              "url": "/zone=16592/sunkiller-sanctum"
+              "ending": "22 hr 38 min",
+              "endingShort": "22h",
+              "endingUt": 1794495600,
+              "name": "Active"
             },
             {
-              "ending": "7 hr 9 min",
-              "endingShort": "7h",
-              "endingUt": 1794409200,
-              "icon": "inv_achievement_zone_harandar",
-              "iconLabel": "Harandar",
-              "iconUrl": "/zone=15355/harandar",
-              "name": "Harandar: The Grudge Pit",
-              "url": "/zone=16548/the-grudge-pit"
+              "ending": "22 hr 38 min",
+              "endingShort": "22h",
+              "endingUt": 1794495600,
+              "name": "Active"
             }
           ],
           "icons": ""
@@ -343,7 +342,7 @@
       }
     ],
     "source": "https://www.wowhead.com/today-in-wow",
-    "updated": "2026-11-11T07:50:32.423171+00:00"
+    "updated": "2026-11-11T16:21:21.293371+00:00"
   },
   "forever": {
     "events": [
