@@ -3,7 +3,26 @@
     "groups": [
       {
         "content": {
-          "lines": [],
+          "lines": [
+            {
+              "icon": "achievement_boss_archaedas",
+              "name": "Tyrannical",
+              "side": "both",
+              "url": "/affix=9/tyrannical"
+            },
+            {
+              "icon": "ability_toughness",
+              "name": "Fortified",
+              "side": "both",
+              "url": "/affix=10/fortified"
+            },
+            {
+              "icon": "ability_racial_chillofnight",
+              "name": "Xal'atath's Guile",
+              "side": "both",
+              "url": "/affix=147/xalataths-guile"
+            }
+          ],
           "icons": "large"
         },
         "id": "mythicaffix",
@@ -33,11 +52,6 @@
       {
         "content": {
           "lines": [
-            {
-              "endingUt": 1794351608,
-              "name": "Eversong Woods",
-              "startingUt": 1794322800
-            },
             {
               "endingUt": 1794380408,
               "name": "Harandar",
@@ -82,6 +96,11 @@
               "endingUt": 1794610808,
               "name": "Zul'Aman",
               "startingUt": 1794582000
+            },
+            {
+              "endingUt": 1794639608,
+              "name": "Eversong Woods",
+              "startingUt": 1794610800
             }
           ],
           "icons": ""
@@ -160,29 +179,29 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1794344400,
-              "name": "Mlurkkr Massacre",
-              "startingUt": 1794342600
-            },
-            {
-              "endingUt": 1794346200,
-              "name": "Siege at the Whispering Marsh",
-              "startingUt": 1794344400
-            },
-            {
-              "endingUt": 1794348000,
-              "name": "The Malformed Leviathan",
-              "startingUt": 1794346200
-            },
-            {
-              "endingUt": 1794349800,
-              "name": "The Broodmother's Nest",
-              "startingUt": 1794348000
-            },
-            {
-              "endingUt": 1794351600,
+              "endingUt": 1794360600,
               "name": "The Looming Mutagenitor",
-              "startingUt": 1794349800
+              "startingUt": 1794358800
+            },
+            {
+              "endingUt": 1794362400,
+              "name": "Mlurkkr Massacre",
+              "startingUt": 1794360600
+            },
+            {
+              "endingUt": 1794364200,
+              "name": "Siege at the Whispering Marsh",
+              "startingUt": 1794362400
+            },
+            {
+              "endingUt": 1794366000,
+              "name": "The Malformed Leviathan",
+              "startingUt": 1794364200
+            },
+            {
+              "endingUt": 1794367800,
+              "name": "The Broodmother's Nest",
+              "startingUt": 1794366000
             }
           ],
           "icons": ""
@@ -223,14 +242,18 @@
         "content": {
           "lines": [
             {
-              "ending": "18 hr 5 min",
-              "endingShort": "18h",
+              "ending": "13 hr 41 min",
+              "endingShort": "13h",
               "endingUt": 1794409200,
-              "name": "Active"
+              "icon": "inv_zone_voidstorm",
+              "iconLabel": "Voidstorm",
+              "iconUrl": "/zone=15458/voidstorm",
+              "name": "Voidstorm: Sunkiller Sanctum",
+              "url": "/zone=16592/sunkiller-sanctum"
             },
             {
-              "ending": "18 hr 5 min",
-              "endingShort": "18h",
+              "ending": "13 hr 41 min",
+              "endingShort": "13h",
               "endingUt": 1794409200,
               "name": "Active"
             }
@@ -303,7 +326,7 @@
       }
     ],
     "source": "https://www.wowhead.com/today-in-wow",
-    "updated": "2026-11-10T20:54:41.183679+00:00"
+    "updated": "2026-11-11T01:18:52.415113+00:00"
   },
   "forever": {
     "events": [
