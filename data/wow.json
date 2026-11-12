@@ -5,6 +5,12 @@
         "content": {
           "lines": [
             {
+              "icon": "ability_evoker_bronze_01",
+              "name": "Lindormi's Guidance",
+              "side": "both",
+              "url": "/affix=165/lindormis-guidance"
+            },
+            {
               "icon": "achievement_boss_archaedas",
               "name": "Tyrannical",
               "side": "both",
@@ -73,11 +79,6 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1794438008,
-              "name": "Zul'Aman",
-              "startingUt": 1794409200
-            },
-            {
               "endingUt": 1794466808,
               "name": "Harandar",
               "startingUt": 1794438000
@@ -121,6 +122,11 @@
               "endingUt": 1794697208,
               "name": "Eversong Woods",
               "startingUt": 1794668400
+            },
+            {
+              "endingUt": 1794726008,
+              "name": "Harandar",
+              "startingUt": 1794697200
             }
           ],
           "icons": ""
@@ -199,29 +205,29 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1794438000,
+              "endingUt": 1794456000,
               "name": "The Malformed Leviathan",
-              "startingUt": 1794436200
+              "startingUt": 1794454200
             },
             {
-              "endingUt": 1794439800,
+              "endingUt": 1794457800,
               "name": "The Broodmother's Nest",
-              "startingUt": 1794438000
+              "startingUt": 1794456000
             },
             {
-              "endingUt": 1794441600,
+              "endingUt": 1794459600,
               "name": "The Looming Mutagenitor",
-              "startingUt": 1794439800
+              "startingUt": 1794457800
             },
             {
-              "endingUt": 1794443400,
+              "endingUt": 1794461400,
               "name": "Mlurkkr Massacre",
-              "startingUt": 1794441600
+              "startingUt": 1794459600
             },
             {
-              "endingUt": 1794445200,
+              "endingUt": 1794463200,
               "name": "Siege at the Whispering Marsh",
-              "startingUt": 1794443400
+              "startingUt": 1794461400
             }
           ],
           "icons": ""
@@ -262,8 +268,8 @@
         "content": {
           "lines": [
             {
-              "ending": "16 hr 7 min",
-              "endingShort": "16h",
+              "ending": "11 hr 4 min",
+              "endingShort": "11h",
               "endingUt": 1794495600,
               "icon": "inv_achievement_sanktumoflight",
               "iconLabel": "Silvermoon City",
@@ -272,8 +278,18 @@
               "url": "/zone=16545/collegiate-calamity"
             },
             {
-              "ending": "16 hr 7 min",
-              "endingShort": "16h",
+              "ending": "11 hr 4 min",
+              "endingShort": "11h",
+              "endingUt": 1794495600,
+              "icon": "inv_achievement_zone_harandar",
+              "iconLabel": "Harandar",
+              "iconUrl": "/zone=15355/harandar",
+              "name": "Harandar: The Gulf of Memory",
+              "url": "/zone=16595/the-gulf-of-memory"
+            },
+            {
+              "ending": "11 hr 4 min",
+              "endingShort": "11h",
               "endingUt": 1794495600,
               "icon": "inv_achievement_sanktumoflight",
               "iconLabel": "Silvermoon City",
@@ -350,7 +366,7 @@
       }
     ],
     "source": "https://www.wowhead.com/today-in-wow",
-    "updated": "2026-11-11T22:52:24.720223+00:00"
+    "updated": "2026-11-12T03:55:30.272183+00:00"
   },
   "forever": {
     "events": [
