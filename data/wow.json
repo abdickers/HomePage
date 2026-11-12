@@ -79,11 +79,6 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1794495608,
-              "name": "Eversong Woods",
-              "startingUt": 1794466800
-            },
-            {
               "endingUt": 1794524408,
               "name": "Harandar",
               "startingUt": 1794495600
@@ -127,6 +122,11 @@
               "endingUt": 1794754808,
               "name": "Eversong Woods",
               "startingUt": 1794726000
+            },
+            {
+              "endingUt": 1794783608,
+              "name": "Harandar",
+              "startingUt": 1794754800
             }
           ],
           "icons": ""
@@ -205,29 +205,29 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1794488400,
-              "name": "Mlurkkr Massacre",
-              "startingUt": 1794486600
-            },
-            {
-              "endingUt": 1794490200,
+              "endingUt": 1794517200,
               "name": "Siege at the Whispering Marsh",
-              "startingUt": 1794488400
+              "startingUt": 1794515400
             },
             {
-              "endingUt": 1794492000,
+              "endingUt": 1794519000,
               "name": "The Malformed Leviathan",
-              "startingUt": 1794490200
+              "startingUt": 1794517200
             },
             {
-              "endingUt": 1794493800,
+              "endingUt": 1794520800,
               "name": "The Broodmother's Nest",
-              "startingUt": 1794492000
+              "startingUt": 1794519000
             },
             {
-              "endingUt": 1794495600,
+              "endingUt": 1794522600,
               "name": "The Looming Mutagenitor",
-              "startingUt": 1794493800
+              "startingUt": 1794520800
+            },
+            {
+              "endingUt": 1794524400,
+              "name": "Mlurkkr Massacre",
+              "startingUt": 1794522600
             }
           ],
           "icons": ""
@@ -268,34 +268,20 @@
         "content": {
           "lines": [
             {
-              "ending": "2 hr 1 min",
-              "endingShort": "2h",
-              "endingUt": 1794495600,
-              "icon": "inv_achievement_sanktumoflight",
-              "iconLabel": "Silvermoon City",
-              "iconUrl": "/zone=15969/silvermoon-city",
-              "name": "Silvermoon City: Collegiate Calamity",
-              "url": "/zone=16545/collegiate-calamity"
+              "ending": "18 hr 3 min",
+              "endingShort": "18h",
+              "endingUt": 1794582000,
+              "icon": "inv_achievement_zone_zulaman1",
+              "iconLabel": "Zul'Aman",
+              "iconUrl": "/zone=15947/zulaman",
+              "name": "Zul'Aman: Atal'Aman",
+              "url": "/zone=16556/atalaman"
             },
             {
-              "ending": "2 hr 1 min",
-              "endingShort": "2h",
-              "endingUt": 1794495600,
-              "icon": "inv_achievement_zone_harandar",
-              "iconLabel": "Harandar",
-              "iconUrl": "/zone=15355/harandar",
-              "name": "Harandar: The Gulf of Memory",
-              "url": "/zone=16595/the-gulf-of-memory"
-            },
-            {
-              "ending": "2 hr 1 min",
-              "endingShort": "2h",
-              "endingUt": 1794495600,
-              "icon": "inv_achievement_sanktumoflight",
-              "iconLabel": "Silvermoon City",
-              "iconUrl": "/zone=15969/silvermoon-city",
-              "name": "Silvermoon City: The Darkway",
-              "url": "/zone=16642/the-darkway"
+              "ending": "18 hr 3 min",
+              "endingShort": "18h",
+              "endingUt": 1794582000,
+              "name": "Active"
             }
           ],
           "icons": ""
@@ -372,7 +358,7 @@
       }
     ],
     "source": "https://www.wowhead.com/today-in-wow",
-    "updated": "2026-11-12T12:58:11.368458+00:00"
+    "updated": "2026-11-12T20:57:04.868120+00:00"
   },
   "forever": {
     "events": [
