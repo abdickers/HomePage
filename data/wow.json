@@ -47,18 +47,18 @@
         "content": {
           "lines": [
             {
-              "icon": "inv_misc_treasurechest05b",
-              "iconLabel": "Reward: Fabled Adventurer's Cache",
-              "iconUrl": "/item=264274/fabled-adventurers-cache",
-              "name": "Special Assignment: What Remains of a Temple Broken",
-              "url": "/quest=91390/special-assignment-what-remains-of-a-temple-broken"
+              "icon": "8032875",
+              "iconLabel": "Reward: A Stack of Snacks",
+              "iconUrl": "/achievement=63633/a-stack-of-snacks",
+              "name": "Ki'clak Snack Attack",
+              "url": "/quest=94967/kiclak-snack-attack"
             },
             {
               "icon": "inv_misc_treasurechest05b",
               "iconLabel": "Reward: Fabled Adventurer's Cache",
               "iconUrl": "/item=264274/fabled-adventurers-cache",
-              "name": "Special Assignment: Precision Excision",
-              "url": "/quest=93438/special-assignment-precision-excision"
+              "name": "Special Assignment: What Remains of a Temple Broken",
+              "url": "/quest=91390/special-assignment-what-remains-of-a-temple-broken"
             },
             {
               "icon": "inv_misc_treasurechest05b",
@@ -205,29 +205,29 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1794614400,
-              "name": "Mlurkkr Massacre",
-              "startingUt": 1794612600
-            },
-            {
-              "endingUt": 1794616200,
-              "name": "Siege at the Whispering Marsh",
-              "startingUt": 1794614400
-            },
-            {
-              "endingUt": 1794618000,
-              "name": "The Malformed Leviathan",
-              "startingUt": 1794616200
-            },
-            {
-              "endingUt": 1794619800,
-              "name": "The Broodmother's Nest",
-              "startingUt": 1794618000
-            },
-            {
-              "endingUt": 1794621600,
+              "endingUt": 1794639600,
               "name": "The Looming Mutagenitor",
-              "startingUt": 1794619800
+              "startingUt": 1794637800
+            },
+            {
+              "endingUt": 1794641400,
+              "name": "Mlurkkr Massacre",
+              "startingUt": 1794639600
+            },
+            {
+              "endingUt": 1794643200,
+              "name": "Siege at the Whispering Marsh",
+              "startingUt": 1794641400
+            },
+            {
+              "endingUt": 1794645000,
+              "name": "The Malformed Leviathan",
+              "startingUt": 1794643200
+            },
+            {
+              "endingUt": 1794646800,
+              "name": "The Broodmother's Nest",
+              "startingUt": 1794645000
             }
           ],
           "icons": ""
@@ -268,8 +268,8 @@
         "content": {
           "lines": [
             {
-              "ending": "15 hr 17 min",
-              "endingShort": "15h",
+              "ending": "8 hr 14 min",
+              "endingShort": "8h",
               "endingUt": 1794668400,
               "icon": "inv_achievement_sanktumoflight",
               "iconLabel": "Silvermoon City",
@@ -278,10 +278,14 @@
               "url": "/zone=16545/collegiate-calamity"
             },
             {
-              "ending": "15 hr 17 min",
-              "endingShort": "15h",
+              "ending": "8 hr 14 min",
+              "endingShort": "8h",
               "endingUt": 1794668400,
-              "name": "Active"
+              "icon": "inv_achievement_zone_harandar",
+              "iconLabel": "Harandar",
+              "iconUrl": "/zone=15355/harandar",
+              "name": "Harandar: The Grudge Pit",
+              "url": "/zone=16548/the-grudge-pit"
             }
           ],
           "icons": ""
@@ -352,7 +356,7 @@
       }
     ],
     "source": "https://www.wowhead.com/today-in-wow",
-    "updated": "2026-11-13T23:42:40.946913+00:00"
+    "updated": "2026-11-14T06:45:28.621076+00:00"
   },
   "forever": {
     "events": [
