@@ -79,11 +79,6 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1794697208,
-              "name": "Eversong Woods",
-              "startingUt": 1794668400
-            },
-            {
               "endingUt": 1794726008,
               "name": "Harandar",
               "startingUt": 1794697200
@@ -205,29 +200,29 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1794684600,
-              "name": "The Looming Mutagenitor",
-              "startingUt": 1794682800
-            },
-            {
-              "endingUt": 1794686400,
-              "name": "Mlurkkr Massacre",
-              "startingUt": 1794684600
-            },
-            {
-              "endingUt": 1794688200,
-              "name": "Siege at the Whispering Marsh",
-              "startingUt": 1794686400
-            },
-            {
-              "endingUt": 1794690000,
+              "endingUt": 1794699000,
               "name": "The Malformed Leviathan",
-              "startingUt": 1794688200
+              "startingUt": 1794697200
             },
             {
-              "endingUt": 1794691800,
+              "endingUt": 1794700800,
               "name": "The Broodmother's Nest",
-              "startingUt": 1794690000
+              "startingUt": 1794699000
+            },
+            {
+              "endingUt": 1794702600,
+              "name": "The Looming Mutagenitor",
+              "startingUt": 1794700800
+            },
+            {
+              "endingUt": 1794704400,
+              "name": "Mlurkkr Massacre",
+              "startingUt": 1794702600
+            },
+            {
+              "endingUt": 1794706200,
+              "name": "Siege at the Whispering Marsh",
+              "startingUt": 1794704400
             }
           ],
           "icons": ""
@@ -268,14 +263,18 @@
         "content": {
           "lines": [
             {
-              "ending": "19 hr 41 min",
-              "endingShort": "19h",
+              "ending": "15 hr 51 min",
+              "endingShort": "15h",
               "endingUt": 1794754800,
-              "name": "Active"
+              "icon": "inv_zone_voidstorm",
+              "iconLabel": "Voidstorm",
+              "iconUrl": "/zone=15458/voidstorm",
+              "name": "Voidstorm: Sunkiller Sanctum",
+              "url": "/zone=16592/sunkiller-sanctum"
             },
             {
-              "ending": "19 hr 41 min",
-              "endingShort": "19h",
+              "ending": "15 hr 51 min",
+              "endingShort": "15h",
               "endingUt": 1794754800,
               "name": "Active"
             }
@@ -348,7 +347,7 @@
       }
     ],
     "source": "https://www.wowhead.com/today-in-wow",
-    "updated": "2026-11-14T19:18:13.161108+00:00"
+    "updated": "2026-11-14T23:08:41.261521+00:00"
   },
   "forever": {
     "events": [
