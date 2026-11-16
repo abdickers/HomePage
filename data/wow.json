@@ -79,11 +79,6 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1794841208,
-              "name": "Harandar",
-              "startingUt": 1794812400
-            },
-            {
               "endingUt": 1794870008,
               "name": "Zul'Aman",
               "startingUt": 1794841200
@@ -127,6 +122,11 @@
               "endingUt": 1795100408,
               "name": "Eversong Woods",
               "startingUt": 1795071600
+            },
+            {
+              "endingUt": 1795129208,
+              "name": "Zul'Aman",
+              "startingUt": 1795100400
             }
           ],
           "icons": ""
@@ -205,29 +205,29 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1794830400,
-              "name": "Mlurkkr Massacre",
-              "startingUt": 1794828600
-            },
-            {
-              "endingUt": 1794832200,
+              "endingUt": 1794868200,
               "name": "Siege at the Whispering Marsh",
-              "startingUt": 1794830400
+              "startingUt": 1794866400
             },
             {
-              "endingUt": 1794834000,
+              "endingUt": 1794870000,
               "name": "The Malformed Leviathan",
-              "startingUt": 1794832200
+              "startingUt": 1794868200
             },
             {
-              "endingUt": 1794835800,
+              "endingUt": 1794871800,
               "name": "The Broodmother's Nest",
-              "startingUt": 1794834000
+              "startingUt": 1794870000
             },
             {
-              "endingUt": 1794837600,
+              "endingUt": 1794873600,
               "name": "The Looming Mutagenitor",
-              "startingUt": 1794835800
+              "startingUt": 1794871800
+            },
+            {
+              "endingUt": 1794875400,
+              "name": "Mlurkkr Massacre",
+              "startingUt": 1794873600
             }
           ],
           "icons": ""
@@ -268,34 +268,24 @@
         "content": {
           "lines": [
             {
-              "ending": "3 hr 13 min",
-              "endingShort": "3h",
-              "endingUt": 1794841200,
+              "ending": "16 hr 39 min",
+              "endingShort": "16h",
+              "endingUt": 1794927600,
               "icon": "inv_achievement_sanktumoflight",
               "iconLabel": "Silvermoon City",
               "iconUrl": "/zone=15969/silvermoon-city",
-              "name": "Silvermoon City: The Darkway",
-              "url": "/zone=16642/the-darkway"
+              "name": "Silvermoon City: Collegiate Calamity",
+              "url": "/zone=16545/collegiate-calamity"
             },
             {
-              "ending": "3 hr 13 min",
-              "endingShort": "3h",
-              "endingUt": 1794841200,
-              "icon": "inv_achievement_zone_zulaman1",
-              "iconLabel": "Zul'Aman",
-              "iconUrl": "/zone=15947/zulaman",
-              "name": "Zul'Aman: Twilight Crypts",
-              "url": "/zone=16557/twilight-crypts"
-            },
-            {
-              "ending": "3 hr 13 min",
-              "endingShort": "3h",
-              "endingUt": 1794841200,
-              "icon": "inv_achievement_zone_zulaman1",
-              "iconLabel": "Zul'Aman",
-              "iconUrl": "/zone=15947/zulaman",
-              "name": "Zul'Aman: Atal'Aman",
-              "url": "/zone=16556/atalaman"
+              "ending": "16 hr 39 min",
+              "endingShort": "16h",
+              "endingUt": 1794927600,
+              "icon": "inv_achievement_sanktumoflight",
+              "iconLabel": "Eversong Woods",
+              "iconUrl": "/zone=15968/eversong-woods",
+              "name": "Eversong Woods: The Shadow Enclave",
+              "url": "/zone=16594/the-shadow-enclave"
             }
           ],
           "icons": ""
@@ -366,7 +356,7 @@
       }
     ],
     "source": "https://www.wowhead.com/today-in-wow",
-    "updated": "2026-11-16T11:46:12.042903+00:00"
+    "updated": "2026-11-16T22:20:51.853782+00:00"
   },
   "forever": {
     "events": [
