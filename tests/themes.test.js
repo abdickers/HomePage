@@ -113,6 +113,26 @@ function selected(f,theme) {
   assert.equal(f.select.value,theme);
   for(const name of themes)assert.equal(f.buttons[name].getAttribute('aria-pressed'),String(name===theme));
 }
+
+test('each footer emblem switches both picture source and fallback, then restores the Elven tree',()=>{
+  const f=fixture();
+  const footer=f.add('footer',{id:'realmFooter'}),picture=f.add('picture',{parent:footer});
+  const original='assets/valinor/two-trees-emblem.webp';
+  const source=f.add('source',{parent:picture,attributes:{srcset:original+' 160w',sizes:'192px'}});
+  const image=f.add('img',{parent:picture,attributes:{src:original,width:'480',height:'320'}});
+  f.ready();
+  const renderedSources=new Set();
+  for(const theme of ['hobbit','dwarven','gondor','elven']){
+    f.choose(theme);f.mutation();
+    const expected=theme==='elven'?original:theme==='gondor'?'assets/themes/gondor/sidebar-crest.webp':`assets/themes/${theme}/icon-home.webp`;
+    assert.equal(image.getAttribute('src'),expected);
+    assert.equal(source.getAttribute('srcset'),expected+' 160w');
+    assert.equal(source.hasAttribute('src'),false);
+    assert.equal(source.getAttribute('sizes'),'192px');
+    renderedSources.add(source.getAttribute('srcset'));
+  }
+  assert.equal(renderedSources.size,4);
+});
 const attributes=element=>Object.fromEntries(element.attributes);
 
 test('saved theme is selected before DOM readiness, then artwork and controls adopt it',()=>{
