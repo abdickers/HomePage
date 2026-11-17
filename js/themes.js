@@ -26,9 +26,10 @@
         const scenery = image.closest('#nestCameraArt');
         const scroll = image.classList.contains('ravens-scroll-art');
         const hearth = image.id === 'nestModeArt';
+        const footer = image.closest('#realmFooter');
         const sidebar = image.dataset.sidebarIcon;
-        if (!match && !emblem && !scenery && !scroll && !hearth && !sidebar) continue;
-        originals.set(image, {src,srcset,icon:emblem ? 'home' : match?.[1],scenery,scroll,hearth,sidebar});
+        if (!match && !emblem && !scenery && !scroll && !hearth && !sidebar && !footer) continue;
+        originals.set(image, {src,srcset,icon:emblem ? 'home' : match?.[1],scenery,scroll,hearth,sidebar,footer});
       }
       const original = originals.get(image);
       if (original.hearth) {
@@ -38,7 +39,11 @@
         }
       }
       let src = original.src, srcset = original.srcset;
-      if (original.sidebar && ['gondor','elven'].includes(theme)) {
+      if (original.footer && theme !== 'elven') {
+        const path = theme === 'gondor' ? 'assets/themes/gondor/sidebar-crest.webp' : artworkPath(theme,'home');
+        src = original.src ? path : null;
+        srcset = original.srcset ? path + ' 160w' : null;
+      } else if (original.sidebar && ['gondor','elven'].includes(theme)) {
         src = `assets/themes/${theme}/sidebar-icon-${original.sidebar}.webp`; srcset = null;
       } else if (theme !== 'elven') {
         if (original.scroll) { src = `assets/themes/${theme}/scroll.webp`; srcset = null; }
