@@ -1,0 +1,274 @@
+/* Compact home controls for the three alternate themes. The approved Elven
+   presentation, device state, and native hidden controls remain unchanged. */
+html[data-visual-theme="hobbit"] body[data-command-realm="personal"] {
+  --theme-hearth-idle:url('../assets/themes/hobbit/hearth-idle.webp');
+}
+html[data-visual-theme="dwarven"] body[data-command-realm="personal"] {
+  --theme-hearth-idle:url('../assets/themes/dwarven/hearth-idle.webp');
+}
+html[data-visual-theme="gondor"] body[data-command-realm="personal"] {
+  --theme-hearth-idle:url('../assets/themes/dwarven/hearth-idle.webp');
+}
+
+html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="gondor"]) body[data-command-realm="personal"] #dashboard>#homePanel {
+  padding:28px; min-height:0; height:auto;
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel>.panel-title {
+  width:auto; min-height:0; margin:0 64px 18px 0; padding:0 0 14px;
+  background:none; border-bottom:1px solid var(--theme-line); border-radius:0;
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel>.panel-title h2 {
+  margin:2px 0 4px; font-size:34px; line-height:1.05; color:var(--theme-ink);
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel>.panel-title :is(.section-kicker,.realm-account) {
+  color:var(--theme-muted); font-size:9px; line-height:1.5;
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel .bag-end-emblem {
+  width:50px; height:50px; top:28px; right:28px;
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel .bag-end-layout {
+  display:grid; grid-template-columns:minmax(0,1fr); gap:16px; align-items:start;
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel .home-devices {
+  display:contents;
+}
+
+/* One illustrated outer frame; inner controls have quiet material and a bevel.
+   Their height follows real content instead of stretching an empty thermostat. */
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel .hobbit-control {
+  position:relative; isolation:isolate; display:block; min-width:0; min-height:0;
+  height:auto; align-self:start; margin:0; padding:18px;
+  border:1px solid color-mix(in srgb,var(--theme-accent) 52%,transparent);
+  border-radius:var(--theme-radius,10px); background:none;
+  box-shadow:inset 0 1px #fff1,inset 0 0 0 3px #0002,0 4px 12px #0002;
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel .hobbit-control>.bagend-frame {
+  display:none;
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel .hobbit-control>.hobbit-surface {
+  inset:0; border-radius:inherit;
+  background:linear-gradient(145deg,color-mix(in srgb,var(--theme-panel-alt) 78%,transparent),color-mix(in srgb,var(--theme-panel) 88%,transparent)),var(--theme-texture,none) center / 360px auto repeat,var(--theme-panel);
+  box-shadow:none;
+}
+
+/* The heading spans the card; the actual temperature sits beside a substantial
+   hearth illustration. An unavailable or neutral device gets an unlit hearth. */
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel .home-device {
+  display:grid; grid-template-columns:minmax(92px,.9fr) minmax(0,1fr);
+  gap:8px 14px; align-items:start; min-width:0; padding:0; border:0; background:none;
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel .climate-reading {
+  display:contents;
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel .hearth-heading {
+  grid-column:1/-1; display:flex; gap:8px; align-items:center;
+  margin:0 0 6px; min-height:32px; font-size:26px; line-height:1.1;
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel .hearth-heading .home-small-icon {
+  width:26px; height:26px;
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel .climate-art {
+  grid-column:1; grid-row:2 / span 2; position:relative; align-self:center;
+  width:100%; max-width:144px; height:150px; margin:0 auto;
+  background:var(--theme-hearth-idle) center / contain no-repeat;
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel .climate-art:has(#nestModeArt:not([hidden])) {
+  background:none;
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel .climate-art #nestModeArt:not([hidden]) {
+  display:block; visibility:visible; width:100%; height:100%; object-fit:contain;
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel .climate-art #nestModeArt[hidden] {
+  display:none;
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel #nestNeutralGlyph {
+  visibility:hidden; position:absolute; width:0; height:0; border:0; background:none;
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel .ambient-reading {
+  grid-column:2; grid-row:2; display:flex; flex-direction:column; align-items:flex-start;
+  gap:6px; margin:6px 0 0; min-width:0;
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel .temperature-dial {
+  width:auto; height:auto; min-width:0; flex:none; display:flex; align-items:flex-start;
+  gap:3px; padding:0; border:0; border-radius:0; background:none; box-shadow:none;
+  color:var(--theme-ink); line-height:1;
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel .temperature-dial>span {
+  font:500 clamp(42px,5vw,64px)/.95 'Cormorant Garamond',Georgia,serif;
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel .temperature-dial>small {
+  font:500 17px/1.2 'DM Sans',Arial,sans-serif; margin-top:5px;
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel .ambient-reading>small {
+  max-width:none; color:var(--theme-muted); font-size:10px; line-height:1.45;
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel .climate-state {
+  grid-column:2; grid-row:3; margin:2px 0 0; font-size:11px; line-height:1.6; color:var(--theme-muted);
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel .climate-state strong {
+  color:var(--theme-ink); font-weight:600;
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel :is(#nestLastChecked,#nestStateNote) {
+  grid-column:1/-1; margin:4px 0 0; font-size:10px; line-height:1.5; color:var(--theme-muted);
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel #nestThermostatInfo {
+  grid-column:1/-1; margin:5px 0 0; font-size:10px; line-height:1.5; color:var(--theme-muted);
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel #nestThermostat:not([hidden]) {
+  grid-column:1/-1; width:100%; max-width:100%; margin-top:4px;
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel #nestControls {
+  margin:14px 0 0; padding:12px 0 0; border-top:1px solid var(--theme-line);
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel #nestControls .media-actions {
+  gap:10px; margin:0;
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel #nestControls .media-actions+.media-actions {
+  margin-top:10px;
+}
+
+/* Weather and camera use the same heading scale and compact live-data spacing. */
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel .weather-panel .panel-title {
+  display:flex; align-items:center; justify-content:space-between; gap:8px;
+  min-height:32px; padding:0 0 12px; margin:0 0 12px;
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel .weather-panel .section-identity {
+  min-width:0; gap:7px;
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel .weather-panel .section-kicker {
+  display:none;
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel .weather-panel h3 {
+  font-size:25px; line-height:1.05; margin:0;
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel .weather-panel .section-icon {
+  width:29px; height:34px; flex:0 0 29px;
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel #refreshWeather {
+  width:36px; height:36px; min-height:36px; flex:0 0 36px; padding:5px;
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel #refreshWeather img {
+  width:24px; height:24px;
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel .weather-main {
+  display:flex; align-items:center; gap:12px; margin:2px 0 14px;
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel #weatherIcon {
+  width:64px; height:64px; flex:0 0 64px;
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel .weather-main b {
+  font:500 52px/1 'Cormorant Garamond',Georgia,serif; color:var(--theme-ink);
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel #weatherDesc {
+  margin-top:5px; font-size:11px; line-height:1.4;
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel .weather-grid {
+  gap:6px; margin:0 0 10px;
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel .weather-grid>span {
+  display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center;
+  gap:6px; padding:7px 8px; font-size:10px; line-height:1.5;
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel #weatherSource {
+  margin:0 0 10px; font-size:10px; line-height:1.5; color:var(--theme-muted);
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel #weatherLocation {
+  min-height:40px; padding:8px 10px; font-size:11px;
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel #gatePanel .gate-label {
+  min-height:32px; margin:0 0 14px; font-size:25px; line-height:1.05; gap:7px;
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel #gatePanel .gate-label img {
+  width:28px; height:28px; flex:0 0 28px;
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel #gatePanel .camera-preview {
+  width:100%; max-width:none; aspect-ratio:16/9; min-height:0; height:auto;
+  margin:0; border-radius:6px;
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel #gatePanel .camera-toolbar {
+  width:100%; max-width:none; margin:10px 0 0; gap:8px;
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel #gatePanel .camera-selection {
+  gap:5px 8px;
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel #gatePanel #nestCameraInfo {
+  font-size:10px; line-height:1.4; color:var(--theme-muted);
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel #gatePanel .camera-toolbar .media-actions {
+  display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:6px;
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel #gatePanel .camera-toolbar .media-actions>:is(button,a) {
+  min-width:0; min-height:44px; margin:0; padding:7px 5px; font-size:10px; line-height:1.35;
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel #gatePanel .nest-footer {
+  width:100%; max-width:none; margin:10px 0 0; padding-top:9px; border-color:var(--theme-line);
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel #gatePanel #nestStatus {
+  font-size:10px; line-height:1.55; color:var(--theme-muted);
+}
+
+/* Gondor's single outer White Tree has room above the title; no inner crest
+   repeats behind any live heading. The surface stops inside the silver rail. */
+html[data-visual-theme="gondor"] body[data-command-realm="personal"] #dashboard>#homePanel {
+  padding:60px 28px 28px;
+}
+html[data-visual-theme="gondor"] body[data-command-realm="personal"] #dashboard>#homePanel>.panel-surface {
+  inset:34px 8px 8px;
+}
+html[data-visual-theme="gondor"] body[data-command-realm="personal"] #homePanel .bag-end-emblem {
+  top:55px;
+}
+
+@container (min-width:640px) {
+  html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel .bag-end-layout {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+  html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel #gatePanel {
+    grid-column:1/-1;
+  }
+}
+@container (min-width:640px) and (max-width:1019px) {
+  html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel #gatePanel {
+    display:grid; grid-template-columns:minmax(0,1.2fr) minmax(0,1fr); column-gap:18px; align-items:start;
+  }
+  html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel #gatePanel .gate-label {
+    grid-column:1/-1;
+  }
+  html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel #gatePanel .camera-preview {
+    grid-column:1; grid-row:2 / span 2;
+  }
+  html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel #gatePanel .camera-toolbar {
+    grid-column:2; grid-row:2; margin-top:0;
+  }
+  html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel #gatePanel .nest-footer {
+    grid-column:2; grid-row:3;
+  }
+}
+@container (min-width:1020px) {
+  html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel .bag-end-layout {
+    grid-template-columns:repeat(3,minmax(0,1fr)); align-items:start;
+  }
+  html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel #gatePanel {
+    grid-column:auto;
+  }
+}
+@media(max-width:760px) {
+  html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="gondor"]) body[data-command-realm="personal"] #dashboard>#homePanel {
+    padding:24px 20px;
+  }
+  html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel .hobbit-control {
+    padding:16px;
+  }
+  html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel .bag-end-emblem {
+    width:42px; height:42px; top:24px; right:22px;
+  }
+  html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel>.panel-title {
+    margin-right:50px;
+  }
+  html[data-visual-theme="gondor"] body[data-command-realm="personal"] #dashboard>#homePanel {
+    padding-top:56px;
+  }
+  html[data-visual-theme="gondor"] body[data-command-realm="personal"] #homePanel .bag-end-emblem {
+    top:54px;
+  }
+}

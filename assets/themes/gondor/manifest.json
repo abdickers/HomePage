@@ -1,0 +1,138 @@
+{
+  "source": "Work Command Center; app/royal-gondor.css",
+  "files": {
+    "header.webp": {
+      "source": "work-homepage-refresh/public/art/royal-gondor/royal-court-twilight-1600.webp",
+      "bytes": 275322,
+      "sha256": "46b796a3dd261572c9b673e05db3607c5e35675292b2d74f4ffa4ca416731fd1"
+    },
+    "white-city-daylight.webp": {
+      "source": "work-homepage-refresh/public/art/royal-gondor/white-city-daylight-960.webp",
+      "bytes": 127770,
+      "sha256": "161464d2aaf8361fc92e2b1d9f0c6895e07836a20fe936f767435fa01148391b"
+    },
+    "icon-calendar.webp": {
+      "source": "work-homepage-refresh/public/art/royal-gondor/icons/calendar-256.webp",
+      "bytes": 25040,
+      "sha256": "6ed300e8d9b69fcfad1fd8087b8a13e9c3bb2f16a0d73989cb88c25c7dfbbb77"
+    },
+    "icon-home.webp": {
+      "source": "work-homepage-refresh/public/art/royal-gondor/icons/shield-256.webp",
+      "bytes": 19560,
+      "sha256": "7085fb2bc429cf0820cc7e9461bf527691d87c21c416116cbe7ad1fa01906e96"
+    },
+    "icon-provisions.webp": {
+      "source": "work-homepage-refresh/public/art/royal-gondor/icons/treasury-256.webp",
+      "bytes": 23754,
+      "sha256": "fe7c425b7051973747f4d872aa7f998c41c5163e7c037823fc3445f7b6a8276c"
+    },
+    "icon-raven.webp": {
+      "source": "work-homepage-refresh/public/art/polish/raven.webp",
+      "bytes": 21436,
+      "sha256": "8f3a245ec47e1a0e1d546dbcf093f0ae269dfc3061568e7dbc6f098160aed823"
+    },
+    "icon-orb.webp": {
+      "source": "work-homepage-refresh/public/art/royal-gondor/icons/council-256.webp",
+      "bytes": 19986,
+      "sha256": "d393aec0d19ff2839fc4b7244ebb328a39f5bced2de155a5d3cfb5ce06f90b30"
+    },
+    "icon-news.webp": {
+      "source": "work-homepage-refresh/public/art/royal-gondor/icons/notes-256.webp",
+      "bytes": 24558,
+      "sha256": "8b1770033100622115380d33cadcada4e600d3d563939b90938ce16aef7bf27a"
+    },
+    "icon-tools.webp": {
+      "source": "work-homepage-refresh/public/art/royal-gondor/icons/quest-256.webp",
+      "bytes": 25246,
+      "sha256": "8892d6c27ec5fa6359870a273b716c8f51ec8e52d552d84215210e556293bdef"
+    },
+    "icon-compass.webp": {
+      "source": "work-homepage-refresh/public/art/royal-gondor/icons/overview-256.webp",
+      "bytes": 25756,
+      "sha256": "99f763117b2c0ab79d752ad4badc129bd4aa2c25cb51be9d00afc77358ea57de"
+    },
+    "icon-weather.webp": {
+      "source": "work-homepage-refresh/public/art/royal-gondor/icons/beacon-256.webp",
+      "bytes": 19664,
+      "sha256": "6c4c2b01e61ac8410fc1d318f64bfcd92fd1d40dace40621a0fd2c35aecaf0b1"
+    },
+    "icon-camera.webp": {
+      "source": "work-homepage-refresh/public/art/royal-gondor/icons/shield-256.webp",
+      "bytes": 19560,
+      "sha256": "7085fb2bc429cf0820cc7e9461bf527691d87c21c416116cbe7ad1fa01906e96"
+    },
+    "header-top-left.webp": {
+      "source": "work-homepage-refresh/public/art/gondor/header-top-left.webp",
+      "bytes": 20932,
+      "sha256": "29333e12e05cf2dd160c3067715adf37031b300763598860e7320fd6b43d88fc"
+    },
+    "header-top-right.webp": {
+      "source": "work-homepage-refresh/public/art/gondor/header-top-right.webp",
+      "bytes": 20832,
+      "sha256": "778ab7bed424a55c2e3b1880a392a77f6243b81f5d20de582c109c83a7044834"
+    },
+    "header-bottom-left.webp": {
+      "source": "work-homepage-refresh/public/art/gondor/header-bottom-left.webp",
+      "bytes": 20974,
+      "sha256": "a87cee7f672566fd85c5b2203e061d64f9321cbbe611590e731b1d6b10fddec8"
+    },
+    "header-bottom-right.webp": {
+      "source": "work-homepage-refresh/public/art/gondor/header-bottom-right.webp",
+      "bytes": 21312,
+      "sha256": "d8f02c03bc1d55af55a5f857674c5a3dc8ee342d2b51b1784a5573d55d015902"
+    },
+    "header-top.webp": {
+      "source": "work-homepage-refresh/public/art/gondor/header-top.webp",
+      "bytes": 22452,
+      "sha256": "a4c6e62f8a5967654209461e13b4182fd67df605cf43ca8b968f19726bccf2bc"
+    },
+    "header-bottom.webp": {
+      "source": "work-homepage-refresh/public/art/gondor/header-bottom.webp",
+      "bytes": 21642,
+      "sha256": "20cfdfcb766910523108f50bac7ea1c73a220f2bd195895690130e6ce6353eb2"
+    },
+    "header-left.webp": {
+      "source": "work-homepage-refresh/public/art/gondor/header-left.webp",
+      "bytes": 6270,
+      "sha256": "7c7af08b76f7d5e38652f4c6c39d28714730ba19cdf38b2f6e06b23df2811943"
+    },
+    "header-right.webp": {
+      "source": "work-homepage-refresh/public/art/gondor/header-right.webp",
+      "bytes": 5948,
+      "sha256": "89b0b9a3d78c4b9e2de5989541b165eafe37d50b431f60c3294e42782cd9b3f1"
+    },
+    "header-tree.webp": {
+      "source": "work-homepage-refresh/public/art/gondor/header-tree.webp",
+      "bytes": 40480,
+      "sha256": "bd877e84a623495f4b2bbe2677965d4f6373d1cf9ca3fe364b4653dd71855d7f"
+    },
+    "header-diamond.webp": {
+      "source": "work-homepage-refresh/public/art/gondor/header-diamond.webp",
+      "bytes": 11144,
+      "sha256": "dc32444eedda7b265a89056331f68863e24e56187434da822ecfad1ad6f93773"
+    },
+    "page-rail-top.webp": {
+      "source": "work-homepage-refresh/public/art/gondor/page-rail-top.webp",
+      "bytes": 87572,
+      "sha256": "7d4dd2e4a781b82a0f6df67ec7974d15bff3155a087b42d4d31e61ff0ef6b5b8"
+    },
+    "page-rail-shaft.webp": {
+      "source": "work-homepage-refresh/public/art/gondor/page-rail-shaft.webp",
+      "bytes": 45810,
+      "sha256": "cde6380bd47460df0b9c7486aa7282c666bcbf315f6c66a9d81230ac5c045494"
+    },
+    "page-rail-bottom.webp": {
+      "source": "work-homepage-refresh/public/art/gondor/page-rail-bottom.webp",
+      "bytes": 36628,
+      "sha256": "234fa39c88b2a82725c480e9cdb65e039cffcb861d66d96185ade60870a1933f"
+    },
+    "icon-refresh.svg": {
+      "source": "work-homepage-refresh/public/art/icons/refresh.svg",
+      "note": "Native Work vector, fixed silver stroke for external img rendering."
+    },
+    "icon-settings.svg": {
+      "source": "work-homepage-refresh/public/art/icons/settings.svg",
+      "note": "Native Work vector, fixed silver stroke for external img rendering."
+    }
+  }
+}

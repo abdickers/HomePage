@@ -16,6 +16,8 @@ Cloudflare Zero Trust protects the entire site and gateway. Only `abdickers@gmai
 
 ## Dashboard layout
 
+The header theme selector switches immediately between **Hobbit**, **Gondor**, **Dwarven**, and **Elven**. Settings → Preferences offers the same choice. The selection is remembered in this browser and synchronized across its open tabs. Hobbit and Dwarven use the approved scenery, material surfaces, frames, icons, and illustrated sidebars; Gondor uses the Work Command Center’s Royal Court artwork with its approved White Tree sidebar; Elven retains the Two Trees dashboard and uses its approved illustrated sidebar. Every realm has its own correspondence scroll. Existing integrations, company logos, Warcraft, and Treasury content remain functional. Artwork masters, provenance, and generation prompts are in `design/switchable-themes/`.
+
 On desktop, Calendar and AI Tools stack on the left beside the Ravens. Bag End follows with hearth / weather beside the smaller Watch at the Gate camera, all inside one frame, then Quartermaster / Quick Access and a full-width News from Bree. Tools & Systems, Warcraft, Treasury, and Words of Wisdom each have a full-width row. Smaller screens follow that same reading order in one column. Personal panels and individual home controls use one oak-and-ivy border. The old Quick Access card has been removed; enabled shortcuts appear in the header. Treasury retains Dwarven artwork, Warcraft retains its existing artwork, and Settings uses silver Gondor trim. The header Palantir uses the same supplied seeing-stone artwork as AI Tools.
 
 ## Google Calendar

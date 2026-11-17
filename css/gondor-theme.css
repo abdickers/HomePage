@@ -1,0 +1,105 @@
+/* The Work Command Center's Royal Gondor artwork and dark palette.
+   Load after the shared theme rules; Elven and the other themes are untouched. */
+html[data-visual-theme="gondor"] body[data-command-realm="personal"] {
+  --theme-ink:#e8edf2; --theme-muted:#b2bfcc; --theme-accent:#b8c9d8;
+  --theme-line:#7e96aa63; --theme-panel:#19232e; --theme-panel-alt:#202e3a;
+  --theme-field:#111c27; --theme-control:#293b4b; --theme-focus:#d6eafa;
+  --theme-radius:12px;
+  --theme-weather-icon:var(--theme-icon-weather); --theme-home-icon:var(--theme-icon-home);
+  --theme-compass-icon:var(--theme-icon-compass); --theme-raven-icon:var(--theme-icon-raven);
+  --theme-settings-icon:var(--theme-icon-settings);
+  --theme-button:linear-gradient(145deg,#293b4b,#111c27);
+  --theme-button-hover:linear-gradient(145deg,#415e77,#203448);
+  --theme-sidebar:linear-gradient(#101923f2,#111923fa),url('../assets/themes/gondor/header.webp') center / cover;
+  --theme-header-image:url('../assets/themes/gondor/header.webp');
+  --theme-page-image:url('../assets/themes/gondor/header.webp');
+  --theme-header-shade:linear-gradient(90deg,#101c2de8,#12263b78 52%,#0c172818);
+  --theme-frame-tl:url('../assets/themes/gondor/header-top-left.webp');
+  --theme-frame-tr:url('../assets/themes/gondor/header-top-right.webp');
+  --theme-frame-bl:url('../assets/themes/gondor/header-bottom-left.webp');
+  --theme-frame-br:url('../assets/themes/gondor/header-bottom-right.webp');
+  --theme-frame-top:url('../assets/themes/gondor/header-top.webp');
+  --theme-frame-bottom:url('../assets/themes/gondor/header-bottom.webp');
+  --theme-frame-left:url('../assets/themes/gondor/header-left.webp');
+  --theme-frame-right:url('../assets/themes/gondor/header-right.webp');
+  --theme-frame-crest:url('../assets/themes/gondor/header-tree.webp');
+  --theme-frame-corner:40px; --theme-frame-rail:13.793px; --theme-frame-side:19.31px;
+  --theme-icon-calendar:url('../assets/themes/gondor/icon-calendar.webp');
+  --theme-icon-home:url('../assets/themes/gondor/icon-home.webp');
+  --theme-icon-provisions:url('../assets/themes/gondor/icon-provisions.webp');
+  --theme-icon-raven:url('../assets/themes/gondor/icon-raven.webp');
+  --theme-icon-orb:url('../assets/themes/gondor/icon-orb.webp');
+  --theme-icon-news:url('../assets/themes/gondor/icon-news.webp');
+  --theme-icon-tools:url('../assets/themes/gondor/icon-tools.webp');
+  --theme-icon-compass:url('../assets/themes/gondor/icon-compass.webp');
+  --theme-icon-weather:url('../assets/themes/gondor/icon-weather.webp');
+  --theme-icon-camera:url('../assets/themes/gondor/icon-camera.webp');
+  --theme-icon-refresh:url('../assets/themes/gondor/icon-refresh.svg');
+  --theme-icon-settings:url('../assets/themes/gondor/icon-settings.svg');
+}
+
+/* Source corners are square; top rails and side rails are deliberately thinner.
+   Only the quiet rails repeat. Never stretch a White Tree or a corner to a panel. */
+html[data-visual-theme="gondor"] body[data-command-realm="personal"] :is(.bagend-frame,.silver-frame) {
+  --vf:40px; inset:24px 0 0;
+}
+
+html[data-visual-theme="gondor"] body[data-command-realm="personal"]::before {
+  background:linear-gradient(#0d162bd0,#0d162beb),var(--theme-page-image) center / cover no-repeat;
+}
+html[data-visual-theme="gondor"] body[data-command-realm="personal"] :is(.oak-top,.oak-bottom,.silver-top,.silver-bottom) {
+  height:13.793px; background-size:auto 100%;
+}
+html[data-visual-theme="gondor"] body[data-command-realm="personal"] :is(.oak-left,.oak-right,.silver-left,.silver-right) {
+  width:19.31px; background-size:100% auto;
+}
+html[data-visual-theme="gondor"] body[data-command-realm="personal"] :is(.bagend-frame,.silver-frame)::before {
+  content:""; display:block; width:81.2px; height:56px; top:-31.5px; left:calc(50% - 40.6px);
+  background:url('../assets/themes/gondor/header-tree.webp') center / contain no-repeat;
+}
+html[data-visual-theme="gondor"] body[data-command-realm="personal"] :is(.bagend-frame,.silver-frame)::after {
+  content:""; position:absolute; width:32px; height:24.276px; bottom:-6.345px; left:calc(50% - 16px);
+  background:url('../assets/themes/gondor/header-diamond.webp') center / contain no-repeat;
+}
+html[data-visual-theme="gondor"] body[data-command-realm="personal"] #dashboard .valinor-surface,
+html[data-visual-theme="gondor"] body[data-command-realm="personal"] #dashboard>#homePanel {
+  padding:60px 30px 32px;
+}
+html[data-visual-theme="gondor"] body[data-command-realm="personal"] #dashboard .valinor-surface>.panel-surface {
+  inset:34px 8px 8px; border-radius:18px;
+}
+html[data-visual-theme="gondor"] body[data-command-realm="personal"] #realmHeader.hero::before {
+  inset:34px 8px 8px; border-radius:18px;
+  background:linear-gradient(90deg,#101c2de8,#12263b78 52%,#0c172818),url('../assets/themes/gondor/header.webp') center 46% / cover no-repeat;
+}
+html[data-visual-theme="gondor"] body[data-command-realm="personal"] .realm-ring {
+  width:50px; min-width:50px; height:60px; border:0; border-radius:0; box-shadow:none;
+  font-size:0; background:url('../assets/themes/gondor/icon-home.webp') center / contain no-repeat;
+}
+html[data-visual-theme="gondor"] body[data-command-realm="personal"] .bagend-page-rail {
+  grid-template-rows:68px minmax(0,1fr) 42.1px; width:34px; left:calc(var(--personal-sidebar-width) - 17px); background:none; opacity:1;
+}
+html[data-visual-theme="gondor"] body[data-command-realm="personal"] .bagend-page-rail>span { display:block; }
+html[data-visual-theme="gondor"] body[data-command-realm="personal"] .bagend-page-rail .rail-top {
+  width:34px; background-image:url('../assets/themes/gondor/page-rail-top.webp');
+}
+html[data-visual-theme="gondor"] body[data-command-realm="personal"] .bagend-page-rail .rail-shaft {
+  width:16.84px; background-image:url('../assets/themes/gondor/page-rail-shaft.webp'); background-size:100% 100%;
+}
+html[data-visual-theme="gondor"] body[data-command-realm="personal"] .bagend-page-rail .rail-bottom {
+  width:21.86px; background-image:url('../assets/themes/gondor/page-rail-bottom.webp');
+}
+
+@media(max-width:760px) {
+  html[data-visual-theme="gondor"] body[data-command-realm="personal"] :is(.bagend-frame,.silver-frame) { --vf:30px; }
+  html[data-visual-theme="gondor"] body[data-command-realm="personal"] :is(.oak-top,.oak-bottom,.silver-top,.silver-bottom) { height:10.345px; }
+  html[data-visual-theme="gondor"] body[data-command-realm="personal"] :is(.oak-left,.oak-right,.silver-left,.silver-right) { width:14.483px; }
+  html[data-visual-theme="gondor"] body[data-command-realm="personal"] :is(.bagend-frame,.silver-frame)::before {
+    width:63.8px; height:44px; top:-24.75px; left:calc(50% - 31.9px);
+  }
+  html[data-visual-theme="gondor"] body[data-command-realm="personal"] :is(.bagend-frame,.silver-frame)::after {
+    width:24px; height:18.207px; bottom:-4.759px; left:calc(50% - 12px);
+  }
+  html[data-visual-theme="gondor"] body[data-command-realm="personal"] #dashboard .valinor-surface,
+  html[data-visual-theme="gondor"] body[data-command-realm="personal"] #dashboard>#homePanel { padding:54px 24px 30px; }
+}

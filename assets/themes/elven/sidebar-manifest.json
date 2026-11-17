@@ -1,0 +1,177 @@
+{
+  "theme": "elven",
+  "source": "Built-in imagegen; approved theme-specific Gondor and Elven sidebars",
+  "sources": {
+    "background": {
+      "path": "design/switchable-themes/elven/sidebar-background.png",
+      "generatedFilename": "exec-552b988a-6a11-4047-b3cc-dbd38f2f442b.png",
+      "sha256": "da56db9c948c69e3e6bc91d57dedbfeec8c4b2af7d5874c650846977f55ddbfb",
+      "width": 724,
+      "height": 2171,
+      "hasAlpha": false
+    },
+    "crest": {
+      "path": "design/switchable-themes/elven/sidebar-crest.png",
+      "generatedFilename": "exec-33efc2cb-140d-4d81-a2ea-069daf77e303.png",
+      "sha256": "1e41e69d36faa3bfa47a57614e61eb87db397c909bdd83869a2cdaeacbeb2659",
+      "width": 1536,
+      "height": 1024,
+      "hasAlpha": true
+    },
+    "icons": {
+      "path": "design/switchable-themes/elven/sidebar-icons.png",
+      "generatedFilename": "exec-378a5819-f4be-462b-8b11-5faeb54f6e25.png",
+      "sha256": "debacfd8a65cc2d5297e3dcc2db3bbb10578befe57cfb4f2bcb2919fd77f10ea",
+      "width": 1536,
+      "height": 1024,
+      "hasAlpha": true
+    }
+  },
+  "assets": {
+    "sidebar": {
+      "width": 512,
+      "height": 1535,
+      "bytes": 147832,
+      "hasAlpha": false,
+      "sha256": "0d8569a52d63d384eb981b954cf1ff7a03fda567415b17087df5a7c506e871ed"
+    },
+    "sidebar-top": {
+      "width": 512,
+      "height": 306,
+      "bytes": 34156,
+      "hasAlpha": false,
+      "sha256": "728cf4e8cb005c3883cdbe6589ff19ac1b10664301683c54434447653a8871d4",
+      "sourceCrop": {
+        "left": 0,
+        "top": 0,
+        "width": 724,
+        "height": 432
+      }
+    },
+    "sidebar-fill": {
+      "width": 512,
+      "height": 71,
+      "bytes": 1464,
+      "hasAlpha": false,
+      "sha256": "450646371bffd4dd01b928c0cbf513c4c4769327ed046eb3ffced9ffca64d4d9",
+      "sourceCrop": {
+        "left": 0,
+        "top": 900,
+        "width": 724,
+        "height": 100
+      }
+    },
+    "sidebar-bottom": {
+      "width": 512,
+      "height": 602,
+      "bytes": 98100,
+      "hasAlpha": false,
+      "sha256": "d40563330218236c853d7a37943aedb21630fe16f0ce541485bba4bf57d903ec",
+      "sourceCrop": {
+        "left": 0,
+        "top": 1320,
+        "width": 724,
+        "height": 851
+      }
+    },
+    "sidebar-crest": {
+      "width": 320,
+      "height": 220,
+      "bytes": 108976,
+      "hasAlpha": true,
+      "sha256": "211209edcaa39b7cda1fab103d99490ef476864eb7ccd7b9c46d264a367cf2d2",
+      "sourceCrop": {
+        "left": 111,
+        "top": 44,
+        "width": 1315,
+        "height": 905
+      }
+    },
+    "sidebar-icon-overview": {
+      "width": 151,
+      "height": 160,
+      "bytes": 27308,
+      "hasAlpha": true,
+      "sha256": "22d61bdd0d49ae813eb5fc1e19330854999fdfed4a740917b40c800c17aae058",
+      "sourceCrop": {
+        "left": 23,
+        "top": 11,
+        "width": 460,
+        "height": 489
+      }
+    },
+    "sidebar-icon-home": {
+      "width": 139,
+      "height": 160,
+      "bytes": 38660,
+      "hasAlpha": true,
+      "sha256": "563d1e504bc51ac4ada8750e58f9147674b4aad689e8e0ec4ed099cdb610efe8",
+      "sourceCrop": {
+        "left": 548,
+        "top": 6,
+        "width": 422,
+        "height": 486
+      }
+    },
+    "sidebar-icon-provisions": {
+      "width": 160,
+      "height": 137,
+      "bytes": 41832,
+      "hasAlpha": true,
+      "sha256": "66659d0925c648805336f22e8873bdac0938d59efcaa3682b6e23bcc96099007",
+      "sourceCrop": {
+        "left": 1047,
+        "top": 64,
+        "width": 471,
+        "height": 402
+      }
+    },
+    "sidebar-icon-warroom": {
+      "width": 159,
+      "height": 160,
+      "bytes": 29962,
+      "hasAlpha": true,
+      "sha256": "439643688c0f5c9f8d92ca0b33a5f2d9dfcd7cef4c24eb2d66acabb6a1534127",
+      "sourceCrop": {
+        "left": 31,
+        "top": 524,
+        "width": 458,
+        "height": 462
+      }
+    },
+    "sidebar-icon-treasury": {
+      "width": 160,
+      "height": 119,
+      "bytes": 38258,
+      "hasAlpha": true,
+      "sha256": "3405dc0b0739045d6d0cb95d79cc3f32606699268247cbc9557bc8210cfbf274",
+      "sourceCrop": {
+        "left": 512,
+        "top": 572,
+        "width": 504,
+        "height": 376
+      }
+    },
+    "sidebar-icon-settings": {
+      "width": 160,
+      "height": 156,
+      "bytes": 35390,
+      "hasAlpha": true,
+      "sha256": "276bce3f00193d31b6f77e4c34f0ecb51561f58f373196eea96789c1636c2efb",
+      "sourceCrop": {
+        "left": 1059,
+        "top": 533,
+        "width": 442,
+        "height": 431
+      }
+    }
+  },
+  "layout": {
+    "exportWidth": 512,
+    "topSourceHeight": 432,
+    "fillSourceTop": 900,
+    "fillSourceHeight": 100,
+    "bottomSourceTop": 1320,
+    "rendering": "Top and bottom use 100% auto; only the quiet fill repeats vertically. Objects retain their original aspect ratio."
+  }
+}
