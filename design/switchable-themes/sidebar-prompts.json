@@ -1,0 +1,46 @@
+{
+  "tool": "built-in image_gen",
+  "approvedSidebarReferences": {
+    "gondor": "exec-611c2ef3-9e79-4e97-a79a-f89a90441b60.png",
+    "elven": "exec-6bd9af4c-1db5-4728-9b2c-5307cdd194e9.png"
+  },
+  "jobs": [
+    {
+      "theme": "gondor",
+      "kind": "sidebar",
+      "transparent": false,
+      "prompt": "Production website asset from the APPROVED sidebar design in reference. Use case: stylized-concept. Create ONLY a blank sidebar BACKGROUND PANEL, portrait1:3 approximately724x2172. Royal Gondor: carved pale gray marble arches, polished silver borders, dark slate blue inset, White Tree and seven stars, distant twilight Minas Tirith, dignified architectural relief, warm little lanterns. Match the reference sidebar's frame, exact material finish, upper carved arch and lower illustrated scene. Retain the large quiet dark-blue central70%width for HTML UI. Top0-65%: restrained carved side edges and quiet central slate-blue material; ABSOLUTELY NO crest, shield, tree medallion, icons, lines for menu rows, labels, buttons, letters or UI. The crest and all text will be separately placed as HTML and transparent assets. Bottom30%: the winged-helmet carved guardian bust at left and Minas Tirith terraces overlooking a distant blue mountain, moon and a small warm silver lantern, exactly like the reference lower vignette. Keep bottommost8% dark quiet for separate Settings control overlay, with outer physical frame continuing. All objects below65%height or outside central70%width. Scene and frame fillcanvas, no external background, no watermark. This is artwork only without ANY baked UI or text."
+    },
+    {
+      "theme": "gondor",
+      "kind": "crest",
+      "transparent": true,
+      "prompt": "Use case: product-mockup. Production isolated top sidebar CREST on genuinely transparent background, square1024x1024, full object centered with generous clear margin. Recreate ONLY the approved reference's top polished silver-edged tall dark-slate shield bearing the silver White Tree with seven stars in dimensional relief. Royal Gondor: carved pale gray marble arches, polished silver borders, dark slate blue inset, White Tree and seven stars, distant twilight Minas Tirith, dignified architectural relief, warm little lanterns. No marble arch behind the shield, no banners or torches. No words or letters, no label, no sidebar UI. Match refined premium craftsmanship and material precisely. NO groundplane, no checkerboard, true alpha outside object."
+    },
+    {
+      "theme": "gondor",
+      "kind": "icons",
+      "transparent": true,
+      "prompt": "Use case: product-mockup. Production icon atlas derived from APPROVED sidebar reference. EXACTLY THREE columns by TWO rows on transparent1536x1024 canvas, each512x512cell with70pxclear gutters. Six isolated dimensional icons, matching consistent scale and light. Royal Gondor: carved pale gray marble arches, polished silver borders, dark slate blue inset, White Tree and seven stars, distant twilight Minas Tirith, dignified architectural relief, warm little lanterns. Row1 left-to-right: polished silver seven-star compass; small carved ivory arched Minas Tirith doorway; silver woven provisions basket with fruit. Row2: crossed small silver hammer and artisan pick; silver coffer with White Tree relief; polished silver settings gear. Match reference object imagery, not generic flat icons. No text, no tile background, no cell boundaries, no lettering, no extraobjects, no checkerboard. Genuine transparent outside each icon."
+    },
+    {
+      "theme": "elven",
+      "kind": "sidebar",
+      "transparent": false,
+      "prompt": "Production website asset from the APPROVED sidebar design in reference. Use case: stylized-concept. Create ONLY a blank sidebar BACKGROUND PANEL, portrait1:3 approximately724x2172. Two Trees of Valinor: ivory marble, flowing moon-silver and warm tree-gold branches, deep twilight blue softly grained inset, tiny moonstones, flowers and a moonlit reflecting lake with Elven towers. Match the reference sidebar's frame, exact material finish, upper carved arch and lower illustrated scene. Retain the large quiet dark-blue central70%width for HTML UI. Top0-65%: restrained carved side edges and quiet central slate-blue material; ABSOLUTELY NO crest, shield, tree medallion, icons, lines for menu rows, labels, buttons, letters or UI. The crest and all text will be separately placed as HTML and transparent assets. Bottom30%: the ivory balcony, moonlit Elven city across a reflecting lake, a warm gold lantern, closed blue-gold book, quill and flowers, exactly like reference lower vignette. Keep bottommost8% dark quiet for separate Settings control overlay, with outer physical frame continuing. All objects below65%height or outside central70%width. Scene and frame fillcanvas, no external background, no watermark. This is artwork only without ANY baked UI or text."
+    },
+    {
+      "theme": "elven",
+      "kind": "crest",
+      "transparent": true,
+      "prompt": "Use case: product-mockup. Production isolated top sidebar CREST on genuinely transparent background, square1024x1024, full object centered with generous clear margin. Recreate ONLY the approved reference's top round Two Trees medallion with one silver tree and one golden tree, flowing silver/gold surrounding branches and a single small moonstone at bottom. Two Trees of Valinor: ivory marble, flowing moon-silver and warm tree-gold branches, deep twilight blue softly grained inset, tiny moonstones, flowers and a moonlit reflecting lake with Elven towers. No surrounding building, no flowers covering the object, no large arch behind. No words or letters, no label, no sidebar UI. Match refined premium craftsmanship and material precisely. NO groundplane, no checkerboard, true alpha outside object."
+    },
+    {
+      "theme": "elven",
+      "kind": "icons",
+      "transparent": true,
+      "prompt": "Use case: product-mockup. Production icon atlas derived from APPROVED sidebar reference. EXACTLY THREE columns by TWO rows on transparent1536x1024 canvas, each512x512cell with70pxclear gutters. Six isolated dimensional icons, matching consistent scale and light. Two Trees of Valinor: ivory marble, flowing moon-silver and warm tree-gold branches, deep twilight blue softly grained inset, tiny moonstones, flowers and a moonlit reflecting lake with Elven towers. Row1 left-to-right: silver/gold eight-point compass in a fine circular moon-silver and gold frame; elegant ivory Elven doorway in a fine circular silver/gold frame; warm woven provisions basket with fruit in a fine silver/gold circular frame. Row2: silver hammer and gold drafting compass in a fine circular silver/gold frame; ivory/silver/gold jewelled coffer in a fine circular silver/gold frame; silver and gold settings gear with tiny moonstone. Match reference object imagery, not generic flat icons. No text, no tile background, no cell boundaries, no lettering, no extraobjects, no checkerboard. Genuine transparent outside each icon."
+    }
+  ],
+  "finalIconsEdit": "Extract only the six central objects from each original atlas; remove background scenery, arches, and outer medallions; preserve the material and individual silhouettes; keep exactly three columns by two rows with genuine transparent gutters. Gondor final exec-ff004e3c-3f10-41bc-886f-6e4690dc049f.png; Elven final exec-378a5819-f4be-462b-8b11-5faeb54f6e25.png."
+}

@@ -1,0 +1,206 @@
+{
+  "theme": "dwarven",
+  "source": "Built-in imagegen; approved dashboard style with additional crafted assets and parchment scroll",
+  "sources": {
+    "sidebar": {
+      "path": "design/switchable-themes/dwarven/sidebar.png",
+      "generatedFilename": "exec-c4a0d36f-de1a-48fb-aedf-9e3cfa831f49.png",
+      "sha256": "26c4d89c66af5f7b9035d289e46bbb81c54ed702e299eb92c2b03d9454397ec4",
+      "width": 724,
+      "height": 2172,
+      "hasAlpha": false
+    },
+    "texture": {
+      "path": "design/switchable-themes/dwarven/texture.png",
+      "generatedFilename": "exec-f38a05a4-72f9-41ce-acbf-d4dd97103ac6.png",
+      "sha256": "78b2698d7c41c313831b54371ea8efa6662c6fb6e205e8a52bd89baf7a44d0e0",
+      "width": 1254,
+      "height": 1254,
+      "hasAlpha": false
+    },
+    "buttons": {
+      "path": "design/switchable-themes/dwarven/buttons.png",
+      "generatedFilename": "exec-a559e358-62be-4b9c-8544-98dc078c19df.png",
+      "sha256": "09d8417ff402d8a625aab4a569a00203aec8e652440c17f0e5ebdffd230a96e4",
+      "width": 1774,
+      "height": 887,
+      "hasAlpha": true
+    },
+    "hearth": {
+      "path": "design/switchable-themes/dwarven/hearth.png",
+      "generatedFilename": "exec-341b1b39-66ca-47dc-ab1f-2e1f5e4e94b3.png",
+      "sha256": "259dac43d602b0c737d48b06ddad79313db882de52d43db7ff303094608a2ee2",
+      "width": 2172,
+      "height": 724,
+      "hasAlpha": true
+    },
+    "scroll": {
+      "path": "design/switchable-themes/dwarven/scroll.png",
+      "generatedFilename": "exec-3c8e6ac1-0d8c-48a4-a4ab-758918823b6f.png",
+      "sha256": "c76b3cc41395f9c560526abe2201c571fe05f71fd003029cf02a32a81ac19022",
+      "width": 1254,
+      "height": 1254,
+      "hasAlpha": true
+    }
+  },
+  "assets": {
+    "sidebar": {
+      "width": 512,
+      "height": 1536,
+      "bytes": 211160,
+      "hasAlpha": false,
+      "sha256": "bc5549dc0d7fa31717c5cf2eeea993683e3e0b17131cdc602b13ee55e2ab75b4"
+    },
+    "texture": {
+      "width": 512,
+      "height": 512,
+      "bytes": 23080,
+      "hasAlpha": false,
+      "sha256": "59c5fe5bb9aae656dbc8f1908aeeebb7996c6ea456d3208c89e7cb84e4f05900"
+    },
+    "button-normal": {
+      "width": 600,
+      "height": 231,
+      "bytes": 169770,
+      "hasAlpha": true,
+      "sha256": "dd7ce946b4992299435b9eb58ddddf68660a354b476e3ce91a05a1af0ea6e367",
+      "sourceCrop": {
+        "left": 28,
+        "top": 142,
+        "width": 536,
+        "height": 206
+      }
+    },
+    "button-hover": {
+      "width": 600,
+      "height": 231,
+      "bytes": 180024,
+      "hasAlpha": true,
+      "sha256": "d5402f50d0aa7db6cb9f0b2618780a14c414e5b3591383c21f82602a2c68d804",
+      "sourceCrop": {
+        "left": 620,
+        "top": 142,
+        "width": 535,
+        "height": 206
+      }
+    },
+    "button-pressed": {
+      "width": 600,
+      "height": 231,
+      "bytes": 164668,
+      "hasAlpha": true,
+      "sha256": "15de5b940bb226872ffae0414cb0654b8f265c2edce90cabdeaf5f0561dc40af",
+      "sourceCrop": {
+        "left": 1211,
+        "top": 142,
+        "width": 535,
+        "height": 206
+      }
+    },
+    "button-secondary": {
+      "width": 600,
+      "height": 229,
+      "bytes": 165640,
+      "hasAlpha": true,
+      "sha256": "5d4a3715fbf3425f82e28484c203f209e447ed955c79049547dc9dbdd331c7cb",
+      "sourceCrop": {
+        "left": 28,
+        "top": 573,
+        "width": 536,
+        "height": 205
+      }
+    },
+    "button-secondary-hover": {
+      "width": 600,
+      "height": 229,
+      "bytes": 171858,
+      "hasAlpha": true,
+      "sha256": "2a9664c7e0739b4304b118c73e07932dfb65d7cd676b2fb84ce6c8766b8db484",
+      "sourceCrop": {
+        "left": 620,
+        "top": 574,
+        "width": 535,
+        "height": 204
+      }
+    },
+    "button-disabled": {
+      "width": 600,
+      "height": 230,
+      "bytes": 145060,
+      "hasAlpha": true,
+      "sha256": "3419c90168522c1a65ff0a41bf2bc80de11f8a50ffaa89d3cf73a96e8fab6b54",
+      "sourceCrop": {
+        "left": 1211,
+        "top": 573,
+        "width": 535,
+        "height": 205
+      }
+    },
+    "hearth-idle": {
+      "width": 288,
+      "height": 261,
+      "bytes": 100732,
+      "hasAlpha": true,
+      "sha256": "65b497048a0436c87b7d4e78712a2ade04f68e7b1c4d13e507f0532031fdf41d",
+      "sourceCrop": {
+        "left": 34,
+        "top": 51,
+        "width": 654,
+        "height": 593
+      }
+    },
+    "hearth-heat": {
+      "width": 288,
+      "height": 262,
+      "bytes": 109626,
+      "hasAlpha": true,
+      "sha256": "9c469c54cd82a3687c0185778c44614186e1e5a295df49a6cc65e0538721c057",
+      "sourceCrop": {
+        "left": 759,
+        "top": 51,
+        "width": 653,
+        "height": 593
+      }
+    },
+    "hearth-cool": {
+      "width": 288,
+      "height": 262,
+      "bytes": 105580,
+      "hasAlpha": true,
+      "sha256": "168825ac7ce8190a1b32478128826af8082f74fdf33ad45c24d959dd5d0a286e",
+      "sourceCrop": {
+        "left": 1483,
+        "top": 51,
+        "width": 653,
+        "height": 593
+      }
+    },
+    "scroll": {
+      "width": 1280,
+      "height": 1280,
+      "bytes": 245858,
+      "hasAlpha": true,
+      "sha256": "a876ed049c341cc5c1ec8722f6ae46d1346b9f37680f5a4926c56dcb74c5d43e"
+    }
+  },
+  "button": {
+    "columns": 3,
+    "rows": 2,
+    "outputWidth": 600
+  },
+  "hearth": {
+    "columns": 3,
+    "rows": 1,
+    "maxEdge": 288
+  },
+  "scroll": {
+    "width": 1280,
+    "height": 1280,
+    "mobileSlices": [
+      250,
+      0,
+      250,
+      0
+    ]
+  }
+}

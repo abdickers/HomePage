@@ -1,0 +1,43 @@
+{
+  "theme": "gondor",
+  "source": "Built-in imagegen; approved dashboard style with additional crafted assets and parchment scroll",
+  "sources": {
+    "scroll": {
+      "path": "design/switchable-themes/gondor/scroll.png",
+      "generatedFilename": "exec-a95569a8-b017-4acf-9ecf-9d869cc50314.png",
+      "sha256": "06f7be2df8df03aceec6f9d2cd1e4bcc2826a6bcf5c1ed54ab152be50696e849",
+      "width": 1254,
+      "height": 1254,
+      "hasAlpha": true
+    }
+  },
+  "assets": {
+    "scroll": {
+      "width": 1280,
+      "height": 1280,
+      "bytes": 175484,
+      "hasAlpha": true,
+      "sha256": "af76b136f79c981edb93b9ad87c024a527f9680046d769ff9531dfa0d52d94c1"
+    }
+  },
+  "button": {
+    "columns": 3,
+    "rows": 2,
+    "outputWidth": 600
+  },
+  "hearth": {
+    "columns": 3,
+    "rows": 1,
+    "maxEdge": 288
+  },
+  "scroll": {
+    "width": 1280,
+    "height": 1280,
+    "mobileSlices": [
+      250,
+      0,
+      250,
+      0
+    ]
+  }
+}

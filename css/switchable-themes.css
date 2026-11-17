@@ -1,0 +1,167 @@
+/* The original Valinor stylesheet remains the complete Elven theme. Other
+   realms override presentation only; the protected War Room and Treasury keep
+   their original artwork and controls. */
+html[data-visual-theme="hobbit"] {
+  --theme-ink:#f5ecd8; --theme-muted:#d0ceb4; --theme-accent:#e2c17c; --theme-line:#b2955c80;
+  --theme-panel:#1b2918; --theme-panel-alt:#28351d; --theme-field:#111d11;
+  --theme-sidebar:linear-gradient(100deg,#342313fa,#211b10fc);
+  --theme-button:linear-gradient(#46552a,#23351c); --theme-button-hover:linear-gradient(#5c6c37,#354b24);
+  --theme-header-image:url('../assets/themes/hobbit/header-2172.webp');
+  --theme-page-image:url('../assets/themes/hobbit/background-1672.webp');
+  --theme-frame-tl:url('../assets/themes/hobbit/frame-tl.webp'); --theme-frame-tr:url('../assets/themes/hobbit/frame-tr.webp');
+  --theme-frame-bl:url('../assets/themes/hobbit/frame-bl.webp'); --theme-frame-br:url('../assets/themes/hobbit/frame-br.webp');
+  --theme-frame-top:url('../assets/themes/hobbit/frame-top.webp'); --theme-frame-bottom:url('../assets/themes/hobbit/frame-bottom.webp');
+  --theme-frame-left:url('../assets/themes/hobbit/frame-left.webp'); --theme-frame-right:url('../assets/themes/hobbit/frame-right.webp');
+  --theme-weather-icon:url('../assets/themes/hobbit/icon-weather.webp'); --theme-home-icon:url('../assets/themes/hobbit/icon-home.webp');
+  --theme-compass-icon:url('../assets/themes/hobbit/icon-compass.webp'); --theme-raven-icon:url('../assets/themes/hobbit/icon-raven.webp');
+  --theme-settings-icon:url('../assets/themes/hobbit/icon-settings.webp'); --theme-radius:18px;
+}
+html[data-visual-theme="dwarven"] {
+  --theme-ink:#f3e8d2; --theme-muted:#c9bda9; --theme-accent:#d6ae64; --theme-line:#b18b5080;
+  --theme-panel:#20201e; --theme-panel-alt:#30312d; --theme-field:#161918;
+  --theme-sidebar:linear-gradient(100deg,#252521fa,#151917fc);
+  --theme-button:linear-gradient(#5e482b,#302d24); --theme-button-hover:linear-gradient(#7b5d32,#49402a);
+  --theme-header-image:url('../assets/themes/dwarven/header-2172.webp');
+  --theme-page-image:url('../assets/themes/dwarven/background-1672.webp');
+  --theme-frame-tl:url('../assets/themes/dwarven/frame-tl.webp'); --theme-frame-tr:url('../assets/themes/dwarven/frame-tr.webp');
+  --theme-frame-bl:url('../assets/themes/dwarven/frame-bl.webp'); --theme-frame-br:url('../assets/themes/dwarven/frame-br.webp');
+  --theme-frame-top:url('../assets/themes/dwarven/frame-top.webp'); --theme-frame-bottom:url('../assets/themes/dwarven/frame-bottom.webp');
+  --theme-frame-left:url('../assets/themes/dwarven/frame-left.webp'); --theme-frame-right:url('../assets/themes/dwarven/frame-right.webp');
+  --theme-weather-icon:url('../assets/themes/dwarven/icon-weather.webp'); --theme-home-icon:url('../assets/themes/dwarven/icon-home.webp');
+  --theme-compass-icon:url('../assets/themes/dwarven/icon-compass.webp'); --theme-raven-icon:url('../assets/themes/dwarven/icon-raven.webp');
+  --theme-settings-icon:url('../assets/themes/dwarven/icon-settings.webp'); --theme-radius:4px;
+}
+
+/* Always visible, native buttons with a clear selected state and keyboard focus. */
+body[data-command-realm="personal"] #realmHeader .theme-switcher {
+  position:relative; z-index:3; display:flex; flex-wrap:wrap; justify-content:flex-end;
+  gap:5px; width:fit-content; max-width:100%; margin:16px 0 0 auto; padding:5px;
+  border:1px solid var(--theme-line,#a9b8d16b); border-radius:12px;
+  background:var(--theme-field,#101e33); box-shadow:0 3px 12px #0004;
+}
+body[data-command-realm="personal"] #realmHeader .theme-switcher button {
+  border-image:none; border:1px solid transparent; border-radius:7px; background:transparent;
+  color:var(--theme-muted,#bcc8dc); padding:8px 13px; min-height:42px; line-height:1.3;
+  font:600 12px/1.3 'DM Sans',sans-serif; cursor:pointer;
+}
+body[data-command-realm="personal"] #realmHeader .theme-switcher button:hover { background:#ffffff12; color:var(--theme-ink,#eee6d7); }
+body[data-command-realm="personal"] #realmHeader .theme-switcher button[aria-pressed="true"] {
+  border-color:var(--theme-accent,#d8bd83); background:var(--theme-button,linear-gradient(#344d6f,#203753)); color:var(--theme-ink,#fff1d1); box-shadow:inset 0 1px #fff2;
+}
+body[data-command-realm="personal"] #realmHeader .theme-switcher button:focus-visible { outline:3px solid var(--theme-accent,#f2d294); outline-offset:2px; }
+
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] { background:var(--theme-field); }
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"]::before {
+  background:linear-gradient(#10150dd9,#10150de8),var(--theme-page-image) center / cover no-repeat;
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] :is(.valinor-surface,.realm-sidebar,#realmHeader,#settingsDialog,#linkDialog,#searchDialog,.footer-caption) {
+  --ink:var(--theme-ink); --text:var(--theme-ink); --muted:var(--theme-muted);
+  --gold:var(--theme-accent); --gold-light:var(--theme-ink); --gold-strong:var(--theme-accent);
+  --line:var(--theme-line); --line-soft:var(--theme-line); --control-line:var(--theme-line); --control-ink:var(--theme-ink);
+  --control-bg:var(--theme-button); --control-hover:var(--theme-button-hover); --control-active:var(--theme-button-hover);
+  --field-bg:var(--theme-field); --field-ink:var(--theme-ink); --bagend-control-bg:var(--theme-button);
+  --bagend-control-hover:var(--theme-button-hover); --bagend-control-line:var(--theme-line); --bagend-control-ink:var(--theme-ink);
+  color:var(--theme-ink);
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] .realm-sidebar { background:var(--theme-sidebar); border-right:1px solid var(--theme-line); }
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] .realm-sidebar :is(.realm-account,.realm-nav a) { color:var(--theme-muted); }
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] .realm-nav a:is(:hover,.active) { background:#dbbf7420; border-color:var(--theme-accent); color:var(--theme-ink); }
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] .realm-ring { color:var(--theme-accent); border-color:var(--theme-accent); }
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] .realm-sidebar #footerSettings {
+  border-image:none; border:1px solid var(--theme-accent); border-radius:8px; background:var(--theme-button); color:var(--theme-ink); box-shadow:inset 0 1px #fff2;
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] .realm-sidebar #footerSettings:hover { background:var(--theme-button-hover); }
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] .bagend-page-rail { background:linear-gradient(90deg,transparent,var(--theme-accent),transparent); width:7px; left:calc(var(--personal-sidebar-width) - 4px); opacity:.7; }
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] .bagend-page-rail>span { display:none; }
+
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] :is(.bagend-frame,.silver-frame) { --vf:var(--theme-frame-corner,50px); }
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] :is(.oak-tl,.silver-tl) { background-image:var(--theme-frame-tl); }
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] :is(.oak-tr,.silver-tr) { background-image:var(--theme-frame-tr); }
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] :is(.oak-bl,.silver-bl) { background-image:var(--theme-frame-bl); }
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] :is(.oak-br,.silver-br) { background-image:var(--theme-frame-br); }
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] :is(.oak-top,.silver-top) { background-image:var(--theme-frame-top); }
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] :is(.oak-bottom,.silver-bottom) { background-image:var(--theme-frame-bottom); }
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] :is(.oak-left,.silver-left) { background-image:var(--theme-frame-left); }
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] :is(.oak-right,.silver-right) { background-image:var(--theme-frame-right); }
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] :is(.bagend-frame,.silver-frame)::before { display:none; }
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #realmHeader.hero::before {
+  background:linear-gradient(90deg,#0d130cc9,#11170d55 55%,transparent),var(--theme-header-image) center / cover no-repeat;
+  border-radius:var(--theme-radius);
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #realmHeader :is(h1,.hero-eyebrow) { color:var(--theme-ink); }
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #realmHeader h1>span { color:var(--theme-accent); }
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #realmHeader .palantir { color:var(--theme-accent); }
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #realmHeader.hero .command-bar { background:var(--theme-panel); border-color:var(--theme-line); }
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #realmHeader :is(.wizard-menu,.shortcut-overflow,.shortcut-tooltip,.header-shortcut) { background:var(--theme-panel); border-color:var(--theme-line); color:var(--theme-ink); }
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #realmHeader .wizard-trigger:is(:hover,[aria-expanded=true]) { background:var(--theme-panel-alt); border-color:var(--theme-accent); }
+
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #dashboard .valinor-surface { --surface-paint:var(--theme-panel); --surface-radius:var(--theme-radius); }
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #dashboard .valinor-surface>.panel-surface,
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel .hobbit-surface {
+  background:linear-gradient(145deg,var(--theme-panel-alt),var(--theme-panel)); border-radius:var(--theme-radius);
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #dashboard .valinor-surface :is(h2,h3,h4,.workshop-heading),
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel :is(.home-device,.gate-label,.weather-main b) { color:var(--theme-ink); }
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #dashboard .valinor-surface :is(.section-kicker,.realm-account,.workshop-account,.app-card small,.play-app small,.play-metrics dd,.play-footnote) { color:var(--theme-muted); }
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #dashboard .valinor-surface :is(.panel-title,.weather-grid>span) { border-color:var(--theme-line); }
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #dashboard .valinor-surface :is(.app-card,.quick-item,.provision-card,.play-app-card,.play-metric,.play-app,.play-metrics>div,.date-box) {
+  background:var(--theme-field); border-color:var(--theme-line); color:var(--theme-ink); border-radius:var(--theme-radius);
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #dashboard .valinor-surface :is(.app-card,.quick-item):hover { background:var(--theme-panel-alt); border-color:var(--theme-accent); }
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel :is(.hobbit-control,.weather-panel) { color:var(--theme-ink); }
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel .climate-art { background:var(--theme-home-icon) center / contain no-repeat; }
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel #weatherIcon { background-image:var(--theme-weather-icon); }
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel .weather-grid>span { background:var(--theme-field); }
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel .camera-preview { background:var(--theme-page-image) center / cover no-repeat; border-color:var(--theme-line); }
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel #gatePanel .nest-footer { border-color:var(--theme-line); }
+
+/* The mail page has natural height, with no fixed writing area to clip messages. */
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #dashboard>#personalRavens {
+  aspect-ratio:auto; min-height:540px; padding:30px; border:0; border-image:none;
+  background:linear-gradient(110deg,#efdfb9,#f5e9ce 55%,#e9d7ae); border-radius:var(--theme-radius); box-shadow:0 8px 24px #0004;
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #personalRavens>.ravens-scroll-art { display:none; }
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #personalRavens>.bagend-frame { display:block; }
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #personalRavens .ravens-reading { position:relative; inset:auto; overflow:visible; min-width:0; width:100%; height:100%; color:#352b1e; --ink:#352b1e; --text:#352b1e; --muted:#65583f; --line:#846b4038; }
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #personalRavens :is(h2,.section-kicker,.realm-account,#ravensCaption,#ravensState,#mailReadAt,.daily-entry,.daily-entry small,.daily-entry strong,.daily-entry time,.daily-entry span) { color:#352b1e; }
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #personalRavens .daily-list { max-height:480px; overflow:auto; flex:1 1 auto; scrollbar-color:#8a774d transparent; }
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #personalRavens :is(.daily-entry,.daily-feed-footer) { border-color:#846b4050; }
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #personalRavens .raven-seal { background-image:var(--theme-raven-icon); }
+
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] :is(.valinor-surface,#realmHeader,#settingsDialog,#linkDialog,#searchDialog,.footer-caption) :is(button:not(.wizard-trigger):not(.header-shortcut),.wide-link,.command-button,.provision-card-actions>a,.media-actions>a,.button-label,.play-console-action,.panel-actions>a) {
+  border-image:none; border:1px solid var(--theme-accent); border-radius:6px; background:var(--theme-button); color:var(--theme-ink); box-shadow:inset 0 1px #fff1,0 2px 4px #0003;
+}
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] :is(.valinor-surface,#realmHeader,#settingsDialog,#linkDialog,#searchDialog) :is(button,.wide-link,.command-button,.provision-card-actions>a,.media-actions>a,.button-label):hover:not(:disabled) { border-image:none; background:var(--theme-button-hover); color:var(--theme-ink); }
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] :is(.valinor-surface,#realmHeader,#settingsDialog,#linkDialog,#searchDialog) button:is(:active,[aria-selected=true],[aria-pressed=true],.primary-button) { background:var(--theme-button-hover); border-color:var(--theme-ink); }
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] :is(.valinor-surface,#realmHeader,#settingsDialog,#linkDialog,#searchDialog) button:disabled { opacity:.55; cursor:not-allowed; }
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #realmHeader.hero .command-bar .search-field :is(input,select),
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] :is(.valinor-surface,#settingsDialog,#linkDialog,#searchDialog) :is(input:not([type=checkbox]):not([type=file]):not([type=hidden]),select,textarea) { border-image:none; border:1px solid var(--theme-line); background:var(--theme-field); color:var(--theme-ink); border-radius:6px; }
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] :is(.valinor-surface,#realmHeader,#settingsDialog,#linkDialog,#searchDialog) option { background:var(--theme-field); color:var(--theme-ink); }
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] :is(.valinor-surface,#realmHeader,#settingsDialog,#linkDialog,#searchDialog) :focus-visible { outline-color:var(--theme-accent); }
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] :is(#settingsDialog,#linkDialog,#searchDialog)::before { background:linear-gradient(145deg,var(--theme-panel-alt),var(--theme-panel)); border-radius:var(--theme-radius); }
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #settingsDialog :is(.settings-card,.quick-links-group) { background:var(--theme-field); border-color:var(--theme-line); color:var(--theme-ink); }
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #settingsDialog>.dialog-heading::before { background-image:var(--theme-settings-icon); }
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] :is(.valinor-surface,#realmHeader,#settingsDialog,#linkDialog,#searchDialog) .icon-fallback:not([hidden]) { background-image:var(--theme-compass-icon); }
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] :is(.valinor-surface,#realmHeader,#settingsDialog,#linkDialog,#searchDialog) img[src$="/link.svg"] { content:var(--theme-compass-icon); }
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #breePanel :is(.bree-board,.news-item) { background:var(--theme-panel); border-color:var(--theme-line); color:var(--theme-ink); }
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #breePanel :is(.news-item a,.news-item small) { color:var(--theme-ink); }
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #breePanel .bree-art { display:none; }
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #dashboard #toolsPanel .workshop-heading { color:var(--theme-muted); }
+html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #playPanel>.panel-title>a { border-image:none; background:var(--theme-button); border:1px solid var(--theme-accent); color:var(--theme-ink); }
+
+@media(max-width:760px) {
+  body[data-command-realm="personal"] #realmHeader .theme-switcher { margin:14px 0 0; width:100%; justify-content:stretch; gap:3px; }
+  body[data-command-realm="personal"] #realmHeader .theme-switcher button { flex:1 1 0; min-width:0; padding:9px 5px; font-size:11px; }
+  html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #realmHeader .title-wrap { max-width:100%; }
+  html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #dashboard>#personalRavens { padding:26px; min-height:400px; }
+  html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #personalRavens .ravens-reading { inset:auto; }
+}
+
+/* Keep selector states distinct from the general themed action buttons. */
+html[data-visual-theme] body[data-command-realm="personal"] #realmHeader.hero .theme-switcher>button {
+  border-image:none; border:1px solid transparent; background:transparent; box-shadow:none; color:var(--theme-muted,#bcc8dc);
+}
+html[data-visual-theme] body[data-command-realm="personal"] #realmHeader.hero .theme-switcher>button:hover { background:#ffffff12; color:var(--theme-ink,#eee6d7); }
+html[data-visual-theme] body[data-command-realm="personal"] #realmHeader.hero .theme-switcher>button[aria-pressed="true"] {
+  border-color:var(--theme-accent,#d8bd83); background:var(--theme-button,linear-gradient(#344d6f,#203753)); color:var(--theme-ink,#fff1d1); box-shadow:inset 0 1px #fff2;
+}

@@ -1,0 +1,213 @@
+{
+  "theme": "dwarven",
+  "source": "Built-in imagegen; approved dashboard mockup used as style reference",
+  "sources": {
+    "header": {
+      "path": "design/switchable-themes/dwarven/header.png",
+      "generatedFilename": "exec-e0ea9d03-a6af-4753-ad35-c8c0eb02cabc.png",
+      "sha256": "62a4cf2b947b9c64d06a883d75abdb1258416e206e5597433c92e0c9d0c8edce",
+      "width": 2170,
+      "height": 725,
+      "hasAlpha": false
+    },
+    "frame": {
+      "path": "design/switchable-themes/dwarven/frame.png",
+      "generatedFilename": "exec-e3609fc9-1535-4f38-95ee-98c04d799d76.png",
+      "sha256": "2c136e257067c5a83d6821f95b437ae807fdd80f96203ce0fa581a3fd91d66b9",
+      "width": 1536,
+      "height": 1024,
+      "hasAlpha": true
+    },
+    "icons": {
+      "path": "design/switchable-themes/dwarven/icons.png",
+      "generatedFilename": "exec-77a96dff-2031-443c-a523-da09a6877bb8.png",
+      "sha256": "61e64c3932752804eb2b68b42be5f22b3259cb495fb6f70ffd2cd26f56b46c9c",
+      "width": 1448,
+      "height": 1086,
+      "hasAlpha": true
+    }
+  },
+  "assets": {
+    "header-2172": {
+      "width": 2172,
+      "height": 726,
+      "bytes": 252334,
+      "hasAlpha": false,
+      "sha256": "e6aa0807893f134622f103643f8a90be7f810dde54583e9f45c6260050c62f88"
+    },
+    "header-1100": {
+      "width": 1100,
+      "height": 368,
+      "bytes": 80476,
+      "hasAlpha": false,
+      "sha256": "8c53729d8ff28957883a30a49415aeb41bd11b68c03036d3ea81d47f4dd34e9a"
+    },
+    "background-1672": {
+      "width": 1672,
+      "height": 559,
+      "bytes": 175046,
+      "hasAlpha": false,
+      "sha256": "3407bff653c1a1cc1f2e90d4085548e42698304c23b29f11a68defc930792479"
+    },
+    "background-960": {
+      "width": 960,
+      "height": 321,
+      "bytes": 61050,
+      "hasAlpha": false,
+      "sha256": "3a2306164097d08ce733f3b2c174a9ece551a2c9974dcef7c624cab3e77ad4bf"
+    },
+    "frame-tl": {
+      "width": 220,
+      "height": 220,
+      "bytes": 58158,
+      "hasAlpha": true,
+      "sha256": "2e532df95aa4b79270259c50547fe9a5a12f75bab5d581bd09d79afc84135d46"
+    },
+    "frame-tr": {
+      "width": 220,
+      "height": 220,
+      "bytes": 58216,
+      "hasAlpha": true,
+      "sha256": "1e851c251c24f3e1225d49e4ff012feaa2f11239f03c5eea493cba2f9bc8150e"
+    },
+    "frame-bl": {
+      "width": 220,
+      "height": 220,
+      "bytes": 57348,
+      "hasAlpha": true,
+      "sha256": "edca14ca896e9cf8f3366fac285c18c636e8450c6b24b139f30daa27e03a799a"
+    },
+    "frame-br": {
+      "width": 220,
+      "height": 220,
+      "bytes": 56838,
+      "hasAlpha": true,
+      "sha256": "dd393ace852ce9b1fa925d67326e935bf6ea4f99288fb20882ea3f438e41e66d"
+    },
+    "frame-top": {
+      "width": 300,
+      "height": 220,
+      "bytes": 39562,
+      "hasAlpha": true,
+      "sha256": "316247bb41574d8a4b15c451d44657d6479d06b4c8631a549ac618b39cdb8390"
+    },
+    "frame-bottom": {
+      "width": 300,
+      "height": 220,
+      "bytes": 38570,
+      "hasAlpha": true,
+      "sha256": "250e7f58fefe87a8f87407a3529575ea200a5b422a90fd4a3921328ebf47f99e"
+    },
+    "frame-left": {
+      "width": 220,
+      "height": 200,
+      "bytes": 25532,
+      "hasAlpha": true,
+      "sha256": "c5f6f310f2ba0bcef127a3442127f570e5832e266d56e33d8eabf860a9e6d813"
+    },
+    "frame-right": {
+      "width": 220,
+      "height": 200,
+      "bytes": 24834,
+      "hasAlpha": true,
+      "sha256": "0e34f6073534a58869723c4ba36640ce7c9b7d386fd420f260926f0e74cb4340"
+    },
+    "icon-calendar": {
+      "width": 160,
+      "height": 149,
+      "bytes": 36708,
+      "hasAlpha": true,
+      "sha256": "c3b6d15dc7b590db7722149fbcd516dd07d21144bf7ab910e8f2dd0173ff6b4d"
+    },
+    "icon-home": {
+      "width": 160,
+      "height": 154,
+      "bytes": 38428,
+      "hasAlpha": true,
+      "sha256": "0d70fa2c52d4ee44683ce6d807dc2b2f8e071030fbc622e513057c36da300e15"
+    },
+    "icon-provisions": {
+      "width": 160,
+      "height": 147,
+      "bytes": 37276,
+      "hasAlpha": true,
+      "sha256": "06579b80284f8b0c3a9100102faddb9bca08cd4c06918287190ae6e96360fc50"
+    },
+    "icon-raven": {
+      "width": 160,
+      "height": 149,
+      "bytes": 30124,
+      "hasAlpha": true,
+      "sha256": "98a26b307b4e2c35807f224263113eb47826d177e4e400662b18c0ea7eccf684"
+    },
+    "icon-orb": {
+      "width": 159,
+      "height": 160,
+      "bytes": 38006,
+      "hasAlpha": true,
+      "sha256": "9e323985196059bc89bda4cea3e1c8ffa6538aa79e1fa3fe00ff727caca4df74"
+    },
+    "icon-news": {
+      "width": 160,
+      "height": 112,
+      "bytes": 24058,
+      "hasAlpha": true,
+      "sha256": "5ba145bf400be107da9ff16b95f8d850bfcb3f2a511e5c47c45bcc69b9786c19"
+    },
+    "icon-tools": {
+      "width": 155,
+      "height": 160,
+      "bytes": 31024,
+      "hasAlpha": true,
+      "sha256": "bf079a7d6c26be1cec73250897ad4ba46de058f2db85a5b2b7261c8f44e6ff44"
+    },
+    "icon-compass": {
+      "width": 141,
+      "height": 160,
+      "bytes": 33612,
+      "hasAlpha": true,
+      "sha256": "3309b0d64365bb9ecba89845d050acbba85d714e38dd75efac7aeb7f553910c0"
+    },
+    "icon-weather": {
+      "width": 160,
+      "height": 144,
+      "bytes": 30550,
+      "hasAlpha": true,
+      "sha256": "16a592e62a6b151e5042602542fdc1bfbdc4050e32fddc291af8cc11f3972058"
+    },
+    "icon-camera": {
+      "width": 154,
+      "height": 160,
+      "bytes": 37482,
+      "hasAlpha": true,
+      "sha256": "fdf3ccefba270c5a2a3bd2c5f128d0045358a6d42aa62dac8c2b8a85baedaa4c"
+    },
+    "icon-refresh": {
+      "width": 159,
+      "height": 160,
+      "bytes": 35660,
+      "hasAlpha": true,
+      "sha256": "3cba20c7359837d55d53f3791e2f7ab111735ffee8ab262a06f9dec01e73b149"
+    },
+    "icon-settings": {
+      "width": 160,
+      "height": 154,
+      "bytes": 36430,
+      "hasAlpha": true,
+      "sha256": "b620f622f6bb8bf1b84add3def33f9f766a8b8f173748ea071bf761ee8e22da5"
+    }
+  },
+  "frame": {
+    "corner": 220,
+    "renderedCorner": 50,
+    "horizontalTile": 300,
+    "verticalTile": 200,
+    "sourceCrop": {
+      "left": 23,
+      "top": 64,
+      "width": 1490,
+      "height": 894
+    },
+    "centerAlpha": 0
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "tool": "built-in image_gen",
+  "reference": "Approved Hobbit and Dwarven mockups",
+  "prompts": [
+    {
+      "theme": "hobbit",
+      "asset": "header",
+      "transparent": false,
+      "prompt": "Use case: stylized-concept. Production website panoramic header/background art, no text or UI. Reference image is STYLE REFERENCE only; create clean standalone scenic artwork matching its header. Wide 3:1 composition, approximately 2172 x 724. Match the approved Hobbit reference: warm hand-finished honey oak, understated brass, deep garden green, tiny ivy/acorn accents, comfortable mature Bag End warmth, beautifully rendered dimensional craftsmanship. No Elven silver or fantasy blue. View from inside Bag End through a broad softly curved oak opening across glorious rolling Shire hills at sunset, stone garden path and round green-door homes at right, flowers at far edges, cozy lamp and books at far left. Keep the left 55% darker, calm and relatively low contrast for HTML title overlay; scenic detail and brightest focal point at right. Edge to edge finished artwork, no border, no lettering, no dashboard controls, no watermark, no people."
+    },
+    {
+      "theme": "hobbit",
+      "asset": "frame",
+      "transparent": true,
+      "prompt": "Use case: product-mockup. Asset type: one reusable 9-slice website panel border on a genuinely transparent background. Reference is STYLE REFERENCE only. Match the approved Hobbit reference: warm hand-finished honey oak, understated brass, deep garden green, tiny ivy/acorn accents, comfortable mature Bag End warmth, beautifully rendered dimensional craftsmanship. No Elven silver or fantasy blue. Create ONE isolated horizontal rectangular frame, approximately 1536 x 1024. Entire center fully transparent; all pixels outside the physical frame transparent. Exactly horizontal top and bottom rails, exactly vertical side rails. Corner ornaments within 180 x 180px from each corner; quiet straight middle rails suitable for seamless repeating. Physical rail thickness around 38px, tasteful dimensional bevels, consistent neutral front lighting. Rounded oak joinery with brass edging and a few ivy leaves/acorns at the four corners only. Full object visible, centered with about 12px transparent margin. No center crest, no top ornament breaking symmetry, no scenery, no fill, no shadow across the transparent center, no text, no icon, no checkerboard."
+    },
+    {
+      "theme": "hobbit",
+      "asset": "icons",
+      "transparent": true,
+      "prompt": "Use case: product-mockup. Asset type: transparent production icon atlas for the approved dashboard theme. Reference is STYLE REFERENCE only. Match the approved Hobbit reference: warm hand-finished honey oak, understated brass, deep garden green, tiny ivy/acorn accents, comfortable mature Bag End warmth, beautifully rendered dimensional craftsmanship. No Elven silver or fantasy blue. 12 beautifully rendered dimensional standalone object icons in exactly FOUR COLUMNS by THREE ROWS, 1536 x 1152 canvas. Equal 384 x 384 grid cells with at least 60px transparent space around each icon; icons never cross cells. Front to slight three quarter view, consistent scale and neutral soft light, rich readable silhouettes. Transparent background, no grid lines, no cell plates, no lettering, no labels, no shadows outside individual icon bounds. EXACT ROW MAJOR ORDER: row 1: miniature calendar journal; round green Bag End door with oak rim; basket of provisions; raven holding sealed letter. Row 2: silver blue seeing stone on brass and oak pedestal; rolled newspaper scroll; crossed small artisan tools; brass navigation compass. Row 3: sun behind cloud; small antique camera; circular refresh arrow cast in brass with tiny leaf; brass settings gear. NO weapons scene, no characters, no words, no borders. Preserve distinct objects and strict grid."
+    },
+    {
+      "theme": "dwarven",
+      "asset": "header",
+      "transparent": false,
+      "prompt": "Use case: stylized-concept. Production website panoramic header/background art, no text or UI. Reference image is STYLE REFERENCE only; create clean standalone scenic artwork matching its header. Wide 3:1 composition, approximately 2172 x 724. Match the approved Dwarven reference: dark basalt, precise geometric interlocking angular aged bronze rails, small deep teal gems, warm amber lantern light, regal Erebor craftsmanship. No Elven leaf scrollwork, no red Mordor or lava. Monumental Dwarven mountain hall, vast high carved stone columns, geometric bronze details and balconies, strong perspective into the great hall at right, scattered warm lanterns and a restrained distant golden forge glow. Keep the left 55% darker, calm and relatively low contrast for HTML title overlay; scenic detail and brightest focal point at right. Edge to edge finished artwork, no border, no lettering, no dashboard controls, no watermark, no people."
+    },
+    {
+      "theme": "dwarven",
+      "asset": "frame",
+      "transparent": true,
+      "prompt": "Use case: product-mockup. Asset type: one reusable 9-slice website panel border on a genuinely transparent background. Reference is STYLE REFERENCE only. Match the approved Dwarven reference: dark basalt, precise geometric interlocking angular aged bronze rails, small deep teal gems, warm amber lantern light, regal Erebor craftsmanship. No Elven leaf scrollwork, no red Mordor or lava. Create ONE isolated horizontal rectangular frame, approximately 1536 x 1024. Entire center fully transparent; all pixels outside the physical frame transparent. Exactly horizontal top and bottom rails, exactly vertical side rails. Corner ornaments within 180 x 180px from each corner; quiet straight middle rails suitable for seamless repeating. Physical rail thickness around 38px, tasteful dimensional bevels, consistent neutral front lighting. Chamfered octagonal outer corner joinery, interlocking straight bronze relief, small teal gem in each corner. Angular squared inner opening. Full object visible, centered with about 12px transparent margin. No center crest, no top ornament breaking symmetry, no scenery, no fill, no shadow across the transparent center, no text, no icon, no checkerboard."
+    },
+    {
+      "theme": "dwarven",
+      "asset": "icons",
+      "transparent": true,
+      "prompt": "Use case: product-mockup. Asset type: transparent production icon atlas for the approved dashboard theme. Reference is STYLE REFERENCE only. Match the approved Dwarven reference: dark basalt, precise geometric interlocking angular aged bronze rails, small deep teal gems, warm amber lantern light, regal Erebor craftsmanship. No Elven leaf scrollwork, no red Mordor or lava. 12 beautifully rendered dimensional standalone object icons in exactly FOUR COLUMNS by THREE ROWS, 1536 x 1152 canvas. Equal 384 x 384 grid cells with at least 60px transparent space around each icon; icons never cross cells. Front to slight three quarter view, consistent scale and neutral soft light, rich readable silhouettes. Transparent background, no grid lines, no cell plates, no lettering, no labels, no shadows outside individual icon bounds. EXACT ROW MAJOR ORDER: row 1: miniature calendar journal; angular bronze mountain-hall doorway; basket of provisions; raven holding sealed letter. Row 2: silver blue seeing stone on angular bronze pedestal; rolled newspaper scroll; crossed small artisan tools; bronze geometric compass. Row 3: sun behind cloud; small antique camera; circular refresh arrow cast in bronze with geometric engraving; bronze settings gear with teal center. NO weapons scene, no characters, no words, no borders. Preserve distinct objects and strict grid."
+    },
+    {
+      "theme": "hobbit",
+      "prompt": "Use case: product-mockup. Production UI artwork: ONE beautiful open vertical parchment SCROLL for the email inbox, isolated on a genuinely transparent background. The first reference image defines EXACT GEOMETRY: square canvas1280x1280, full horizontal rolled parchment cylinders at TOP and BOTTOM, large quiet unfolded paper rectangle in the middle, end caps extend left and right. Preserve those proportions and the legible empty central area. Hobbit Bag End craftsmanship: turned honey-oak scroll rollers, rounded oak end caps with aged brass rings, modest ivy and acorns ONLY around end caps, warm cream parchment. Charming comfortable Shire study, no elven silver filigree. Second image is material/style reference for this theme only, do not copy any dashboard UI. Geometry requirements: full object fits in square canvas with minimal transparent outside margins. Top roller occupies y40 to210, bottom roller y1070 to1240. Writing area stays BLANK and low contrast from x255 to1025, y245 to1030. Keep decorative side rails beyond that writing area. Paper is opaque with a subtle natural fine texture and clean edges, no torn charred holes. Only background outside physical scroll is transparent. Front-facing orthographic view; no perspective tilt. Genuine three dimensional rolls and crafted end caps, soft neutral studio light, no heavy cast shadow outside scroll. NO words, symbols in the paper middle, inbox text, buttons, UI panels or watermarks. This must unmistakably be a rolled parchment scroll, not a rectangular bordered card."
+    },
+    {
+      "theme": "dwarven",
+      "prompt": "Use case: product-mockup. Production UI artwork: ONE beautiful open vertical parchment SCROLL for the email inbox, isolated on a genuinely transparent background. The first reference image defines EXACT GEOMETRY: square canvas1280x1280, full horizontal rolled parchment cylinders at TOP and BOTTOM, large quiet unfolded paper rectangle in the middle, end caps extend left and right. Preserve those proportions and the legible empty central area. Dwarven Erebor craftsmanship: strong angular bronze and black basalt scroll roller end caps, tiny deep-teal gems, geometric bronze rails alongside the paper, aged ivory vellum. Precise regal metalwork, no vines or Elven leaves. Second image is material/style reference for this theme only, do not copy any dashboard UI. Geometry requirements: full object fits in square canvas with minimal transparent outside margins. Top roller occupies y40 to210, bottom roller y1070 to1240. Writing area stays BLANK and low contrast from x255 to1025, y245 to1030. Keep decorative side rails beyond that writing area. Paper is opaque with a subtle natural fine texture and clean edges, no torn charred holes. Only background outside physical scroll is transparent. Front-facing orthographic view; no perspective tilt. Genuine three dimensional rolls and crafted end caps, soft neutral studio light, no heavy cast shadow outside scroll. NO words, symbols in the paper middle, inbox text, buttons, UI panels or watermarks. This must unmistakably be a rolled parchment scroll, not a rectangular bordered card."
+    },
+    {
+      "theme": "gondor",
+      "prompt": "Use case: product-mockup. Production UI artwork: ONE beautiful open vertical parchment SCROLL for the email inbox, isolated on a genuinely transparent background. The first reference image defines EXACT GEOMETRY: square canvas1280x1280, full horizontal rolled parchment cylinders at TOP and BOTTOM, large quiet unfolded paper rectangle in the middle, end caps extend left and right. Preserve those proportions and the legible empty central area. Royal Gondor craftsmanship matching the Work Command Center: polished silver and dark slate blue end caps, tiny White Tree relief and seven-star ornament on roller end caps, clean restrained geometric silver edges beside warm ivory parchment. NO Elven vines or gold leaf filigree.  Geometry requirements: full object fits in square canvas with minimal transparent outside margins. Top roller occupies y40 to210, bottom roller y1070 to1240. Writing area stays BLANK and low contrast from x255 to1025, y245 to1030. Keep decorative side rails beyond that writing area. Paper is opaque with a subtle natural fine texture and clean edges, no torn charred holes. Only background outside physical scroll is transparent. Front-facing orthographic view; no perspective tilt. Genuine three dimensional rolls and crafted end caps, soft neutral studio light, no heavy cast shadow outside scroll. NO words, symbols in the paper middle, inbox text, buttons, UI panels or watermarks. This must unmistakably be a rolled parchment scroll, not a rectangular bordered card."
+    },
+    {
+      "theme": "hobbit",
+      "asset": "sidebar",
+      "transparent": false,
+      "prompt": "Production website art derived from the provided approved dashboard STYLE reference. Create ONLY the illustrated left sidebar background, no UI text or buttons. Portrait aspect approximately512x1536. Bag End: warm honey oak, aged brass, moss greens, gentle candle glow, garden ivy and acorns. Physical oak wall/cabinet surface, visible warm vertical wood grain, rounded oak corner joinery and thin brass outer edges, little ivy at upper outer corners, lower35% a beautifully painted still life built into a wooden alcove: warm brass lantern, three leather books, a ceramic mug and daisies, flowers at the bottom edge. The upper65% is predominantly quiet dark oak wood with no objects in the central80% width to allow HTML navigation OVER IT. Show texture and outer crafted rails throughout, do not make featureless black. Blank upper center. All objects confined to lower35% and outermost edges. Edge to edge vertical complete art. No title, letters, buttons, glyph labels, watermark, or circles for logos. Match the distinctive extra illustrative artwork in the reference sidebar."
+    },
+    {
+      "theme": "hobbit",
+      "asset": "texture",
+      "transparent": false,
+      "prompt": "Production seamless tileable material texture for a readable website panel,512x512 square, no objects, no borders, no light hotspot or vignette, no text. Match the panel interior in the STYLE reference: deep dark moss-green softly grained leather/fine woven linen, quiet natural tactile detail, base #243019. Uniformly lit and very low contrast so cream HTML text remains readable. Rich actual material detail without distracting marks. Image fills entire canvas."
+    },
+    {
+      "theme": "hobbit",
+      "asset": "buttons",
+      "transparent": true,
+      "prompt": "Production UI artwork for the exact themed physical buttons in the approved reference. Bag End: warm honey oak, aged brass, moss greens, gentle candle glow, garden ivy and acorns. Six wide EMPTY button plates in exact THREE COLUMNS by TWO ROWS on transparent1536x768 canvas (each cell512x384, button object440x130 centered in cell). Row1: primary normal, primary hover slightly brighter, primary pressed subtly inset. Row2: secondary normal, secondary hover, disabled dimmed. Rounded deep green leather-inset oak/brass buttons, warm beveled thin brass rim, warm oak sides, practical quiet label area. Strict grid with large clear transparent gutters, each object fully isolated. Front orthographic view, consistent crafted light. Empty centers, absolutely no text, icons or words. No scenery, no gradients behind objects, no checkerboard."
+    },
+    {
+      "theme": "hobbit",
+      "asset": "hearth",
+      "transparent": true,
+      "prompt": "Production object icon atlas for dashboard home control. Bag End: warm honey oak, aged brass, moss greens, gentle candle glow, garden ivy and acorns. Exactly THREE COLUMNS in ONE ROW,1536x512 transparent canvas. Each icon centered in512x512 cell, objects inside420x420, no touching. Match the fireplace scale and beautiful illustrated craft in the approved reference. Left cell: unlit cozy rounded natural stone fireplace with oak mantel, a kettle and tiny plants, dark empty hearth, absolutely NO fire, orange ember or glow (idle/unknown status). Center cell: exactly same fireplace silhouette and material but with a cheerful contained realistic fire (confirmed heating). Right cell: open round oak window overlooking fresh green Shire garden and soft cool sky for confirmed cooling, no fire. Fully transparent outside objects. NO text, letters, frames surrounding cells, buttons or backdrop. User needs substantial fireplace art, not a tiny door icon."
+    },
+    {
+      "theme": "dwarven",
+      "asset": "sidebar",
+      "transparent": false,
+      "prompt": "Production website art derived from the provided approved dashboard STYLE reference. Create ONLY the illustrated left sidebar background, no UI text or buttons. Portrait aspect approximately512x1536. Erebor: dark basalt with aged bronze geometric inlay, warm amber lanterns, tiny teal gemstones. Physical carved dark stone column with precise bronze outer inlay. Lower35% a beautifully rendered relief bust of a bearded Dwarven guardian holding a warm lantern, with small hammer and compass and teal crystal at the base. The upper65% is predominantly quiet dark textured basalt with no objects in the central80% width to allow HTML navigation OVER IT. Show texture and outer crafted rails throughout, do not make featureless black. Blank upper center. All objects confined to lower35% and outermost edges. Edge to edge vertical complete art. No title, letters, buttons, glyph labels, watermark, or circles for logos. Match the distinctive extra illustrative artwork in the reference sidebar."
+    },
+    {
+      "theme": "dwarven",
+      "asset": "texture",
+      "transparent": false,
+      "prompt": "Production seamless tileable material texture for a readable website panel,512x512 square, no objects, no borders, no light hotspot or vignette, no text. Match the panel interior in the STYLE reference: deep charcoal black basalt stone, fine natural mottled mineral grain, faint thin irregular veins, base #262724. Uniformly lit and very low contrast so cream HTML text remains readable. Rich actual material detail without distracting marks. Image fills entire canvas."
+    },
+    {
+      "theme": "dwarven",
+      "asset": "buttons",
+      "transparent": true,
+      "prompt": "Production UI artwork for the exact themed physical buttons in the approved reference. Erebor: dark basalt with aged bronze geometric inlay, warm amber lanterns, tiny teal gemstones. Six wide EMPTY button plates in exact THREE COLUMNS by TWO ROWS on transparent1536x768 canvas (each cell512x384, button object440x130 centered in cell). Row1: primary normal, primary hover slightly brighter, primary pressed subtly inset. Row2: secondary normal, secondary hover, disabled dimmed. Chamfered angular aged bronze buttons, dark charcoal inset, fine geometric bronze edging, practical quiet label area. Strict grid with large clear transparent gutters, each object fully isolated. Front orthographic view, consistent crafted light. Empty centers, absolutely no text, icons or words. No scenery, no gradients behind objects, no checkerboard."
+    },
+    {
+      "theme": "dwarven",
+      "asset": "hearth",
+      "transparent": true,
+      "prompt": "Production object icon atlas for dashboard home control. Erebor: dark basalt with aged bronze geometric inlay, warm amber lanterns, tiny teal gemstones. Exactly THREE COLUMNS in ONE ROW,1536x512 transparent canvas. Each icon centered in512x512 cell, objects inside420x420, no touching. Match the fireplace scale and beautiful illustrated craft in the approved reference. Left cell: unlit cozy Dwarven angular basalt fireplace with bronze geometric trim, dark empty hearth, absolutely NO fire, orange ember or glow (idle/unknown status). Center cell: exactly same fireplace silhouette and material but with a cheerful contained realistic fire (confirmed heating). Right cell: open angular stone mountain window with crisp blue high mountain sky for confirmed cooling, no fire. Fully transparent outside objects. NO text, letters, frames surrounding cells, buttons or backdrop. User needs substantial fireplace art, not a tiny door icon."
+    }
+  ]
+}
