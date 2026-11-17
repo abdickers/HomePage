@@ -79,11 +79,6 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1794898808,
-              "name": "Harandar",
-              "startingUt": 1794870000
-            },
-            {
               "endingUt": 1794927608,
               "name": "Eversong Woods",
               "startingUt": 1794898800
@@ -127,6 +122,11 @@
               "endingUt": 1795158008,
               "name": "Eversong Woods",
               "startingUt": 1795129200
+            },
+            {
+              "endingUt": 1795186808,
+              "name": "Zul'Aman",
+              "startingUt": 1795158000
             }
           ],
           "icons": ""
@@ -205,29 +205,29 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1794891600,
+              "endingUt": 1794927600,
               "name": "The Looming Mutagenitor",
-              "startingUt": 1794889800
+              "startingUt": 1794925800
             },
             {
-              "endingUt": 1794893400,
+              "endingUt": 1794929400,
               "name": "Mlurkkr Massacre",
-              "startingUt": 1794891600
+              "startingUt": 1794927600
             },
             {
-              "endingUt": 1794895200,
+              "endingUt": 1794931200,
               "name": "Siege at the Whispering Marsh",
-              "startingUt": 1794893400
+              "startingUt": 1794929400
             },
             {
-              "endingUt": 1794897000,
+              "endingUt": 1794933000,
               "name": "The Malformed Leviathan",
-              "startingUt": 1794895200
+              "startingUt": 1794931200
             },
             {
-              "endingUt": 1794898800,
+              "endingUt": 1794934800,
               "name": "The Broodmother's Nest",
-              "startingUt": 1794897000
+              "startingUt": 1794933000
             }
           ],
           "icons": ""
@@ -268,8 +268,8 @@
         "content": {
           "lines": [
             {
-              "ending": "10 hr 20 min",
-              "endingShort": "10h",
+              "ending": "27 min 49 sec",
+              "endingShort": "27m",
               "endingUt": 1794927600,
               "icon": "inv_achievement_sanktumoflight",
               "iconLabel": "Silvermoon City",
@@ -278,8 +278,8 @@
               "url": "/zone=16545/collegiate-calamity"
             },
             {
-              "ending": "10 hr 20 min",
-              "endingShort": "10h",
+              "ending": "27 min 49 sec",
+              "endingShort": "27m",
               "endingUt": 1794927600,
               "icon": "inv_zone_voidstorm",
               "iconLabel": "Voidstorm",
@@ -288,8 +288,8 @@
               "url": "/zone=16592/sunkiller-sanctum"
             },
             {
-              "ending": "10 hr 20 min",
-              "endingShort": "10h",
+              "ending": "27 min 49 sec",
+              "endingShort": "27m",
               "endingUt": 1794927600,
               "icon": "inv_achievement_sanktumoflight",
               "iconLabel": "Eversong Woods",
@@ -312,16 +312,16 @@
         "content": {
           "lines": [
             {
-              "icon": "calendar_weekendpvpskirmishstart",
-              "name": "Arena Skirmish Bonus Event",
+              "icon": "calendar_brawl",
+              "name": "PvP Brawl: Temple of Hotmogu",
               "side": "both",
-              "url": "/event=561/arena-skirmish-bonus-event"
+              "url": "/event=1170/pvp-brawl-temple-of-hotmogu"
             },
             {
-              "icon": "calendar_brawl",
-              "name": "PvP Brawl: Cooking Impossible",
+              "icon": "calendar_weekendlegionstart",
+              "name": "Timewalking Dungeon Event",
               "side": "both",
-              "url": "/event=1047/pvp-brawl-cooking-impossible"
+              "url": "/event=1263/timewalking-dungeon-event"
             }
           ],
           "icons": ""
@@ -366,7 +366,7 @@
       }
     ],
     "source": "https://www.wowhead.com/today-in-wow",
-    "updated": "2026-11-17T04:39:40.980228+00:00"
+    "updated": "2026-11-17T14:41:27.029639+00:00"
   },
   "forever": {
     "events": [
