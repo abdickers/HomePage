@@ -1,0 +1,19 @@
+{
+  "tool": "built-in image_gen.imagegen",
+  "references": [
+    "assets/redesign/wow-alliance-portrait-frame.webp",
+    "assets/warcraft/wow-section-lion.webp"
+  ],
+  "jobs": [
+    {
+      "asset": "controls",
+      "prompt": "Use case: product-mockup. Production blank button artwork for the World of Warcraft Alliance section of an existing personal dashboard. The two supplied images are STYLE REFERENCES. Match the character portrait frame's precise physical materials: warm sculpted antique gold beveled borders and small gold diamond studs, deep rich cobalt-blue enamel, dark forged iron corner joins. Strong clean angular craftsmanship, subtle royal-blue leather texture. No One Ring calligraphy, no Elven leaves, no Mordor lava, no character portrait. Transparent production atlas EXACTLY THREE COLUMNS by TWO ROWS, approximately1776 x888 landscape. Each cell holds one WIDE HORIZONTAL rectangular button plate approximately540 x210, same silhouette in all six cells, generous transparent gutters so no objects touch cells. Plate has restrained chamfered corners, tactile thick gold outer bevel, tiny gold diamond stud at each end, narrow iron rim, and a large quiet dark cobalt center for readable HTML text. Ornament must stay at the outer ends, not across center. Exact row-major states: normal (deep cobalt); hover (subtly brighter blue and gold); pressed/selected (luminous royal blue inset and warm gold inner bevel); secondary (quieter navy blue); secondary hover (brighter navy); disabled (muted low-saturation blue and muted gold). All six different states must remain visibly blue. Full objects visible, truly transparent outside button silhouettes, no painted background. No text, letters, labels, icons, lions, fake data, UI screenshot, drop shadow rectangles or checkerboard.",
+      "source": "C:\\Users\\Sage4\\.codex\\generated_images\\01a1ea47-f714-7df0-8481-8367c1002962\\exec-abc1f62f-d918-4f5e-9041-ed980b412fa0.png"
+    },
+    {
+      "asset": "lion",
+      "prompt": "Use case: product-mockup. Production isolated Alliance lion crest replacing the small crest on top of a World of Warcraft dashboard section. Supplied images are STYLE REFERENCES; match the full character portrait frame exactly in material and atmosphere. A beautifully sculpted warm antique-gold front-facing lion head in dimensional bas-relief, calm powerful noble expression, finely separated mane locks, set on a rich deep royal-cobalt enamel shield edged in substantial beveled aged gold with tiny dark iron joins. Shield shape tapers to a point below, broad enough around lion mane, not tall thin heraldic banner. Two SHORT symmetrical cobalt-and-gold angular mounting tabs extend a little left and right to meet an existing border; total silhouette around1.6:1 width-to-height. Keep crest proportional and compact, not a huge long flat plate. Neutral frontal studio light with gentle warm metal highlights matching source character window. Genuinely transparent outside the full physical crest with generous margins. No opaque backdrop, no broad shadows, no scenery, no torches, no crowns, no text, no lettering, no duplicate heads, no realistic animal photo, no leafy scrollwork, no extra weapon. One object only, high-detail isolated game-interface craftsmanship.",
+      "source": "C:\\Users\\Sage4\\.codex\\generated_images\\01a1ea47-f714-7df0-8481-8367c1002962\\exec-1df881a1-38ea-4e35-b2f6-b1923fe5c5a0.png"
+    }
+  ]
+}

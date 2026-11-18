@@ -2,7 +2,8 @@
 (() => {
   'use strict';
   const key = 'sage_visual_theme_v1';
-  const names = Object.freeze({hobbit:'Hobbit', gondor:'Gondor', dwarven:'Dwarven', elven:'Elven'});
+  const names = Object.freeze({hobbit:'Hobbit', gondor:'Gondor', dwarven:'Dwarven', elven:'Elven', mordor:'Mordor', 'one-ring':'One Ring'});
+  const selectorIds = ['headerVisualTheme','visualTheme'];
   const root = document.documentElement;
   const valid = value => Object.hasOwn(names, value) ? value : 'elven';
   let initial = 'elven';
@@ -40,10 +41,11 @@
       }
       let src = original.src, srcset = original.srcset;
       if (original.footer && theme !== 'elven') {
-        const path = theme === 'gondor' ? 'assets/themes/gondor/sidebar-crest.webp' : artworkPath(theme,'home');
+        const path = ['mordor','one-ring'].includes(theme) ? `assets/themes/${theme}/footer-emblem.webp`
+          : theme === 'gondor' ? 'assets/themes/gondor/sidebar-crest.webp' : artworkPath(theme,'home');
         src = original.src ? path : null;
         srcset = original.srcset ? path + ' 160w' : null;
-      } else if (original.sidebar && ['gondor','elven'].includes(theme)) {
+      } else if (original.sidebar && ['gondor','elven','mordor','one-ring'].includes(theme)) {
         src = `assets/themes/${theme}/sidebar-icon-${original.sidebar}.webp`; srcset = null;
       } else if (theme !== 'elven') {
         if (original.scroll) { src = `assets/themes/${theme}/scroll.webp`; srcset = null; }
@@ -72,22 +74,19 @@
     document.body?.classList.remove('ember-mode');
     let remembered = true;
     if (save) { try { localStorage.setItem(key,theme); } catch { remembered = false; } }
-    for (const button of document.querySelectorAll('[data-visual-theme-button]')) {
-      button.setAttribute('aria-pressed',String(button.dataset.visualThemeButton === theme));
+    for (const id of selectorIds) {
+      const select = document.getElementById(id);
+      if (select) select.value = theme;
     }
-    const select = document.getElementById('visualTheme');
-    if (select) select.value = theme;
     updateArtwork();
     const status = document.getElementById('themeStatus');
     if (announce && status) status.textContent = `${names[theme]} theme selected.${remembered ? '' : ' Browser storage is unavailable; this change lasts for this visit.'}`;
   }
   function ready() {
     apply(root.dataset.visualTheme);
-    document.addEventListener('click',event => {
-      const button = event.target.closest('[data-visual-theme-button]');
-      if (button) apply(button.dataset.visualThemeButton,{save:true,announce:true});
-    });
-    document.getElementById('visualTheme')?.addEventListener('change',event => apply(event.target.value,{save:true,announce:true}));
+    for (const id of selectorIds) {
+      document.getElementById(id)?.addEventListener('change',event => apply(event.target.value,{save:true,announce:true}));
+    }
     window.addEventListener('storage',event => {
       if (event.key === key || event.key === null) apply(event.newValue);
     });

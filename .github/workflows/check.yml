@@ -22,4 +22,5 @@ jobs:
           node --check js/personal-mail.js
           node --check nest-service/private-worker.mjs
           node --test tests/*.test.js
+          node scripts/check-theme-assets.mjs
           python3 -c "import ast; ast.parse(open('scripts/refresh-feeds.py', encoding='utf-8-sig').read())"

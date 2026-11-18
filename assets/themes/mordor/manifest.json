@@ -1,0 +1,611 @@
+{
+  "theme": "mordor",
+  "source": "Built-in imagegen from approved Mordor concept; exact prompts and original PNGs in design/switchable-themes/mordor",
+  "sources": {
+    "header": {
+      "width": 2172,
+      "height": 724,
+      "hasAlpha": false,
+      "sha256": "03f967102efc537084be23cb234de6d45ae49959235f2e03791a972e98fcbd72"
+    },
+    "sidebar": {
+      "width": 725,
+      "height": 2170,
+      "hasAlpha": false,
+      "sha256": "4dd7b757781dc9ba2d14d0ab686636334859895c47b15f1bc37d2e5ca75f3a4f"
+    },
+    "frame": {
+      "width": 1254,
+      "height": 1254,
+      "hasAlpha": true,
+      "sha256": "2735198094ad03a07c84dfff47b0b56f8d31df63c3d5fc8e3c01bc3548e8ee24"
+    },
+    "icons": {
+      "width": 1254,
+      "height": 1254,
+      "hasAlpha": true,
+      "sha256": "7ab98aa893424bb9c91c24daaa63bead597743a5fca296c9d89a681b41843f8b"
+    },
+    "scroll": {
+      "width": 1254,
+      "height": 1254,
+      "hasAlpha": true,
+      "sha256": "d85b18b095c6436eb455f352134e982211baa95df17acbde82fe88552be8809d"
+    },
+    "buttons": {
+      "width": 1536,
+      "height": 1024,
+      "hasAlpha": true,
+      "sha256": "982a8455ff1972e2fd1966f92af45dd4171c15bb1a322264cf2632ec4229c37d"
+    },
+    "hearth": {
+      "width": 2172,
+      "height": 724,
+      "hasAlpha": true,
+      "sha256": "2e6721ea336841ebd3f3f3d452b15735333e9002a82ddc7f254d40ababaa8339"
+    }
+  },
+  "assets": {
+    "header-2172": {
+      "width": 2172,
+      "height": 724,
+      "hasAlpha": false,
+      "bytes": 249492,
+      "sha256": "a6eb462eae7ac3e6dc3fe7ab8081fb669bbe23e1442075a87500fb170e7f6b26"
+    },
+    "header-1100": {
+      "width": 1100,
+      "height": 367,
+      "hasAlpha": false,
+      "bytes": 82144,
+      "sha256": "c0b10caaf32df00b0af4a0fb3ea0432cae6d7a921694ee27f36839e783cc0930"
+    },
+    "background-1672": {
+      "width": 1672,
+      "height": 557,
+      "hasAlpha": false,
+      "bytes": 168914,
+      "sha256": "cfe07b894f5da1d4f9c715d5a6dde8144902a7969827852ed91b7074a7e58240"
+    },
+    "background-960": {
+      "width": 960,
+      "height": 320,
+      "hasAlpha": false,
+      "bytes": 64446,
+      "sha256": "22a5ebb1088ecd6f82b740933d6d1486163b116f3308cefb09e4754106c98435"
+    },
+    "sidebar-top": {
+      "width": 512,
+      "height": 305,
+      "hasAlpha": false,
+      "bytes": 23530,
+      "sha256": "e0d175e047d9fa626f09f7dbbf7cad9c0e5fec4300e89298a4e335d50917e80c",
+      "sourceCrop": {
+        "left": 0,
+        "top": 0,
+        "width": 725,
+        "height": 432
+      }
+    },
+    "sidebar-fill": {
+      "width": 512,
+      "height": 71,
+      "hasAlpha": false,
+      "bytes": 3484,
+      "sha256": "950050c1853f90207f763029562df91588696655d3e0fd6b55c9ce8462071064",
+      "sourceCrop": {
+        "left": 0,
+        "top": 900,
+        "width": 725,
+        "height": 100
+      }
+    },
+    "sidebar-bottom": {
+      "width": 512,
+      "height": 770,
+      "hasAlpha": false,
+      "bytes": 71318,
+      "sha256": "ffbb51014bb66e59149484bdeb938e73c235cb1e3d30a27f130624d1265ba496",
+      "sourceCrop": {
+        "left": 0,
+        "top": 1080,
+        "width": 725,
+        "height": 1090
+      }
+    },
+    "texture": {
+      "width": 512,
+      "height": 512,
+      "hasAlpha": false,
+      "bytes": 16986,
+      "sha256": "35e5f20e003034709e9c7b3acbb788a96956c70edc9b70fce47181f34a5a9554"
+    },
+    "frame-tl": {
+      "width": 220,
+      "height": 220,
+      "hasAlpha": true,
+      "bytes": 33692,
+      "sha256": "ab8df17b8ac64cb524940953739b49659a5452a8fd168e5941ac14fadc2c1285",
+      "sourceCrop": {
+        "left": 0,
+        "top": 0,
+        "width": 220,
+        "height": 220
+      }
+    },
+    "frame-tr": {
+      "width": 220,
+      "height": 220,
+      "hasAlpha": true,
+      "bytes": 33916,
+      "sha256": "62638a6708ec15d0b7698e6794951394bc205d21e34ea2f29929297d016156d4",
+      "sourceCrop": {
+        "left": 876,
+        "top": 0,
+        "width": 220,
+        "height": 220
+      }
+    },
+    "frame-bl": {
+      "width": 220,
+      "height": 220,
+      "hasAlpha": true,
+      "bytes": 33698,
+      "sha256": "a8e3b11c055356c962591c1db5d3eebfd2fc3bfa8ee065f28942b3fbe5604d3c",
+      "sourceCrop": {
+        "left": 0,
+        "top": 876,
+        "width": 220,
+        "height": 220
+      }
+    },
+    "frame-br": {
+      "width": 220,
+      "height": 220,
+      "hasAlpha": true,
+      "bytes": 33394,
+      "sha256": "8db70f0ba908f7d7a24c717c490af0d0941e20839b2de453d2dcd77b758a81a5",
+      "sourceCrop": {
+        "left": 876,
+        "top": 876,
+        "width": 220,
+        "height": 220
+      }
+    },
+    "frame-top": {
+      "width": 300,
+      "height": 220,
+      "hasAlpha": true,
+      "bytes": 24350,
+      "sha256": "036e7d54ea0f09f146b2c0a2336c8254d189dc800a3ca03cdf1f6ecbaa3a7e1e",
+      "sourceCrop": {
+        "left": 398,
+        "top": 0,
+        "width": 300,
+        "height": 220
+      }
+    },
+    "frame-bottom": {
+      "width": 300,
+      "height": 220,
+      "hasAlpha": true,
+      "bytes": 24092,
+      "sha256": "caed236d6d324142aae0be3190c555a04b1e211208a130e521122d1a5ee8f797",
+      "sourceCrop": {
+        "left": 398,
+        "top": 876,
+        "width": 300,
+        "height": 220
+      }
+    },
+    "frame-left": {
+      "width": 220,
+      "height": 200,
+      "hasAlpha": true,
+      "bytes": 20572,
+      "sha256": "9310aa9bd4c7f019e63e658256d62568e654a2abe43c0648f36ebe0378c7c3cc",
+      "sourceCrop": {
+        "left": 0,
+        "top": 448,
+        "width": 220,
+        "height": 200
+      }
+    },
+    "frame-right": {
+      "width": 220,
+      "height": 200,
+      "hasAlpha": true,
+      "bytes": 20920,
+      "sha256": "37591b34702636503368d8c84e17589bc1372a3c833890bc6dbc566d9550aafd",
+      "sourceCrop": {
+        "left": 876,
+        "top": 448,
+        "width": 220,
+        "height": 200
+      }
+    },
+    "icon-calendar": {
+      "width": 250,
+      "height": 244,
+      "hasAlpha": true,
+      "bytes": 80746,
+      "sha256": "81dbd9731b1c9a081e533990adc257f65dfe4e2cd5d30e1d66014444ae859f42",
+      "sourceCrop": {
+        "left": 40,
+        "top": 57,
+        "width": 250,
+        "height": 244
+      }
+    },
+    "icon-home": {
+      "width": 291,
+      "height": 243,
+      "hasAlpha": true,
+      "bytes": 109736,
+      "sha256": "a3afd4dfbefc00e06752d201bd42a743f4e8f48bc36adc6ae66191672e6c5caa",
+      "sourceCrop": {
+        "left": 326,
+        "top": 57,
+        "width": 291,
+        "height": 243
+      }
+    },
+    "icon-provisions": {
+      "width": 212,
+      "height": 239,
+      "hasAlpha": true,
+      "bytes": 64194,
+      "sha256": "e66abd8887e5de0c56c50018c6030189fcf003f2f3ec54bc15e6351950e80722",
+      "sourceCrop": {
+        "left": 679,
+        "top": 55,
+        "width": 212,
+        "height": 239
+      }
+    },
+    "icon-raven": {
+      "width": 249,
+      "height": 252,
+      "hasAlpha": true,
+      "bytes": 67688,
+      "sha256": "89634cf056592af8f1de8259ddae7fd516c19cd163988d2ed91601f4f971ccf5",
+      "sourceCrop": {
+        "left": 966,
+        "top": 52,
+        "width": 249,
+        "height": 252
+      }
+    },
+    "icon-orb": {
+      "width": 222,
+      "height": 256,
+      "hasAlpha": true,
+      "bytes": 76516,
+      "sha256": "f82d3722554bef7b4395afb09dc06b4185e1c59c5c513caedb81dcba38a98f96",
+      "sourceCrop": {
+        "left": 50,
+        "top": 354,
+        "width": 222,
+        "height": 256
+      }
+    },
+    "icon-news": {
+      "width": 273,
+      "height": 208,
+      "hasAlpha": true,
+      "bytes": 63540,
+      "sha256": "f268426e512b40fd51940879a4b0806c5855dfbf12df9d610422400f037954ab",
+      "sourceCrop": {
+        "left": 335,
+        "top": 381,
+        "width": 273,
+        "height": 208
+      }
+    },
+    "icon-tools": {
+      "width": 259,
+      "height": 247,
+      "hasAlpha": true,
+      "bytes": 64124,
+      "sha256": "582e5f89f014c22290046ad1e84a36ba9d9bcc8cb0e30579c64e7ad1bc5d9697",
+      "sourceCrop": {
+        "left": 656,
+        "top": 353,
+        "width": 259,
+        "height": 247
+      }
+    },
+    "icon-compass": {
+      "width": 276,
+      "height": 275,
+      "hasAlpha": true,
+      "bytes": 80256,
+      "sha256": "e38ba8b9a8581dbf8d743de917eb602cafa1a2120c2a6fb423b23dd608cc9ffc",
+      "sourceCrop": {
+        "left": 957,
+        "top": 337,
+        "width": 276,
+        "height": 275
+      }
+    },
+    "icon-weather": {
+      "width": 288,
+      "height": 219,
+      "hasAlpha": true,
+      "bytes": 68778,
+      "sha256": "ce703f712c2e0fe8f7cdbc237c844a76b9dc6f870948e73f206fb7763c2ade73",
+      "sourceCrop": {
+        "left": 22,
+        "top": 660,
+        "width": 288,
+        "height": 219
+      }
+    },
+    "icon-camera": {
+      "width": 260,
+      "height": 214,
+      "hasAlpha": true,
+      "bytes": 83008,
+      "sha256": "f8c0882e521c5171a682418bb8f71ac617aad71867e4d8232f69ab4a3312a99a",
+      "sourceCrop": {
+        "left": 341,
+        "top": 669,
+        "width": 260,
+        "height": 214
+      }
+    },
+    "icon-refresh": {
+      "width": 221,
+      "height": 271,
+      "hasAlpha": true,
+      "bytes": 58788,
+      "sha256": "0caa4df098aff34bdf0e5e59882751bd25e64d6b7d9c50b2ffb5ce3b5d423229",
+      "sourceCrop": {
+        "left": 676,
+        "top": 670,
+        "width": 221,
+        "height": 271
+      }
+    },
+    "icon-settings": {
+      "width": 251,
+      "height": 243,
+      "hasAlpha": true,
+      "bytes": 79294,
+      "sha256": "aaf75d702e8b87458fcc4d866d998bf1cca4bc2268e982962dcc4ebba92d036a",
+      "sourceCrop": {
+        "left": 971,
+        "top": 650,
+        "width": 251,
+        "height": 243
+      }
+    },
+    "sidebar-crest": {
+      "width": 273,
+      "height": 277,
+      "hasAlpha": true,
+      "bytes": 90714,
+      "sha256": "3ea61eba819acd320ba41260da24c5be9fc291cc217e996a85db5a271af5d8cf",
+      "sourceCrop": {
+        "left": 20,
+        "top": 945,
+        "width": 273,
+        "height": 277
+      }
+    },
+    "footer-emblem": {
+      "width": 282,
+      "height": 105,
+      "hasAlpha": true,
+      "bytes": 35952,
+      "sha256": "8ea3ad737a3b79840dcb9ed0d7febc02a6662565b6a38408e5076710ea9daa77",
+      "sourceCrop": {
+        "left": 331,
+        "top": 1027,
+        "width": 282,
+        "height": 105
+      }
+    },
+    "sidebar-icon-warroom": {
+      "width": 267,
+      "height": 273,
+      "hasAlpha": true,
+      "bytes": 71358,
+      "sha256": "ca8b1f0c40139f4a7f16af6d1f5a190b978cb0cfefd9109632e99a5f78405c13",
+      "sourceCrop": {
+        "left": 648,
+        "top": 941,
+        "width": 267,
+        "height": 273
+      }
+    },
+    "sidebar-icon-treasury": {
+      "width": 259,
+      "height": 213,
+      "hasAlpha": true,
+      "bytes": 76678,
+      "sha256": "e72dd0095855cec42b93ad1a5513f46c84a208e7b7553458c5c4feaf884019cd",
+      "sourceCrop": {
+        "left": 960,
+        "top": 980,
+        "width": 259,
+        "height": 213
+      }
+    },
+    "sidebar-icon-overview": {
+      "width": 160,
+      "height": 159,
+      "hasAlpha": true,
+      "bytes": 28052,
+      "sha256": "9753bdec096ec8b809e6707c32b2f7ccf6569fdaaf9b93c12c57f4a31b04b3f3"
+    },
+    "sidebar-icon-home": {
+      "width": 160,
+      "height": 134,
+      "hasAlpha": true,
+      "bytes": 35946,
+      "sha256": "3e5d62255409800ed454de8acab16d6c55ba410693a0a4fb67ed8abd88afcf15"
+    },
+    "sidebar-icon-provisions": {
+      "width": 142,
+      "height": 160,
+      "hasAlpha": true,
+      "bytes": 29784,
+      "sha256": "0e160556dee8af8b58fe7f144a2b160d06e64d7a1b94fdf716a8a0c7d69cedf3"
+    },
+    "sidebar-icon-settings": {
+      "width": 160,
+      "height": 155,
+      "hasAlpha": true,
+      "bytes": 33100,
+      "sha256": "0cbe9e1496122e2b057532b65ab36a7e5eca18ad1896330785863af5c0127828"
+    },
+    "button-normal": {
+      "width": 473,
+      "height": 150,
+      "hasAlpha": true,
+      "bytes": 93330,
+      "sha256": "ad9621e144616d5f336f8fef248d84e4e35ac0e61012efaf8dffbceb7be50d0a",
+      "sourceCrop": {
+        "left": 27,
+        "top": 237,
+        "width": 473,
+        "height": 150
+      }
+    },
+    "button-hover": {
+      "width": 473,
+      "height": 150,
+      "hasAlpha": true,
+      "bytes": 99006,
+      "sha256": "b7aa65dfb854b721c3ff254bc2453c65764d6b0504a703980af4f85fb0813ecb",
+      "sourceCrop": {
+        "left": 532,
+        "top": 237,
+        "width": 473,
+        "height": 150
+      }
+    },
+    "button-pressed": {
+      "width": 474,
+      "height": 150,
+      "hasAlpha": true,
+      "bytes": 89396,
+      "sha256": "2ea3d5c081b845d123c7fed685df8abd046b5c7b05954d1e0e484e7281c84756",
+      "sourceCrop": {
+        "left": 1036,
+        "top": 237,
+        "width": 474,
+        "height": 150
+      }
+    },
+    "button-secondary": {
+      "width": 473,
+      "height": 150,
+      "hasAlpha": true,
+      "bytes": 94392,
+      "sha256": "a2537869208ed9720aaae2ce4b062726eb2296a15277f5dced3fb73a22720d82",
+      "sourceCrop": {
+        "left": 27,
+        "top": 640,
+        "width": 473,
+        "height": 150
+      }
+    },
+    "button-secondary-hover": {
+      "width": 473,
+      "height": 150,
+      "hasAlpha": true,
+      "bytes": 95872,
+      "sha256": "e58337fc47634a9b7996d44c5e096923b4ff5e294b786d6c998e62ba15e5d45f",
+      "sourceCrop": {
+        "left": 532,
+        "top": 640,
+        "width": 473,
+        "height": 150
+      }
+    },
+    "button-disabled": {
+      "width": 474,
+      "height": 149,
+      "hasAlpha": true,
+      "bytes": 82696,
+      "sha256": "bc92a7c0adc6225aeb7544647d1464cc568d168f84a4ce711b870aa7ce020c4c",
+      "sourceCrop": {
+        "left": 1036,
+        "top": 641,
+        "width": 474,
+        "height": 149
+      }
+    },
+    "hearth-idle": {
+      "width": 288,
+      "height": 236,
+      "hasAlpha": true,
+      "bytes": 81100,
+      "sha256": "1320771c43b919b36f84ed11580534f1e9556ee8a91c045515ed4d1a319da76f",
+      "sourceCrop": {
+        "left": 45,
+        "top": 81,
+        "width": 635,
+        "height": 521
+      }
+    },
+    "hearth-heat": {
+      "width": 288,
+      "height": 236,
+      "hasAlpha": true,
+      "bytes": 92580,
+      "sha256": "f07b4ca328e4f495923f57e893c093cc08df0c2bb836924e57b40ecb8c1e2e41",
+      "sourceCrop": {
+        "left": 769,
+        "top": 81,
+        "width": 635,
+        "height": 521
+      }
+    },
+    "hearth-cool": {
+      "width": 288,
+      "height": 236,
+      "hasAlpha": true,
+      "bytes": 81286,
+      "sha256": "f1b784758b60b25b97a4a33f8370926dda99f2074a419878820822f80eb81ca9",
+      "sourceCrop": {
+        "left": 1493,
+        "top": 81,
+        "width": 635,
+        "height": 521
+      }
+    },
+    "scroll": {
+      "width": 1280,
+      "height": 1280,
+      "hasAlpha": true,
+      "bytes": 209614,
+      "sha256": "0a4058221d2fc29115e3c089f8aea15ccb392ad6709f400b27f41d651ba9e12c"
+    }
+  },
+  "frame": {
+    "corner": 220,
+    "renderedCorner": 50,
+    "horizontalTile": 300,
+    "verticalTile": 200,
+    "sourceCrop": {
+      "left": 79,
+      "top": 79,
+      "width": 1096,
+      "height": 1096
+    },
+    "centerAlpha": 0
+  },
+  "scroll": {
+    "width": 1280,
+    "height": 1280,
+    "mobileSlices": [
+      250,
+      0,
+      250,
+      0
+    ]
+  }
+}

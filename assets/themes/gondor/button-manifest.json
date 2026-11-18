@@ -1,0 +1,150 @@
+{
+  "theme": "gondor",
+  "source": {
+    "path": "design/switchable-themes/gondor/button-states.png",
+    "prompt": "design/switchable-themes/gondor/button-states.prompt.json",
+    "tool": "Built-in imagegen",
+    "width": 1536,
+    "height": 1024,
+    "hasAlpha": true,
+    "sha256": "3ecf7306a9527cee02a334020186849c34296513e6078011a8118c746cbc6d2d"
+  },
+  "atlas": {
+    "columns": 3,
+    "rows": 2,
+    "states": [
+      "normal",
+      "hover",
+      "pressed",
+      "secondary",
+      "secondary-hover",
+      "disabled"
+    ],
+    "alphaThreshold": 16,
+    "edgeMargin": 4
+  },
+  "output": {
+    "width": 600,
+    "lossless": true,
+    "cssSlice": [
+      40,
+      90
+    ]
+  },
+  "assets": {
+    "button-normal.webp": {
+      "sourceCell": {
+        "left": 0,
+        "top": 0,
+        "width": 512,
+        "height": 512
+      },
+      "sourceCrop": {
+        "left": 22,
+        "top": 219,
+        "width": 468,
+        "height": 168
+      },
+      "width": 600,
+      "height": 215,
+      "hasAlpha": true,
+      "bytes": 142632,
+      "sha256": "24434e88a589995be7559f1ba22d2bcdee8b38a786b4c6385d65d6a20a8ded5f"
+    },
+    "button-hover.webp": {
+      "sourceCell": {
+        "left": 512,
+        "top": 0,
+        "width": 512,
+        "height": 512
+      },
+      "sourceCrop": {
+        "left": 534,
+        "top": 218,
+        "width": 468,
+        "height": 168
+      },
+      "width": 600,
+      "height": 215,
+      "hasAlpha": true,
+      "bytes": 161242,
+      "sha256": "fd94e6f8828de38ace0495fc231501dc0739c750c2bcfda38f6dd4c563a67f9d"
+    },
+    "button-pressed.webp": {
+      "sourceCell": {
+        "left": 1024,
+        "top": 0,
+        "width": 512,
+        "height": 512
+      },
+      "sourceCrop": {
+        "left": 1046,
+        "top": 219,
+        "width": 468,
+        "height": 168
+      },
+      "width": 600,
+      "height": 215,
+      "hasAlpha": true,
+      "bytes": 134406,
+      "sha256": "ee1d5de1246d5a53521dd1d781cc3f195e19b7c2b3a0ab0bce550370f5b80f1a"
+    },
+    "button-secondary.webp": {
+      "sourceCell": {
+        "left": 0,
+        "top": 512,
+        "width": 512,
+        "height": 512
+      },
+      "sourceCrop": {
+        "left": 22,
+        "top": 667,
+        "width": 468,
+        "height": 168
+      },
+      "width": 600,
+      "height": 215,
+      "hasAlpha": true,
+      "bytes": 146636,
+      "sha256": "19ee77d63d68199dd81481ba1d6f557d5ccf691a390dfd363b27fca0d687e14a"
+    },
+    "button-secondary-hover.webp": {
+      "sourceCell": {
+        "left": 512,
+        "top": 512,
+        "width": 512,
+        "height": 512
+      },
+      "sourceCrop": {
+        "left": 534,
+        "top": 667,
+        "width": 468,
+        "height": 168
+      },
+      "width": 600,
+      "height": 215,
+      "hasAlpha": true,
+      "bytes": 151616,
+      "sha256": "4dbf035452f38610445c3131dfdb76c1ea95ea22e290a0651634fbcc0defeb46"
+    },
+    "button-disabled.webp": {
+      "sourceCell": {
+        "left": 1024,
+        "top": 512,
+        "width": 512,
+        "height": 512
+      },
+      "sourceCrop": {
+        "left": 1046,
+        "top": 667,
+        "width": 468,
+        "height": 168
+      },
+      "width": 600,
+      "height": 215,
+      "hasAlpha": true,
+      "bytes": 142818,
+      "sha256": "5d436391b3e787ec254d6ba1fdb6e025b962429fa6a34feeb7bbaa2de237e177"
+    }
+  }
+}

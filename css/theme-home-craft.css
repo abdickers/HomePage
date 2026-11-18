@@ -10,7 +10,7 @@ html[data-visual-theme="gondor"] body[data-command-realm="personal"] {
   --theme-hearth-idle:url('../assets/themes/dwarven/hearth-idle.webp');
 }
 
-html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="gondor"]) body[data-command-realm="personal"] #dashboard>#homePanel {
+html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="gondor"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] #dashboard>#homePanel {
   padding:28px; min-height:0; height:auto;
 }
 html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel>.panel-title {
@@ -253,7 +253,7 @@ html[data-visual-theme="gondor"] body[data-command-realm="personal"] #homePanel 
   }
 }
 @media(max-width:760px) {
-  html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="gondor"]) body[data-command-realm="personal"] #dashboard>#homePanel {
+  html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="gondor"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] #dashboard>#homePanel {
     padding:24px 20px;
   }
   html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel .hobbit-control {
