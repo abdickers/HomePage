@@ -1,0 +1,81 @@
+/* Match the existing Alliance portrait frame all the way around the War Room.
+   Live content and integrations retain their existing elements and handlers. */
+body[data-command-realm] #dashboard>#wowPanel.warcraft-section-frame { padding:128px 72px 104px; scroll-margin-top:24px; }
+body[data-command-realm] #wowPanel .wow-switch {
+  gap:8px; padding:0; border:0; border-radius:0; background:none; box-shadow:none;
+}
+body[data-command-realm] #wowPanel :is(.wow-switch button,#wowRefresh,.wow-character-actions>a,#wowSource) {
+  display:inline-flex; align-items:center; justify-content:center;
+  box-sizing:border-box; min-height:44px; padding:11px 24px;
+  border:1px solid transparent;
+  border-image:url('../assets/warcraft/control-normal.webp') 48 96 fill / 10px 22px / 0 stretch;
+  border-radius:0; background:none; box-shadow:none;
+  color:#fff0c9; font:inherit; font-size:14px; font-weight:600; line-height:1.4;
+  text-align:center; text-shadow:0 1px 2px #020a1b; text-decoration:none;
+  cursor:pointer;
+}
+body[data-command-realm] #wowPanel :is(.wow-character-actions>a,#wowSource) {
+  border-image-source:url('../assets/warcraft/control-secondary.webp');
+}
+body[data-command-realm] #wowPanel :is(.wow-switch button,#wowRefresh,.wow-character-actions>a,#wowSource):hover:not(:disabled) {
+  border-image-source:url('../assets/warcraft/control-hover.webp');
+  color:#fff5dc; background:none; box-shadow:none;
+}
+body[data-command-realm] #wowPanel :is(.wow-character-actions>a,#wowSource):hover {
+  border-image-source:url('../assets/warcraft/control-secondary-hover.webp');
+}
+body[data-command-realm] #wowPanel :is(.wow-switch button,#wowRefresh,.wow-character-actions>a,#wowSource):is(:active,[aria-pressed=true]) {
+  border-image-source:url('../assets/warcraft/control-pressed.webp');
+  color:#fff1bd; background:none; box-shadow:none;
+}
+body[data-command-realm] #wowPanel :is(.wow-switch button,#wowRefresh):disabled {
+  border-image-source:url('../assets/warcraft/control-disabled.webp');
+  color:#d0d6de; background:none; box-shadow:none; opacity:.75; cursor:not-allowed;
+}
+body[data-command-realm] #wowPanel :is(.wow-switch button,#wowRefresh,.wow-character-actions>a,#wowSource):focus-visible {
+  outline:3px solid #ffe4a2; outline-offset:4px;
+}
+body[data-command-realm] #wowPanel .warcraft-section-lion {
+  top:0; left:50%; width:160px; height:auto; max-width:calc(100% - 96px);
+  transform:translateX(-50%); object-fit:contain; pointer-events:none; z-index:2;
+}
+body[data-command-realm] #wowPanel .warcraft-section-seal {
+  bottom:4px; width:104px; height:auto; object-fit:contain; z-index:2;
+}
+/* Eight physical slices. Banners, heavy corner studs and their proportions stay
+   fixed; only quiet cobalt/gold lattice tiles repeat along the four rails. */
+body[data-command-realm] #wowPanel .warcraft-section-border {
+  --alliance-corner:112px;
+  position:absolute; inset:18px 0 0; z-index:1;
+  border:0; border-image:none; background:none; pointer-events:none;
+}
+body[data-command-realm] #wowPanel .warcraft-section-border>span {
+  position:absolute; display:block; margin:0; padding:0;
+  width:var(--alliance-corner); height:var(--alliance-corner);
+  background-repeat:no-repeat; background-size:100% 100%; pointer-events:none;
+}
+body[data-command-realm] #wowPanel .alliance-tl { left:0; top:0; background-image:url('../assets/warcraft/alliance-frame-tl.webp'); }
+body[data-command-realm] #wowPanel .alliance-tr { right:0; top:0; background-image:url('../assets/warcraft/alliance-frame-tr.webp'); }
+body[data-command-realm] #wowPanel .alliance-bl { left:0; bottom:0; background-image:url('../assets/warcraft/alliance-frame-bl.webp'); }
+body[data-command-realm] #wowPanel .alliance-br { right:0; bottom:0; background-image:url('../assets/warcraft/alliance-frame-br.webp'); }
+body[data-command-realm] #wowPanel .warcraft-section-border>:is(.alliance-top,.alliance-bottom) {
+  left:var(--alliance-corner); right:var(--alliance-corner); width:auto;
+  height:var(--alliance-corner); background-repeat:repeat-x;
+  background-size:calc(var(--alliance-corner) * .44) 100%;
+}
+body[data-command-realm] #wowPanel .alliance-top { top:0; background-image:url('../assets/warcraft/alliance-frame-top.webp'); }
+body[data-command-realm] #wowPanel .alliance-bottom { bottom:0; background-image:url('../assets/warcraft/alliance-frame-bottom.webp'); }
+body[data-command-realm] #wowPanel .warcraft-section-border>:is(.alliance-left,.alliance-right) {
+  top:var(--alliance-corner); bottom:var(--alliance-corner); height:auto;
+  width:var(--alliance-corner); background-repeat:repeat-y;
+  background-size:100% calc(var(--alliance-corner) * .4);
+}
+body[data-command-realm] #wowPanel .alliance-left { left:0; background-image:url('../assets/warcraft/alliance-frame-left.webp'); }
+body[data-command-realm] #wowPanel .alliance-right { right:0; background-image:url('../assets/warcraft/alliance-frame-right.webp'); }
+@media(max-width:760px) {
+  body[data-command-realm] #dashboard>#wowPanel.warcraft-section-frame { padding:108px 48px 88px; }
+  body[data-command-realm] #wowPanel .warcraft-section-lion { top:0; width:120px; }
+  body[data-command-realm] #wowPanel .warcraft-section-seal { bottom:2px; width:84px; }
+  body[data-command-realm] #wowPanel .warcraft-section-border { --alliance-corner:84px; }
+  body[data-command-realm] #wowPanel :is(.wow-switch button,#wowRefresh,.wow-character-actions>a,#wowSource) { font-size:13px; padding-inline:16px; }
+}

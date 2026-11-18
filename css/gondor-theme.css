@@ -10,6 +10,10 @@ html[data-visual-theme="gondor"] body[data-command-realm="personal"] {
   --theme-settings-icon:var(--theme-icon-settings);
   --theme-button:linear-gradient(145deg,#293b4b,#111c27);
   --theme-button-hover:linear-gradient(145deg,#415e77,#203448);
+  --theme-button-art:url('../assets/themes/gondor/button-normal.webp');
+  --theme-button-hover-art:url('../assets/themes/gondor/button-hover.webp');
+  --theme-button-pressed-art:url('../assets/themes/gondor/button-pressed.webp');
+  --theme-button-disabled-art:url('../assets/themes/gondor/button-disabled.webp');
   --theme-sidebar:linear-gradient(#101923f2,#111923fa),url('../assets/themes/gondor/header.webp') center / cover;
   --theme-header-image:url('../assets/themes/gondor/header.webp');
   --theme-page-image:url('../assets/themes/gondor/header.webp');

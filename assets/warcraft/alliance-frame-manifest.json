@@ -1,0 +1,156 @@
+{
+  "source": {
+    "path": "design/warcraft-controls/perimeter.png",
+    "sha256": "8688a2c30ef29ae78bd0e8b1f69f997b85742a558e3697b6c71363f467ff3829",
+    "width": 1536,
+    "height": 1024
+  },
+  "portraitReference": "assets/redesign/wow-alliance-portrait-frame.webp",
+  "corner": 400,
+  "renderedCorner": {
+    "desktop": 112,
+    "mobile": 84
+  },
+  "alphaCleanupMax": 3,
+  "assets": {
+    "alliance-frame-tl": {
+      "width": 400,
+      "height": 400,
+      "bytes": 151724,
+      "sha256": "e383642b6b80f4956b381ae351dbf6fe97a8b5eef1b563756c0c709ebc629fd5",
+      "hasAlpha": true,
+      "sourceCrop": {
+        "left": 0,
+        "top": 0,
+        "width": 400,
+        "height": 400
+      }
+    },
+    "alliance-frame-tr": {
+      "width": 400,
+      "height": 400,
+      "bytes": 150960,
+      "sha256": "4edd6d628d8aaf3fbce83922d10e68f36678b1d24529ae221b52b8e2e3543919",
+      "hasAlpha": true,
+      "sourceCrop": {
+        "left": 1117,
+        "top": 0,
+        "width": 400,
+        "height": 400
+      }
+    },
+    "alliance-frame-bl": {
+      "width": 400,
+      "height": 400,
+      "bytes": 150920,
+      "sha256": "09ac061775c5b1e6769d49fef9e2d2bc18ed130511ccf3fb42790e197ad3f647",
+      "hasAlpha": true,
+      "sourceCrop": {
+        "left": 0,
+        "top": 607,
+        "width": 400,
+        "height": 400
+      }
+    },
+    "alliance-frame-br": {
+      "width": 400,
+      "height": 400,
+      "bytes": 151500,
+      "sha256": "58465d9e975fc55f96d6c18092a2acb9f4c2d96b8825db1723870914fcd5a73a",
+      "hasAlpha": true,
+      "sourceCrop": {
+        "left": 1117,
+        "top": 607,
+        "width": 400,
+        "height": 400
+      }
+    },
+    "alliance-frame-top": {
+      "width": 176,
+      "height": 400,
+      "bytes": 35534,
+      "sha256": "b01d352c9b1267c364bdee117325a63cb90def7a60437799299ee6f2a69751f1",
+      "hasAlpha": true,
+      "sourceCrop": {
+        "left": 710,
+        "top": 0,
+        "width": 88,
+        "height": 400
+      },
+      "construction": "quiet source segment plus reflected segment; no motif stretching"
+    },
+    "alliance-frame-bottom": {
+      "width": 176,
+      "height": 400,
+      "bytes": 39466,
+      "sha256": "c209035ceb9e1b35f525207c15041eee0ec783edb2a9817b7d1bebde1647da1a",
+      "hasAlpha": true,
+      "sourceCrop": {
+        "left": 710,
+        "top": 607,
+        "width": 88,
+        "height": 400
+      },
+      "construction": "quiet source segment plus reflected segment; no motif stretching"
+    },
+    "alliance-frame-left": {
+      "width": 400,
+      "height": 160,
+      "bytes": 35676,
+      "sha256": "1adb0e58c052b43eaef5c0bbb52b6d47accd58564cb7b8940cb2929ebc1060f5",
+      "hasAlpha": true,
+      "sourceCrop": {
+        "left": 0,
+        "top": 570,
+        "width": 400,
+        "height": 80
+      },
+      "construction": "quiet source segment plus reflected segment; no motif stretching"
+    },
+    "alliance-frame-right": {
+      "width": 400,
+      "height": 160,
+      "bytes": 36204,
+      "sha256": "ff37fe6472ec10df52a0bdc6a7cf520e56f40c7d8f4c1445bff669a6267eeebe",
+      "hasAlpha": true,
+      "sourceCrop": {
+        "left": 1117,
+        "top": 570,
+        "width": 400,
+        "height": 80
+      },
+      "construction": "quiet source segment plus reflected segment; no motif stretching"
+    },
+    "alliance-paladin-seal": {
+      "width": 512,
+      "height": 392,
+      "bytes": 205118,
+      "sha256": "9269b3d0878242f9bed8e804aaabad26b4b7696c61666a60bb7509ff3833ec28",
+      "hasAlpha": true,
+      "sourceCrop": {
+        "left": 290,
+        "top": 1190,
+        "width": 444,
+        "height": 340
+      },
+      "source": "existing portrait frame"
+    }
+  },
+  "sourceCrop": {
+    "left": 10,
+    "top": 8,
+    "width": 1517,
+    "height": 1007
+  },
+  "centerAlpha": 0,
+  "paladinSealSource": {
+    "path": "assets/redesign/wow-alliance-portrait-frame.webp",
+    "sha256": "269e2dc2ea599a4ac5bf14f444c8792ddf24f6f952823797095227b3c34cae3f",
+    "crop": {
+      "left": 290,
+      "top": 1190,
+      "width": 444,
+      "height": 340
+    }
+  }
+}

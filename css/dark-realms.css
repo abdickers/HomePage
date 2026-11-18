@@ -1,0 +1,147 @@
+/* Production artwork for the two approved dark realms. All labels, feeds and
+   controls remain live HTML; Warcraft and Treasury retain their own surfaces. */
+html[data-visual-theme="mordor"] {
+  --theme-ink:#f5ead7; --theme-muted:#cdbeb4; --theme-accent:#ef9c71; --theme-line:#ad746c88;
+  --theme-panel:#151415; --theme-panel-alt:#282224; --theme-field:#100e10;
+  --theme-sidebar:#171416; --theme-radius:4px;
+  --theme-button:linear-gradient(#3b2424,#1b1719); --theme-button-hover:linear-gradient(#61302a,#2c1b1b);
+  --theme-header-image:url('../assets/themes/mordor/header-2172.webp');
+  --theme-page-image:url('../assets/themes/mordor/background-1672.webp');
+  --theme-frame-tl:url('../assets/themes/mordor/frame-tl.webp'); --theme-frame-tr:url('../assets/themes/mordor/frame-tr.webp');
+  --theme-frame-bl:url('../assets/themes/mordor/frame-bl.webp'); --theme-frame-br:url('../assets/themes/mordor/frame-br.webp');
+  --theme-frame-top:url('../assets/themes/mordor/frame-top.webp'); --theme-frame-bottom:url('../assets/themes/mordor/frame-bottom.webp');
+  --theme-frame-left:url('../assets/themes/mordor/frame-left.webp'); --theme-frame-right:url('../assets/themes/mordor/frame-right.webp');
+  --theme-weather-icon:url('../assets/themes/mordor/icon-weather.webp'); --theme-home-icon:url('../assets/themes/mordor/icon-home.webp');
+  --theme-compass-icon:url('../assets/themes/mordor/icon-compass.webp'); --theme-raven-icon:url('../assets/themes/mordor/icon-raven.webp');
+  --theme-settings-icon:url('../assets/themes/mordor/icon-settings.webp');
+  --theme-texture:url('../assets/themes/mordor/texture.webp'); --theme-hearth-idle:url('../assets/themes/mordor/hearth-idle.webp');
+  --theme-button-art:url('../assets/themes/mordor/button-normal.webp'); --theme-button-hover-art:url('../assets/themes/mordor/button-hover.webp');
+  --theme-button-pressed-art:url('../assets/themes/mordor/button-pressed.webp'); --theme-button-disabled-art:url('../assets/themes/mordor/button-disabled.webp');
+  --theme-scroll-art:url('../assets/themes/mordor/scroll.webp');
+  --sidebar-art-top:url('../assets/themes/mordor/sidebar-top.webp'); --sidebar-art-bottom:url('../assets/themes/mordor/sidebar-bottom.webp');
+  --sidebar-art-fill:url('../assets/themes/mordor/sidebar-fill.webp'); --sidebar-crest:url('../assets/themes/mordor/sidebar-crest.webp');
+  --sidebar-edge:#a78980; --sidebar-ink:#f5ead7; --sidebar-fill:#171416; --sidebar-active:linear-gradient(145deg,#562b25,#21191b);
+}
+html[data-visual-theme="one-ring"] {
+  --theme-ink:#faf0d8; --theme-muted:#d0c4ad; --theme-accent:#f4ce72; --theme-line:#c5a44c88;
+  --theme-panel:#141414; --theme-panel-alt:#292824; --theme-field:#0e0e0f;
+  --theme-sidebar:#141414; --theme-radius:7px;
+  --theme-button:linear-gradient(#383124,#151513); --theme-button-hover:linear-gradient(#55452a,#2a261c);
+  --theme-header-image:url('../assets/themes/one-ring/header-2172.webp');
+  --theme-page-image:url('../assets/themes/one-ring/background-1672.webp');
+  --theme-frame-tl:url('../assets/themes/one-ring/frame-tl.webp'); --theme-frame-tr:url('../assets/themes/one-ring/frame-tr.webp');
+  --theme-frame-bl:url('../assets/themes/one-ring/frame-bl.webp'); --theme-frame-br:url('../assets/themes/one-ring/frame-br.webp');
+  --theme-frame-top:url('../assets/themes/one-ring/frame-top.webp'); --theme-frame-bottom:url('../assets/themes/one-ring/frame-bottom.webp');
+  --theme-frame-left:url('../assets/themes/one-ring/frame-left.webp'); --theme-frame-right:url('../assets/themes/one-ring/frame-right.webp');
+  --theme-weather-icon:url('../assets/themes/one-ring/icon-weather.webp'); --theme-home-icon:url('../assets/themes/one-ring/icon-home.webp');
+  --theme-compass-icon:url('../assets/themes/one-ring/icon-compass.webp'); --theme-raven-icon:url('../assets/themes/one-ring/icon-raven.webp');
+  --theme-settings-icon:url('../assets/themes/one-ring/icon-settings.webp');
+  --theme-texture:url('../assets/themes/one-ring/texture.webp'); --theme-hearth-idle:url('../assets/themes/one-ring/hearth-idle.webp');
+  --theme-button-art:url('../assets/themes/one-ring/button-normal.webp'); --theme-button-hover-art:url('../assets/themes/one-ring/button-hover.webp');
+  --theme-button-pressed-art:url('../assets/themes/one-ring/button-pressed.webp'); --theme-button-disabled-art:url('../assets/themes/one-ring/button-disabled.webp');
+  --theme-scroll-art:url('../assets/themes/one-ring/scroll.webp');
+  --sidebar-art-top:url('../assets/themes/one-ring/sidebar-top.webp'); --sidebar-art-bottom:url('../assets/themes/one-ring/sidebar-bottom.webp');
+  --sidebar-art-fill:url('../assets/themes/one-ring/sidebar-fill.webp'); --sidebar-crest:url('../assets/themes/one-ring/sidebar-crest.webp');
+  --sidebar-edge:#e5bd58; --sidebar-ink:#faf0d8; --sidebar-fill:#141414; --sidebar-active:linear-gradient(145deg,#544326,#211f18);
+}
+
+/* Quiet black material keeps the fine iron and true-gold rails legible. */
+html:is([data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"]::before {
+  background:linear-gradient(#100f11e5,#100f11f2),var(--theme-page-image) center / cover no-repeat;
+}
+html:is([data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] #realmHeader.hero {
+  min-height:360px; padding:26px 32px;
+}
+html:is([data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] #realmHeader.hero::before {
+  background:linear-gradient(90deg,#101014c9,#10101444 54%,#10101408),var(--theme-header-image) center / cover no-repeat;
+}
+html:is([data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] #realmHeader .title-wrap {
+  max-width:72%; margin-block:16px 22px;
+}
+html:is([data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] #realmHeader h1 {
+  font-size:clamp(34px,3.5vw,62px); line-height:1.03;
+}
+html:is([data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] #realmHeader .title-wrap h1>span {
+  font-size:.38em; letter-spacing:.27em; margin-top:12px;
+}
+html:is([data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] #realmHeader.hero .command-bar {
+  display:grid; grid-template-columns:50px minmax(0,1fr) auto; align-items:center; gap:14px;
+  min-height:70px; padding:8px 12px; border-radius:var(--theme-radius);
+  background:linear-gradient(#171519e8,#111013ed),var(--theme-texture) center / 420px repeat;
+  border:1px solid var(--theme-accent); box-shadow:inset 0 0 0 3px #ffffff0c,inset 0 1px #fff2,0 5px 18px #0008;
+}
+html:is([data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] #realmHeader.hero .command-bar .search-field :is(input,select) {
+  min-height:46px; padding:10px 12px; color:var(--theme-ink); background:#09090b99;
+  border:1px solid var(--theme-line); border-radius:3px; font-size:16px; box-shadow:inset 0 2px 5px #0004;
+}
+html:is([data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] #realmHeader.hero .command-bar .search-field input::placeholder { color:var(--theme-muted); opacity:1; }
+html:is([data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] #realmHeader.hero .command-bar .palantir { width:50px; min-width:0; padding:0; margin:0; }
+html:is([data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] #realmHeader.hero .command-bar .palantir img { width:48px; height:50px; object-fit:contain; }
+html:is([data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] #realmHeader.hero .command-bar .palantir span { display:none; }
+html:is([data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] #realmHeader.hero .command-bar .search-submit { min-width:106px; min-height:46px; padding:9px 18px; gap:7px; }
+
+/* Crest and scenery are independent layers, never stretched with rail height. */
+html:is([data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] .realm-sidebar {
+  padding-inline:16px; background-color:var(--sidebar-fill);
+}
+html:is([data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] .realm-ring {
+  width:136px; height:114px; min-width:0;
+}
+html:is([data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] .realm-brand strong { font-size:27px; }
+html:is([data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] .realm-switch,
+html:is([data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] .realm-switch a { border-radius:5px; }
+html:is([data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] .realm-nav a { background:#131214b8; }
+html:is([data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] #dashboard>#homePanel { padding:28px; }
+html:is([data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] #homePanel .hobbit-control>.hobbit-surface {
+  background:linear-gradient(#171618aa,#171618aa),var(--theme-texture) center / 360px repeat,var(--theme-panel);
+}
+html:is([data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] #realmFooter img {
+  width:150px; height:106px; object-fit:contain; filter:drop-shadow(0 3px 12px #0008);
+}
+html:is([data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] #personalRavens .ravens-reading {
+  --ink:#302419; --text:#302419; --muted:#65533e; --line:#7f674d66; --line-soft:#7f674d33;
+  left:12%; right:12%; color:#302419; scrollbar-color:#9a7353 transparent;
+}
+html[data-visual-theme="one-ring"] body[data-command-realm="personal"] #personalRavens .ravens-reading { top:24%; bottom:22%; }
+html:is([data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] #personalRavens :is(h2,.section-kicker,.realm-account,#ravensCaption,#ravensState,#mailReadAt,.daily-entry,.daily-entry small,.daily-entry strong,.daily-entry time,.daily-entry span) { color:#302419; }
+
+@media(max-height:850px) and (min-width:761px) {
+  html:is([data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] .realm-ring { width:100px; height:90px; }
+}
+@media(max-width:760px) {
+  html:is([data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] .realm-sidebar { padding:12px 16px; }
+  html:is([data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] .realm-ring { width:44px; height:44px; }
+  html:is([data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] .realm-brand strong { font-size:18px; }
+  html:is([data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] #realmHeader.hero { padding:22px; min-height:0; }
+  html:is([data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] #realmHeader .title-wrap { max-width:100%; }
+  html:is([data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] #realmHeader.hero::before { background-position:65% center; }
+  html:is([data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] #dashboard>#homePanel { padding:24px 20px; }
+  html:is([data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] #realmHeader.hero .command-bar { grid-template-columns:38px minmax(0,1fr); gap:8px; padding:10px; }
+  html:is([data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] #realmHeader.hero .command-bar .palantir { width:38px; grid-column:1; grid-row:1; }
+  html:is([data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] #realmHeader.hero .command-bar .search-field { grid-column:2; grid-row:1; }
+  html:is([data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] #realmHeader.hero .command-bar .palantir img { width:36px; height:44px; }
+  html:is([data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] #realmHeader.hero .command-bar .search-submit { grid-column:1/-1; justify-content:center; width:100%; }
+  html[data-visual-theme="one-ring"] body[data-command-realm="personal"] #dashboard>#personalRavens { border-image-slice:290 0 270 fill; border-image-width:calc((100vw - 28px) * .2265625) 0 calc((100vw - 28px) * .2109375); }
+  html[data-visual-theme="one-ring"] body[data-command-realm="personal"] #personalRavens .ravens-reading { top:calc((100vw - 28px) * .2265625 + 12px); bottom:calc((100vw - 28px) * .2109375 + 12px); }
+}
+/* A single native theme picker shares the material of the active realm. */
+html[data-visual-theme] body[data-command-realm="personal"] #realmHeader.hero .theme-switcher {
+  display:flex; align-items:center; gap:10px; width:fit-content; padding:6px 9px 6px 14px;
+  border:1px solid var(--theme-accent,#c7b587); border-radius:7px;
+  background:var(--theme-panel,#17283f); color:var(--theme-ink,#eee6d7); box-shadow:inset 0 1px #fff2,0 4px 10px #0004;
+}
+html[data-visual-theme] body[data-command-realm="personal"] #realmHeader.hero .theme-switcher>span { font:500 12px/1.3 'DM Sans',sans-serif; color:var(--theme-muted,#bdc9df); letter-spacing:.04em; }
+html[data-visual-theme] body[data-command-realm="personal"] #realmHeader.hero .theme-switcher>select {
+  min-height:44px; min-width:146px; width:auto; padding:8px 30px 8px 12px;
+  color:var(--theme-ink,#eee6d7); border:1px solid var(--theme-line,#a9b8d16b); border-radius:4px;
+  background:var(--theme-button,linear-gradient(#243a58,#13243c)); font:600 19px/1.2 'Cormorant Garamond',Georgia,serif;
+}
+html[data-visual-theme] body[data-command-realm="personal"] #realmHeader.hero .theme-switcher>select:focus-visible { outline:2px solid var(--theme-accent,#f1e1b7); outline-offset:3px; }
+html[data-visual-theme] body[data-command-realm="personal"] #realmHeader.hero .theme-switcher option { color:var(--theme-ink,#eee6d7); background:var(--theme-panel,#17283f); }
+html:is([data-visual-theme="gondor"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] .realm-sidebar #footerSettings {
+  border:1px solid transparent; border-image:var(--theme-button-art) 40 90 fill / 9px 22px / 0 stretch; background:none; box-shadow:none;
+}
+html:is([data-visual-theme="gondor"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] .realm-sidebar #footerSettings:hover { border-image-source:var(--theme-button-hover-art); }
+@media(max-width:760px) {
+  html[data-visual-theme] body[data-command-realm="personal"] #realmHeader.hero .theme-switcher { margin:14px 0; }
+}

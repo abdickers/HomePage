@@ -1,0 +1,135 @@
+{
+  "source": "Built-in imagegen, matching existing Alliance character portrait frame",
+  "alphaCleanupMax": 3,
+  "sources": {
+    "controls": {
+      "path": "design/warcraft-controls/controls.png",
+      "generatedSource": "C:\\Users\\Sage4\\.codex\\generated_images\\01a1ea47-f714-7df0-8481-8367c1002962\\exec-abc1f62f-d918-4f5e-9041-ed980b412fa0.png",
+      "width": 1774,
+      "height": 887,
+      "hasAlpha": true,
+      "sha256": "57b4f07f3cfb42eef9f79961ad1f7adf1236e83497d1da656b70070d751673ae"
+    },
+    "lion": {
+      "path": "design/warcraft-controls/lion.png",
+      "generatedSource": "C:\\Users\\Sage4\\.codex\\generated_images\\01a1ea47-f714-7df0-8481-8367c1002962\\exec-1df881a1-38ea-4e35-b2f6-b1923fe5c5a0.png",
+      "width": 1586,
+      "height": 992,
+      "hasAlpha": true,
+      "sha256": "96f6490a547c9ebe2d6e59d649a24280eb71e730a0d22a689d136ad0612970d7"
+    }
+  },
+  "assets": {
+    "control-normal": {
+      "path": "assets/warcraft/control-normal.webp",
+      "width": 600,
+      "height": 235,
+      "bytes": 171844,
+      "hasAlpha": true,
+      "sourceCrop": {
+        "left": 29,
+        "top": 178,
+        "width": 546,
+        "height": 214
+      },
+      "sha256": "499916e464b25488827a5a8de3f9ed62516337ff267675c728f01517df4612a0"
+    },
+    "control-hover": {
+      "path": "assets/warcraft/control-hover.webp",
+      "width": 600,
+      "height": 236,
+      "bytes": 184146,
+      "hasAlpha": true,
+      "sourceCrop": {
+        "left": 614,
+        "top": 178,
+        "width": 544,
+        "height": 214
+      },
+      "sha256": "715050eb3f015233940dd7627d42633aa4121754d1313532aa0db0b6b5b03549"
+    },
+    "control-pressed": {
+      "path": "assets/warcraft/control-pressed.webp",
+      "width": 600,
+      "height": 234,
+      "bytes": 175134,
+      "hasAlpha": true,
+      "sourceCrop": {
+        "left": 1199,
+        "top": 179,
+        "width": 545,
+        "height": 213
+      },
+      "sha256": "b810679a53face76f69dbf0706399b30cc2193e78dbc253beed9ff3d28323842"
+    },
+    "control-secondary": {
+      "path": "assets/warcraft/control-secondary.webp",
+      "width": 600,
+      "height": 236,
+      "bytes": 162800,
+      "hasAlpha": true,
+      "sourceCrop": {
+        "left": 30,
+        "top": 496,
+        "width": 544,
+        "height": 214
+      },
+      "sha256": "84e7536cce758791717188ad20bf8d5703b8ee4f261fed290efe78279992f521"
+    },
+    "control-secondary-hover": {
+      "path": "assets/warcraft/control-secondary-hover.webp",
+      "width": 600,
+      "height": 236,
+      "bytes": 173812,
+      "hasAlpha": true,
+      "sourceCrop": {
+        "left": 615,
+        "top": 496,
+        "width": 545,
+        "height": 214
+      },
+      "sha256": "ee205412bc01d9b1d1a278895575fff0e7ce049942bc921e0e184b26e475a3b8"
+    },
+    "control-disabled": {
+      "path": "assets/warcraft/control-disabled.webp",
+      "width": 600,
+      "height": 236,
+      "bytes": 161778,
+      "hasAlpha": true,
+      "sourceCrop": {
+        "left": 1199,
+        "top": 496,
+        "width": 545,
+        "height": 214
+      },
+      "sha256": "3f19a4946e2e659bfdb20fa00c869bd2a3e4085729e1b6d92de24a88a04edfca"
+    },
+    "alliance-lion-crest": {
+      "path": "assets/warcraft/alliance-lion-crest.webp",
+      "width": 512,
+      "height": 350,
+      "bytes": 179390,
+      "hasAlpha": true,
+      "sourceCrop": {
+        "left": 176,
+        "top": 38,
+        "width": 1234,
+        "height": 843
+      },
+      "sha256": "4121c257324016135f07d9f6b2f55a4c9ca0241f90e14f1ca627665779d7b8a9"
+    }
+  },
+  "control": {
+    "columns": 3,
+    "rows": 2,
+    "exportWidth": 600,
+    "cssSlices": [
+      48,
+      96
+    ],
+    "cssWidths": [
+      "10px",
+      "22px"
+    ]
+  }
+}

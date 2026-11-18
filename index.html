@@ -6,7 +6,7 @@
   <title>Sage's Middle-earth Command Center</title>
   <meta name="description" content="Sage's personal Middle-earth dashboard: mail, Nest controls, shopping, calendar, and everyday tools." />
   <meta name="color-scheme" content="dark" />
-  <script src="js/themes.js?v=20261117-realms1"></script>
+  <script src="js/themes.js?v=20261117-realms4"></script>
   <link rel="icon" href="assets/sigil.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -30,10 +30,12 @@
   <link rel="stylesheet" href="css/personal-apps.css?v=20261028-compact2" />
   <link rel="stylesheet" href="css/valinor-theme.css?v=20261030-modecenter1" />
   <link rel="stylesheet" href="css/switchable-themes.css?v=20261117-realms1" />
-  <link rel="stylesheet" href="css/gondor-theme.css?v=20261117-realms1" />
-  <link rel="stylesheet" href="css/theme-craft.css?v=20261117-realms2" />
-  <link rel="stylesheet" href="css/theme-home-craft.css?v=20261117-realms2" />
-  <link rel="stylesheet" href="css/theme-sidebars.css?v=20261117-sidebars1" />
+  <link rel="stylesheet" href="css/gondor-theme.css?v=20261117-realms4" />
+  <link rel="stylesheet" href="css/theme-craft.css?v=20261117-realms4" />
+  <link rel="stylesheet" href="css/theme-home-craft.css?v=20261117-realms4" />
+  <link rel="stylesheet" href="css/theme-sidebars.css?v=20261117-realms4" />
+  <link rel="stylesheet" href="css/dark-realms.css?v=20261117-realms4" />
+  <link rel="stylesheet" href="css/warcraft-controls.css?v=20261117-realms4" />
 </head>
 <body data-command-realm="personal">
   <aside class="realm-sidebar" aria-label="Personal command center">
@@ -87,12 +89,11 @@
       </nav></div>
     </div>
 
-    <div class="theme-switcher" role="group" aria-label="Dashboard theme">
-      <button type="button" data-visual-theme-button="hobbit" aria-pressed="false">Hobbit</button>
-      <button type="button" data-visual-theme-button="gondor" aria-pressed="false">Gondor</button>
-      <button type="button" data-visual-theme-button="dwarven" aria-pressed="false">Dwarven</button>
-      <button type="button" data-visual-theme-button="elven" aria-pressed="true">Elven</button>
-    </div>
+    <label class="theme-switcher"><span>Theme</span>
+      <select id="headerVisualTheme" aria-label="Dashboard theme">
+        <option value="hobbit">Hobbit</option><option value="gondor">Gondor</option><option value="dwarven">Dwarven</option><option value="elven" selected>Elven</option><option value="mordor">Mordor</option><option value="one-ring">One Ring</option>
+      </select>
+    </label>
     <span id="themeStatus" class="sr-only" role="status" aria-live="polite"></span>
     <div class="title-wrap">
       <p class="hero-eyebrow">YOUR PERSONAL CORNER OF MIDDLE-EARTH</p><h1>Sage’s Middle-earth <span>COMMAND CENTER</span></h1>
@@ -256,8 +257,8 @@
 
     <section class="panel wow-panel warcraft-section-frame" id="wowPanel" aria-labelledby="wowTitle">
       <span class="panel-surface" aria-hidden="true"></span>
-      <div class="warcraft-section-border" aria-hidden="true"></div><img class="warcraft-section-lion" src="assets/warcraft/wow-section-lion.webp" width="312" height="180" alt="" aria-hidden="true" loading="lazy" decoding="async" /><img class="warcraft-section-seal" src="assets/warcraft/wow-section-seal.webp" width="144" height="112" alt="" aria-hidden="true" loading="lazy" decoding="async" />
-      <div class="wow-heading"><div class="section-identity"><img class="section-icon" src="assets/redesign/icon-war-room.webp" width="64" height="64" alt="" aria-hidden="true" loading="lazy" decoding="async" /><div><span class="wow-eyebrow">YOUR ADVENTURES IN AZEROTH</span><h2 id="wowTitle">Frear’s War Room</h2><p>Your character. Your world. What’s happening next.</p></div></div><div class="wow-switch" role="group" aria-label="World of Warcraft edition"><button type="button" data-wow-edition="retail" aria-pressed="true">Retail</button><button type="button" data-wow-edition="forever" aria-pressed="false">WoW Forever</button></div></div>
+      <div class="warcraft-section-border" aria-hidden="true"><span class="alliance-tl"></span><span class="alliance-tr"></span><span class="alliance-bl"></span><span class="alliance-br"></span><span class="alliance-top"></span><span class="alliance-bottom"></span><span class="alliance-left"></span><span class="alliance-right"></span></div><img class="warcraft-section-lion" src="assets/warcraft/alliance-lion-crest.webp" width="512" height="350" alt="" aria-hidden="true" loading="lazy" decoding="async" /><img class="warcraft-section-seal" src="assets/warcraft/alliance-paladin-seal.webp" width="512" height="392" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+      <div class="wow-heading"><div class="section-identity"><img class="section-icon" src="assets/warcraft/alliance-lion-crest.webp" width="64" height="64" alt="" aria-hidden="true" loading="lazy" decoding="async" /><div><span class="wow-eyebrow">YOUR ADVENTURES IN AZEROTH</span><h2 id="wowTitle">Frear’s War Room</h2><p>Your character. Your world. What’s happening next.</p></div></div><div class="wow-switch" role="group" aria-label="World of Warcraft edition"><button type="button" data-wow-edition="retail" aria-pressed="true">Retail</button><button type="button" data-wow-edition="forever" aria-pressed="false">WoW Forever</button></div></div>
       <div class="wow-layout">
         <article class="wow-character" aria-label="Frear character display">
           <span class="wow-character-badge">CHAMPION OF THE ALLIANCE</span>
@@ -335,7 +336,7 @@
       </section>
       <section id="settingsPreferences" role="tabpanel" aria-labelledby="settingsTabPreferences" data-settings-panel="preferences" hidden>
         <form id="settingsForm" class="dialog-form">
-          <label>Dashboard theme<select id="visualTheme"><option value="hobbit">Hobbit · Bag End</option><option value="gondor">Gondor · The White City</option><option value="dwarven">Dwarven · Erebor</option><option value="elven">Elven · The Two Trees</option></select></label>
+          <label>Dashboard theme<select id="visualTheme"><option value="hobbit">Hobbit · Bag End</option><option value="gondor">Gondor · The White City</option><option value="dwarven">Dwarven · Erebor</option><option value="elven">Elven · The Two Trees</option><option value="mordor">Mordor · The Dark Tower</option><option value="one-ring">One Ring · The Ruling Ring</option></select></label>
           <p class="help">Changes immediately and is remembered in this browser.</p>
           <label>Your name<input id="settingName" maxlength="40" required /></label>
           <fieldset><legend>Weather location</legend><label>Weather source<select id="settingWeatherSource"><option value="station">Sage Cabin station (preferred)</option><option value="regional">Selected location</option></select></label><p id="weatherStationStatus" class="help" role="status">Current station readings are used when available; regional weather is labeled as a fallback.</p><div class="inline-form"><input id="locationQuery" aria-label="Search for a city" placeholder="Search city or ZIP code" /><button id="findLocation" type="button">Find</button></div><div id="locationResults" role="status"></div><p id="selectedLocation"></p><label>Temperature<select id="settingUnit"><option value="fahrenheit">Fahrenheit (°F)</option><option value="celsius">Celsius (°C)</option></select></label></fieldset>

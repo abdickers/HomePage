@@ -5,7 +5,8 @@ import {createContext,runInContext} from 'node:vm';
 
 const source=readFileSync(new URL('../js/themes.js',import.meta.url),'utf8');
 const key='sage_visual_theme_v1';
-const themes=['hobbit','gondor','dwarven','elven'];
+const themes=['hobbit','gondor','dwarven','elven','mordor','one-ring'];
+const alternateThemes=themes.filter(theme=>theme!=='elven');
 
 // A small DOM surface executes the actual browser script and observes its public
 // controls, attributes and storage writes without exposing implementation hooks.
@@ -26,16 +27,26 @@ class Element extends Events {
   constructor(tag='div',{id='',classes=[],attributes={},dataset={},parent=null}={}) {
     super();this.tagName=tag.toUpperCase();this.id=id;this.dataset={...dataset};this.parentElement=parent;
     this.attributes=new Map(Object.entries(attributes));this.value='';this.textContent='';this.writes=0;
+    this.children=[];parent?.children.push(this);
     const values=new Set(classes);
     this.classList={contains:value=>values.has(value),remove:value=>values.delete(value),add:value=>values.add(value)};
   }
   getAttribute(name){return this.attributes.has(name)?this.attributes.get(name):null;}
+  // The real footer has a single candidate and no media condition. Model its
+  // source-first picture selection so a stale source cannot hide behind a
+  // correctly updated fallback img in these unit tests; browser QA remains separate.
+  get currentSrc(){
+    if(this.tagName!=='IMG')return '';
+    const picture=this.parentElement?.tagName==='PICTURE'?this.parentElement:null;
+    const source=picture?.children.find(child=>child.tagName==='SOURCE'&&child.getAttribute('srcset'));
+    return source?.getAttribute('srcset')?.trim().split(',')[0].trim().split(/\s+/)[0]||this.getAttribute('src')||'';
+  }
   hasAttribute(name){return this.attributes.has(name);}
   setAttribute(name,value){this.attributes.set(name,String(value));this.writes++;this.attributeChanged?.(name);}
   removeAttribute(name){if(this.attributes.delete(name)){this.writes++;this.attributeChanged?.(name);}}
   closest(selectors) {
     for(let element=this;element;element=element.parentElement) {
-      if(selectors.split(',').some(selector=>selector[0]==='#'?element.id===selector.slice(1):selector==='[data-visual-theme-button]'&&Object.hasOwn(element.dataset,'visualThemeButton')))return element;
+      if(selectors.split(',').some(selector=>selector[0]==='#'&&element.id===selector.slice(1)))return element;
     }
     return null;
   }
@@ -51,7 +62,7 @@ function fixture({saved=null,readBlocked=false,writeBlocked=false,loaded=false}=
     for(const observer of observers)if(observer.options?.childList)observer.pending=true;
     return element;
   };
-  const buttons=Object.fromEntries(themes.map(theme=>[theme,add('button',{dataset:{visualThemeButton:theme}})]));
+  const headerSelect=add('select',{id:'headerVisualTheme',attributes:{'aria-label':'Dashboard theme'}});
   const select=add('select',{id:'visualTheme'}),status=add('p',{id:'themeStatus'});
   const calendar=add('img',{attributes:{src:'assets/valinor/icon-calendar.webp',alt:'Calendar'}});
   const camera=add('img',{attributes:{src:'assets/valinor/icon-camera.webp',srcset:'assets/valinor/icon-camera.webp 160w',sizes:'32px'}});
@@ -81,7 +92,6 @@ function fixture({saved=null,readBlocked=false,writeBlocked=false,loaded=false}=
   document.querySelectorAll=selector=>{
     assert.ok(document.body,'No artwork or controls should be queried before the DOM is ready');
     if(selector==='img,source')return elements.filter(element=>['IMG','SOURCE'].includes(element.tagName));
-    if(selector==='[data-visual-theme-button]')return Object.values(buttons);
     throw Error('Unsupported selector in theme DOM fixture: '+selector);
   };
   const localStorage={
@@ -94,7 +104,7 @@ function fixture({saved=null,readBlocked=false,writeBlocked=false,loaded=false}=
   }
   runInContext(source,createContext({document,window,localStorage,MutationObserver}),{filename:'themes.js'});
   const ready=()=>{document.body=body;document.readyState='interactive';document.emit('DOMContentLoaded');};
-  const choose=theme=>document.emit('click',{target:new Element('span',{parent:buttons[theme]})});
+  const choose=theme=>{headerSelect.value=theme;headerSelect.emit('change',{target:headerSelect});};
   const change=theme=>{select.value=theme;select.emit('change',{target:select});};
   // Browser mutations are batched after synchronous renderer writes. Flush
   // subsequent self-authored attribute mutations too, with a loop guard.
@@ -106,12 +116,12 @@ function fixture({saved=null,readBlocked=false,writeBlocked=false,loaded=false}=
     }
     return batches;
   };
-  return {root,body,document,window,buttons,select,status,calendar,camera,emblem,scroll,hearth,cameraSource,cameraScene,brand,sidebarIcons,sidebarOriginals,panelSettings,protectedImages,storageWrites,values,add,ready,choose,change,mutation};
+  return {root,body,document,window,headerSelect,select,status,calendar,camera,emblem,scroll,hearth,cameraSource,cameraScene,brand,sidebarIcons,sidebarOriginals,panelSettings,protectedImages,storageWrites,values,add,ready,choose,change,mutation};
 }
 function selected(f,theme) {
   assert.equal(f.root.dataset.visualTheme,theme);
   assert.equal(f.select.value,theme);
-  for(const name of themes)assert.equal(f.buttons[name].getAttribute('aria-pressed'),String(name===theme));
+  assert.equal(f.headerSelect.value,theme);
 }
 
 test('each footer emblem switches both picture source and fallback, then restores the Elven tree',()=>{
@@ -122,16 +132,17 @@ test('each footer emblem switches both picture source and fallback, then restore
   const image=f.add('img',{parent:picture,attributes:{src:original,width:'480',height:'320'}});
   f.ready();
   const renderedSources=new Set();
-  for(const theme of ['hobbit','dwarven','gondor','elven']){
+  for(const theme of [...themes,'elven']){
     f.choose(theme);f.mutation();
-    const expected=theme==='elven'?original:theme==='gondor'?'assets/themes/gondor/sidebar-crest.webp':`assets/themes/${theme}/icon-home.webp`;
+    const expected=theme==='elven'?original:['mordor','one-ring'].includes(theme)?`assets/themes/${theme}/footer-emblem.webp`:theme==='gondor'?'assets/themes/gondor/sidebar-crest.webp':`assets/themes/${theme}/icon-home.webp`;
     assert.equal(image.getAttribute('src'),expected);
     assert.equal(source.getAttribute('srcset'),expected+' 160w');
     assert.equal(source.hasAttribute('src'),false);
     assert.equal(source.getAttribute('sizes'),'192px');
-    renderedSources.add(source.getAttribute('srcset'));
+    assert.equal(image.currentSrc,expected);
+    renderedSources.add(image.currentSrc);
   }
-  assert.equal(renderedSources.size,4);
+  assert.equal(renderedSources.size,6);
 });
 const attributes=element=>Object.fromEntries(element.attributes);
 
@@ -146,13 +157,13 @@ test('saved theme is selected before DOM readiness, then artwork and controls ad
 });
 
 test('absent, invalid and blocked stored preferences safely start with Elven',()=>{
-  for(const options of [{},{saved:'mordor'},{saved:'__proto__'},{saved:'constructor'},{saved:'HOBBIT'},{saved:'hobbit',readBlocked:true}]) {
+  for(const options of [{},{saved:'angmar'},{saved:'__proto__'},{saved:'constructor'},{saved:'HOBBIT'},{saved:'hobbit',readBlocked:true}]) {
     const f=fixture(options);assert.equal(f.root.dataset.visualTheme,'elven');f.ready();selected(f,'elven');
     assert.equal(f.calendar.getAttribute('src'),'assets/valinor/icon-calendar.webp');assert.deepEqual(f.storageWrites,[]);
   }
 });
 
-test('header buttons and Settings synchronize their selected state and save the choice',()=>{
+test('header dropdown and Settings synchronize their selected values and save the choice',()=>{
   const f=fixture();f.ready();f.choose('hobbit');selected(f,'hobbit');
   assert.equal(f.values.get(key),'hobbit');assert.match(f.status.textContent,/Hobbit theme selected/);
   f.change('gondor');selected(f,'gondor');assert.equal(f.values.get(key),'gondor');
@@ -171,7 +182,7 @@ test('blocked writes still switch the theme and explain that selection lasts for
 test('returning to Elven restores exact image and source attributes after all other themes',()=>{
   const f=fixture(),images=[f.calendar,f.camera,f.emblem,f.cameraSource,f.cameraScene];
   const before=images.map(attributes);f.ready();
-  for(const theme of ['hobbit','gondor','dwarven']) {
+  for(const theme of alternateThemes) {
     f.choose(theme);assert.notEqual(f.camera.getAttribute('srcset'),before[1].srcset);
     assert.equal(f.camera.getAttribute('sizes'),'32px');
     assert.equal(f.cameraSource.hasAttribute('src'),false);
@@ -207,7 +218,7 @@ test('new shortcuts adopt the current theme and restore Elven without repeated a
 
 test('mail scroll artwork switches with the theme and restores its exact Elven sources',()=>{
   const f=fixture(),before=attributes(f.scroll);f.ready();
-  for(const theme of ['hobbit','gondor','dwarven']) {
+  for(const theme of alternateThemes) {
     f.choose(theme);f.mutation();
     assert.equal(f.scroll.getAttribute('src'),`assets/themes/${theme}/scroll.webp`);
     assert.equal(f.scroll.hasAttribute('srcset'),false);
@@ -227,7 +238,7 @@ test('unavailable hearth remains hidden and receives no manufactured active sour
 });
 
 test('live thermostat heat and cool writes use the current realm and restore the latest Elven source',()=>{
-  for(const theme of ['hobbit','dwarven','gondor']) {
+  for(const theme of alternateThemes) {
     const f=fixture();f.ready();f.choose(theme);f.mutation();
     const family=theme==='gondor'?'dwarven':theme;
     for(const state of ['heat','cool','heat']) {
@@ -251,17 +262,17 @@ test('live thermostat heat and cool writes use the current realm and restore the
   }
 });
 
-test('approved Gondor and Elven sidebar illustrations take priority only for marked navigation icons',()=>{
+test('custom realm sidebar illustrations take priority only for marked navigation icons',()=>{
   const f=fixture();f.ready();
-  for(const theme of ['elven','gondor','elven']) {
+  for(const theme of ['elven','gondor','mordor','one-ring','elven']) {
     f.choose(theme);f.mutation();
     for(const [name,image] of Object.entries(f.sidebarIcons)) {
       assert.equal(image.getAttribute('src'),`assets/themes/${theme}/sidebar-icon-${name}.webp`);
       assert.equal(image.hasAttribute('srcset'),false);
       assert.equal(image.getAttribute('width'),'28');
     }
-    assert.equal(f.calendar.getAttribute('src'),theme==='elven'?'assets/valinor/icon-calendar.webp':'assets/themes/gondor/icon-calendar.webp');
-    assert.equal(f.panelSettings.getAttribute('src'),theme==='elven'?'assets/valinor/icon-settings.webp':'assets/themes/gondor/icon-settings.svg');
+    assert.equal(f.calendar.getAttribute('src'),theme==='elven'?'assets/valinor/icon-calendar.webp':`assets/themes/${theme}/icon-calendar.webp`);
+    assert.equal(f.panelSettings.getAttribute('src'),theme==='elven'?'assets/valinor/icon-settings.webp':`assets/themes/${theme}/icon-settings.${theme==='gondor'?'svg':'webp'}`);
     assert.ok(!f.panelSettings.getAttribute('src').includes('sidebar-icon-'));
   }
 });
@@ -269,7 +280,7 @@ test('approved Gondor and Elven sidebar illustrations take priority only for mar
 test('Hobbit and Dwarven retain their navigation families including non-Valinor War Room and Treasury originals',()=>{
   const f=fixture();f.ready();
   const mappedIcons={overview:'calendar',home:'home',provisions:'provisions',settings:'settings'};
-  for(const theme of ['gondor','hobbit','elven','dwarven','hobbit']) {
+  for(const theme of ['gondor','mordor','hobbit','elven','one-ring','dwarven','hobbit']) {
     f.choose(theme);f.mutation();
     for(const [name,image] of Object.entries(f.sidebarIcons)) {
       assert.doesNotMatch(image.getAttribute('src'),/undefined|null/);
@@ -283,9 +294,57 @@ test('Hobbit and Dwarven retain their navigation families including non-Valinor 
 test('Elven restores normal panel artwork exactly while retaining its approved new sidebar',()=>{
   const f=fixture(),panels=[f.calendar,f.camera,f.emblem,f.cameraSource,f.cameraScene,f.panelSettings,f.scroll];
   const before=panels.map(attributes);f.ready();
-  for(const theme of ['gondor','dwarven','hobbit']){f.choose(theme);f.mutation();}
+  for(const theme of alternateThemes){f.choose(theme);f.mutation();}
   f.choose('elven');f.mutation();assert.deepEqual(panels.map(attributes),before);
   assert.equal(f.sidebarIcons.overview.getAttribute('src'),'assets/themes/elven/sidebar-icon-overview.webp');
   assert.equal(f.sidebarIcons.warroom.getAttribute('src'),'assets/themes/elven/sidebar-icon-warroom.webp');
   assert.equal(f.sidebarIcons.treasury.getAttribute('src'),'assets/themes/elven/sidebar-icon-treasury.webp');
+});
+
+test('all six saved preferences restore before DOM readiness and synchronize without storage echoes',()=>{
+  for(const theme of themes){
+    const f=fixture({saved:theme});assert.equal(f.document.body,null);assert.equal(f.root.dataset.visualTheme,theme);
+    f.ready();selected(f,theme);
+    for(const next of themes){f.window.emit('storage',{key,newValue:next});f.mutation();selected(f,next);}
+    assert.deepEqual(f.storageWrites,[]);
+  }
+});
+
+test('Mordor and One Ring selections save, announce and survive blocked browser storage',()=>{
+  for(const theme of ['mordor','one-ring']){
+    const label=theme==='mordor'?'Mordor':'One Ring',f=fixture();f.ready();f.choose(theme);f.mutation();selected(f,theme);
+    assert.equal(f.values.get(key),theme);assert.equal(f.status.textContent,label+' theme selected.');
+    const other=theme==='mordor'?'one-ring':'mordor';f.change(other);f.mutation();selected(f,other);assert.equal(f.values.get(key),other);
+    const blocked=fixture({readBlocked:true,writeBlocked:true});blocked.ready();blocked.change(theme);blocked.mutation();selected(blocked,theme);
+    assert.match(blocked.status.textContent,/Browser storage is unavailable.*this visit/);
+    assert.equal(blocked.calendar.getAttribute('src'),`assets/themes/${theme}/icon-calendar.webp`);
+    assert.equal(blocked.sidebarIcons.treasury.getAttribute('src'),`assets/themes/${theme}/sidebar-icon-treasury.webp`);
+  }
+});
+
+test('footer fallback without a source uses the same emblem and Elven restoration for all six themes',()=>{
+  const f=fixture(),footer=f.add('footer',{id:'realmFooter'}),picture=f.add('picture',{parent:footer});
+  const original='assets/valinor/two-trees-emblem.webp',image=f.add('img',{parent:picture,attributes:{src:original}});
+  f.ready();
+  for(const theme of [...alternateThemes,'elven']){
+    f.choose(theme);f.mutation();
+    const expected=theme==='elven'?original:['mordor','one-ring'].includes(theme)?`assets/themes/${theme}/footer-emblem.webp`:theme==='gondor'?'assets/themes/gondor/sidebar-crest.webp':`assets/themes/${theme}/icon-home.webp`;
+    assert.equal(image.currentSrc,expected);assert.equal(image.hasAttribute('srcset'),false);
+  }
+});
+
+test('both native dropdowns synchronize every realm with available or blocked storage',()=>{
+  for(const blocked of [false,true]){
+    const f=fixture({readBlocked:blocked,writeBlocked:blocked});f.ready();
+    for(const theme of themes){
+      f.choose(theme);f.mutation();selected(f,theme);
+      if(blocked)assert.match(f.status.textContent,/Browser storage is unavailable.*this visit/);
+      else assert.equal(f.values.get(key),theme);
+    }
+    for(const theme of [...themes].reverse()){
+      f.change(theme);f.mutation();selected(f,theme);
+      if(!blocked)assert.equal(f.values.get(key),theme);
+    }
+    assert.equal(f.storageWrites.length,blocked?0:themes.length*2);
+  }
 });
