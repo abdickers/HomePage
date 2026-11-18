@@ -1,6 +1,6 @@
 /* Match the existing Alliance portrait frame all the way around the War Room.
    Live content and integrations retain their existing elements and handlers. */
-body[data-command-realm] #dashboard>#wowPanel.warcraft-section-frame { padding:128px 72px 104px; scroll-margin-top:24px; }
+body[data-command-realm] #dashboard>#wowPanel.warcraft-section-frame { padding:118px 72px 88px; margin-bottom:14px; scroll-margin-top:24px; }
 body[data-command-realm] #wowPanel .wow-switch {
   gap:8px; padding:0; border:0; border-radius:0; background:none; box-shadow:none;
 }
@@ -36,11 +36,11 @@ body[data-command-realm] #wowPanel :is(.wow-switch button,#wowRefresh,.wow-chara
   outline:3px solid #ffe4a2; outline-offset:4px;
 }
 body[data-command-realm] #wowPanel .warcraft-section-lion {
-  top:0; left:50%; width:160px; height:auto; max-width:calc(100% - 96px);
+  top:-6px; left:50%; width:160px; height:auto; max-width:calc(100% - 96px);
   transform:translateX(-50%); object-fit:contain; pointer-events:none; z-index:2;
 }
 body[data-command-realm] #wowPanel .warcraft-section-seal {
-  bottom:4px; width:104px; height:auto; object-fit:contain; z-index:2;
+  bottom:-15px; width:104px; height:auto; object-fit:contain; z-index:2;
 }
 /* Eight physical slices. Banners, heavy corner studs and their proportions stay
    fixed; only quiet cobalt/gold lattice tiles repeat along the four rails. */
@@ -73,9 +73,9 @@ body[data-command-realm] #wowPanel .warcraft-section-border>:is(.alliance-left,.
 body[data-command-realm] #wowPanel .alliance-left { left:0; background-image:url('../assets/warcraft/alliance-frame-left.webp'); }
 body[data-command-realm] #wowPanel .alliance-right { right:0; background-image:url('../assets/warcraft/alliance-frame-right.webp'); }
 @media(max-width:760px) {
-  body[data-command-realm] #dashboard>#wowPanel.warcraft-section-frame { padding:108px 48px 88px; }
+  body[data-command-realm] #dashboard>#wowPanel.warcraft-section-frame { padding:102px 48px 76px; margin-bottom:12px; }
   body[data-command-realm] #wowPanel .warcraft-section-lion { top:0; width:120px; }
-  body[data-command-realm] #wowPanel .warcraft-section-seal { bottom:2px; width:84px; }
+  body[data-command-realm] #wowPanel .warcraft-section-seal { bottom:-14px; width:84px; }
   body[data-command-realm] #wowPanel .warcraft-section-border { --alliance-corner:84px; }
   body[data-command-realm] #wowPanel :is(.wow-switch button,#wowRefresh,.wow-character-actions>a,#wowSource) { font-size:13px; padding-inline:16px; }
 }
