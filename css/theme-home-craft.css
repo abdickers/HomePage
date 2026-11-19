@@ -47,7 +47,7 @@ html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homeP
 }
 html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homePanel .hobbit-control>.hobbit-surface {
   inset:0; border-radius:inherit;
-  background:linear-gradient(145deg,color-mix(in srgb,var(--theme-panel-alt) 78%,transparent),color-mix(in srgb,var(--theme-panel) 88%,transparent)),var(--theme-texture,none) center / 360px auto repeat,var(--theme-panel);
+  background:linear-gradient(145deg,color-mix(in srgb,var(--theme-panel-alt) 78%,transparent),color-mix(in srgb,var(--theme-panel) 88%,transparent)),var(--theme-texture,none) center / 100% 100% no-repeat,var(--theme-panel);
   box-shadow:none;
 }
 

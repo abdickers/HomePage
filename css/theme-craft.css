@@ -47,10 +47,10 @@ html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-
 /* Readable, tactile material fills stay beneath the physical rails. */
 html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] #dashboard .valinor-surface>.panel-surface,
 html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] #homePanel .hobbit-surface {
-  background:linear-gradient(#10150c15,#10150c28),var(--theme-texture) center / 420px repeat,var(--theme-panel);
+  background:linear-gradient(#10150c15,#10150c28),var(--theme-texture) center / 100% 100% no-repeat,var(--theme-panel);
 }
 html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] :is(#settingsDialog,#linkDialog,#searchDialog)::before {
-  background:var(--theme-texture) center / 420px repeat,var(--theme-panel);
+  background:var(--theme-texture) center / 100% 100% no-repeat,var(--theme-panel);
 }
 html[data-visual-theme="gondor"] body[data-command-realm="personal"] :is(#settingsDialog,#linkDialog,#searchDialog)::before { inset:34px 8px 8px; }
 

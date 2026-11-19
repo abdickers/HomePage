@@ -1,0 +1,28 @@
+/* Match Work's continuous rails: fixed corners and crests surround one bar.
+   Repeating short raster strips exposes joins on wide and tall panels. */
+body[data-command-realm="personal"] :is(.valinor-surface,#realmHeader,#settingsDialog,#linkDialog,#searchDialog) :is(.bagend-frame,.silver-frame)>:is(.oak-top,.oak-bottom,.oak-left,.oak-right,.silver-top,.silver-bottom,.silver-left,.silver-right) {
+  background-repeat:no-repeat;
+  background-size:100% 100%;
+}
+/* Keep the same rule in Gondor, whose rails have their own thickness. */
+html[data-visual-theme="gondor"] body[data-command-realm="personal"] :is(.valinor-surface,#realmHeader,#settingsDialog,#linkDialog,#searchDialog) :is(.oak-top,.oak-bottom,.oak-left,.oak-right,.silver-top,.silver-bottom,.silver-left,.silver-right) {
+  background-repeat:no-repeat;
+  background-size:100% 100%;
+}
+body[data-command-realm="personal"] .bagend-page-rail .rail-shaft {
+  background-repeat:no-repeat;
+  background-size:100% 100%;
+}
+body[data-command-realm="personal"] :is(.valinor-surface>.panel-surface,.hobbit-control>.hobbit-surface) {
+  background-repeat:no-repeat;
+}
+/* A sidebar's quiet middle fills the gap between separate illustrated caps. */
+html[data-visual-theme] body[data-command-realm="personal"] .realm-sidebar {
+  background-repeat:no-repeat;
+}
+html:is([data-visual-theme="gondor"],[data-visual-theme="elven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] .realm-sidebar {
+  background-size:100% auto,100% auto,100% 100%;
+}
+@media(max-width:760px) {
+  html[data-visual-theme] body[data-command-realm="personal"] .realm-sidebar { background-size:100% 100%; }
+}
