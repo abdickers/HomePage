@@ -17,16 +17,16 @@
               "url": "/affix=9/tyrannical"
             },
             {
-              "icon": "ability_toughness",
-              "name": "Fortified",
-              "side": "both",
-              "url": "/affix=10/fortified"
-            },
-            {
               "icon": "inv_cosmicvoid_buff",
               "name": "Xal'atath's Bargain: Voidbound",
               "side": "both",
               "url": "/affix=158/xalataths-bargain-voidbound"
+            },
+            {
+              "icon": "ability_toughness",
+              "name": "Fortified",
+              "side": "both",
+              "url": "/affix=10/fortified"
             },
             {
               "icon": "ability_racial_chillofnight",
@@ -79,11 +79,6 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1795330808,
-              "name": "Eversong Woods",
-              "startingUt": 1795302000
-            },
-            {
               "endingUt": 1795359608,
               "name": "Harandar",
               "startingUt": 1795330800
@@ -127,6 +122,11 @@
               "endingUt": 1795590008,
               "name": "Harandar",
               "startingUt": 1795561200
+            },
+            {
+              "endingUt": 1795618808,
+              "name": "Zul'Aman",
+              "startingUt": 1795590000
             }
           ],
           "icons": ""
@@ -205,29 +205,29 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1795307400,
-              "name": "Mlurkkr Massacre",
-              "startingUt": 1795305600
-            },
-            {
-              "endingUt": 1795309200,
+              "endingUt": 1795336200,
               "name": "Siege at the Whispering Marsh",
-              "startingUt": 1795307400
+              "startingUt": 1795334400
             },
             {
-              "endingUt": 1795311000,
+              "endingUt": 1795338000,
               "name": "The Malformed Leviathan",
-              "startingUt": 1795309200
+              "startingUt": 1795336200
             },
             {
-              "endingUt": 1795312800,
+              "endingUt": 1795339800,
               "name": "The Broodmother's Nest",
-              "startingUt": 1795311000
+              "startingUt": 1795338000
             },
             {
-              "endingUt": 1795314600,
+              "endingUt": 1795341600,
               "name": "The Looming Mutagenitor",
-              "startingUt": 1795312800
+              "startingUt": 1795339800
+            },
+            {
+              "endingUt": 1795343400,
+              "name": "Mlurkkr Massacre",
+              "startingUt": 1795341600
             }
           ],
           "icons": ""
@@ -268,8 +268,18 @@
         "content": {
           "lines": [
             {
-              "ending": "14 hr 30 min",
-              "endingShort": "14h",
+              "ending": "6 hr 47 min",
+              "endingShort": "6h",
+              "endingUt": 1795359600,
+              "icon": "inv_zone_voidstorm",
+              "iconLabel": "Voidstorm",
+              "iconUrl": "/zone=15458/voidstorm",
+              "name": "Voidstorm: Shadowguard Point",
+              "url": "/zone=16549/shadowguard-point"
+            },
+            {
+              "ending": "6 hr 47 min",
+              "endingShort": "6h",
               "endingUt": 1795359600,
               "icon": "inv_achievement_sanktumoflight",
               "iconLabel": "Silvermoon City",
@@ -278,8 +288,8 @@
               "url": "/zone=16642/the-darkway"
             },
             {
-              "ending": "14 hr 30 min",
-              "endingShort": "14h",
+              "ending": "6 hr 47 min",
+              "endingShort": "6h",
               "endingUt": 1795359600,
               "icon": "inv_achievement_zone_zulaman1",
               "iconLabel": "Zul'Aman",
@@ -368,7 +378,7 @@
       }
     ],
     "source": "https://www.wowhead.com/today-in-wow",
-    "updated": "2026-11-22T00:29:31.088492+00:00"
+    "updated": "2026-11-22T08:13:00.388020+00:00"
   },
   "forever": {
     "events": [
