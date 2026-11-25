@@ -34,6 +34,7 @@
     assembly(document.getElementById('realmHeader'), 'header');
     assembly(document.querySelector('.realm-ring'), 'crest');
     assembly(document.getElementById('homePanel'), 'home');
+    assembly(document.querySelector('.realm-sidebar'), 'cabinet');
   }
   new MutationObserver(sync).observe(root, {attributes:true, attributeFilter:['data-visual-theme']});
   document.addEventListener('visibilitychange', sync);

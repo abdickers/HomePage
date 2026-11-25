@@ -59,6 +59,22 @@
       "width": 1254,
       "height": 1254,
       "hasAlpha": true
+    },
+    "materials": {
+      "path": "design/steampunk-gothic-victorian/materials-v2.png",
+      "generatedSource": "C:\\Users\\Sage4\\.codex\\generated_images\\01a213f7-42e1-76f3-a0a4-ea83b2ee82c4\\exec-47c31275-fdba-49de-8c3d-dc3e99b42fbe.png",
+      "sha256": "f7f858b429bb37d2235df7a0491b478776b15115b42c737b69777e9c5167375e",
+      "width": 1774,
+      "height": 887,
+      "hasAlpha": false
+    },
+    "cabinet": {
+      "path": "design/steampunk-gothic-victorian/clockwork-cabinet-v2.png",
+      "generatedSource": "C:\\Users\\Sage4\\.codex\\generated_images\\01a213f7-42e1-76f3-a0a4-ea83b2ee82c4\\exec-36d28194-8bc0-41e7-9717-eb6cb5fc3efa.png",
+      "sha256": "c8c5fab7dd466c8afde5129377b9a7f5f8c57a2f04b2e6ccaef851097caceaba",
+      "width": 1024,
+      "height": 1536,
+      "hasAlpha": true
     }
   },
   "assets": {
@@ -269,6 +285,42 @@
         "width": 420,
         "height": 420
       }
+    },
+    "sidebar-material-v2": {
+      "width": 1024,
+      "height": 1024,
+      "bytes": 207704,
+      "hasAlpha": false,
+      "sha256": "c5a4c483df0b2f5b6c8c1d580deed8e2e5a76f327b5fa82fa25c602e5e9f6e25",
+      "source": "materials",
+      "sourceCrop": {
+        "left": 0,
+        "top": 0,
+        "width": 887,
+        "height": 887
+      }
+    },
+    "panel-material-v2": {
+      "width": 1024,
+      "height": 1024,
+      "bytes": 279028,
+      "hasAlpha": false,
+      "sha256": "0e98adddf035a1f02e6ea186371b4959cf28f128796696a8c15840672e3f6cfe",
+      "source": "materials",
+      "sourceCrop": {
+        "left": 887,
+        "top": 0,
+        "width": 887,
+        "height": 887
+      }
+    },
+    "clockwork-cabinet-v2": {
+      "width": 512,
+      "height": 768,
+      "bytes": 385470,
+      "hasAlpha": true,
+      "sha256": "7bc70881d938234dbe92b53f46f7435bf77779268cc7dc82e060b99c68e69c43",
+      "source": "cabinet"
     },
     "icon-calendar": {
       "width": 160,
@@ -742,5 +794,14 @@
       200,
       0
     ]
+  },
+  "cabinet": {
+    "width": 512,
+    "height": 768,
+    "dialCenter": [
+      0.5,
+      0.355
+    ],
+    "openingDiameter": 0.43
   }
 }
