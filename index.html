@@ -6,7 +6,7 @@
   <title>Sage's Middle-earth Command Center</title>
   <meta name="description" content="Sage's personal Middle-earth dashboard: mail, Nest controls, shopping, calendar, and everyday tools." />
   <meta name="color-scheme" content="dark" />
-  <script src="js/themes.js?v=20261117-realms4"></script>
+  <script src="js/themes.js?v=20261125-steampunk1"></script>
   <link rel="icon" href="assets/sigil.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -31,12 +31,14 @@
   <link rel="stylesheet" href="css/valinor-theme.css?v=20261030-modecenter1" />
   <link rel="stylesheet" href="css/switchable-themes.css?v=20261117-realms1" />
   <link rel="stylesheet" href="css/gondor-theme.css?v=20261117-realms4" />
-  <link rel="stylesheet" href="css/theme-craft.css?v=20261117-realms4" />
-  <link rel="stylesheet" href="css/theme-home-craft.css?v=20261117-realms4" />
-  <link rel="stylesheet" href="css/theme-sidebars.css?v=20261117-realms4" />
-  <link rel="stylesheet" href="css/dark-realms.css?v=20261117-realms4" />
+  <link rel="stylesheet" href="css/theme-craft.css?v=20261125-steampunk1" />
+  <link rel="stylesheet" href="css/theme-home-craft.css?v=20261125-steampunk1" />
+  <link rel="stylesheet" href="css/theme-sidebars.css?v=20261125-steampunk1" />
+  <link rel="stylesheet" href="css/dark-realms.css?v=20261125-steampunk1" />
   <link rel="stylesheet" href="css/warcraft-controls.css?v=20261117-realms4" />
-  <link rel="stylesheet" href="css/continuous-materials.css?v=20261119-continuous1" />
+  <link rel="stylesheet" href="css/continuous-materials.css?v=20261125-steampunk1" />
+  <link rel="stylesheet" href="css/steampunk-theme.css?v=20261125-steampunk2" />
+  <script src="js/steampunk-motion.js?v=20261125-steampunk1" defer></script>
 </head>
 <body data-command-realm="personal">
   <aside class="realm-sidebar" aria-label="Personal command center">
@@ -92,7 +94,7 @@
 
     <label class="theme-switcher"><span>Theme</span>
       <select id="headerVisualTheme" aria-label="Dashboard theme">
-        <option value="hobbit">Hobbit</option><option value="gondor">Gondor</option><option value="dwarven">Dwarven</option><option value="elven" selected>Elven</option><option value="mordor">Mordor</option><option value="one-ring">One Ring</option>
+        <option value="hobbit">Hobbit</option><option value="gondor">Gondor</option><option value="dwarven">Dwarven</option><option value="elven" selected>Elven</option><option value="mordor">Mordor</option><option value="one-ring">One Ring</option><option value="steampunk">Steampunk</option>
       </select>
     </label>
     <span id="themeStatus" class="sr-only" role="status" aria-live="polite"></span>
@@ -337,7 +339,7 @@
       </section>
       <section id="settingsPreferences" role="tabpanel" aria-labelledby="settingsTabPreferences" data-settings-panel="preferences" hidden>
         <form id="settingsForm" class="dialog-form">
-          <label>Dashboard theme<select id="visualTheme"><option value="hobbit">Hobbit · Bag End</option><option value="gondor">Gondor · The White City</option><option value="dwarven">Dwarven · Erebor</option><option value="elven">Elven · The Two Trees</option><option value="mordor">Mordor · The Dark Tower</option><option value="one-ring">One Ring · The Ruling Ring</option></select></label>
+          <label>Dashboard theme<select id="visualTheme"><option value="hobbit">Hobbit · Bag End</option><option value="gondor">Gondor · The White City</option><option value="dwarven">Dwarven · Erebor</option><option value="elven">Elven · The Two Trees</option><option value="mordor">Mordor · The Dark Tower</option><option value="one-ring">One Ring · The Ruling Ring</option><option value="steampunk">Steampunk · The Clockwork Study</option></select></label>
           <p class="help">Changes immediately and is remembered in this browser.</p>
           <label>Your name<input id="settingName" maxlength="40" required /></label>
           <fieldset><legend>Weather location</legend><label>Weather source<select id="settingWeatherSource"><option value="station">Sage Cabin station (preferred)</option><option value="regional">Selected location</option></select></label><p id="weatherStationStatus" class="help" role="status">Current station readings are used when available; regional weather is labeled as a fallback.</p><div class="inline-form"><input id="locationQuery" aria-label="Search for a city" placeholder="Search city or ZIP code" /><button id="findLocation" type="button">Find</button></div><div id="locationResults" role="status"></div><p id="selectedLocation"></p><label>Temperature<select id="settingUnit"><option value="fahrenheit">Fahrenheit (°F)</option><option value="celsius">Celsius (°C)</option></select></label></fieldset>

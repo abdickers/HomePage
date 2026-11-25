@@ -2,7 +2,7 @@
 (() => {
   'use strict';
   const key = 'sage_visual_theme_v1';
-  const names = Object.freeze({hobbit:'Hobbit', gondor:'Gondor', dwarven:'Dwarven', elven:'Elven', mordor:'Mordor', 'one-ring':'One Ring'});
+  const names = Object.freeze({hobbit:'Hobbit', gondor:'Gondor', dwarven:'Dwarven', elven:'Elven', mordor:'Mordor', 'one-ring':'One Ring', steampunk:'Steampunk'});
   const selectorIds = ['headerVisualTheme','visualTheme'];
   const root = document.documentElement;
   const valid = value => Object.hasOwn(names, value) ? value : 'elven';
@@ -41,11 +41,11 @@
       }
       let src = original.src, srcset = original.srcset;
       if (original.footer && theme !== 'elven') {
-        const path = ['mordor','one-ring'].includes(theme) ? `assets/themes/${theme}/footer-emblem.webp`
+        const path = ['mordor','one-ring','steampunk'].includes(theme) ? `assets/themes/${theme}/footer-emblem.webp`
           : theme === 'gondor' ? 'assets/themes/gondor/sidebar-crest.webp' : artworkPath(theme,'home');
         src = original.src ? path : null;
         srcset = original.srcset ? path + ' 160w' : null;
-      } else if (original.sidebar && ['gondor','elven','mordor','one-ring'].includes(theme)) {
+      } else if (original.sidebar && ['gondor','elven','mordor','one-ring','steampunk'].includes(theme)) {
         src = `assets/themes/${theme}/sidebar-icon-${original.sidebar}.webp`; srcset = null;
       } else if (theme !== 'elven') {
         if (original.scroll) { src = `assets/themes/${theme}/scroll.webp`; srcset = null; }

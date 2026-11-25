@@ -1,0 +1,746 @@
+{
+  "theme": "steampunk",
+  "source": "Built-in image_gen.imagegen; approved Steampunk concept as style reference",
+  "prompts": "design/steampunk-gothic-victorian/prompts.json",
+  "alphaCleanupMax": 3,
+  "sources": {
+    "header": {
+      "path": "design/steampunk-gothic-victorian/header.png",
+      "generatedSource": "C:\\Users\\Sage4\\.codex\\generated_images\\01a213f7-42e1-76f3-a0a4-ea83b2ee82c4\\exec-59efeadf-373c-479c-9f8f-4f5352d16a80.png",
+      "sha256": "01e38fcdd42ec9c4cfe54f276ea03b7993de1b41dfa3d1ca2f21dee8215d0c57",
+      "width": 2172,
+      "height": 724,
+      "hasAlpha": false
+    },
+    "frame": {
+      "path": "design/steampunk-gothic-victorian/frame.png",
+      "generatedSource": "C:\\Users\\Sage4\\.codex\\generated_images\\01a213f7-42e1-76f3-a0a4-ea83b2ee82c4\\exec-c24c0655-1ac7-402a-a2b0-5f588ba358f2.png",
+      "sha256": "e0a02b6a3488e840d2ee07a78e1c51b82b42474eeb4f3e804b8fec2e9fca4f7f",
+      "width": 1254,
+      "height": 1254,
+      "hasAlpha": true
+    },
+    "sidebar": {
+      "path": "design/steampunk-gothic-victorian/sidebar.png",
+      "generatedSource": "C:\\Users\\Sage4\\.codex\\generated_images\\01a213f7-42e1-76f3-a0a4-ea83b2ee82c4\\exec-a86b7d69-bdd0-403b-9255-8ad6796bd59f.png",
+      "sha256": "4db85630a0837193d8055cb8603a76b49e3549ff55a531ef924375371b8ecc40",
+      "width": 724,
+      "height": 2172,
+      "hasAlpha": false
+    },
+    "objects": {
+      "path": "design/steampunk-gothic-victorian/objects.png",
+      "generatedSource": "C:\\Users\\Sage4\\.codex\\generated_images\\01a213f7-42e1-76f3-a0a4-ea83b2ee82c4\\exec-2306f304-10d6-43a0-bc82-e6386cb05776.png",
+      "sha256": "41d202c866e3b497797e2f47559e2d5fad440a67b0125d2d6d4f3ead59032315",
+      "width": 1254,
+      "height": 1254,
+      "hasAlpha": true
+    },
+    "buttons": {
+      "path": "design/steampunk-gothic-victorian/buttons.png",
+      "generatedSource": "C:\\Users\\Sage4\\.codex\\generated_images\\01a213f7-42e1-76f3-a0a4-ea83b2ee82c4\\exec-4fa38694-7528-4607-a972-627ebdbe2b44.png",
+      "sha256": "4d0248761ebc3d3ce25561bf805a2b8d23574b2bc8e2c9f6e2a64889667e6fbc",
+      "width": 2172,
+      "height": 724,
+      "hasAlpha": true
+    },
+    "hearth": {
+      "path": "design/steampunk-gothic-victorian/hearth.png",
+      "generatedSource": "C:\\Users\\Sage4\\.codex\\generated_images\\01a213f7-42e1-76f3-a0a4-ea83b2ee82c4\\exec-1f271064-43d4-4c7b-94c9-e4e1ea46cc95.png",
+      "sha256": "3289ca504489c3c2fd9538033252d7c55bd69efebc927b137ffe1ef46058e1c7",
+      "width": 2172,
+      "height": 724,
+      "hasAlpha": true
+    },
+    "scroll": {
+      "path": "design/steampunk-gothic-victorian/scroll-v2.png",
+      "generatedSource": "C:\\Users\\Sage4\\.codex\\generated_images\\01a213f7-42e1-76f3-a0a4-ea83b2ee82c4\\exec-2e216132-7e0b-4109-8311-0d9820dacbf7.png",
+      "sha256": "7b2fa68ae294a1200944f6586c55959fe98256460be2b94934b3c4141437c8ce",
+      "width": 1254,
+      "height": 1254,
+      "hasAlpha": true
+    }
+  },
+  "assets": {
+    "header-2172": {
+      "width": 2172,
+      "height": 724,
+      "bytes": 319240,
+      "hasAlpha": false,
+      "sha256": "b42f6a13c694874cc96f8900e77c3350f142b02576c45399534932bb905dbf53",
+      "source": "header"
+    },
+    "header-1100": {
+      "width": 1100,
+      "height": 367,
+      "bytes": 104196,
+      "hasAlpha": false,
+      "sha256": "11cb1ff1951204d0f257e94d92e793296ac54c04f891218b2e3dd6a863a4237c",
+      "source": "header"
+    },
+    "background-1672": {
+      "width": 1672,
+      "height": 557,
+      "bytes": 208096,
+      "hasAlpha": false,
+      "sha256": "d3ee6c64c7ccbcba624ca6e0a91c8151b8f0cfd31a2d607cada30e1181eca321",
+      "source": "header"
+    },
+    "background-960": {
+      "width": 960,
+      "height": 320,
+      "bytes": 81354,
+      "hasAlpha": false,
+      "sha256": "31607bb557723df245e4ab321bf002379e8c5470e8e5db400dbb181cfcfbaf95",
+      "source": "header"
+    },
+    "frame-tl": {
+      "width": 220,
+      "height": 220,
+      "bytes": 46242,
+      "hasAlpha": true,
+      "sha256": "7b13acf6a84eb204fb1744e3112c6a17642d2adf7df52873c4abb77ddec59ee4",
+      "source": "normalized-frame",
+      "sourceCrop": {
+        "left": 0,
+        "top": 0,
+        "width": 220,
+        "height": 220
+      }
+    },
+    "frame-tr": {
+      "width": 220,
+      "height": 220,
+      "bytes": 46270,
+      "hasAlpha": true,
+      "sha256": "47efe87ee14e367e2001f9533d85a3aeae06f76a40b009d1ee11ea682c6c86da",
+      "source": "normalized-frame",
+      "sourceCrop": {
+        "left": 804,
+        "top": 0,
+        "width": 220,
+        "height": 220
+      }
+    },
+    "frame-bl": {
+      "width": 220,
+      "height": 220,
+      "bytes": 45036,
+      "hasAlpha": true,
+      "sha256": "cc0c8289f8fbdc5542c405fc9a68aa2c78cf64fb9f0a73185547e5ed32056417",
+      "source": "normalized-frame",
+      "sourceCrop": {
+        "left": 0,
+        "top": 803,
+        "width": 220,
+        "height": 220
+      }
+    },
+    "frame-br": {
+      "width": 220,
+      "height": 220,
+      "bytes": 45110,
+      "hasAlpha": true,
+      "sha256": "804d5763afac6451bd14f878af48251d659206e929f801da6ed2c8f3a94134a1",
+      "source": "normalized-frame",
+      "sourceCrop": {
+        "left": 804,
+        "top": 803,
+        "width": 220,
+        "height": 220
+      }
+    },
+    "frame-top": {
+      "width": 300,
+      "height": 220,
+      "bytes": 15554,
+      "hasAlpha": true,
+      "sha256": "17eff9f0bfc8327b7f358dd70fd11383758b1cb9db621d092dd7ecb834d9820b",
+      "source": "normalized-frame",
+      "sourceCrop": {
+        "left": 362,
+        "top": 0,
+        "width": 300,
+        "height": 220
+      }
+    },
+    "frame-bottom": {
+      "width": 300,
+      "height": 220,
+      "bytes": 14090,
+      "hasAlpha": true,
+      "sha256": "d76fead312743ad476edd4f91dd6a21e727a59358aae0e974febf3d4b1186d00",
+      "source": "normalized-frame",
+      "sourceCrop": {
+        "left": 362,
+        "top": 803,
+        "width": 300,
+        "height": 220
+      }
+    },
+    "frame-left": {
+      "width": 220,
+      "height": 200,
+      "bytes": 9564,
+      "hasAlpha": true,
+      "sha256": "8c796c50f4f87c5944c115a4d969dfb9dba86f35ab94d536ec2c44d173d78c91",
+      "source": "normalized-frame",
+      "sourceCrop": {
+        "left": 0,
+        "top": 411,
+        "width": 220,
+        "height": 200
+      }
+    },
+    "frame-right": {
+      "width": 220,
+      "height": 200,
+      "bytes": 13028,
+      "hasAlpha": true,
+      "sha256": "e286d9a14d0241eb2b5b9629e20d200d9f87a251770c73c54a957c4bace5706d",
+      "source": "normalized-frame",
+      "sourceCrop": {
+        "left": 804,
+        "top": 411,
+        "width": 220,
+        "height": 200
+      }
+    },
+    "sidebar": {
+      "width": 512,
+      "height": 1536,
+      "bytes": 139684,
+      "hasAlpha": false,
+      "sha256": "601fd78b0aa5f3cb6462a80fa916faf57deadd0f22d9bd63a8289bed76d90b86",
+      "source": "sidebar"
+    },
+    "sidebar-top": {
+      "width": 512,
+      "height": 384,
+      "bytes": 43384,
+      "hasAlpha": false,
+      "sha256": "35e20e1a72757af34e698580dac249b953ef2174f303a90cebafaf1bf8a216ff",
+      "source": "sidebar",
+      "sourceCrop": {
+        "left": 0,
+        "top": 0,
+        "width": 724,
+        "height": 543
+      }
+    },
+    "sidebar-fill": {
+      "width": 512,
+      "height": 71,
+      "bytes": 4260,
+      "hasAlpha": false,
+      "sha256": "434643712e66b8048341c742b9cfe0061dbb1abf29cc1aa6cfbc918599a787f7",
+      "source": "sidebar",
+      "sourceCrop": {
+        "left": 0,
+        "top": 956,
+        "width": 724,
+        "height": 100
+      }
+    },
+    "sidebar-bottom": {
+      "width": 512,
+      "height": 414,
+      "bytes": 55790,
+      "hasAlpha": false,
+      "sha256": "6ed092c26c16981fef8a3da58aa02e408584be45ee7225032f781c227880e5cb",
+      "source": "sidebar",
+      "sourceCrop": {
+        "left": 0,
+        "top": 1586,
+        "width": 724,
+        "height": 586
+      }
+    },
+    "texture": {
+      "width": 512,
+      "height": 512,
+      "bytes": 19770,
+      "hasAlpha": false,
+      "sha256": "f4dc4b974700d0707cb37adf2c794f5cfb2d717ac70ff50f566eb4503dd83221",
+      "source": "sidebar",
+      "sourceCrop": {
+        "left": 152,
+        "top": 956,
+        "width": 420,
+        "height": 420
+      }
+    },
+    "icon-calendar": {
+      "width": 160,
+      "height": 144,
+      "bytes": 35888,
+      "hasAlpha": true,
+      "sha256": "0befa268f92eef2f81d9478005d3082b4c05717fa8c5522b3775e105816757c9",
+      "source": "objects",
+      "sourceCrop": {
+        "left": 12,
+        "top": 43,
+        "width": 287,
+        "height": 259
+      }
+    },
+    "icon-home": {
+      "width": 158,
+      "height": 160,
+      "bytes": 42022,
+      "hasAlpha": true,
+      "sha256": "5371cea6efc38ee7bb08b0a9d93d1919ed45659631f97573788b82d16853fca4",
+      "source": "objects",
+      "sourceCrop": {
+        "left": 321,
+        "top": 5,
+        "width": 300,
+        "height": 304
+      }
+    },
+    "icon-provisions": {
+      "width": 160,
+      "height": 132,
+      "bytes": 25324,
+      "hasAlpha": true,
+      "sha256": "6f32f2e9154142d3bffcd2cd3ab8ae2fc67b15ff54b4d4747a3fc51ab2545ade",
+      "source": "objects",
+      "sourceCrop": {
+        "left": 633,
+        "top": 45,
+        "width": 300,
+        "height": 248
+      }
+    },
+    "icon-raven": {
+      "width": 151,
+      "height": 160,
+      "bytes": 30290,
+      "hasAlpha": true,
+      "sha256": "f2969acf8dc42f2aab762855d740aca51375a1763b083ead9f35bed60d36cb27",
+      "source": "objects",
+      "sourceCrop": {
+        "left": 967,
+        "top": 17,
+        "width": 274,
+        "height": 290
+      }
+    },
+    "icon-orb": {
+      "width": 157,
+      "height": 160,
+      "bytes": 36346,
+      "hasAlpha": true,
+      "sha256": "c96dffa4f73167a56ab140046c3d9e8ab5c25c1d2c6760d072df7876c851854e",
+      "source": "objects",
+      "sourceCrop": {
+        "left": 28,
+        "top": 345,
+        "width": 255,
+        "height": 260
+      }
+    },
+    "icon-news": {
+      "width": 160,
+      "height": 115,
+      "bytes": 25732,
+      "hasAlpha": true,
+      "sha256": "f173ffcfde9586b700a513a3c5ca61223a9bdc0a2cafe3fa200ebaf0c0749f49",
+      "source": "objects",
+      "sourceCrop": {
+        "left": 314,
+        "top": 364,
+        "width": 310,
+        "height": 223
+      }
+    },
+    "icon-tools": {
+      "width": 153,
+      "height": 160,
+      "bytes": 27964,
+      "hasAlpha": true,
+      "sha256": "00891f73e72c6495a237f986903976eae337a16587790f9fdad469904854ee1d",
+      "source": "objects",
+      "sourceCrop": {
+        "left": 661,
+        "top": 343,
+        "width": 247,
+        "height": 259
+      }
+    },
+    "icon-compass": {
+      "width": 129,
+      "height": 160,
+      "bytes": 31194,
+      "hasAlpha": true,
+      "sha256": "fca8a83e4394cc3f18326d0a7f90ecb56a0d6cb254c9998a59f6cc2a2d7b942c",
+      "source": "objects",
+      "sourceCrop": {
+        "left": 977,
+        "top": 319,
+        "width": 239,
+        "height": 296
+      }
+    },
+    "icon-weather": {
+      "width": 128,
+      "height": 160,
+      "bytes": 28966,
+      "hasAlpha": true,
+      "sha256": "d10b7b5d82ae62aa52e340350fe754dce89b3e68ac6e2791e0221f85854a8f4e",
+      "source": "objects",
+      "sourceCrop": {
+        "left": 38,
+        "top": 632,
+        "width": 237,
+        "height": 296
+      }
+    },
+    "icon-camera": {
+      "width": 150,
+      "height": 160,
+      "bytes": 40592,
+      "hasAlpha": true,
+      "sha256": "01eae0d3556c71431fd4e9be10e3024d82c1fce4d97b15ded684d0c94962a8e4",
+      "source": "objects",
+      "sourceCrop": {
+        "left": 339,
+        "top": 637,
+        "width": 263,
+        "height": 280
+      }
+    },
+    "icon-refresh": {
+      "width": 160,
+      "height": 158,
+      "bytes": 32576,
+      "hasAlpha": true,
+      "sha256": "1b502a119097ac23163dfda16439e97161f62fe50349075a0103f225d7edee1d",
+      "source": "objects",
+      "sourceCrop": {
+        "left": 666,
+        "top": 664,
+        "width": 235,
+        "height": 232
+      }
+    },
+    "icon-settings": {
+      "width": 160,
+      "height": 157,
+      "bytes": 37472,
+      "hasAlpha": true,
+      "sha256": "ca152df48527287ecda793031856e5df513e435a8c1684e905e4db4f865e4e0b",
+      "source": "objects",
+      "sourceCrop": {
+        "left": 975,
+        "top": 660,
+        "width": 243,
+        "height": 238
+      }
+    },
+    "sidebar-crest": {
+      "width": 305,
+      "height": 320,
+      "bytes": 122270,
+      "hasAlpha": true,
+      "sha256": "08822d5a0c69a0e1db71567e1f03be6106b25af5f5c4a005c534aa3342ae2afb",
+      "source": "objects",
+      "sourceCrop": {
+        "left": 9,
+        "top": 941,
+        "width": 294,
+        "height": 308
+      }
+    },
+    "footer-emblem": {
+      "width": 640,
+      "height": 539,
+      "bytes": 268572,
+      "hasAlpha": true,
+      "sha256": "bfd2b4eeba173826455966713054bc563f3d7e8d529632c817c94be2f2e5e4c0",
+      "source": "objects",
+      "sourceCrop": {
+        "left": 315,
+        "top": 963,
+        "width": 305,
+        "height": 257
+      }
+    },
+    "sidebar-icon-warroom": {
+      "width": 160,
+      "height": 135,
+      "bytes": 26254,
+      "hasAlpha": true,
+      "sha256": "7e5cb14b134c7cb1060499ebfe2d85b5a9e9a09c0eb4293ed0ba4c023e883568",
+      "source": "objects",
+      "sourceCrop": {
+        "left": 634,
+        "top": 964,
+        "width": 299,
+        "height": 252
+      }
+    },
+    "sidebar-icon-treasury": {
+      "width": 160,
+      "height": 141,
+      "bytes": 42858,
+      "hasAlpha": true,
+      "sha256": "e5fa3a1958c8e701c71fc424eb4185657fcd24c7979638448876c3937a10471e",
+      "source": "objects",
+      "sourceCrop": {
+        "left": 954,
+        "top": 963,
+        "width": 284,
+        "height": 251
+      }
+    },
+    "sidebar-icon-overview": {
+      "width": 129,
+      "height": 160,
+      "bytes": 31194,
+      "hasAlpha": true,
+      "sha256": "fca8a83e4394cc3f18326d0a7f90ecb56a0d6cb254c9998a59f6cc2a2d7b942c",
+      "source": "objects",
+      "sourceCrop": {
+        "left": 977,
+        "top": 319,
+        "width": 239,
+        "height": 296
+      },
+      "aliasOf": "icon-compass"
+    },
+    "sidebar-icon-home": {
+      "width": 158,
+      "height": 160,
+      "bytes": 42022,
+      "hasAlpha": true,
+      "sha256": "5371cea6efc38ee7bb08b0a9d93d1919ed45659631f97573788b82d16853fca4",
+      "source": "objects",
+      "sourceCrop": {
+        "left": 321,
+        "top": 5,
+        "width": 300,
+        "height": 304
+      },
+      "aliasOf": "icon-home"
+    },
+    "sidebar-icon-provisions": {
+      "width": 160,
+      "height": 132,
+      "bytes": 25324,
+      "hasAlpha": true,
+      "sha256": "6f32f2e9154142d3bffcd2cd3ab8ae2fc67b15ff54b4d4747a3fc51ab2545ade",
+      "source": "objects",
+      "sourceCrop": {
+        "left": 633,
+        "top": 45,
+        "width": 300,
+        "height": 248
+      },
+      "aliasOf": "icon-provisions"
+    },
+    "sidebar-icon-settings": {
+      "width": 160,
+      "height": 157,
+      "bytes": 37472,
+      "hasAlpha": true,
+      "sha256": "ca152df48527287ecda793031856e5df513e435a8c1684e905e4db4f865e4e0b",
+      "source": "objects",
+      "sourceCrop": {
+        "left": 975,
+        "top": 660,
+        "width": 243,
+        "height": 238
+      },
+      "aliasOf": "icon-settings"
+    },
+    "button-normal": {
+      "width": 600,
+      "height": 151,
+      "bytes": 124140,
+      "hasAlpha": true,
+      "sha256": "cd6420bba4fa42a866f1183a3226277ad65f2d0af48028edee62799512018c04",
+      "source": "buttons",
+      "sourceCrop": {
+        "left": 41,
+        "top": 136,
+        "width": 643,
+        "height": 162
+      }
+    },
+    "button-hover": {
+      "width": 600,
+      "height": 151,
+      "bytes": 136110,
+      "hasAlpha": true,
+      "sha256": "a0cfe0023c4fb7fe892638070a312960a3a4685320a77e07586c1c0ca32bef83",
+      "source": "buttons",
+      "sourceCrop": {
+        "left": 765,
+        "top": 136,
+        "width": 643,
+        "height": 162
+      }
+    },
+    "button-pressed": {
+      "width": 600,
+      "height": 151,
+      "bytes": 118758,
+      "hasAlpha": true,
+      "sha256": "e2b1a8c2b2bef299f73c57bd158915669b5af46f14a87d5346a54c2994284b2b",
+      "source": "buttons",
+      "sourceCrop": {
+        "left": 1489,
+        "top": 136,
+        "width": 643,
+        "height": 162
+      }
+    },
+    "button-secondary": {
+      "width": 600,
+      "height": 151,
+      "bytes": 118822,
+      "hasAlpha": true,
+      "sha256": "6da2c998867724d1f54f21f5911dca2e0df849184e510ea8dcc408bbd130a5de",
+      "source": "buttons",
+      "sourceCrop": {
+        "left": 41,
+        "top": 453,
+        "width": 643,
+        "height": 162
+      }
+    },
+    "button-secondary-hover": {
+      "width": 600,
+      "height": 151,
+      "bytes": 129752,
+      "hasAlpha": true,
+      "sha256": "49ca6d3a73a3b6259ba303c96ed381039e3ff17c10303e6aa5680365bce0d310",
+      "source": "buttons",
+      "sourceCrop": {
+        "left": 765,
+        "top": 453,
+        "width": 643,
+        "height": 162
+      }
+    },
+    "button-disabled": {
+      "width": 600,
+      "height": 151,
+      "bytes": 118918,
+      "hasAlpha": true,
+      "sha256": "6af7efa5528c36911b723e441ddcd5c8528ffa0ec03cd8abfac09dd38b997d78",
+      "source": "buttons",
+      "sourceCrop": {
+        "left": 1489,
+        "top": 453,
+        "width": 643,
+        "height": 162
+      }
+    },
+    "hearth-idle": {
+      "width": 217,
+      "height": 288,
+      "bytes": 78486,
+      "hasAlpha": true,
+      "sha256": "f2b8993d0a6fd0a28e980689e5f88668c9d4f60442a0a3aa6c27651e54c94ebb",
+      "source": "hearth",
+      "sourceCrop": {
+        "left": 83,
+        "top": 0,
+        "width": 545,
+        "height": 723
+      }
+    },
+    "hearth-heat": {
+      "width": 217,
+      "height": 288,
+      "bytes": 80352,
+      "hasAlpha": true,
+      "sha256": "5c888f9386bf370bf0fb7bdcbc5749808120b051580d9b40681ed791f313cb4a",
+      "source": "hearth",
+      "sourceCrop": {
+        "left": 811,
+        "top": 0,
+        "width": 545,
+        "height": 723
+      }
+    },
+    "hearth-cool": {
+      "width": 217,
+      "height": 288,
+      "bytes": 79458,
+      "hasAlpha": true,
+      "sha256": "221252b924a137153c39486a3020900f14a9eb6d078c557d15ce89ccbd6b7439",
+      "source": "hearth",
+      "sourceCrop": {
+        "left": 1538,
+        "top": 0,
+        "width": 544,
+        "height": 723
+      }
+    },
+    "scroll": {
+      "width": 1280,
+      "height": 1280,
+      "bytes": 338882,
+      "hasAlpha": true,
+      "sha256": "907e0e1d1bdee78ca841a82ed8ea385c469da5bdeddf2cbb80ec251853f465ac",
+      "source": "scroll"
+    },
+    "gear-large": {
+      "format": "svg",
+      "width": 212,
+      "height": 212,
+      "teeth": 24,
+      "periodSeconds": 72,
+      "bytes": 4470,
+      "hasAlpha": true,
+      "sha256": "b80583c2dc47f0313c433e1898102c23e6a44b9664cc1931efe2ba97edef03b2",
+      "source": "deterministic centered SVG geometry"
+    },
+    "gear-small": {
+      "format": "svg",
+      "width": 148,
+      "height": 148,
+      "teeth": 16,
+      "periodSeconds": 48,
+      "bytes": 3256,
+      "hasAlpha": true,
+      "sha256": "2b570bcb416c06773ed7a3a6f60b565756b5632914d48a25f62d828cb9c662ea",
+      "source": "deterministic centered SVG geometry"
+    }
+  },
+  "frame": {
+    "corner": 220,
+    "renderedCorner": 50,
+    "horizontalTile": 300,
+    "verticalTile": 200,
+    "normalizedWidth": 1024,
+    "sourceCrop": {
+      "left": 50,
+      "top": 50,
+      "width": 1154,
+      "height": 1153
+    },
+    "normalizedHeight": 1023,
+    "centerAlpha": 0
+  },
+  "sidebar": {
+    "exportWidth": 512,
+    "topSourceHeight": 543,
+    "fillSourceTop": 956,
+    "fillSourceHeight": 100,
+    "bottomSourceTop": 1586
+  },
+  "scroll": {
+    "width": 1280,
+    "height": 1280,
+    "suggestedMobileSlices": [
+      360,
+      0,
+      200,
+      0
+    ]
+  }
+}

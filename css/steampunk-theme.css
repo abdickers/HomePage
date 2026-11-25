@@ -1,0 +1,118 @@
+/* Approved gothic Victorian clockwork. Content and interaction remain HTML;
+   Warcraft and Treasury retain their independent art and controls. */
+html[data-visual-theme="steampunk"] {
+  --theme-ink:#f7ead3; --theme-muted:#d7c3a4; --theme-accent:#d6ad65; --theme-line:#b68b526e;
+  --theme-panel:#191513; --theme-panel-alt:#30241f; --theme-field:#110f0e; --theme-radius:6px;
+  --theme-sidebar:#191310;
+  --theme-button:linear-gradient(#51272b,#261517); --theme-button-hover:linear-gradient(#71383d,#3b2022);
+  --theme-header-image:url('../assets/themes/steampunk/header-2172.webp');
+  --theme-page-image:url('../assets/themes/steampunk/background-1672.webp');
+  --theme-frame-tl:url('../assets/themes/steampunk/frame-tl.webp'); --theme-frame-tr:url('../assets/themes/steampunk/frame-tr.webp');
+  --theme-frame-bl:url('../assets/themes/steampunk/frame-bl.webp'); --theme-frame-br:url('../assets/themes/steampunk/frame-br.webp');
+  --theme-frame-top:url('../assets/themes/steampunk/frame-top.webp'); --theme-frame-bottom:url('../assets/themes/steampunk/frame-bottom.webp');
+  --theme-frame-left:url('../assets/themes/steampunk/frame-left.webp'); --theme-frame-right:url('../assets/themes/steampunk/frame-right.webp');
+  --theme-weather-icon:url('../assets/themes/steampunk/icon-weather.webp'); --theme-home-icon:url('../assets/themes/steampunk/icon-home.webp');
+  --theme-compass-icon:url('../assets/themes/steampunk/icon-compass.webp'); --theme-raven-icon:url('../assets/themes/steampunk/icon-raven.webp');
+  --theme-settings-icon:url('../assets/themes/steampunk/icon-settings.webp');
+  --theme-texture:url('../assets/themes/steampunk/texture.webp'); --theme-hearth-idle:url('../assets/themes/steampunk/hearth-idle.webp');
+  --theme-button-art:url('../assets/themes/steampunk/button-normal.webp'); --theme-button-hover-art:url('../assets/themes/steampunk/button-hover.webp');
+  --theme-button-pressed-art:url('../assets/themes/steampunk/button-pressed.webp'); --theme-button-disabled-art:url('../assets/themes/steampunk/button-disabled.webp');
+  --theme-scroll-art:url('../assets/themes/steampunk/scroll.webp');
+  --sidebar-art-top:url('../assets/themes/steampunk/sidebar-top.webp'); --sidebar-art-bottom:url('../assets/themes/steampunk/sidebar-bottom.webp');
+  --sidebar-art-fill:url('../assets/themes/steampunk/sidebar-fill.webp'); --sidebar-crest:url('../assets/themes/steampunk/sidebar-crest.webp');
+  --sidebar-edge:#d6ad65; --sidebar-ink:#f7ead3; --sidebar-fill:#191310; --sidebar-active:linear-gradient(#582b30,#291719);
+}
+
+html[data-visual-theme="steampunk"] body[data-command-realm="personal"]::before {
+  background:linear-gradient(#17100de8,#120f0ef5),var(--theme-page-image) center / cover no-repeat;
+}
+html[data-visual-theme="steampunk"] body[data-command-realm="personal"] #realmHeader.hero {
+  min-height:390px; padding:26px 32px; isolation:isolate;
+}
+html[data-visual-theme="steampunk"] body[data-command-realm="personal"] #realmHeader.hero::before {
+  background:linear-gradient(90deg,#130e0bc9,#150e0b38 60%,#140f0b08),var(--theme-header-image) center / cover no-repeat;
+}
+html[data-visual-theme="steampunk"] body[data-command-realm="personal"] #realmHeader .title-wrap { max-width:72%; position:relative; z-index:1; }
+html[data-visual-theme="steampunk"] body[data-command-realm="personal"] #realmHeader :is(.hero-top,.theme-switcher,.command-bar) { position:relative; z-index:3; }
+html[data-visual-theme="steampunk"] body[data-command-realm="personal"] #realmHeader.hero .command-bar {
+  background:linear-gradient(#251815ed,#120f0ef5); border-color:var(--theme-accent);
+}
+html[data-visual-theme="steampunk"] body[data-command-realm="personal"] #realmHeader.hero .command-bar .search-field input {
+  background:#f1e3c9; color:#30231b; border-color:#aa804b;
+}
+html[data-visual-theme="steampunk"] body[data-command-realm="personal"] #realmHeader.hero .command-bar .search-field input::placeholder { color:#66513d; opacity:1; }
+html[data-visual-theme="steampunk"] body[data-command-realm="personal"] .realm-ring {
+  position:relative; width:120px; height:120px; min-width:120px; isolation:isolate;
+  color:#f7d99b; font:600 68px/120px 'Cormorant Garamond',Georgia,serif; text-align:center; text-shadow:0 3px 5px #000;
+}
+html[data-visual-theme="steampunk"] body[data-command-realm="personal"] .realm-nav a { background:#150e0ec7; }
+html[data-visual-theme="steampunk"] body[data-command-realm="personal"] .realm-switch,
+html[data-visual-theme="steampunk"] body[data-command-realm="personal"] .realm-switch a { border-radius:5px; }
+html[data-visual-theme="steampunk"] body[data-command-realm="personal"] #dashboard .valinor-surface>.panel-surface {
+  background:linear-gradient(#14110ec9,#171210dc),var(--theme-texture) center / 100% 100% no-repeat,var(--theme-panel);
+}
+
+/* A real rolled correspondence scroll, matching the other theme families.
+   The artwork stays proportional; only quiet parchment grows on mobile. */
+html[data-visual-theme="steampunk"] body[data-command-realm="personal"] #dashboard>#personalRavens {
+  aspect-ratio:1; min-height:0; padding:0; background:none; border:0; border-image:none; box-shadow:none;
+}
+html[data-visual-theme="steampunk"] body[data-command-realm="personal"] #personalRavens>.ravens-scroll-art {
+  display:block; position:absolute; inset:0; width:100%; height:100%; object-fit:contain;
+}
+html[data-visual-theme="steampunk"] body[data-command-realm="personal"] #personalRavens .ravens-reading {
+  position:absolute; inset:30% 15% 17%; width:auto; height:auto; min-height:0; overflow:auto;
+  --ink:#302419; --text:#302419; --muted:#65533e; --line:#7f674d66; --line-soft:#7f674d33;
+  color:#302419; scrollbar-color:#9a7353 transparent;
+}
+html[data-visual-theme="steampunk"] body[data-command-realm="personal"] #personalRavens .daily-list {
+  flex:1 1 0; min-height:0; max-height:none; overflow:auto;
+}
+html[data-visual-theme="steampunk"] body[data-command-realm="personal"] #realmFooter img { width:145px; height:106px; object-fit:contain; }
+
+/* These precise SVG gears have 24 and 16 teeth with equal tooth pitch.
+   Opposite directions and a 3:2 period ratio make their teeth move together. */
+.steampunk-clockwork { display:none; position:absolute; pointer-events:none; user-select:none; }
+html[data-visual-theme="steampunk"] body[data-command-realm="personal"] .steampunk-clockwork { display:block; }
+.steampunk-gear { display:block; position:absolute; aspect-ratio:1; background:center / contain no-repeat; transform-origin:50% 50%; }
+.steampunk-gear--large { width:144px; left:0; top:0; background-image:url('../assets/themes/steampunk/gear-large.svg'); }
+.steampunk-gear--small,.steampunk-gear--idler { width:100px; left:132px; top:22px; background-image:url('../assets/themes/steampunk/gear-small.svg'); }
+.steampunk-gear--idler { left:162px; top:104px; }
+html[data-visual-theme="steampunk"] .steampunk-gear--large { animation:steampunk-turn 72s linear infinite; }
+html[data-visual-theme="steampunk"] .steampunk-gear--small { animation:steampunk-turn 48s linear infinite reverse; }
+html[data-visual-theme="steampunk"] .steampunk-gear--idler { animation:steampunk-turn 48s linear infinite; }
+.steampunk-clockwork--header { width:264px; height:206px; right:28px; top:102px; z-index:0; filter:drop-shadow(0 4px 4px #000b); }
+.steampunk-clockwork--crest { inset:-16px auto auto -18px; width:264px; height:206px; z-index:-1; transform:scale(.44); transform-origin:0 0; }
+.steampunk-clockwork--home { width:264px; height:206px; right:25px; top:14px; z-index:1; transform:scale(.25); transform-origin:100% 0; }
+.steampunk-clockwork--home .steampunk-gear--idler { display:none; }
+html[data-clockwork-paused] .steampunk-gear,
+.steampunk-clockwork[data-clockwork-paused] .steampunk-gear { animation-play-state:paused; }
+@keyframes steampunk-turn { to { transform:rotate(360deg); } }
+
+@media(max-height:850px) and (min-width:761px) {
+  html[data-visual-theme="steampunk"] body[data-command-realm="personal"] .realm-ring { width:90px; min-width:90px; height:90px; font-size:52px; line-height:90px; }
+}
+@media(max-width:1100px) {
+  .steampunk-clockwork--header { transform:scale(.65); transform-origin:100% 0; right:22px; top:120px; }
+}
+@media(max-width:760px) {
+  html[data-visual-theme="steampunk"] body[data-command-realm="personal"] #realmHeader.hero { min-height:0; padding:22px; }
+  html[data-visual-theme="steampunk"] body[data-command-realm="personal"] #realmHeader .title-wrap { max-width:100%; }
+  html[data-visual-theme="steampunk"] body[data-command-realm="personal"] #realmHeader.hero::before { background-position:64% center; }
+  html[data-visual-theme="steampunk"] body[data-command-realm="personal"] .realm-ring { width:44px; min-width:44px; height:44px; font-size:30px; line-height:44px; }
+  html[data-visual-theme="steampunk"] body[data-command-realm="personal"] #dashboard>#personalRavens {
+    aspect-ratio:auto; min-height:560px; padding:0; border:0 solid transparent;
+    border-image:var(--theme-scroll-art) 360 0 200 fill / calc((100vw - 28px) * .28125) 0 calc((100vw - 28px) * .15625) / 0 stretch;
+  }
+  html[data-visual-theme="steampunk"] body[data-command-realm="personal"] #personalRavens>.ravens-scroll-art { display:none; }
+  html[data-visual-theme="steampunk"] body[data-command-realm="personal"] #personalRavens .ravens-reading {
+    top:calc((100vw - 28px) * .28125 + 12px); bottom:calc((100vw - 28px) * .15625 + 12px); left:15%; right:15%; min-height:0;
+  }
+  html[data-visual-theme="steampunk"] body[data-command-realm="personal"] #personalRavens .daily-list { flex:1 1 auto; overflow:auto; }
+  .steampunk-clockwork--header { right:18px; top:12px; transform:scale(.24); opacity:.75; }
+  .steampunk-clockwork--crest { transform:scale(.2); left:-7px; top:-9px; }
+  .steampunk-clockwork--home { right:22px; transform:scale(.18); }
+}
+@media(prefers-reduced-motion:reduce) {
+  html[data-visual-theme="steampunk"] .steampunk-gear { animation:none; }
+}
