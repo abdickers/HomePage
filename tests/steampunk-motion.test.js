@@ -12,27 +12,27 @@ function fixture({theme='elven',hidden=false,intersection=true}={}) {
     toggleAttribute(name,value){if(value)this.attributes.set(name,'');else this.attributes.delete(name);}
     hasAttribute(name){return this.attributes.has(name);}
   }
-  const root=new Element(),header=new Element(),crest=new Element(),home=new Element(),listeners={};
+  const root=new Element(),header=new Element(),crest=new Element(),home=new Element(),sidebar=new Element(),listeners={};
   root.dataset.visualTheme=theme;
   const document={documentElement:root,hidden,createElement:()=>new Element(),
     getElementById:id=>({realmHeader:header,homePanel:home})[id],
-    querySelector:selector=>selector==='.realm-ring'?crest:null,
+    querySelector:selector=>({'.realm-ring':crest,'.realm-sidebar':sidebar})[selector]||null,
     addEventListener:(name,fn)=>{listeners[name]=fn;}};
   let mutation,intersections;
   class MutationObserver {constructor(fn){mutation=fn;}observe(target,options){assert.equal(target,root);assert.deepEqual(Array.from(options.attributeFilter),['data-visual-theme']);}}
-  class IntersectionObserver {constructor(fn){intersections=fn;}observe(target){assert.ok([header,crest,home].some(el=>el.children.includes(target)));}}
+  class IntersectionObserver {constructor(fn){intersections=fn;}observe(target){assert.ok([header,crest,home,sidebar].some(el=>el.children.includes(target)));}}
   const window=intersection?{IntersectionObserver}:{};
   runInContext(source,createContext({document,window,MutationObserver,IntersectionObserver}),{filename:'steampunk-motion.js'});
   const select=value=>{root.dataset.visualTheme=value;mutation();};
   const visibility=value=>{document.hidden=value;listeners.visibilitychange();};
-  return {root,header,crest,home,select,visibility,intersect:(target,isIntersecting)=>intersections([{target,isIntersecting}])};
+  return {root,header,crest,home,sidebar,select,visibility,intersect:(target,isIntersecting)=>intersections([{target,isIntersecting}])};
 }
 
 test('other themes do not construct or load clockwork; first Steampunk selection creates decorative wheels',()=>{
   const f=fixture();
   assert.equal(f.header.children.length,0);assert.equal(f.home.children.length,0);
   f.select('steampunk');
-  for(const target of [f.header,f.crest,f.home]){
+  for(const target of [f.header,f.crest,f.home,f.sidebar]){
     assert.equal(target.children.length,1);
     assert.equal(target.children[0].attributes.get('aria-hidden'),'true');
     assert.equal(target.children[0].children.length,3);
@@ -44,7 +44,7 @@ test('switching away pauses clockwork and repeated selections never duplicate as
   assert.equal(f.root.hasAttribute('data-clockwork-paused'),false);
   for(const theme of ['gondor','steampunk','hobbit','steampunk']){
     f.select(theme);assert.equal(f.root.hasAttribute('data-clockwork-paused'),theme!=='steampunk');
-    for(const target of [f.header,f.crest,f.home])assert.equal(target.children.length,1);
+    for(const target of [f.header,f.crest,f.home,f.sidebar])assert.equal(target.children.length,1);
   }
 });
 

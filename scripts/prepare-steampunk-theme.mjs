@@ -87,6 +87,21 @@ const textureEdge=Math.round(sidebarMeta.width*.58);
 const textureCrop={left:Math.round(sidebarMeta.width*.21),top:sideFill,width:textureEdge,height:textureEdge};
 await save('texture',sharp(input.sidebar).extract(textureCrop).resize({width:512}),{lossless:false,crop:textureCrop,source:'sidebar'});
 
+// The revised materials are square scans, never stretched from a shallow strip.
+// Keep their natural grain scale independently of the viewport or panel ratio.
+if(input.materials) {
+  const meta=await sharp(input.materials).metadata();
+  const middle=Math.round(meta.width/2);
+  for(const [name,left,width] of [['sidebar-material-v2',0,middle],['panel-material-v2',middle,meta.width-middle]]) {
+    const crop={left,top:0,width,height:meta.height};
+    await save(name,sharp(input.materials).extract(crop).resize({width:1024,height:1024}),{lossless:false,quality:90,crop,source:'materials'});
+  }
+}
+if(input.cabinet) {
+  await save('clockwork-cabinet-v2',sharp(input.cabinet).resize({width:512,height:768,fit:'contain',background:{r:0,g:0,b:0,alpha:0}}),{source:'cabinet'});
+  manifest.cabinet={width:512,height:768,dialCenter:[.5,.355],openingDiameter:.43};
+}
+
 const iconNames=['calendar','home','provisions','raven','orb','news','tools','compass','weather','camera','refresh','settings','sidebar-crest','footer-emblem','sidebar-icon-warroom','sidebar-icon-treasury'];
 const atlasMeta=await sharp(input.objects).metadata();
 if(!atlasMeta.hasAlpha||atlasMeta.width!==atlasMeta.height)throw Error('Expected square 4 x 4 alpha object atlas');

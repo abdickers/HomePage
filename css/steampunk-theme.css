@@ -14,7 +14,7 @@ html[data-visual-theme="steampunk"] {
   --theme-weather-icon:url('../assets/themes/steampunk/icon-weather.webp'); --theme-home-icon:url('../assets/themes/steampunk/icon-home.webp');
   --theme-compass-icon:url('../assets/themes/steampunk/icon-compass.webp'); --theme-raven-icon:url('../assets/themes/steampunk/icon-raven.webp');
   --theme-settings-icon:url('../assets/themes/steampunk/icon-settings.webp');
-  --theme-texture:url('../assets/themes/steampunk/texture.webp'); --theme-hearth-idle:url('../assets/themes/steampunk/hearth-idle.webp');
+  --theme-texture:url('../assets/themes/steampunk/panel-material-v2.webp'); --theme-hearth-idle:url('../assets/themes/steampunk/hearth-idle.webp');
   --theme-button-art:url('../assets/themes/steampunk/button-normal.webp'); --theme-button-hover-art:url('../assets/themes/steampunk/button-hover.webp');
   --theme-button-pressed-art:url('../assets/themes/steampunk/button-pressed.webp'); --theme-button-disabled-art:url('../assets/themes/steampunk/button-disabled.webp');
   --theme-scroll-art:url('../assets/themes/steampunk/scroll.webp');
@@ -24,8 +24,24 @@ html[data-visual-theme="steampunk"] {
 }
 
 html[data-visual-theme="steampunk"] body[data-command-realm="personal"]::before {
-  background:linear-gradient(#17100de8,#120f0ef5),var(--theme-page-image) center / cover no-repeat;
+  background:linear-gradient(#12100fbd,#12100fd9),url('../assets/themes/steampunk/panel-material-v2.webp') center / 512px 512px repeat,#151310;
 }
+/* The POC has a continuous damask cabinet, not three unrelated scenery caps.
+   Square cloth retains its weave; rails are one uninterrupted physical edge. */
+html[data-visual-theme="steampunk"] body[data-command-realm="personal"] .realm-sidebar {
+  padding:18px 12px 14px; border-inline:5px ridge #956d3b;
+  background:linear-gradient(90deg,#0b090758,transparent 25%,transparent 75%,#0b090758),url('../assets/themes/steampunk/sidebar-material-v2.webp') center / 320px 320px repeat,#181512;
+  box-shadow:inset 0 0 0 2px #1c130c,inset 0 0 24px #0008,4px 0 20px #0008;
+}
+html[data-visual-theme="steampunk"] body[data-command-realm="personal"] .realm-brand { gap:5px; }
+html[data-visual-theme="steampunk"] body[data-command-realm="personal"] .realm-brand strong { font-size:25px; }
+html[data-visual-theme="steampunk"] body[data-command-realm="personal"] .realm-switch { margin-top:12px; }
+html[data-visual-theme="steampunk"] body[data-command-realm="personal"] .realm-nav { margin:16px 0 8px; }
+html[data-visual-theme="steampunk"] body[data-command-realm="personal"] .realm-nav a { min-height:52px; padding:9px 6px; gap:8px; font-size:18px; }
+html[data-visual-theme="steampunk"] body[data-command-realm="personal"] .realm-nav a>span { line-height:1.15; }
+html[data-visual-theme="steampunk"] body[data-command-realm="personal"] .realm-nav .nav-art { width:30px; height:30px; flex-basis:30px; }
+html[data-visual-theme="steampunk"] body[data-command-realm="personal"] .realm-sidebar #footerSettings { margin-top:8px; }
+html[data-visual-theme="steampunk"] body[data-command-realm="personal"] .realm-sidebar :is(.realm-brand,.realm-switch,.realm-nav,#footerSettings) { position:relative; z-index:2; flex-shrink:0; }
 html[data-visual-theme="steampunk"] body[data-command-realm="personal"] #realmHeader.hero {
   min-height:390px; padding:26px 32px; isolation:isolate;
 }
@@ -42,14 +58,18 @@ html[data-visual-theme="steampunk"] body[data-command-realm="personal"] #realmHe
 }
 html[data-visual-theme="steampunk"] body[data-command-realm="personal"] #realmHeader.hero .command-bar .search-field input::placeholder { color:#66513d; opacity:1; }
 html[data-visual-theme="steampunk"] body[data-command-realm="personal"] .realm-ring {
-  position:relative; width:120px; height:120px; min-width:120px; isolation:isolate;
-  color:#f7d99b; font:600 68px/120px 'Cormorant Garamond',Georgia,serif; text-align:center; text-shadow:0 3px 5px #000;
+  position:relative; width:100px; height:100px; min-width:100px; isolation:isolate;
+  color:#f7d99b; font:600 64px/100px 'Cormorant Garamond',Georgia,serif; text-align:center; text-shadow:0 3px 5px #000;
 }
 html[data-visual-theme="steampunk"] body[data-command-realm="personal"] .realm-nav a { background:#150e0ec7; }
 html[data-visual-theme="steampunk"] body[data-command-realm="personal"] .realm-switch,
 html[data-visual-theme="steampunk"] body[data-command-realm="personal"] .realm-switch a { border-radius:5px; }
 html[data-visual-theme="steampunk"] body[data-command-realm="personal"] #dashboard .valinor-surface>.panel-surface {
-  background:linear-gradient(#14110ec9,#171210dc),var(--theme-texture) center / 100% 100% no-repeat,var(--theme-panel);
+  background:linear-gradient(#201d18a8,#161310bc),var(--theme-texture) center / 512px 512px repeat,var(--theme-panel);
+}
+html[data-visual-theme="steampunk"] body[data-command-realm="personal"] #homePanel .hobbit-control>.hobbit-surface,
+html[data-visual-theme="steampunk"] body[data-command-realm="personal"] :is(#settingsDialog,#linkDialog,#searchDialog)::before {
+  background:linear-gradient(#181511a8,#12100dbc),var(--theme-texture) center / 512px 512px repeat,var(--theme-panel);
 }
 
 /* A real rolled correspondence scroll, matching the other theme families.
@@ -85,6 +105,14 @@ html[data-visual-theme="steampunk"] .steampunk-gear--idler { animation:steampunk
 .steampunk-clockwork--crest { inset:-16px auto auto -18px; width:264px; height:206px; z-index:-1; transform:scale(.44); transform-origin:0 0; }
 .steampunk-clockwork--home { width:264px; height:206px; right:25px; top:14px; z-index:1; transform:scale(.25); transform-origin:100% 0; }
 .steampunk-clockwork--home .steampunk-gear--idler { display:none; }
+.steampunk-clockwork--cabinet {
+  position:relative; flex:0 0 auto; align-self:center; margin-top:auto;
+  width:min(100%,max(80px,calc((100dvh - 620px) * .666667))); height:auto; aspect-ratio:2 / 3;
+  background:url('../assets/themes/steampunk/clockwork-cabinet-v2.webp') center / contain no-repeat;
+  isolation:isolate;
+}
+.steampunk-clockwork--cabinet .steampunk-gear--large { width:48%; left:26%; top:19.5%; z-index:-1; }
+.steampunk-clockwork--cabinet :is(.steampunk-gear--small,.steampunk-gear--idler) { display:none; }
 html[data-clockwork-paused] .steampunk-gear,
 .steampunk-clockwork[data-clockwork-paused] .steampunk-gear { animation-play-state:paused; }
 @keyframes steampunk-turn { to { transform:rotate(360deg); } }
@@ -95,7 +123,20 @@ html[data-clockwork-paused] .steampunk-gear,
 @media(max-width:1100px) {
   .steampunk-clockwork--header { transform:scale(.65); transform-origin:100% 0; right:22px; top:120px; }
 }
+@media(min-width:980px) {
+  html[data-visual-theme="steampunk"] body[data-command-realm="personal"] #realmHeader.hero { min-height:340px; padding:24px 32px; }
+  html[data-visual-theme="steampunk"] body[data-command-realm="personal"] #realmHeader .hero-top { flex-direction:row; align-items:flex-start; }
+  html[data-visual-theme="steampunk"] body[data-command-realm="personal"] #realmHeader .hero-actions { width:auto; max-width:58%; margin-left:auto; }
+  html[data-visual-theme="steampunk"] body[data-command-realm="personal"] #realmHeader.hero .theme-switcher { position:absolute; top:142px; right:32px; margin:0; }
+  html[data-visual-theme="steampunk"] body[data-command-realm="personal"] #realmHeader .title-wrap { max-width:calc(100% - 250px); margin-block:0 20px; }
+  .steampunk-clockwork--header { top:auto; bottom:82px; right:10px; transform:scale(.58); transform-origin:100% 100%; }
+}
 @media(max-width:760px) {
+  html[data-visual-theme="steampunk"] body[data-command-realm="personal"] .realm-sidebar { padding:12px; }
+  html[data-visual-theme="steampunk"] body[data-command-realm="personal"] .realm-nav { display:none; }
+  html[data-visual-theme="steampunk"] body[data-command-realm="personal"] .realm-switch { margin-top:0; }
+  html[data-visual-theme="steampunk"] body[data-command-realm="personal"] .realm-sidebar #footerSettings { margin:0; }
+  html[data-visual-theme="steampunk"] body[data-command-realm="personal"] .steampunk-clockwork--cabinet { display:none; }
   html[data-visual-theme="steampunk"] body[data-command-realm="personal"] #realmHeader.hero { min-height:0; padding:22px; }
   html[data-visual-theme="steampunk"] body[data-command-realm="personal"] #realmHeader .title-wrap { max-width:100%; }
   html[data-visual-theme="steampunk"] body[data-command-realm="personal"] #realmHeader.hero::before { background-position:64% center; }
