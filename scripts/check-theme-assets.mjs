@@ -2,7 +2,7 @@ import {readFile,stat} from 'node:fs/promises';
 import {dirname,resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
-const cssFiles=['switchable-themes.css','gondor-theme.css','theme-craft.css','theme-home-craft.css','theme-sidebars.css','dark-realms.css','warcraft-controls.css','continuous-materials.css','steampunk-theme.css'];
+const cssFiles=['switchable-themes.css','gondor-theme.css','theme-craft.css','theme-home-craft.css','theme-sidebars.css','dark-realms.css','warcraft-controls.css','continuous-materials.css','steampunk-theme.css','steampunk-sidebar.css'];
 const references=new Set();
 for(const file of cssFiles){
  const css=await readFile(resolve(root,'css',file),'utf8');

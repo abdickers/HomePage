@@ -4,6 +4,7 @@ import {mkdir,readFile,writeFile,copyFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {resolve,dirname} from 'node:path';
 import {fileURLToPath} from 'node:url';
+import {exportPocSidebar} from './steampunk-sidebar-art.mjs';
 
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
 const require=createRequire(resolve(root,'../work-homepage-refresh/package.json'));
@@ -163,5 +164,7 @@ for(const [name,teeth,period] of [['large',24,72],['small',16,48]]) {
   await writeFile(resolve(out,`gear-${name}.svg`),bytes);
   manifest.assets[`gear-${name}`]={format:'svg',width:teeth*8+20,height:teeth*8+20,teeth,periodSeconds:period,bytes:bytes.length,hasAlpha:true,sha256:hash(bytes),source:'deterministic centered SVG geometry'};
 }
+manifest.pocSidebar=await exportPocSidebar({root,sharp,save});
+manifest.sources['approved-poc-sidebar']=manifest.pocSidebar.source;
 await writeFile(resolve(out,'manifest.json'),JSON.stringify(manifest,null,2)+'\n');
 console.log(`Steampunk: ${Object.keys(manifest.assets).length} optimized assets; ${Object.values(manifest.assets).reduce((n,a)=>n+a.bytes,0)} bytes; normalized frame ${w}x${h}, corners220, quiet rail tiles300x220 and220x200; center alpha${centerAlpha}.`);
