@@ -1,0 +1,109 @@
+/* POC-faithful sidebar candidate. Original decorative art; live HTML controls.
+   Source coordinates are recorded in scripts/steampunk-sidebar-art.mjs.
+   The tall cabinet keeps its proportions and scrolls inside the sidebar. */
+html[data-visual-theme="steampunk"] body[data-command-realm="personal"] .realm-sidebar {
+  container-type:inline-size; display:flex; flex-direction:column; align-items:stretch;
+  height:100dvh; padding:0; border:0; gap:0; overflow-x:hidden; overflow-y:auto;
+  overscroll-behavior:contain; scrollbar-width:thin; scrollbar-color:#9d733d #17120e;
+  background:url('../assets/themes/steampunk/sidebar-rail-left-v3.webp') left top / 5.263158% 100% no-repeat,
+    url('../assets/themes/steampunk/sidebar-rail-right-v3.webp') right top / 5.263158% 100% no-repeat,#18140f;
+  box-shadow:4px 0 18px #0009;
+}
+html[data-visual-theme="steampunk"] body[data-command-realm="personal"] .realm-sidebar .realm-brand {
+  display:block; position:relative; flex:0 0 auto; width:100%; height:auto; min-height:0;
+  aspect-ratio:152 / 326; padding:0; margin:0; gap:0;
+  background:url('../assets/themes/steampunk/sidebar-brand-v3.webp') center / 100% 100% no-repeat;
+}
+/* Branding remains accessible text; the approved wordmark is decorative art. */
+html[data-visual-theme="steampunk"] body[data-command-realm="personal"] .realm-brand>span:last-child {
+  position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+  overflow:hidden; clip-path:inset(50%); white-space:nowrap;
+}
+html[data-visual-theme="steampunk"] body[data-command-realm="personal"] .realm-brand .realm-ring {
+  position:absolute; inset:0; width:100%; height:100%; min-width:0; margin:0; padding:0;
+  border:0; background:none; box-shadow:none; font-size:0; color:transparent; text-shadow:none;
+}
+html[data-visual-theme="steampunk"] body[data-command-realm="personal"] .steampunk-clockwork--crest { display:none; }
+html[data-visual-theme="steampunk"] body[data-command-realm="personal"] .realm-sidebar .realm-switch {
+  flex:0 0 auto; width:auto; height:26.315789cqw; min-height:44px;
+  margin:9.868421cqw 5.263158% 0; padding:2px; gap:0;
+  border:1px solid #bf9455; border-radius:4px; background:#0f0c09;
+}
+html[data-visual-theme="steampunk"] body[data-command-realm="personal"] .realm-sidebar .realm-switch a {
+  display:flex; align-items:center; justify-content:center; padding:4px;
+  min-height:0; border-radius:2px; font-size:clamp(13px,8.8cqw,18px);
+}
+html[data-visual-theme="steampunk"] body[data-command-realm="personal"] .realm-sidebar .realm-nav {
+  display:grid; flex:0 0 auto; gap:0; margin:24.342105cqw 5.263158% 0;
+  grid-template-rows:31.578947cqw 38.815789cqw 38.815789cqw 38.157895cqw 34.868421cqw;
+}
+html[data-visual-theme="steampunk"] body[data-command-realm="personal"] .realm-sidebar .realm-nav a {
+  min-height:0; height:100%; padding:6px 8px; gap:8px; border:0; border-radius:0;
+  border-bottom:1px solid #8f714344; background:#14100ceb;
+  color:#f6e6c9; font:500 clamp(16px,10.526316cqw,24px)/1.1 'Cormorant Garamond',Georgia,serif;
+}
+html[data-visual-theme="steampunk"] body[data-command-realm="personal"] .realm-sidebar .realm-nav a>span { min-width:0; line-height:1.1; }
+html[data-visual-theme="steampunk"] body[data-command-realm="personal"] .realm-sidebar .realm-nav .nav-art {
+  width:18.421053cqw; height:18.421053cqw; flex-basis:18.421053cqw;
+}
+html[data-visual-theme="steampunk"] body[data-command-realm="personal"] .realm-sidebar .realm-nav a small { font-size:clamp(9px,6cqw,12px); line-height:1.3; }
+html[data-visual-theme="steampunk"] body[data-command-realm="personal"] .realm-sidebar .realm-nav a:is(.active,:hover) {
+  border:1px solid #c69b57; border-radius:3px; background:linear-gradient(#54252a,#241314);
+  box-shadow:inset 0 1px #f6d69740;
+}
+html[data-visual-theme="steampunk"] body[data-command-realm="personal"] .realm-sidebar #footerSettings {
+  flex:0 0 auto; justify-content:flex-start; width:89.473684%; height:30.921053cqw; min-height:44px;
+  margin:0 5.263158%; padding:6px 8px; gap:8px; border:0; border-bottom:1px solid #8f714344;
+  border-image:none; border-radius:0; background:#14100ceb; box-shadow:none;
+  font:500 clamp(16px,10.526316cqw,24px)/1.1 'Cormorant Garamond',Georgia,serif;
+}
+html[data-visual-theme="steampunk"] body[data-command-realm="personal"] .realm-sidebar #footerSettings img { width:18.421053cqw; height:18.421053cqw; }
+html[data-visual-theme="steampunk"] body[data-command-realm="personal"] .realm-sidebar #footerSettings:hover { background:#452329; }
+html[data-visual-theme="steampunk"] body[data-command-realm="personal"] .realm-sidebar .steampunk-clockwork--cabinet {
+  position:relative; display:block; flex:0 0 auto; align-self:stretch; width:100%; height:auto;
+  min-height:0; max-height:none; margin:0; padding:0; aspect-ratio:152 / 1178;
+  background:url('../assets/themes/steampunk/sidebar-cabinet-v3.webp') center / 100% 100% no-repeat;
+  isolation:isolate;
+}
+/* Original POC wheel pixels rotate below the clock's fixed foreground. */
+.steampunk-clockwork--cabinet .steampunk-gear--large {
+  display:block; z-index:1; width:47.368421%; left:9.868421%; top:54.923599%;
+  background-image:url('../assets/themes/steampunk/sidebar-wheel-large-v3.webp');
+}
+.steampunk-clockwork--cabinet .steampunk-gear--small {
+  display:block; z-index:1; width:32.894737%; left:35.526316%; top:60.526316%;
+  background-image:url('../assets/themes/steampunk/sidebar-wheel-small-v3.webp');
+}
+.steampunk-clockwork--cabinet .steampunk-gear--idler { display:none; }
+.steampunk-clockwork--cabinet::after {
+  content:''; position:absolute; z-index:2; left:0; top:51.612903%; width:100%; aspect-ratio:152 / 70;
+  background:url('../assets/themes/steampunk/sidebar-clock-foreground-v3.webp') center / 100% 100% no-repeat;
+  pointer-events:none;
+}
+@media(max-width:760px) {
+  html[data-visual-theme="steampunk"] body[data-command-realm="personal"] .realm-sidebar {
+    container-type:normal; flex-direction:row; align-items:center; height:auto; padding:12px; gap:8px;
+    overflow:visible; background:#18140f;
+  }
+  html[data-visual-theme="steampunk"] body[data-command-realm="personal"] .realm-sidebar .realm-brand {
+    display:flex; flex-direction:row; align-items:center; gap:10px; width:auto; aspect-ratio:auto; background:none;
+  }
+  html[data-visual-theme="steampunk"] body[data-command-realm="personal"] .realm-brand .realm-ring {
+    position:relative; inset:auto; width:44px; height:44px; min-width:44px;
+    background:var(--sidebar-crest) center / contain no-repeat; color:#f7d99b; font-size:30px; line-height:44px;
+  }
+  html[data-visual-theme="steampunk"] body[data-command-realm="personal"] .realm-brand>span:last-child {
+    position:static; width:auto; height:auto; margin:0; overflow:visible; clip-path:none; white-space:normal;
+    font-size:10px;
+  }
+  html[data-visual-theme="steampunk"] body[data-command-realm="personal"] .realm-brand strong { font-size:18px; }
+  html[data-visual-theme="steampunk"] body[data-command-realm="personal"] .realm-sidebar .realm-switch { height:44px; margin:0; }
+  html[data-visual-theme="steampunk"] body[data-command-realm="personal"] .realm-sidebar .realm-switch a { padding:6px 10px; font-size:12px; }
+  html[data-visual-theme="steampunk"] body[data-command-realm="personal"] .realm-sidebar .realm-nav,
+  html[data-visual-theme="steampunk"] body[data-command-realm="personal"] .realm-sidebar .steampunk-clockwork--cabinet { display:none; }
+  html[data-visual-theme="steampunk"] body[data-command-realm="personal"] .realm-sidebar #footerSettings {
+    width:auto; height:44px; margin:0; padding:8px 12px; border:1px solid #bf9455; border-radius:4px;
+    background:#352017; font:600 12px/1.2 'DM Sans',sans-serif;
+  }
+  html[data-visual-theme="steampunk"] body[data-command-realm="personal"] .realm-sidebar #footerSettings img { width:24px; height:24px; }
+}

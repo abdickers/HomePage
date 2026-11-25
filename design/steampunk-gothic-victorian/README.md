@@ -2,7 +2,7 @@
 
 The user approved the dashboard concept and requested it as a selectable theme, including real moving gears and the existing theme-family rules. The email artwork was corrected to a physical rolled parchment scroll at the user's request.
 
-Ten production images were generated with the built-in image_gen tool, using `dashboard-poc.png` as a style reference. `prompts.json` retains the exact prompts, source paths and revision history. The original `scroll.png` letter-board design is retained for provenance; `scroll-v2.png` is the actual production scroll. The concept screenshot is never used as live interface content.
+Ten production images were generated with the built-in image_gen tool, using `dashboard-poc.png` as a style reference. `prompts.json` retains the exact prompts, source paths and revision history. The original `scroll.png` letter-board design is retained for provenance; `scroll-v2.png` is the actual production scroll. The later [continuous sidebar candidate](SIDEBAR-REVIEW.md) exports the approved POC's branding and non-interactive cabinet artwork directly. Functional controls and data remain live HTML.
 
 Run `node scripts/prepare-steampunk-theme.mjs` from this checkout to reproduce `assets/themes/steampunk/`. The exporter reuses the installed Sharp dependency from the sibling Work checkout without changing that project. It retains source masters, proportionally crops and optimizes WebP exports, normalizes invisible alpha noise, and writes hashes, dimensions, sizes and source geometry to `manifest.json`.
 

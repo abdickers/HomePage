@@ -75,6 +75,12 @@
       "width": 1024,
       "height": 1536,
       "hasAlpha": true
+    },
+    "approved-poc-sidebar": {
+      "path": "design/steampunk-gothic-victorian/dashboard-poc.png",
+      "sha256": "5b33a7c06cb66cdba2d78f6fd2e20956e3108660026a1d59e8f5aeba73324181",
+      "width": 819,
+      "height": 1920
     }
   },
   "assets": {
@@ -761,6 +767,104 @@
       "hasAlpha": true,
       "sha256": "2b570bcb416c06773ed7a3a6f60b565756b5632914d48a25f62d828cb9c662ea",
       "source": "deterministic centered SVG geometry"
+    },
+    "sidebar-brand-v3": {
+      "width": 456,
+      "height": 978,
+      "bytes": 425186,
+      "hasAlpha": false,
+      "sha256": "dfe6c8a56db6b0b2126009485f9194adcfb032d202bdc385e34b2ce7bd35b2c8",
+      "source": "approved-poc-sidebar",
+      "sourceCrop": {
+        "left": 0,
+        "top": 0,
+        "width": 152,
+        "height": 326
+      }
+    },
+    "sidebar-cabinet-v3": {
+      "width": 456,
+      "height": 3534,
+      "bytes": 1305248,
+      "hasAlpha": false,
+      "sha256": "d63ee34cbcc69a3581bca75e261c91b422294c873f88adcae867b8e05244668c",
+      "source": "approved-poc-sidebar",
+      "sourceCrop": {
+        "left": 0,
+        "top": 742,
+        "width": 152,
+        "height": 1178
+      }
+    },
+    "sidebar-rail-left-v3": {
+      "width": 24,
+      "height": 120,
+      "bytes": 2450,
+      "hasAlpha": false,
+      "sha256": "d37c2610b10b2072a09671ad81b92630d85cbf9a1239864af54c09c4e2906883",
+      "source": "approved-poc-sidebar",
+      "sourceCrop": {
+        "left": 0,
+        "top": 758,
+        "width": 8,
+        "height": 40
+      }
+    },
+    "sidebar-rail-right-v3": {
+      "width": 24,
+      "height": 120,
+      "bytes": 2142,
+      "hasAlpha": false,
+      "sha256": "0c78e5dcd642dd8709bccc283de2528ab9226c571149856c1986e0c686d453b4",
+      "source": "approved-poc-sidebar",
+      "sourceCrop": {
+        "left": 144,
+        "top": 758,
+        "width": 8,
+        "height": 40
+      }
+    },
+    "sidebar-wheel-large-v3": {
+      "width": 216,
+      "height": 216,
+      "bytes": 45892,
+      "hasAlpha": true,
+      "sha256": "a2e67d29fb253694bbf39d00592a0d009362441c22e721ea6e6045bf2aa7db2e",
+      "source": "approved-poc-sidebar",
+      "sourceCrop": {
+        "left": 15,
+        "top": 1389,
+        "width": 72,
+        "height": 72
+      }
+    },
+    "sidebar-wheel-small-v3": {
+      "width": 150,
+      "height": 150,
+      "bytes": 27476,
+      "hasAlpha": true,
+      "sha256": "71dcc480204cfc78901edaebab15df37a72d3ee17b91bb7a9649b5d805241161",
+      "source": "approved-poc-sidebar",
+      "sourceCrop": {
+        "left": 54,
+        "top": 1455,
+        "width": 50,
+        "height": 50
+      }
+    },
+    "sidebar-clock-foreground-v3": {
+      "width": 456,
+      "height": 210,
+      "bytes": 89488,
+      "hasAlpha": false,
+      "sha256": "625b07e7afe128e819a49e1e69805ca273bb4fec792625ef24aad5cf09b09904",
+      "source": "approved-poc-sidebar",
+      "sourceCrop": {
+        "left": 0,
+        "top": 1350,
+        "width": 152,
+        "height": 70
+      }
     }
   },
   "frame": {
@@ -803,5 +907,63 @@
       0.355
     ],
     "openingDiameter": 0.43
+  },
+  "pocSidebar": {
+    "source": {
+      "path": "design/steampunk-gothic-victorian/dashboard-poc.png",
+      "sha256": "5b33a7c06cb66cdba2d78f6fd2e20956e3108660026a1d59e8f5aeba73324181",
+      "width": 819,
+      "height": 1920
+    },
+    "sidebarWidth": 152,
+    "sourceHeight": 1920,
+    "brandHeight": 326,
+    "cabinetStart": 742,
+    "cabinetHeight": 1178,
+    "regions": {
+      "sidebar-brand-v3": {
+        "left": 0,
+        "top": 0,
+        "width": 152,
+        "height": 326
+      },
+      "sidebar-cabinet-v3": {
+        "left": 0,
+        "top": 742,
+        "width": 152,
+        "height": 1178
+      },
+      "sidebar-rail-left-v3": {
+        "left": 0,
+        "top": 758,
+        "width": 8,
+        "height": 40
+      },
+      "sidebar-rail-right-v3": {
+        "left": 144,
+        "top": 758,
+        "width": 8,
+        "height": 40
+      },
+      "sidebar-wheel-large-v3": {
+        "left": 15,
+        "top": 1389,
+        "width": 72,
+        "height": 72
+      },
+      "sidebar-wheel-small-v3": {
+        "left": 54,
+        "top": 1455,
+        "width": 50,
+        "height": 50
+      },
+      "sidebar-clock-foreground-v3": {
+        "left": 0,
+        "top": 1350,
+        "width": 152,
+        "height": 70
+      }
+    },
+    "method": "Exact decorative crops and circular wheel sprite masks; no generative reinterpretation."
   }
 }
