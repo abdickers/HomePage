@@ -18,53 +18,53 @@ html[data-visual-theme="gondor"] body[data-command-realm="personal"] {
   --theme-scroll-art:url('../assets/themes/gondor/scroll.webp');
 }
 
-html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] .realm-sidebar {
+html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"],[data-visual-theme="steampunk"]) body[data-command-realm="personal"] .realm-sidebar {
   padding:28px 18px 24px; background:var(--theme-sidebar-art) center / 100% 100% no-repeat,var(--theme-panel);
   border:0; box-shadow:4px 0 20px #0007; isolation:isolate;
 }
-html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] .realm-brand {
+html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"],[data-visual-theme="steampunk"]) body[data-command-realm="personal"] .realm-brand {
   flex-direction:column; text-align:center; gap:10px; color:var(--theme-ink); font-size:12px; letter-spacing:.16em; text-shadow:0 2px 4px #000;
 }
-html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] .realm-brand strong { font:600 25px/1.1 'Cormorant Garamond',Georgia,serif; letter-spacing:.04em; }
-html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] .realm-ring {
+html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"],[data-visual-theme="steampunk"]) body[data-command-realm="personal"] .realm-brand strong { font:600 25px/1.1 'Cormorant Garamond',Georgia,serif; letter-spacing:.04em; }
+html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"],[data-visual-theme="steampunk"]) body[data-command-realm="personal"] .realm-ring {
   width:78px; height:78px; border:3px solid var(--theme-accent); border-radius:50%; font:600 60px/1 'Cormorant Garamond',Georgia,serif;
   color:#f8dfab; background:var(--theme-texture) center / 256px; box-shadow:inset 0 0 0 3px #3c2c16,0 0 0 2px #7c633a,0 4px 12px #0008;
 }
 html[data-visual-theme="dwarven"] body[data-command-realm="personal"] .realm-ring { border-radius:12px; }
-html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] .realm-sidebar>.realm-account { display:none; }
-html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] .realm-switch { margin-top:18px; padding:4px; gap:4px; border:1px solid var(--theme-accent); border-radius:9px; background:#0c130be6; }
-html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] .realm-switch a { border:0; color:var(--theme-ink); }
-html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] .realm-switch a[aria-current="page"] { background:var(--theme-button); box-shadow:inset 0 0 0 1px var(--theme-accent); }
-html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] .realm-nav { gap:0; margin-top:20px; }
-html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] .realm-nav a {
+html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"],[data-visual-theme="steampunk"]) body[data-command-realm="personal"] .realm-sidebar>.realm-account { display:none; }
+html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"],[data-visual-theme="steampunk"]) body[data-command-realm="personal"] .realm-switch { margin-top:18px; padding:4px; gap:4px; border:1px solid var(--theme-accent); border-radius:9px; background:#0c130be6; }
+html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"],[data-visual-theme="steampunk"]) body[data-command-realm="personal"] .realm-switch a { border:0; color:var(--theme-ink); }
+html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"],[data-visual-theme="steampunk"]) body[data-command-realm="personal"] .realm-switch a[aria-current="page"] { background:var(--theme-button); box-shadow:inset 0 0 0 1px var(--theme-accent); }
+html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"],[data-visual-theme="steampunk"]) body[data-command-realm="personal"] .realm-nav { gap:0; margin-top:20px; }
+html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"],[data-visual-theme="steampunk"]) body[data-command-realm="personal"] .realm-nav a {
   min-height:62px; gap:12px; padding:10px 8px; border-bottom:1px solid var(--theme-line); color:var(--theme-ink);
   font:500 20px/1.1 'Cormorant Garamond',Georgia,serif; text-shadow:0 2px 4px #000; background:#0b110c55; border-radius:0;
 }
-html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] .realm-nav .nav-art { width:34px; height:34px; flex-basis:34px; }
-html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] .realm-nav a.active { background:var(--theme-button); border-radius:7px; box-shadow:inset 0 0 0 1px var(--theme-accent); }
-html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] .bagend-page-rail { display:none; }
+html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"],[data-visual-theme="steampunk"]) body[data-command-realm="personal"] .realm-nav .nav-art { width:34px; height:34px; flex-basis:34px; }
+html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"],[data-visual-theme="steampunk"]) body[data-command-realm="personal"] .realm-nav a.active { background:var(--theme-button); border-radius:7px; box-shadow:inset 0 0 0 1px var(--theme-accent); }
+html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"],[data-visual-theme="steampunk"]) body[data-command-realm="personal"] .bagend-page-rail { display:none; }
 
 /* Readable, tactile material fills stay beneath the physical rails. */
-html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] #dashboard .valinor-surface>.panel-surface,
-html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] #homePanel .hobbit-surface {
+html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"],[data-visual-theme="steampunk"]) body[data-command-realm="personal"] #dashboard .valinor-surface>.panel-surface,
+html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"],[data-visual-theme="steampunk"]) body[data-command-realm="personal"] #homePanel .hobbit-surface {
   background:linear-gradient(#10150c15,#10150c28),var(--theme-texture) center / 100% 100% no-repeat,var(--theme-panel);
 }
-html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] :is(#settingsDialog,#linkDialog,#searchDialog)::before {
+html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"],[data-visual-theme="steampunk"]) body[data-command-realm="personal"] :is(#settingsDialog,#linkDialog,#searchDialog)::before {
   background:var(--theme-texture) center / 100% 100% no-repeat,var(--theme-panel);
 }
 html[data-visual-theme="gondor"] body[data-command-realm="personal"] :is(#settingsDialog,#linkDialog,#searchDialog)::before { inset:34px 8px 8px; }
 
 /* Controls retain real HTML labels; state plates are sliced, never text images. */
-html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"],[data-visual-theme="gondor"]) body[data-command-realm="personal"] :is(.valinor-surface,#realmHeader,#settingsDialog,#linkDialog,#searchDialog) :is(button:not(.wizard-trigger):not(.header-shortcut),.wide-link,.provision-card-actions>a,.media-actions>a,.button-label),
-html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"],[data-visual-theme="gondor"]) body[data-command-realm="personal"] .realm-sidebar #footerSettings {
+html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"],[data-visual-theme="steampunk"],[data-visual-theme="gondor"]) body[data-command-realm="personal"] :is(.valinor-surface,#realmHeader,#settingsDialog,#linkDialog,#searchDialog) :is(button:not(.wizard-trigger):not(.header-shortcut),.wide-link,.provision-card-actions>a,.media-actions>a,.button-label),
+html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"],[data-visual-theme="steampunk"],[data-visual-theme="gondor"]) body[data-command-realm="personal"] .realm-sidebar #footerSettings {
   border:1px solid transparent; border-image:var(--theme-button-art) 40 90 fill / 9px 22px / 0 stretch; background:none; box-shadow:none; color:var(--theme-ink);
 }
-html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"],[data-visual-theme="gondor"]) body[data-command-realm="personal"] :is(.valinor-surface,#realmHeader,#settingsDialog,#linkDialog,#searchDialog) :is(button:not(.wizard-trigger):not(.header-shortcut),.wide-link,.provision-card-actions>a,.media-actions>a):hover:not(:disabled),
-html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"],[data-visual-theme="gondor"]) body[data-command-realm="personal"] .realm-sidebar #footerSettings:hover { border-image-source:var(--theme-button-hover-art); background:none; }
-html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"],[data-visual-theme="gondor"]) body[data-command-realm="personal"] :is(.valinor-surface,#realmHeader,#settingsDialog,#linkDialog,#searchDialog) button:not(.wizard-trigger):not(.header-shortcut):is(:active,[aria-selected="true"],[aria-pressed="true"]) { border-image-source:var(--theme-button-pressed-art); background:none; }
-html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"],[data-visual-theme="gondor"]) body[data-command-realm="personal"] :is(.valinor-surface,#realmHeader,#settingsDialog,#linkDialog,#searchDialog) button:not(.wizard-trigger):not(.header-shortcut):disabled { border-image-source:var(--theme-button-disabled-art); }
-html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"],[data-visual-theme="gondor"]) body[data-command-realm="personal"] #realmHeader.hero .theme-switcher>button { border-image:none; background:transparent; }
-html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"],[data-visual-theme="gondor"]) body[data-command-realm="personal"] #realmHeader.hero .theme-switcher>button[aria-pressed="true"] { border-image:var(--theme-button-pressed-art) 40 90 fill / 9px 18px / 0 stretch; border-color:transparent; background:none; }
+html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"],[data-visual-theme="steampunk"],[data-visual-theme="gondor"]) body[data-command-realm="personal"] :is(.valinor-surface,#realmHeader,#settingsDialog,#linkDialog,#searchDialog) :is(button:not(.wizard-trigger):not(.header-shortcut),.wide-link,.provision-card-actions>a,.media-actions>a):hover:not(:disabled),
+html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"],[data-visual-theme="steampunk"],[data-visual-theme="gondor"]) body[data-command-realm="personal"] .realm-sidebar #footerSettings:hover { border-image-source:var(--theme-button-hover-art); background:none; }
+html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"],[data-visual-theme="steampunk"],[data-visual-theme="gondor"]) body[data-command-realm="personal"] :is(.valinor-surface,#realmHeader,#settingsDialog,#linkDialog,#searchDialog) button:not(.wizard-trigger):not(.header-shortcut):is(:active,[aria-selected="true"],[aria-pressed="true"]) { border-image-source:var(--theme-button-pressed-art); background:none; }
+html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"],[data-visual-theme="steampunk"],[data-visual-theme="gondor"]) body[data-command-realm="personal"] :is(.valinor-surface,#realmHeader,#settingsDialog,#linkDialog,#searchDialog) button:not(.wizard-trigger):not(.header-shortcut):disabled { border-image-source:var(--theme-button-disabled-art); }
+html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"],[data-visual-theme="steampunk"],[data-visual-theme="gondor"]) body[data-command-realm="personal"] #realmHeader.hero .theme-switcher>button { border-image:none; background:transparent; }
+html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"],[data-visual-theme="steampunk"],[data-visual-theme="gondor"]) body[data-command-realm="personal"] #realmHeader.hero .theme-switcher>button[aria-pressed="true"] { border-image:var(--theme-button-pressed-art) 40 90 fill / 9px 18px / 0 stretch; border-color:transparent; background:none; }
 
 /* The Ravens is a real rolled scroll in each realm, with proportional rollers.
    Only the quiet paper/side strip stretches vertically on small screens. */
@@ -84,22 +84,22 @@ html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #homeP
 
 /* Keep scenic header close to the approved proportions while quick links wrap. */
 @media(min-width:1100px) {
-  html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] #realmHeader.hero { padding:24px 32px; min-height:340px; }
-  html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] #realmHeader .title-wrap { margin-block:0 20px; }
-  html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] #realmHeader .theme-switcher { margin-top:0; margin-bottom:12px; }
-  html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] #realmHeader .hero-top { align-items:flex-start; }
+  html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"],[data-visual-theme="steampunk"]) body[data-command-realm="personal"] #realmHeader.hero { padding:24px 32px; min-height:340px; }
+  html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"],[data-visual-theme="steampunk"]) body[data-command-realm="personal"] #realmHeader .title-wrap { margin-block:0 20px; }
+  html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"],[data-visual-theme="steampunk"]) body[data-command-realm="personal"] #realmHeader .theme-switcher { margin-top:0; margin-bottom:12px; }
+  html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"],[data-visual-theme="steampunk"]) body[data-command-realm="personal"] #realmHeader .hero-top { align-items:flex-start; }
 }
 @media(max-height:850px) and (min-width:761px) {
-  html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] .realm-sidebar { padding-top:20px; }
-  html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] .realm-ring { width:60px; height:60px; font-size:46px; }
-  html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] .realm-nav a { min-height:48px; font-size:18px; }
+  html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"],[data-visual-theme="steampunk"]) body[data-command-realm="personal"] .realm-sidebar { padding-top:20px; }
+  html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"],[data-visual-theme="steampunk"]) body[data-command-realm="personal"] .realm-ring { width:60px; height:60px; font-size:46px; }
+  html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"],[data-visual-theme="steampunk"]) body[data-command-realm="personal"] .realm-nav a { min-height:48px; font-size:18px; }
 }
 @media(max-width:760px) {
-  html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] .realm-sidebar { padding:14px 16px; background:var(--theme-texture) center / 320px; }
-  html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] .realm-brand { flex-direction:row; text-align:left; gap:12px; }
-  html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] .realm-brand strong { font-size:18px; }
-  html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] .realm-ring { width:44px; height:44px; font-size:32px; }
-  html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] .realm-switch { margin:0; }
+  html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"],[data-visual-theme="steampunk"]) body[data-command-realm="personal"] .realm-sidebar { padding:14px 16px; background:var(--theme-texture) center / 320px; }
+  html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"],[data-visual-theme="steampunk"]) body[data-command-realm="personal"] .realm-brand { flex-direction:row; text-align:left; gap:12px; }
+  html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"],[data-visual-theme="steampunk"]) body[data-command-realm="personal"] .realm-brand strong { font-size:18px; }
+  html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"],[data-visual-theme="steampunk"]) body[data-command-realm="personal"] .realm-ring { width:44px; height:44px; font-size:32px; }
+  html:is([data-visual-theme="hobbit"],[data-visual-theme="dwarven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"],[data-visual-theme="steampunk"]) body[data-command-realm="personal"] .realm-switch { margin:0; }
   html:not([data-visual-theme="elven"]) body[data-command-realm="personal"] #dashboard>#personalRavens {
     aspect-ratio:auto; min-height:560px; border:0 solid transparent; border-image:var(--theme-scroll-art) 250 0 250 fill / calc((100vw - 28px) * .1953125) 0 calc((100vw - 28px) * .1953125) / 0 stretch;
   }

@@ -5,7 +5,7 @@ import {createContext,runInContext} from 'node:vm';
 
 const source=readFileSync(new URL('../js/themes.js',import.meta.url),'utf8');
 const key='sage_visual_theme_v1';
-const themes=['hobbit','gondor','dwarven','elven','mordor','one-ring'];
+const themes=['hobbit','gondor','dwarven','elven','mordor','one-ring','steampunk'];
 const alternateThemes=themes.filter(theme=>theme!=='elven');
 
 // A small DOM surface executes the actual browser script and observes its public
@@ -134,7 +134,7 @@ test('each footer emblem switches both picture source and fallback, then restore
   const renderedSources=new Set();
   for(const theme of [...themes,'elven']){
     f.choose(theme);f.mutation();
-    const expected=theme==='elven'?original:['mordor','one-ring'].includes(theme)?`assets/themes/${theme}/footer-emblem.webp`:theme==='gondor'?'assets/themes/gondor/sidebar-crest.webp':`assets/themes/${theme}/icon-home.webp`;
+    const expected=theme==='elven'?original:['mordor','one-ring','steampunk'].includes(theme)?`assets/themes/${theme}/footer-emblem.webp`:theme==='gondor'?'assets/themes/gondor/sidebar-crest.webp':`assets/themes/${theme}/icon-home.webp`;
     assert.equal(image.getAttribute('src'),expected);
     assert.equal(source.getAttribute('srcset'),expected+' 160w');
     assert.equal(source.hasAttribute('src'),false);
@@ -142,7 +142,7 @@ test('each footer emblem switches both picture source and fallback, then restore
     assert.equal(image.currentSrc,expected);
     renderedSources.add(image.currentSrc);
   }
-  assert.equal(renderedSources.size,6);
+  assert.equal(renderedSources.size,7);
 });
 const attributes=element=>Object.fromEntries(element.attributes);
 
@@ -301,7 +301,7 @@ test('Elven restores normal panel artwork exactly while retaining its approved n
   assert.equal(f.sidebarIcons.treasury.getAttribute('src'),'assets/themes/elven/sidebar-icon-treasury.webp');
 });
 
-test('all six saved preferences restore before DOM readiness and synchronize without storage echoes',()=>{
+test('all seven saved preferences restore before DOM readiness and synchronize without storage echoes',()=>{
   for(const theme of themes){
     const f=fixture({saved:theme});assert.equal(f.document.body,null);assert.equal(f.root.dataset.visualTheme,theme);
     f.ready();selected(f,theme);
@@ -322,13 +322,13 @@ test('Mordor and One Ring selections save, announce and survive blocked browser 
   }
 });
 
-test('footer fallback without a source uses the same emblem and Elven restoration for all six themes',()=>{
+test('footer fallback without a source uses the same emblem and Elven restoration for all seven themes',()=>{
   const f=fixture(),footer=f.add('footer',{id:'realmFooter'}),picture=f.add('picture',{parent:footer});
   const original='assets/valinor/two-trees-emblem.webp',image=f.add('img',{parent:picture,attributes:{src:original}});
   f.ready();
   for(const theme of [...alternateThemes,'elven']){
     f.choose(theme);f.mutation();
-    const expected=theme==='elven'?original:['mordor','one-ring'].includes(theme)?`assets/themes/${theme}/footer-emblem.webp`:theme==='gondor'?'assets/themes/gondor/sidebar-crest.webp':`assets/themes/${theme}/icon-home.webp`;
+    const expected=theme==='elven'?original:['mordor','one-ring','steampunk'].includes(theme)?`assets/themes/${theme}/footer-emblem.webp`:theme==='gondor'?'assets/themes/gondor/sidebar-crest.webp':`assets/themes/${theme}/icon-home.webp`;
     assert.equal(image.currentSrc,expected);assert.equal(image.hasAttribute('srcset'),false);
   }
 });

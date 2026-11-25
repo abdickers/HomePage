@@ -20,7 +20,7 @@ body[data-command-realm="personal"] :is(.valinor-surface>.panel-surface,.hobbit-
 html[data-visual-theme] body[data-command-realm="personal"] .realm-sidebar {
   background-repeat:no-repeat;
 }
-html:is([data-visual-theme="gondor"],[data-visual-theme="elven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"]) body[data-command-realm="personal"] .realm-sidebar {
+html:is([data-visual-theme="gondor"],[data-visual-theme="elven"],[data-visual-theme="mordor"],[data-visual-theme="one-ring"],[data-visual-theme="steampunk"]) body[data-command-realm="personal"] .realm-sidebar {
   background-size:100% auto,100% auto,100% 100%;
 }
 @media(max-width:760px) {
