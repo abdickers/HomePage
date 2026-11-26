@@ -5,6 +5,12 @@
         "content": {
           "lines": [
             {
+              "icon": "ability_evoker_bronze_01",
+              "name": "Lindormi's Guidance",
+              "side": "both",
+              "url": "/affix=165/lindormis-guidance"
+            },
+            {
               "icon": "achievement_boss_archaedas",
               "name": "Tyrannical",
               "side": "both",
@@ -66,11 +72,6 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1795705208,
-              "name": "Harandar",
-              "startingUt": 1795676400
-            },
-            {
               "endingUt": 1795734008,
               "name": "Eversong Woods",
               "startingUt": 1795705200
@@ -114,6 +115,11 @@
               "endingUt": 1795964408,
               "name": "Harandar",
               "startingUt": 1795935600
+            },
+            {
+              "endingUt": 1795993208,
+              "name": "Eversong Woods",
+              "startingUt": 1795964400
             }
           ],
           "icons": ""
@@ -192,29 +198,29 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1795692600,
-              "name": "The Looming Mutagenitor",
-              "startingUt": 1795690800
-            },
-            {
-              "endingUt": 1795694400,
-              "name": "Mlurkkr Massacre",
-              "startingUt": 1795692600
-            },
-            {
-              "endingUt": 1795696200,
-              "name": "Siege at the Whispering Marsh",
-              "startingUt": 1795694400
-            },
-            {
-              "endingUt": 1795698000,
+              "endingUt": 1795725000,
               "name": "The Malformed Leviathan",
-              "startingUt": 1795696200
+              "startingUt": 1795723200
             },
             {
-              "endingUt": 1795699800,
+              "endingUt": 1795726800,
               "name": "The Broodmother's Nest",
-              "startingUt": 1795698000
+              "startingUt": 1795725000
+            },
+            {
+              "endingUt": 1795728600,
+              "name": "The Looming Mutagenitor",
+              "startingUt": 1795726800
+            },
+            {
+              "endingUt": 1795730400,
+              "name": "Mlurkkr Massacre",
+              "startingUt": 1795728600
+            },
+            {
+              "endingUt": 1795732200,
+              "name": "Siege at the Whispering Marsh",
+              "startingUt": 1795730400
             }
           ],
           "icons": ""
@@ -255,34 +261,20 @@
         "content": {
           "lines": [
             {
-              "ending": "3 hr 52 min",
-              "endingShort": "3h",
-              "endingUt": 1795705200,
-              "icon": "inv_zone_voidstorm",
-              "iconLabel": "Voidstorm",
-              "iconUrl": "/zone=15458/voidstorm",
-              "name": "Voidstorm: Sunkiller Sanctum",
-              "url": "/zone=16592/sunkiller-sanctum"
+              "ending": "18 hr 42 min",
+              "endingShort": "18h",
+              "endingUt": 1795791600,
+              "icon": "inv_achievement_sanktumoflight",
+              "iconLabel": "Silvermoon City",
+              "iconUrl": "/zone=15969/silvermoon-city",
+              "name": "Silvermoon City: Collegiate Calamity",
+              "url": "/zone=16545/collegiate-calamity"
             },
             {
-              "ending": "3 hr 52 min",
-              "endingShort": "3h",
-              "endingUt": 1795705200,
-              "icon": "inv_achievement_zone_harandar",
-              "iconLabel": "Harandar",
-              "iconUrl": "/zone=15355/harandar",
-              "name": "Harandar: The Gulf of Memory",
-              "url": "/zone=16595/the-gulf-of-memory"
-            },
-            {
-              "ending": "3 hr 52 min",
-              "endingShort": "3h",
-              "endingUt": 1795705200,
-              "icon": "inv_achievement_zone_zulaman1",
-              "iconLabel": "Zul'Aman",
-              "iconUrl": "/zone=15947/zulaman",
-              "name": "Zul'Aman: Twilight Crypts",
-              "url": "/zone=16557/twilight-crypts"
+              "ending": "18 hr 42 min",
+              "endingShort": "18h",
+              "endingUt": 1795791600,
+              "name": "Active"
             }
           ],
           "icons": ""
@@ -371,7 +363,7 @@
       }
     ],
     "source": "https://www.wowhead.com/today-in-wow",
-    "updated": "2026-11-26T11:07:54.260897+00:00"
+    "updated": "2026-11-26T20:18:01.524333+00:00"
   },
   "forever": {
     "events": [
