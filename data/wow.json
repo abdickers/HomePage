@@ -46,6 +46,13 @@
               "iconUrl": "/item=264274/fabled-adventurers-cache",
               "name": "Special Assignment: Shade and Claw",
               "url": "/quest=92139/special-assignment-shade-and-claw"
+            },
+            {
+              "icon": "inv_misc_treasurechest05b",
+              "iconLabel": "Reward: Fabled Adventurer's Cache",
+              "iconUrl": "/item=264274/fabled-adventurers-cache",
+              "name": "Special Assignment: Demand and Supply",
+              "url": "/quest=95921/special-assignment-demand-and-supply"
             }
           ],
           "icons": ""
@@ -58,11 +65,6 @@
       {
         "content": {
           "lines": [
-            {
-              "endingUt": 1795676408,
-              "name": "Zul'Aman",
-              "startingUt": 1795647600
-            },
             {
               "endingUt": 1795705208,
               "name": "Harandar",
@@ -107,6 +109,11 @@
               "endingUt": 1795935608,
               "name": "Zul'Aman",
               "startingUt": 1795906800
+            },
+            {
+              "endingUt": 1795964408,
+              "name": "Harandar",
+              "startingUt": 1795935600
             }
           ],
           "icons": ""
@@ -185,29 +192,29 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1795658400,
-              "name": "Mlurkkr Massacre",
-              "startingUt": 1795656600
-            },
-            {
-              "endingUt": 1795660200,
-              "name": "Siege at the Whispering Marsh",
-              "startingUt": 1795658400
-            },
-            {
-              "endingUt": 1795662000,
-              "name": "The Malformed Leviathan",
-              "startingUt": 1795660200
-            },
-            {
-              "endingUt": 1795663800,
-              "name": "The Broodmother's Nest",
-              "startingUt": 1795662000
-            },
-            {
-              "endingUt": 1795665600,
+              "endingUt": 1795692600,
               "name": "The Looming Mutagenitor",
-              "startingUt": 1795663800
+              "startingUt": 1795690800
+            },
+            {
+              "endingUt": 1795694400,
+              "name": "Mlurkkr Massacre",
+              "startingUt": 1795692600
+            },
+            {
+              "endingUt": 1795696200,
+              "name": "Siege at the Whispering Marsh",
+              "startingUt": 1795694400
+            },
+            {
+              "endingUt": 1795698000,
+              "name": "The Malformed Leviathan",
+              "startingUt": 1795696200
+            },
+            {
+              "endingUt": 1795699800,
+              "name": "The Broodmother's Nest",
+              "startingUt": 1795698000
             }
           ],
           "icons": ""
@@ -248,8 +255,8 @@
         "content": {
           "lines": [
             {
-              "ending": "13 hr 8 min",
-              "endingShort": "13h",
+              "ending": "3 hr 52 min",
+              "endingShort": "3h",
               "endingUt": 1795705200,
               "icon": "inv_zone_voidstorm",
               "iconLabel": "Voidstorm",
@@ -258,14 +265,24 @@
               "url": "/zone=16592/sunkiller-sanctum"
             },
             {
-              "ending": "13 hr 8 min",
-              "endingShort": "13h",
+              "ending": "3 hr 52 min",
+              "endingShort": "3h",
               "endingUt": 1795705200,
               "icon": "inv_achievement_zone_harandar",
               "iconLabel": "Harandar",
               "iconUrl": "/zone=15355/harandar",
               "name": "Harandar: The Gulf of Memory",
               "url": "/zone=16595/the-gulf-of-memory"
+            },
+            {
+              "ending": "3 hr 52 min",
+              "endingShort": "3h",
+              "endingUt": 1795705200,
+              "icon": "inv_achievement_zone_zulaman1",
+              "iconLabel": "Zul'Aman",
+              "iconUrl": "/zone=15947/zulaman",
+              "name": "Zul'Aman: Twilight Crypts",
+              "url": "/zone=16557/twilight-crypts"
             }
           ],
           "icons": ""
@@ -354,7 +371,7 @@
       }
     ],
     "source": "https://www.wowhead.com/today-in-wow",
-    "updated": "2026-11-26T01:51:42.584077+00:00"
+    "updated": "2026-11-26T11:07:54.260897+00:00"
   },
   "forever": {
     "events": [
