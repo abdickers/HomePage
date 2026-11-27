@@ -72,11 +72,6 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1795791608,
-              "name": "Eversong Woods",
-              "startingUt": 1795762800
-            },
-            {
               "endingUt": 1795820408,
               "name": "Harandar",
               "startingUt": 1795791600
@@ -120,6 +115,11 @@
               "endingUt": 1796050808,
               "name": "Eversong Woods",
               "startingUt": 1796022000
+            },
+            {
+              "endingUt": 1796079608,
+              "name": "Zul'Aman",
+              "startingUt": 1796050800
             }
           ],
           "icons": ""
@@ -198,29 +198,29 @@
         "content": {
           "lines": [
             {
-              "endingUt": 1795784400,
-              "name": "Mlurkkr Massacre",
-              "startingUt": 1795782600
-            },
-            {
-              "endingUt": 1795786200,
-              "name": "Siege at the Whispering Marsh",
-              "startingUt": 1795784400
-            },
-            {
-              "endingUt": 1795788000,
-              "name": "The Malformed Leviathan",
-              "startingUt": 1795786200
-            },
-            {
-              "endingUt": 1795789800,
-              "name": "The Broodmother's Nest",
-              "startingUt": 1795788000
-            },
-            {
-              "endingUt": 1795791600,
+              "endingUt": 1795818600,
               "name": "The Looming Mutagenitor",
-              "startingUt": 1795789800
+              "startingUt": 1795816800
+            },
+            {
+              "endingUt": 1795820400,
+              "name": "Mlurkkr Massacre",
+              "startingUt": 1795818600
+            },
+            {
+              "endingUt": 1795822200,
+              "name": "Siege at the Whispering Marsh",
+              "startingUt": 1795820400
+            },
+            {
+              "endingUt": 1795824000,
+              "name": "The Malformed Leviathan",
+              "startingUt": 1795822200
+            },
+            {
+              "endingUt": 1795825800,
+              "name": "The Broodmother's Nest",
+              "startingUt": 1795824000
             }
           ],
           "icons": ""
@@ -261,34 +261,24 @@
         "content": {
           "lines": [
             {
-              "ending": "2 hr 11 min",
-              "endingShort": "2h",
-              "endingUt": 1795791600,
+              "ending": "16 hr 51 min",
+              "endingShort": "16h",
+              "endingUt": 1795878000,
               "icon": "inv_achievement_sanktumoflight",
               "iconLabel": "Silvermoon City",
               "iconUrl": "/zone=15969/silvermoon-city",
-              "name": "Silvermoon City: Collegiate Calamity",
-              "url": "/zone=16545/collegiate-calamity"
+              "name": "Silvermoon City: The Darkway",
+              "url": "/zone=16642/the-darkway"
             },
             {
-              "ending": "2 hr 11 min",
-              "endingShort": "2h",
-              "endingUt": 1795791600,
-              "icon": "inv_zone_voidstorm",
-              "iconLabel": "Voidstorm",
-              "iconUrl": "/zone=15458/voidstorm",
-              "name": "Voidstorm: Shadowguard Point",
-              "url": "/zone=16549/shadowguard-point"
-            },
-            {
-              "ending": "2 hr 11 min",
-              "endingShort": "2h",
-              "endingUt": 1795791600,
-              "icon": "inv_achievement_sanktumoflight",
-              "iconLabel": "Eversong Woods",
-              "iconUrl": "/zone=15968/eversong-woods",
-              "name": "Eversong Woods: The Shadow Enclave",
-              "url": "/zone=16594/the-shadow-enclave"
+              "ending": "16 hr 51 min",
+              "endingShort": "16h",
+              "endingUt": 1795878000,
+              "icon": "inv_achievement_zone_zulaman1",
+              "iconLabel": "Zul'Aman",
+              "iconUrl": "/zone=15947/zulaman",
+              "name": "Zul'Aman: Atal'Aman",
+              "url": "/zone=16556/atalaman"
             }
           ],
           "icons": ""
@@ -377,7 +367,7 @@
       }
     ],
     "source": "https://www.wowhead.com/today-in-wow",
-    "updated": "2026-11-27T12:48:27.306465+00:00"
+    "updated": "2026-11-27T22:08:57.942500+00:00"
   },
   "forever": {
     "events": [
